@@ -1,0 +1,10 @@
+# =========================
+# Operating System Files
+# =========================
+target/*
+
+# IDE configurations
+*.iml
+.settings/*
+.idea/*
+
