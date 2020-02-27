@@ -5,9 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
-@Table(name = "ticket")
+@Table(name = "reminders")
 public class Reminder {
 
     @Id
@@ -23,4 +24,42 @@ public class Reminder {
 
     @Column(name = "TITLE")
     private String title;
+
+    public Reminder(String title) {
+        this.title = title;
+        //this.creationDate = new Date();
+    }
+
+    public String getReminderId() {
+        return reminderId;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reminder reminder = (Reminder) o;
+        return reminderId.equals(reminder.reminderId) &&
+                date.equals(reminder.date) &&
+                title.equals(reminder.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reminderId, date, title);
+    }
 }
