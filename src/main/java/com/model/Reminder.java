@@ -34,11 +34,9 @@ public class Reminder {
         return reminderId;
     }
 
-
     public Date getDate() {
         return date;
     }
-
 
     public String getTitle() {
         return title;

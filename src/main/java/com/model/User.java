@@ -62,12 +62,21 @@ public class User implements Serializable {
 	@Column(name = "NOTIFICATIONS", columnDefinition = "boolean default true")
 	private String notificiationsEnabled;
 
+
 	@OneToMany(mappedBy = "procedureId", fetch = FetchType.LAZY)
 	private List<Procedure> procedures;
 
 	@OneToOne
 	@JoinColumn(name = "CREDENTIALS", referencedColumnName = "USER")
 	private UserCredentials userCredentials;
+
+	// @OneToMany(targetEntity=Procedure.class, mappedBy="users")
+	// //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
+	// private List<Procedure> procedures;
+
+    @OneToMany(targetEntity=Ticket.class, mappedBy="users")
+    //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
+    private List<Ticket> tickets;
 
 	//@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	//private List<CartItem> cartItem;
