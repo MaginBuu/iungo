@@ -1,10 +1,10 @@
 package com.model;
 
+import com.model.enums.TicketStatus;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "ticket")
@@ -12,31 +12,37 @@ public class Ticket {
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column("TICKET_ID")
-    private String ticketID;
+    @Column(name = "TICKET_ID")
+    private String ticketId;
 
-    @Column("TITLE")
+    @Column(name = "TITLE")
     private String title;
 
-    @Column("DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     private String description;
 
     //@Column("ATTACHED_FILES")
     //@OneToMany
     //private List<String> filePaths;
 
-    @Column("CREATION_DATE")
+    @Column(name = "CREATION_DATE")
     private Date creationDate;
 
-    @Column("STATUS")
+    @Column(name = "STATUS")
     private TicketStatus status;
 
     @OneToOne()
     @JoinColumn(name = "USER_ID")
     private User users;
 
-    public String getTicketID() {
-        return ticketID;
+    public Ticket(String title, String description, User users) {
+        this.title = title;
+        this.description = description;
+        this.users = users;
+    }
+
+    public String getTicketId() {
+        return ticketId;
     }
 
 

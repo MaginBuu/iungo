@@ -1,4 +1,4 @@
-package com.model;
+package com.model.enums;
 
 public enum Stage {
     PRESCHOOL,
