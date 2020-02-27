@@ -14,7 +14,7 @@ import static com.model.enums.TicketStatus.CREATED;
 public class Ticket {
 
     @Id @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "TICKET_ID")
     private String ticketId;
 
@@ -101,11 +101,11 @@ public class Ticket {
                 title.equals(ticket.title) &&
                 Objects.equals(description, ticket.description) &&
                 creationDate.equals(ticket.creationDate) &&
-                users.equals(ticket.users);
+                userId.equals(ticket.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketId, title, description, creationDate, users);
+        return Objects.hash(ticketId, title, description, creationDate, userId);
     }
 }
