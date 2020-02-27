@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "ticket")
+@Table(name = "tickets")
 public class Ticket {
 
     @Id @GeneratedValue(generator="system-uuid")
@@ -31,20 +31,21 @@ public class Ticket {
     @Column(name = "STATUS")
     private TicketStatus status;
 
-    @OneToOne()
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
-    private User users;
+    private User userId;
+
+    public Ticket(){}
 
     public Ticket(String title, String description, User users) {
         this.title = title;
         this.description = description;
-        this.users = users;
+        this.userId = users;
     }
 
     public String getTicketId() {
         return ticketId;
     }
-
 
     public String getTitle() {
         return title;
@@ -78,11 +79,11 @@ public class Ticket {
         this.status = status;
     }
 
-    public User getUsers() {
-        return users;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUserId(User users) {
+        this.userId = users;
     }
 }
