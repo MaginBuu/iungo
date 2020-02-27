@@ -1,6 +1,6 @@
 package com.model;
 
-import com.enums.TicketStatus;
+import com.model.enums.TicketStatus;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -34,6 +34,12 @@ public class Ticket {
     @OneToOne()
     @JoinColumn(name = "USER_ID")
     private User users;
+
+    public Ticket(String title, String description, User users) {
+        this.title = title;
+        this.description = description;
+        this.users = users;
+    }
 
     public String getTicketId() {
         return ticketId;

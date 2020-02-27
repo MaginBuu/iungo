@@ -1,4 +1,4 @@
-package com.enums;
+package com.model.enums;
 
 public enum Term {
     FIRST,
