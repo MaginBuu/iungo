@@ -52,6 +52,10 @@
 				<value>com.model.ShippingAddress</value>
 				<value>com.model.User</value>
 				<value>com.model.Queries</value>
+				<value>com.model.AntiBullyingReport</value>
+				<value>com.model.Procedure</value>
+				<value>com.model.Ticket</value>
+				<value>com.model.UserCredentials</value>
 			</list>
 		</property>
 

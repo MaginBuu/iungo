@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.enums.ProcedureStatus;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
