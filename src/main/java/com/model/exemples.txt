@@ -1,0 +1,16 @@
+--- MANY TO ONE ---
+
+    PRODUCTE DEL CARRETÓ
+    @ManyToOne
+    @JoinColumn(name = "cartId")
+    private Cart cart;
+
+    CARRETÓ
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    private List<CartItem> cartItem;
+
+--------------------
+--- ONE TO ONE ---
+
+
+--------------------

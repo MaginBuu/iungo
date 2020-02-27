@@ -24,6 +24,7 @@ public class Customer implements Serializable {
 	@Id @GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String customerId;
+
 	private String firstName;
 	private String lastName;
 	private String customerPhone;
