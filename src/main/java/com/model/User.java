@@ -70,7 +70,7 @@ public class User implements Serializable {
 	private String notificiationsEnabled;
 
 
-	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "userP", fetch = FetchType.LAZY)
 	private List<Procedure> procedures;
 
 	//@OneToOne
