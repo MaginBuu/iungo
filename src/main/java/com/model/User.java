@@ -10,6 +10,13 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+		@NamedQuery(name = "Users.findAll", query = "SELECT c FROM User c"),
+		@NamedQuery(name = "Users.findById", query = "SELECT r FROM User r WHERE r.userId = :id"),
+//     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
+//             + "LEFT JOIN Tenant te ON te.room = r.id"
+//             + "WHERE r.id = :id")
+})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 2681531852204068105L;
@@ -62,12 +69,12 @@ public class User implements Serializable {
 	@Column(name = "NOTIFICATIONS", columnDefinition = "boolean default true")
 	private String notificiationsEnabled;
 
-	@OneToMany(targetEntity=Procedure.class, mappedBy="users")
-	//@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
+	@OneToMany(/*targetEntity=Procedure.class,*/ mappedBy="userP",fetch = FetchType.LAZY)
+	//@JoinColumn(name = "PROCEDURE_ID")
 	private List<Procedure> procedures;
 
-    @OneToMany(targetEntity=Ticket.class, mappedBy="users")
-    //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
+    @OneToMany(/*targetEntity=Ticket.class, */mappedBy="user",fetch = FetchType.LAZY)
+    //@JoinColumn(name = "TICKET_ID")
     private List<Ticket> tickets;
 
 	//@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch=FetchType.EAGER)

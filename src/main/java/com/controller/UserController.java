@@ -2,6 +2,7 @@ package com.controller;
 
 import javax.validation.Valid;
 
+import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,18 +18,35 @@ import com.model.ShippingAddress;
 import com.model.User;
 import com.service.CustomerService;
 
+import java.util.List;
+
 @Controller
 public class UserController {
 
 	@Autowired
-	private CustomerService customerService;
+	private UserService userService;
 
-	public CustomerService getCustomerService() {
-		return customerService;
+	public UserService getCustomerService() {
+		return userService;
 	}
 
-	public void setCustomerService(CustomerService customerService) {
-		this.customerService = customerService;
+	public void setCustomerService(UserService userService) {
+		this.userService = userService;
+	}
+	//private CustomerService customerService;
+
+	//public CustomerService getCustomerService() {
+	//	return customerService;
+	//}
+
+	//public void setCustomerService(CustomerService customerService) {
+	//	this.customerService = customerService;
+	//}
+
+	@RequestMapping(value = "/user/get", method = RequestMethod.GET)
+	public ModelAndView getUsers(){
+		List<User> users = userService.getAllUsers();
+		return new ModelAndView("userList", "users", users);
 	}
 
 	@RequestMapping(value = "/customer/registration")
@@ -50,7 +68,7 @@ public class UserController {
 			BindingResult result) {
 		if (result.hasErrors())
 			return "register";
-		customerService.addCustomer(customer);
+		//customerService.addCustomer(customer);
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
 		return "login";
 	}

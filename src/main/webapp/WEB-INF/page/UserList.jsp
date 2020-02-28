@@ -27,31 +27,13 @@
 				<tr>
 					<th>User Id</th>
 					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Address</th>
-					<th>Gender</th>
-					<th>State</th>
-					<th>City</th>
-					<th>Phone Number</th>
-					<th>emailId</th>
-					<th>password</th>
-					<th>RoleType</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${users}" var="user">
 					<tr>
 						<td>${user.userId}</td>
-						<td>${user.firstName}</td>
-						<td>${user.lastName}</td>
-						<td>${user.address}</td>
-						<td>${user.gender}</td>
-						<td>${user.state}</td>
-						<td>${user.city}</td>
-						<td>${user.phNumber}</td>
-						<td>${user.emailId}</td>
-						<td>${user.password}</td>
-						<td>${user.roleType}</td>
+						<td>${user.name}</td>
 						
 						<td>
 						    <a href="user/delete/${user.userId}"> <span

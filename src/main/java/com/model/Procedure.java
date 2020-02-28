@@ -3,9 +3,7 @@ package com.model;
 import com.model.enums.ProcedureStatus;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -23,7 +21,7 @@ public class Procedure {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
-    private User userId;
+    private User userP;
 
     //@ManyToOne
     //@JoinColumn(name = "cartId")
@@ -52,6 +50,8 @@ public class Procedure {
     @NotNull
     private Date limitDate;
 
+    public Procedure(){}
+
     public Procedure(String title, String description, boolean online, Date limitDate) {
         this.title = title;
         this.description = description;
@@ -66,8 +66,8 @@ public class Procedure {
         return procedureId;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUserP() {
+        return userP;
     }
 
     public String getTitle() {
@@ -125,7 +125,7 @@ public class Procedure {
         Procedure procedure = (Procedure) o;
         return online == procedure.online &&
                 Objects.equals(procedureId, procedure.procedureId) &&
-                Objects.equals(userId, procedure.userId) &&
+                Objects.equals(userP, procedure.userP) &&
                 Objects.equals(title, procedure.title) &&
                 Objects.equals(description, procedure.description) &&
                 Objects.equals(creationDate, procedure.creationDate) &&
@@ -134,6 +134,6 @@ public class Procedure {
 
     @Override
     public int hashCode() {
-        return Objects.hash(procedureId, userId, title, description, online, creationDate, limitDate);
+        return Objects.hash(procedureId, userP, title, description, online, creationDate, limitDate);
     }
 }

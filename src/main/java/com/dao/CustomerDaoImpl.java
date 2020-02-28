@@ -32,7 +32,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		Session session = sessionFactory.openSession();
 		//customer - has users,shippingaddress
 		//insert the users,billingaddress
-		customer.getUsers().setEnabled(true);
+		//customer.getUsers().setEnabled(true);
 		
 		Authorities authorities = new Authorities();
 		authorities.setAuthorities("ROLE_USER");

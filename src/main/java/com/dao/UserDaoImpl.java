@@ -17,9 +17,13 @@ public class UserDaoImpl implements UserDao {
 	
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.openSession();
-		//List<Product> products = session.createQuery("from Product").list();
-	 List<User> users=	 session.createCriteria(User.class).list();
-	 System.out.println(users);
+		List<User> users =  session.getNamedQuery("Users.findAll").list();
+				//session.createQuery("from Product").list();
+	 //List<User> users=	 session.createCriteria(User.class).list();
+	 	for(User u : users){
+			System.out.println(u.getName());
+		}
+		//System.out.println(users);
 		session.close();
 		return users;
 	}
