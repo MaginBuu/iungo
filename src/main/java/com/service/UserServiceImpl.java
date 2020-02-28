@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
 	}
 	@Transactional 
 	public void addUser(User user){
+		System.out.println("penis");
 		userDao.addUser(user);
 	}
 	

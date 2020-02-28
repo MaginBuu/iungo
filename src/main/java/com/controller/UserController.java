@@ -59,17 +59,18 @@ public class UserController {
 		customer.setBillingAddress(ba);
 		customer.setUsers(user);
 
-		return new ModelAndView("register", "customer", customer);
+		return new ModelAndView("register", "user", user);
 	}
 
 	// to insert the data
 	@RequestMapping(value = "/customer/registration", method = RequestMethod.POST)
-	public String registerCustomer(@Valid @ModelAttribute(value = "customer") Customer customer, Model model,
+	public String registerCustomer(@Valid @ModelAttribute(value = "user") User user, Model model,
 			BindingResult result) {
 		if (result.hasErrors())
 			return "register";
+		userService.addUser(user);
 		//customerService.addCustomer(customer);
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
-		return "login";
+		return "redirect:/login";
 	}
 }

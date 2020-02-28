@@ -29,7 +29,7 @@
 
 				<!--  RegisterServlet  form -->
 				<c:url value="/customer/registration" var="url"></c:url>
-				<form:form method="post" action="${url}" commandName="customer"
+				<form:form method="post" action="${url}" commandName="user"
 					enctype="multipart/form-data">
 					<div class="col-sm-12">
 						<div class="row">
@@ -37,110 +37,26 @@
 								<center>User Details</center>
 							</div>
 							<div class="col-sm-6 form-group">
-								<form:label path="firstName">First Name</form:label>
+								<form:label path="name">First Name</form:label>
 								<form:input type="text" placeholder="Enter First Name.."
-									class="form-control" path="firstName"></form:input>
-								<form:errors path="firstName"></form:errors>
+									class="form-control" path="name"></form:input>
 							</div>
 							<div class="col-sm-6 form-group">
-								<form:label path="lastName">Last Name</form:label>
+								<form:label path="surname">Last Name</form:label>
 								<form:input type="text" placeholder="Enter Last Name.."
-									class="form-control" path="lastName"></form:input>
+									class="form-control" path="surname"></form:input>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-6 form-group">
-								<form:label path="users.emailId">Email Id</form:label>
+								<form:label path="emailId">Email Id</form:label>
 								<form:input type="text" placeholder="Enter Email ID.."
-									class="form-control" path="users.emailId"></form:input>
-								<form:errors path="users.emailId"></form:errors>
+									class="form-control" path="emailId"></form:input>
 							</div>
 							<div class="col-sm-6 form-group">
-								<form:label path="customerPhone">Phone Number</form:label>
+								<form:label path="phone">Phone Number</form:label>
 								<form:input type="text" placeholder="Enter Phone Number.."
-									class="form-control" path="customerPhone"></form:input>
-								<form:errors path="customerPhone"></form:errors>
-							</div>
-						</div>
-						<hr>
-						<div>
-							<center>Shipping Address</center>
-						</div>
-						<div class="form-group">
-							<form:label path="shippingAddress.address">Address</form:label>
-							<form:textarea type="text" placeholder="Enter Shipping Address.."
-								class="form-control" path="shippingAddress.address"></form:textarea>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<form:label path="shippingAddress.city">City</form:label>
-								<form:input type="text" placeholder="Enter Current City.."
-									class="form-control" path="shippingAddress.city"></form:input>
-							</div>
-							<div class="col-sm-6 form-group">
-								<form:label path="shippingAddress.state">State</form:label>
-								<form:input type="text" placeholder="Enter your State.."
-									class="form-control" path="shippingAddress.state"></form:input>
-								<form:errors path="shippingAddress.state"></form:errors>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<form:label path="shippingAddress.country">Country</form:label>
-								<form:input type="text" placeholder="Enter your country.."
-									class="form-control" path="shippingAddress.country"></form:input>
-							</div>
-							<div class="col-sm-6 form-group">
-								<form:label path="shippingAddress.zipcode">Zipcode</form:label>
-								<form:input type="text" placeholder="Enter zipcode.."
-									class="form-control" path="shippingAddress.zipcode"></form:input>
-								<form:errors path="shippingAddress.zipcode"></form:errors>
-							</div>
-						</div>
-						<hr>
-						<div>
-							<center>Billing Address</center>
-						</div>
-						<div class="form-group">
-							<form:label path="billingAddress.address">Address</form:label>
-							<form:textarea type="text" placeholder="Enter Billing Address.."
-								class="form-control" path="billingAddress.address"></form:textarea>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<form:label path="billingAddress.city">City</form:label>
-								<form:input type="text" placeholder="Enter your City.."
-									class="form-control" path="billingAddress.city"></form:input>
-							</div>
-							<div class="col-sm-6 form-group">
-								<form:label path="billingAddress.state">State</form:label>
-								<form:input type="text" placeholder="Enter your state.."
-									class="form-control" path="billingAddress.state"></form:input>
-								<form:errors path="billingAddress.state"></form:errors>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<form:label path="billingAddress.country">Country</form:label>
-								<form:input type="text" placeholder="Enter your City.."
-									class="form-control" path="billingAddress.country"></form:input>
-							</div>
-							<div class="col-sm-6 form-group">
-								<form:label path="billingAddress.zipcode">Zipcode</form:label>
-								<form:input type="text" placeholder="Enter Zipcode.."
-									class="form-control" path="billingAddress.zipcode"></form:input>
-								<form:errors path="billingAddress.zipcode"></form:errors>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<form:label path="users.password">Password</form:label>
-								<form:input type="password" placeholder="********"
-									class="form-control" path="users.password" id="pass"></form:input>
-							</div>
-							<div class="col-sm-6 form-group">
-								<label>Confirm Password</label> <input type="password"
-									placeholder="********" class="form-control" id="confirmpass" />
+									class="form-control" path="phone"></form:input>
 							</div>
 						</div>
 

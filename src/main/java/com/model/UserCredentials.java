@@ -1,21 +1,26 @@
 package com.model;
 
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user-credentials")
+@Table(name = "user_credentials")
 public class UserCredentials implements Serializable {
 
     @Id
-    //@OneToOne
-    //@JoinColumn(name = "USER", referencedColumnName = "USER_ID")
-    //@NotNull
-    @Column(name = "USERNAME")
-    private User user;
-
     @Column(name = "PASSWORD")
-    //@NotNull
+    @NotNull
     private String password;
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

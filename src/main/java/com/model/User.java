@@ -66,16 +66,12 @@ public class User implements Serializable {
 	@Column(name = "LANGUAGE", columnDefinition = "varchar default 'CATALAN'") //ENUM
 	private String language;
 
-	@Column(name = "NOTIFICATIONS", columnDefinition = "boolean default true")
-	private String notificiationsEnabled;
+	@Column(name = "NOTIFICATIONS", columnDefinition = "boolean default TRUE")
+	private boolean notificiationsEnabled;
 
 
 	@OneToMany(mappedBy = "userP", fetch = FetchType.LAZY)
 	private List<Procedure> procedures;
-
-	//@OneToOne
-	//@JoinColumn(name = "CREDENTIALS", referencedColumnName = "USER")
-	//private UserCredentials userCredentials;
 
 	// @OneToMany(targetEntity=Procedure.class, mappedBy="users")
 	// //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
@@ -84,12 +80,6 @@ public class User implements Serializable {
     //@OneToMany(targetEntity=Ticket.class, mappedBy="users")
     //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
     //private List<Ticket> tickets;
-
-	//@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	//private List<CartItem> cartItem;
-
-	//@OneToOne(mappedBy = "users")
-	//private Customer customer;
 
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="ANTI_BULLYING_REPORT_ID")
@@ -202,11 +192,11 @@ public class User implements Serializable {
 		this.language = language;
 	}
 
-	public String getNotificiationsEnabled() {
+	public boolean getNotificiationsEnabled() {
 		return notificiationsEnabled;
 	}
 
-	public void setNotificiationsEnabled(String notificiationsEnabled) {
+	public void setNotificiationsEnabled(boolean notificiationsEnabled) {
 		this.notificiationsEnabled = notificiationsEnabled;
 	}
 
@@ -217,4 +207,14 @@ public class User implements Serializable {
 	//public void setCustomer(Customer customer) {
 	//	this.customer = customer;
 	//}
+
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId='" + userId + '\'' +
+				", name='" + name + '\'' +
+				", surname='" + surname + '\'' +
+				'}';
+	}
 }
