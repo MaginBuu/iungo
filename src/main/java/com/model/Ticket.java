@@ -34,16 +34,16 @@ public class Ticket {
     @Column(name = "STATUS")
     private TicketStatus status;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "USER_ID")
-    private User userId;
+    //@ManyToOne(cascade=CascadeType.PERSIST)
+    //@JoinColumn(name = "USER_ID")
+    //private User userId;
 
     public Ticket(){}
 
     public Ticket(String title, String description, User users) {
         this.title = title;
         this.description = description;
-        this.userId = users;
+        //this.userId = users;
         //this.creationDate = new Date();
         this.status = CREATED;
     }
@@ -84,13 +84,13 @@ public class Ticket {
         this.status = status;
     }
 
-    public User getUserId() {
-        return userId;
-    }
+    //public User getUserId() {
+    //    return userId;
+    //}
 
-    public void setUserId(User users) {
-        this.userId = users;
-    }
+    //public void setUserId(User users) {
+    //    this.userId = users;
+    //}
 
     @Override
     public boolean equals(Object o) {
@@ -100,12 +100,12 @@ public class Ticket {
         return ticketId.equals(ticket.ticketId) &&
                 title.equals(ticket.title) &&
                 Objects.equals(description, ticket.description) &&
-                creationDate.equals(ticket.creationDate) &&
-                userId.equals(ticket.userId);
+                creationDate.equals(ticket.creationDate) ;//&&
+                //userId.equals(ticket.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketId, title, description, creationDate, userId);
+        return Objects.hash(ticketId, title, description, creationDate);
     }
 }
