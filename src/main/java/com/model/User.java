@@ -26,18 +26,18 @@ public class User implements Serializable {
 	private String userId;
 
 	@Column(name = "NAME")
-	@NotNull
+	//@NotNull
 	private String name;
 
 	@Column(name = "SURNAME")
-	@NotNull
+	//@NotNull
 	private String surname;
 
 	@Column(name = "SECOND_SURNAME")
 	private String secondSurname;
 
 	@Column(name = "BIRTH_DATE")
-	@NotNull
+	//@NotNull
 	private String birth;
 
 	@Column(name = "NIF")
@@ -53,35 +53,47 @@ public class User implements Serializable {
 	private String photoPath;
 
 	@Column(name = "USERNAME")
-	@NotNull
+	//@NotNull
 	private String username;
 
 	@Column(name = "ROLE") //ENUM
 	private String role;
 
 	@Column(name = "EMAIL")
-	@NotNull
+	//@NotNull
 	private String emailId;
 
-	@Column(name = "LANGUAGE", columnDefinition = "varchar default 'CATALAN''") //ENUM
+	@Column(name = "LANGUAGE", columnDefinition = "varchar default 'CATALAN'") //ENUM
 	private String language;
 
 	@Column(name = "NOTIFICATIONS", columnDefinition = "boolean default true")
 	private String notificiationsEnabled;
 
-	@OneToMany(/*targetEntity=Procedure.class,*/ mappedBy="userP",fetch = FetchType.LAZY)
-	//@JoinColumn(name = "PROCEDURE_ID")
+
+	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
 	private List<Procedure> procedures;
 
-    @OneToMany(/*targetEntity=Ticket.class, */mappedBy="user",fetch = FetchType.LAZY)
-    //@JoinColumn(name = "TICKET_ID")
-    private List<Ticket> tickets;
+	//@OneToOne
+	//@JoinColumn(name = "CREDENTIALS", referencedColumnName = "USER")
+	//private UserCredentials userCredentials;
+
+	// @OneToMany(targetEntity=Procedure.class, mappedBy="users")
+	// //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
+	// private List<Procedure> procedures;
+
+    //@OneToMany(targetEntity=Ticket.class, mappedBy="users")
+    //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
+    //private List<Ticket> tickets;
 
 	//@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	//private List<CartItem> cartItem;
 
-	@OneToOne(mappedBy = "users")
-	private Customer customer;
+	//@OneToOne(mappedBy = "users")
+	//private Customer customer;
+
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinColumn(name="ANTI_BULLYING_REPORT_ID")
+	private List<AntiBullyingReport> antiBullyingReports;
 
 	public User() {
 	}
@@ -198,11 +210,11 @@ public class User implements Serializable {
 		this.notificiationsEnabled = notificiationsEnabled;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
+	//public Customer getCustomer() {
+	//	return customer;
+	//}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+	//public void setCustomer(Customer customer) {
+	//	this.customer = customer;
+	//}
 }

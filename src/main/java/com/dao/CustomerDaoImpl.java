@@ -62,8 +62,8 @@ public class CustomerDaoImpl implements CustomerDao {
 		Query query = session.createQuery("from User where emailId=?");
 		query.setString(0, emailId);
 		User users = (User)query.uniqueResult();
-		Customer customer = users.getCustomer();
-		return customer;
+		//Customer customer = users.getCustomer();
+		return null;
 	}
 	
 	

@@ -57,6 +57,8 @@
 				<value>com.model.Message</value>
 				<value>com.model.Ticket</value>
 				<value>com.model.Reminder</value>
+				<value>com.model.AntiBullyingReport</value>
+				<value>com.model.UserCredentials</value>
 			</list>
 		</property>
 
