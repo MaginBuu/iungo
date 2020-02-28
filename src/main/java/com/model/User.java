@@ -1,6 +1,7 @@
 package com.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +13,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 @NamedQueries({
 		@NamedQuery(name = "Users.findAll", query = "SELECT c FROM User c"),
+		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i"),
+		//@NamedQuery(name = "Users.findAllWithProcedures", query="SELECT DISTINCT e FROM User e LEFT JOIN FETCH e.procedures t"),
 		@NamedQuery(name = "Users.findById", query = "SELECT r FROM User r WHERE r.userId = :id"),
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
@@ -70,7 +73,7 @@ public class User implements Serializable {
 	private String notificiationsEnabled;
 
 
-	@OneToMany(mappedBy = "userP", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "userP", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Procedure> procedures;
 
 	//@OneToOne
@@ -81,9 +84,9 @@ public class User implements Serializable {
 	// //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
 	// private List<Procedure> procedures;
 
-    //@OneToMany(targetEntity=Ticket.class, mappedBy="users")
+    @OneToMany(mappedBy="userT", cascade = CascadeType.ALL)
     //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
-    //private List<Ticket> tickets;
+    private List<Ticket> tickets;
 
 	//@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	//private List<CartItem> cartItem;
@@ -91,7 +94,7 @@ public class User implements Serializable {
 	//@OneToOne(mappedBy = "users")
 	//private Customer customer;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="ANTI_BULLYING_REPORT_ID")
 	private List<AntiBullyingReport> antiBullyingReports;
 
@@ -217,4 +220,13 @@ public class User implements Serializable {
 	//public void setCustomer(Customer customer) {
 	//	this.customer = customer;
 	//}
+
+
+	public List<Procedure> getProcedures() {
+		return procedures;
+	}
+
+	public void setProcedures(List<Procedure> procedures) {
+		this.procedures = procedures;
+	}
 }

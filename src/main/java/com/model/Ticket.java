@@ -36,14 +36,14 @@ public class Ticket {
 
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private User userT;
 
     public Ticket(){}
 
     public Ticket(String title, String description, User users) {
         this.title = title;
         this.description = description;
-        this.user = users;
+        this.userT = users;
         //this.creationDate = new Date();
         this.status = CREATED;
     }
@@ -85,11 +85,11 @@ public class Ticket {
     }
 
     public User getuser() {
-        return user;
+        return userT;
     }
 
     public void setuser(User users) {
-        this.user = users;
+        this.userT = users;
     }
 
     @Override
@@ -101,11 +101,11 @@ public class Ticket {
                 title.equals(ticket.title) &&
                 Objects.equals(description, ticket.description) &&
                 creationDate.equals(ticket.creationDate) &&
-                user.equals(ticket.user);
+                userT.equals(ticket.userT);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketId, title, description, creationDate, user);
+        return Objects.hash(ticketId, title, description, creationDate, userT);
     }
 }

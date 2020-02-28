@@ -34,7 +34,10 @@
 					<tr>
 						<td>${user.userId}</td>
 						<td>${user.name}</td>
-						
+						<c:forEach items="${user.procedures}" var="proc">
+							<td>${proc.title}</td>
+							<td>${proc.description}</td>
+						</c:forEach>
 						<td>
 						    <a href="user/delete/${user.userId}"> <span
 								class="glyphicon glyphicon-trash"></span></a></td>  

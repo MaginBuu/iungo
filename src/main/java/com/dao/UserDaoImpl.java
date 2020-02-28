@@ -2,6 +2,7 @@ package com.dao;
 
 import java.util.List;
 
+import com.model.Procedure;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ public class UserDaoImpl implements UserDao {
 	
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.openSession();
-		List<User> users =  session.getNamedQuery("Users.findAll").list();
-				//session.createQuery("from Product").list();
-	 //List<User> users=	 session.createCriteria(User.class).list();
+		List<User> users =  session.getNamedQuery("Users.findAllWithProcedures").list();
+		//session.createQuery("from Product").list();
+	 	//List<User> users=	 session.createCriteria(User.class).list();
 	 	for(User u : users){
 			System.out.println(u.getName());
 		}
@@ -46,7 +47,7 @@ public class UserDaoImpl implements UserDao {
 		// Reading the records from the table
 		Session session = sessionFactory.openSession();
 		// select * from Product where isbn=i
-		// if we call get method,Record doesnot exist it will return null
+		// if we call get method,Record does not exist it will return null
 		// if we call load, if the record doesnt exist it will throw exception
 		User user = (User) session.get(User.class, userId);
 		session.close();
