@@ -46,7 +46,7 @@ public class UserController {
 	@RequestMapping(value = "/user/get", method = RequestMethod.GET)
 	public ModelAndView getUsers(){
 		List<User> users = userService.getAllUsers();
-		return new ModelAndView("userList", "users", users);
+		return new ModelAndView("UserList", "users", users);
 	}
 
 	@RequestMapping(value = "/customer/registration")
