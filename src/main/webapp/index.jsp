@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="resource/css/index/styles.css">
 </head>
 
-<body style="height: 1200px; zoom:110%;">
+<body style="height: 1200px;">
 <div></div>
 <div></div>
 <div>
@@ -30,7 +30,7 @@
                     class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" style="color:#ffffff;" href="/customer/registration">
+                        <a class="nav-link" style="color:#ffffff;" href="#">
                             Home</a></li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" style="color: #ffffff;" href="#">
@@ -39,7 +39,7 @@
                             class="fa fa-star-o"></i>&nbsp;Features</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
                             class="fa fa-user-circle-o"></i>&nbsp;Perfil</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
+                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/login"><i
                             class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
                 </ul>
             </div>
@@ -55,10 +55,12 @@
         </div>
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-clock-o icon"></i>
-                    <h3 class="name">Crear Perfil</h3>
+                <div class="box"><i class="fa fa-user-plus icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/customer/registration">
+                    <h3 class="name">Create User</h3></a>
                     <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                        aliquam in tellus eu.</p><a class="learn-more" href="#">Learn more >></a></div>
+                        aliquam in tellus eu.</p>
+                </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-clock-o icon"></i>

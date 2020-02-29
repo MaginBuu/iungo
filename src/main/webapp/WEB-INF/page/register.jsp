@@ -1,87 +1,71 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page isELIgnored="false"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Register Here</title>
-<link rel="icon" type="image/x-icon"
-	href="<c:url value="/resource/images/favicon1.png"/>" />
-<link rel="stylesheet"
-	href="<c:url value="/resource/bootstrap/css/bootstrap.min.css"/>">
-<script src="<c:url value="/resource/js/jquery.js"/>"></script>
-<script src="<c:url value="/resource/bootstrap/js/bootstrap.min.js"/>"></script>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resource/css/register.css"/>">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>UserCreation</title>
+	<link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/resource/css/registration/Pretty-Registration-Form.css">
+	<link rel="stylesheet" href="/resource/css/registration/styles.css">
 </head>
+
 <body>
-	<%@ include file="navbar.jsp"%>
-	<div class="container" style="margin-bottom: 19px">
-		<h1 class="well">Register Here !</h1>
-		<div class="col-lg-12 well">
-			<div class="row">
-
-				<!--  RegisterServlet  form -->
-				<c:url value="/customer/registration" var="url"></c:url>
-				<form:form method="post" action="${url}" commandName="user"
-					enctype="multipart/form-data">
-					<div class="col-sm-12">
-						<div class="row">
-							<div>
-								<center>User Details</center>
-							</div>
-							<div class="col-sm-6 form-group">
-								<form:label path="name">First Name</form:label>
-								<form:input type="text" placeholder="Enter First Name.."
-									class="form-control" path="name"></form:input>
-							</div>
-							<div class="col-sm-6 form-group">
-								<form:label path="surname">Last Name</form:label>
-								<form:input type="text" placeholder="Enter Last Name.."
-									class="form-control" path="surname"></form:input>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<form:label path="emailId">Email Id</form:label>
-								<form:input type="text" placeholder="Enter Email ID.."
-									class="form-control" path="emailId"></form:input>
-							</div>
-							<div class="col-sm-6 form-group">
-								<form:label path="phone">Phone Number</form:label>
-								<form:input type="text" placeholder="Enter Phone Number.."
-									class="form-control" path="phone"></form:input>
-							</div>
-						</div>
-
-						<div class="form-actions">
-							<button type="submit" class="btn btn-lg btn-info"
-								onclick="return Validate()">Submit</button>
-						</div>
-					</div>
-				</form:form>
+<div class="row register-form">
+	<div class="col-md-8 offset-md-2">
+		<form class="custom-form">
+			<h1>Register Form</h1>
+			<div class="form-row form-group">
+				<div class="col-sm-3 label-column"><label class="col-form-label" for="name-input-field">Name </label></div>
+				<div class="col-sm-3 input-column"><input class="form-control" type="text"></div>
+				<div class="col-sm-2 label-column"><label class="col-form-label" for="name-input-field">Surname </label></div>
+				<div class="col-sm-3 input-column"><input class="form-control" type="text"></div>
 			</div>
-		</div>
+			<div class="form-row form-group">
+				<div class="col-sm-3 label-column"><label class="col-form-label" for="email-input-field">Email </label></div>
+				<div class="col-sm-8 input-column"><input class="form-control" type="email"></div>
+			</div>
+			<div class="form-row form-group">
+				<div class="col-sm-3 label-column"><label class="col-form-label" for="pawssword-input-field">Password </label></div>
+				<div class="col-sm-8 input-column"><input class="form-control" type="password"></div>
+			</div>
+			<div class="form-row form-group">
+				<div class="col-sm-3 label-column"><label class="col-form-label" for="repeat-pawssword-input-field">Repeat Password </label></div>
+				<div class="col-sm-8 input-column"><input class="form-control" type="password"></div>
+			</div>
+			<div class="form-row form-group">
+				<div class="col-sm-3 label-column"><label class="col-form-label">Role </label></div>
+				<div class="col-sm-1 label-column"><label class="col-form-label"></label></div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+					<label class="form-check-label" for="inlineCheckbox1">Student</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+					<label class="form-check-label" for="inlineCheckbox2">Responsible</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option2">
+					<label class="form-check-label" for="inlineCheckbox3">Teacher</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+					<label class="form-check-label" for="inlineCheckbox4">Secretary</label>
+				</div>
+			</div>
+			<!--<div class="form-row form-group">
+				<div class="col-sm-3 label-column"><label class="col-form-label" for="dropdown-input-field">Dropdown </label></div>
+				<div class="col-sm-8 input-column">
+					<div class="dropdown"><button class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Dropdown </button>
+						<div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+					</div>
+				</div>
+			</div>-->
+			<button class="btn btn-light submit-button" type="button">Create</button></form>
 	</div>
-	<%@ include file="footer.jsp"%>
-
-	<!-- Validating Password -->
-	<script type="text/javascript">
-		function Validate() {
-			var password = document.getElementById("pass").value;
-			var confirmpass = document.getElementById("confirmpass").value;
-			if (password != confirmpass) {
-				alert("Password does Not Match.");
-				return false;
-			}
-			return true;
-		}
-	</script>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
 </html>
