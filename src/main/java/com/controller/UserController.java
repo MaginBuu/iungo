@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public UserService getCustomerService() {
 		return userService;
@@ -66,8 +70,10 @@ public class UserController {
 	@RequestMapping(value = "/customer/registration", method = RequestMethod.POST)
 	public String registerCustomer(@Valid @ModelAttribute(value = "user") User user, Model model,
 			BindingResult result) {
+		System.out.println("create");
 		if (result.hasErrors())
 			return "register";
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.addUser(user);
 		//customerService.addCustomer(customer);
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");

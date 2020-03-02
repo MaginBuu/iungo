@@ -15,37 +15,7 @@
 </head>
 
 <body style="height: 1200px;">
-<div></div>
-<div></div>
-<div>
-    <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button"
-         style="height: 65px;background-color: #de9d3f;color: #ffffff;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <i class="fa fa-globe"></i>
-                &nbsp;iUNGO</a>
-            <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
-                    class="navbar-toggler-icon"></span></button>
-            <div
-                    class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" style="color:#ffffff;" href="#">
-                            Home</a></li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" style="color: #ffffff;" href="#">
-                            <i class="fa fa-wpexplorer"></i>&nbsp;Explore</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
-                            class="fa fa-star-o"></i>&nbsp;Features</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
-                            class="fa fa-user-circle-o"></i>&nbsp;Perfil</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/login"><i
-                            class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+<%@ include file="WEB-INF/page/navbar.jsp"%>
 <div class="features-boxed">
     <div class="container">
         <div class="intro">

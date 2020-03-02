@@ -1,92 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
-<%@ page isELIgnored="false"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="icon" type="image/x-icon" href="<c:url value="/resource/images/favicon1.png"/>" />
-<link rel="stylesheet"
-	href="<c:url value="/resource/bootstrap/css/bootstrap.min.css"/>">
-<script src="<c:url value="/resource/js/jquery.js"/>"></script>
-<script src="<c:url value="/resource/bootstrap/js/bootstrap.min.js"/>"></script>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resource/css/overall.css"/>">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>test</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+	<link rel="stylesheet" href="/resource/fonts/index/font-awesome.min.css">
+	<link rel="stylesheet" href="/resource/css/index/Dark-NavBar-1.css">
 </head>
-<body>
 
-	<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-
-		<div class="nav navbar">
-			<img class="navbar-brand"
-				src="<c:url value="/resource/images/shopieasy-logo.png"/>"
-				href="<c:url value="/index"/>" width="200px" height="100px"
-				alt="logo-image"></img>
+<body style="height: 1200px;">
+<div>
+	<nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button"
+		 style="height: 65px;background-color: #de9d3f;color: #ffffff;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">
+				<i class="fa fa-globe"></i>
+				&nbsp;iUNGO</a>
+			<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+					class="navbar-toggler-icon"></span></button>
+			<div
+					class="collapse navbar-collapse" id="navcol-1">
+				<ul class="nav navbar-nav ml-auto">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" style="color:#ffffff;" href="#">
+							Home</a></li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" style="color: #ffffff;" href="#">
+							<i class="fa fa-wpexplorer"></i>&nbsp;Explore</a></li>
+					<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
+							class="fa fa-star-o"></i>&nbsp;Features</a></li>
+					<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
+							class="fa fa-user-circle-o"></i>&nbsp;Perfil</a></li>
+					<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/login"><i
+							class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
+				</ul>
+			</div>
 		</div>
-
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#myNavbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="<c:url value="/index1" />">ShopIeasy</a>
-		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
-				<li><a href=" <c:url value="/index1" />">Home</a></li>
-				<li><a href=" <c:url value="/getAllProducts" />">Product
-						List</a></li>
-				<li><a href=" <c:url value="/aboutus" />">About Us</a></li>
-				
-				<security:authorize access="hasRole('ROLE_USER')">
-				<li><a href=" <c:url value="/contactus" />">Contact Us</a></li>
-				</security:authorize>
-				
-				<!-- 			Only admin can view this link -->
-				<security:authorize access="hasRole('ROLE_ADMIN')">
-					<li><a href=" <c:url value="/admin/product/addProduct" />">Add
-							Product</a></li>
-				</security:authorize>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-
-				<c:if test="${!empty pageContext.request.userPrincipal.name}">
-					<li><a href="<c:url value="/index1" />"><span
-							class="glyphicon glyphicon-shopping-user"></span>Welcome..${pageContext.request.userPrincipal.name}</a></li>
-
-					<security:authorize access="hasRole('ROLE_USER')">
-						<li><a href="<c:url value="/cart/getCartById" />"><span
-								class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-					</security:authorize>
-					<li><a href="<c:url value="/logout" />"><span
-							class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-				</c:if>
-			</ul>
-
-
-			<ul class="nav navbar-nav navbar-right">
-
-				<c:if test="${pageContext.request.userPrincipal.name==null}">
-					<li><a href="<c:url value="/login" />"><span
-							class="glyphicon glyphicon-shopping-cart"></span>My Cart</a></li>
-					<li><a href="<c:url value="/customer/registration" />"><span
-							class="glyphicon glyphicon-log-user"></span> SignUp</a></li>
-					<li><a href="<c:url value="/login" />"><span
-							class="glyphicon glyphicon-log-in"></span> Login</a></li>
-				</c:if>
-			</ul>
-		</div>
-	</div>
 	</nav>
-
-
-
+</div>
 </body>
+
 </html>

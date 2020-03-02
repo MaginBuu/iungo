@@ -30,7 +30,7 @@
 				<!-- hibernate mapping to database automatically -->
 				<!-- when we use create-drop instead of update the table is created automatically
 					when the server runs after that it will drop when server stops -->
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 
 				<!-- whether the query wants to show the data in console -->
 				<prop key="hibernate.show_sql">true</prop>
@@ -92,7 +92,7 @@
 			username-parameter="j_username"
 			password-parameter="j_password"
 			authentication-failure-url="/login?error"
-			default-target-url="/index1" />
+			default-target-url="/index" />
 		<security:logout logout-url="/logout" delete-cookies="JSESSIONID" logout-success-url="/login?logout" />
 		<security:csrf disabled="true"/>
 	</security:http>

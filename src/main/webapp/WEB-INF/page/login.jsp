@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
+    <title>SignIn</title>
     <link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resource/fonts/ionicons.min.css">
     <link rel="stylesheet" href="resource/css/Login-Form-Clean.css">
@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<%@ include file="navbar.jsp"%>
 <div class="login-clean">
     <form name="loginForm" action="<c:url value="/j_spring_security_check"/>" method="post">
         <h2 class="sr-only">Login Form</h2>

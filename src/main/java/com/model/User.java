@@ -39,6 +39,9 @@ public class User implements Serializable {
 	@Column(name = "SECOND_SURNAME")
 	private String secondSurname;
 
+	@Column(name = "PASSWORD")
+	private String password;
+
 	@Column(name = "BIRTH_DATE")
 	//@NotNull
 	private String birth;
@@ -217,6 +220,13 @@ public class User implements Serializable {
 	//	this.customer = customer;
 	//}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Override
 	public String toString() {

@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(String userId) {
 		userDao.deleteUser(userId);
 	}
-	@Transactional 
+
+	@Transactional
 	public void addUser(User user){
-		System.out.println("penis");
 		userDao.addUser(user);
 	}
 	
