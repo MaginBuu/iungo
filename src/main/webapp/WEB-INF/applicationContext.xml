@@ -104,6 +104,7 @@
 										"select email,password, TRUE from users where email=?"
 								authorities-by-username-query=
 										"select emailid, authorities from authorities where emailid =?  "/>
+			<security:password-encoder ref="passwordEncoder"/>
 
 		</security:authentication-provider>
 	</security:authentication-manager>

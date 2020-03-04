@@ -47,14 +47,6 @@
 				<div class="col-sm-8 input-column"><form:input path="emailId" class="form-control" type="email"></form:input></div>
 			</div>
 			<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><form:label path="password" class="col-form-label">Password </form:label></div>
-				<div class="col-sm-8 input-column"><form:input path="password" class="form-control" type="password"></form:input></div>
-			</div>
-			<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><label class="col-form-label" for="repeat-pawssword-input-field">Repeat Password </label></div>
-				<div class="col-sm-8 input-column"><input class="form-control" type="password"></div>
-			</div>
-			<div class="form-row form-group">
 				<div class="col-sm-3 label-column"><label class="col-form-label">Role </label></div>
 				<div class="col-sm-1 label-column"><label class="col-form-label"></label></div>
 				<div class="form-check form-check-inline">
@@ -73,15 +65,19 @@
 					<form:checkbox class="form-check-input" path="role" value="Secretary"/>
 					<label class="form-check-label">Secretary</label>
 				</div>
+				<div class="form-check form-check-inline">
+					<form:checkbox class="form-check-input" path="role" value="Admin"/>
+					<label class="form-check-label">Secretary</label>
+				</div>
 			</div>
-			<!--<div class="form-row form-group">
+			<div class="form-row form-group">
 				<div class="col-sm-3 label-column"><label class="col-form-label" for="dropdown-input-field">Dropdown </label></div>
 				<div class="col-sm-8 input-column">
 					<div class="dropdown"><button class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Dropdown </button>
 						<div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
 					</div>
 				</div>
-			</div>-->
+			</div>
 			<button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
 		</form:form>
 	</div>
