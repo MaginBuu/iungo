@@ -49,10 +49,10 @@ public class UserController {
 	//	this.customerService = customerService;
 	//}
 
-	@RequestMapping(value = "/user/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/tickets", method = RequestMethod.GET)
 	public ModelAndView getUsers(){
-		List<User> users = userService.getAllUsers();
-		return new ModelAndView("UserList", "users", users);
+		User user = userService.getAllUserTickets();
+		return new ModelAndView("ticket", "user", user);
 	}
 
 	@RequestMapping(value = "/user/creation")

@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.enums.GenderType;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
 		@NamedQuery(name = "Users.findAll", query = "SELECT c FROM User c"),
 		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i"),
+		@NamedQuery(name = "Users.findAllWithTickets", query ="SELECT o FROM User o JOIN FETCH o.tickets i WHERE o.userId =:id"),
 		//@NamedQuery(name = "Users.findAllWithProcedures", query="SELECT DISTINCT e FROM User e LEFT JOIN FETCH e.procedures t"),
 		@NamedQuery(name = "Users.findById", query = "SELECT r FROM User r WHERE r.userId = :id"),
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
@@ -70,6 +72,9 @@ public class User implements Serializable {
 	@Column(name = "EMAIL")
 	//@NotNull
 	private String emailId;
+
+	@Column(name = "GENDER")
+	private GenderType gender;
 
 	@Column(name = "LANGUAGE", columnDefinition = "varchar default 'CATALAN'") //ENUM
 	private String language;
@@ -212,6 +217,14 @@ public class User implements Serializable {
 
 	public void setNotificiationsEnabled(boolean notificiationsEnabled) {
 		this.notificiationsEnabled = notificiationsEnabled;
+	}
+
+	public GenderType getGender() {
+		return gender;
+	}
+
+	public void setGender(GenderType gender) {
+		this.gender = gender;
 	}
 
 	//public Customer getCustomer() {

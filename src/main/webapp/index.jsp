@@ -37,7 +37,7 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-list-alt icon"></i>
-                    <h3 class="name">Customizable </h3>
+                    <h3 class="name">Tickets </h3>
                     <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">

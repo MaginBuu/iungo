@@ -32,6 +32,13 @@ public class UserDaoImpl implements UserDao {
 		return users;
 	}
 
+	public User getAllUserTickets() {
+		Session session = sessionFactory.openSession();
+		User users = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", "primer").uniqueResult();
+		session.close();
+		return users;
+	}
+
 	public void deleteUser(String userId) {
 		Session session = sessionFactory.openSession();
 		User user = (User) session.get(User.class, userId);

@@ -38,6 +38,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserByEmail(emailId);
 	}
 
-
-
+	@Override
+	public User getAllUserTickets() {
+		return userDao.getAllUserTickets();
+	}
 }

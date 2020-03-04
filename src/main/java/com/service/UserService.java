@@ -15,6 +15,8 @@ public interface UserService {
 
 	User getUserById(String userId);
 
+	User getAllUserTickets();
+	
 	User getUserByEmail(String emailId);
 
 }
