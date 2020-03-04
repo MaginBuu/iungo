@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-clock-o icon"></i>
-                    <h3 class="name">Always available</h3>
+                <div class="box"><i class="fa fa-comments icon"></i>
+                    <h3 class="name">Messages</h3>
                     <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -43,7 +43,7 @@
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-leaf icon"></i>
                     <h3 class="name">Organic </h3>
-                   <a class="learn-more" href="#">Learn more >></a></div>
+                   <a class="learn-more" href="/ticket/creation">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-plane icon"></i>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.Authorities;
 import com.model.Procedure;
+import com.model.enums.Role;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,7 +52,8 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Authorities authorities = new Authorities();
-		authorities.setAuthorities(user.getRole());
+		String roles[] = user.getRole().split(",");
+		authorities.setAuthorities(Role.valueOf(roles[roles.length-1]));
 		authorities.setEmailId(user.getEmailId());
 		try{
 			tx = session.beginTransaction();

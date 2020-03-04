@@ -34,6 +34,11 @@
   color: #5F5F5F;
 }
 
+.register-form .custom-form .checkbox-column {
+  text-align: left;
+  color: #5F5F5F;
+}
+
 .register-form .custom-form .form-check-label{
   color: #5F5F5F;
   font: 14px sans-serif;
@@ -59,13 +64,24 @@
   height: 42px;
 }
 
+.register-form .custom-form .input-column textarea {
+  color: #5f5f5f;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  height: 250px;
+}
+
 .register-form .custom-form .dropdown .dropdown-toggle {
   background: #fff;
   border: 1px solid #dbdbdb;
   box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
-  color: #333;
   outline: none;
+  color: #5F5F5F;
+  font: 15px sans-serif;
 }
+
 
 .register-form .custom-form .dropdown ul {
   background: #fff;
