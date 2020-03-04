@@ -57,14 +57,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/creation")
 	public ModelAndView getRegistrationForm() {
-		Customer customer = new Customer();
 		User user = new User();
-		BillingAddress ba = new BillingAddress();
-		ShippingAddress sa = new ShippingAddress();
-		customer.setShippingAddress(sa);
-		customer.setBillingAddress(ba);
-		customer.setUsers(user);
-
 		return new ModelAndView("register", "user", user);
 	}
 
@@ -75,7 +68,7 @@ public class UserController {
 		System.out.println("create");
 		if (result.hasErrors())
 			return "register";
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(passwordEncoder.encode("pass"));
 		userService.addUser(user);
 		//customerService.addCustomer(customer);
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
