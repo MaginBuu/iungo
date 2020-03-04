@@ -12,15 +12,15 @@
 	<link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/resource/css/registration/Pretty-Registration-Form.css">
 	<link rel="stylesheet" href="/resource/css/registration/styles.css">
-	
+
 </head>
 
 <body>
 <%@ include file="navbar.jsp"%>
 <div class="row register-form">
 	<div class="col-md-8 offset-md-2">
-		<c:url value="/customer/registration" var="url"></c:url>
-		<form:form class="custom-form" method="post" action="/customer/registration" commandName="user" enctype="multipart/form-data">
+		<c:url value="/user/creation" var="url"></c:url>
+		<form:form class="custom-form" method="post" action="/user/creation" commandName="user" enctype="multipart/form-data">
 			<h1>Register Form</h1>
 			<div class="form-row form-group">
 				<%--<div class="col-sm-6 form-group">

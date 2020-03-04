@@ -1,8 +1,10 @@
 package com.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.service.UserService;
+import com.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -53,7 +55,7 @@ public class UserController {
 		return new ModelAndView("UserList", "users", users);
 	}
 
-	@RequestMapping(value = "/customer/registration")
+	@RequestMapping(value = "/user/creation")
 	public ModelAndView getRegistrationForm() {
 		Customer customer = new Customer();
 		User user = new User();
@@ -67,13 +69,13 @@ public class UserController {
 	}
 
 	// to insert the data
-	@RequestMapping(value = "/customer/registration", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/creation", method = RequestMethod.POST)
 	public String registerCustomer(@Valid @ModelAttribute(value = "user") User user, Model model,
 			BindingResult result) {
 		System.out.println("create");
 		if (result.hasErrors())
 			return "register";
-		//user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.addUser(user);
 		//customerService.addCustomer(customer);
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
@@ -81,16 +83,15 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/postlogin", method = RequestMethod.POST)
-	public String postLogin(@Valid @ModelAttribute(value = "user") User user, Model model,
-								   BindingResult result) {
-		System.out.println("create");
-		if (result.hasErrors())
-			return "register";
-		//user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userService.addUser(user);
+	@RequestMapping(value = "/postlogin", method = RequestMethod.GET)
+	public String postLogin(HttpServletRequest request) {
+		System.out.println("postlogin");
+		System.out.println(request.getUserPrincipal().getName());
+		User user = userService.getUserByEmail(request.getUserPrincipal().getName());
+		request.getSession().setAttribute("name", user.getName());
+		System.out.println(user);
+
 		//customerService.addCustomer(customer);
-		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
-		return "redirect:/login";
+		return "redirect:/";
 	}
 }

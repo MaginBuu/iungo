@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.Authorities;
 import com.model.Procedure;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -75,9 +76,8 @@ public class UserDaoImpl implements UserDao {
 	public User getUserByEmail(String email) {
 		// Reading the records from the table
 		Session session = sessionFactory.openSession();
-		User user =  (User) session.getNamedQuery("Users.findByEmail");
-		session.close();
-		return user;
+		List<User> users = session.getNamedQuery("Users.findByEmail").setParameter("email", email).list();
+		return users.get(0);
 	}
 	
 }
