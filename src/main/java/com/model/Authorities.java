@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.enums.Role;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
@@ -20,7 +21,7 @@ public class Authorities implements Serializable {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String authorityId;
 	private String emailId;
-	private String authorities;
+	private Role role;
 
 	public String getAuthorityId() {
 		return authorityId;
@@ -30,12 +31,12 @@ public class Authorities implements Serializable {
 		this.authorityId = authorityId;
 	}
 
-	public String getAuthorities() {
-		return authorities;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setAuthorities(String authorities) {
-		this.authorities = authorities;
+	public void setAuthorities(Role role) {
+		this.role = role;
 	}
 
 	public String getEmailId() {

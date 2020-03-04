@@ -65,7 +65,6 @@ public class UserController {
 	@RequestMapping(value = "/user/creation", method = RequestMethod.POST)
 	public String registerCustomer(@Valid @ModelAttribute(value = "user") User user, Model model,
 			BindingResult result) {
-		System.out.println("create");
 		if (result.hasErrors())
 			return "register";
 		user.setPassword(passwordEncoder.encode("pass"));

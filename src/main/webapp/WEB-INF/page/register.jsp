@@ -46,37 +46,42 @@
 				<div class="col-sm-3 label-column"><form:label path="emailId" class="col-form-label">Email </form:label></div>
 				<div class="col-sm-8 input-column"><form:input path="emailId" class="form-control" type="email"></form:input></div>
 			</div>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><label class="col-form-label">Gender </label></div>
+                <div class="col-sm-8 input-column">
+                    <div class="dropdown">
+                        <form:select class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button" path="gender">
+                            <form:option class="dropdown-item" value="MALE">Male</form:option>
+                            <form:option class="dropdown-item" value="FEMALE">Female</form:option>
+                            <form:option class="dropdown-item" value="PIKACHU">Pikachu</form:option>
+                        </form:select>
+                    </div>
+                </div>
+            </div>
 			<div class="form-row form-group">
 				<div class="col-sm-3 label-column"><label class="col-form-label">Role </label></div>
-				<div class="col-sm-1 label-column"><label class="col-form-label"></label></div>
+				<div class="col-sm-9 checkbox-column"><label class="col-form-label">
 				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="Student"/>
+					<form:checkbox class="form-check-input" path="role" value="STUDENT"/>
 					<label class="form-check-label"> Student</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="Responsible"/>
+					<form:checkbox class="form-check-input" path="role" value="RESPONSIBLE"/>
 					<label class="form-check-label"> Responsible</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="Teacher"/>
+					<form:checkbox class="form-check-input" path="role" value="TEACHER"/>
 					<label class="form-check-label">Teacher</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="Secretary"/>
+					<form:checkbox class="form-check-input" path="role" value="SECRETARY"/>
 					<label class="form-check-label">Secretary</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="Admin"/>
-					<label class="form-check-label">Secretary</label>
+					<form:checkbox class="form-check-input" path="role" value="ADMIN"/>
+					<label class="form-check-label">Admin</label>
 				</div>
-			</div>
-			<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><label class="col-form-label" for="dropdown-input-field">Dropdown </label></div>
-				<div class="col-sm-8 input-column">
-					<div class="dropdown"><button class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Dropdown </button>
-						<div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
-					</div>
-				</div>
+                </label></div>
 			</div>
 			<button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
 		</form:form>
