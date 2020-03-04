@@ -73,7 +73,21 @@ public class UserController {
 		System.out.println("create");
 		if (result.hasErrors())
 			return "register";
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		//user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userService.addUser(user);
+		//customerService.addCustomer(customer);
+		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
+		return "redirect:/login";
+	}
+
+
+	@RequestMapping(value = "/postlogin", method = RequestMethod.POST)
+	public String postLogin(@Valid @ModelAttribute(value = "user") User user, Model model,
+								   BindingResult result) {
+		System.out.println("create");
+		if (result.hasErrors())
+			return "register";
+		//user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.addUser(user);
 		//customerService.addCustomer(customer);
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");

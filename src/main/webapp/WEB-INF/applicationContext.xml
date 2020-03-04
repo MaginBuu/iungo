@@ -30,7 +30,7 @@
 				<!-- hibernate mapping to database automatically -->
 				<!-- when we use create-drop instead of update the table is created automatically
 					when the server runs after that it will drop when server stops -->
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 
 				<!-- whether the query wants to show the data in console -->
 				<prop key="hibernate.show_sql">true</prop>
@@ -92,14 +92,19 @@
 			username-parameter="j_username"
 			password-parameter="j_password"
 			authentication-failure-url="/login?error"
-			default-target-url="/index" />
+			default-target-url="/postlogin" />
 		<security:logout logout-url="/logout" delete-cookies="JSESSIONID" logout-success-url="/login?logout" />
 		<security:csrf disabled="true"/>
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="userDetailsManager">
-			<security:password-encoder ref="passwordEncoder"/>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+							   	users-by-username-query=
+										"select email,password, TRUE from users where email=?"
+								authorities-by-username-query=
+										"select emailid, authorities from authorities where emailid =?  "/>
+
 		</security:authentication-provider>
 	</security:authentication-manager>
 
@@ -110,6 +115,7 @@
 
 	<bean id="userDetailsManager" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
 		<property name="dataSource" ref="dataSource"/>
+
 	</bean>
 
 	<webflow-config:flow-executor id="flowExecutor"

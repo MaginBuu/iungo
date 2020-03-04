@@ -2,6 +2,7 @@ package com.dao;
 
 import java.util.List;
 
+import com.model.Authorities;
 import com.model.Procedure;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,8 +42,12 @@ public class UserDaoImpl implements UserDao {
 	public void addUser(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
+		Authorities authorities = new Authorities();
+		authorities.setAuthorities(user.getRole());
+		authorities.setEmailId(user.getEmailId());
 		try{
 			tx = session.beginTransaction();
+			session.save(authorities);
 			session.save(user);
 			tx.commit();
 		}catch(Exception e){
@@ -63,6 +68,14 @@ public class UserDaoImpl implements UserDao {
 		// if we call get method,Record does not exist it will return null
 		// if we call load, if the record doesnt exist it will throw exception
 		User user = (User) session.get(User.class, userId);
+		session.close();
+		return user;
+	}
+
+	public User getUserByEmail(String email) {
+		// Reading the records from the table
+		Session session = sessionFactory.openSession();
+		User user =  (User) session.getNamedQuery("Users.findByEmail");
 		session.close();
 		return user;
 	}

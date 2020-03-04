@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
+		@NamedQuery(name = "Users.findByEmail", query = "SELECT r FROM User r WHERE r.emailId = :email"),
+
 })
 public class User implements Serializable {
 

@@ -1,3 +1,6 @@
+<%@ page isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -34,8 +37,16 @@
 							class="fa fa-star-o"></i>&nbsp;Features</a></li>
 					<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
 							class="fa fa-user-circle-o"></i>&nbsp;Perfil</a></li>
-					<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/login"><i
-							class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
+					<c:choose>
+						<c:when test="${pageContext.request.userPrincipal.name == null}">
+							<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/login"><i
+									class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/logout"><i
+									class="fa fa-sign-out"></i>&nbsp;Sign out</a></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
