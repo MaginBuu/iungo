@@ -39,6 +39,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserById(emailId);
 	}
 
-
-
+	@Override
+	public User getAllUserTickets() {
+		return userDao.getAllUserTickets();
+	}
 }

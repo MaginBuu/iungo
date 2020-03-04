@@ -39,9 +39,9 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-list-alt icon"></i>
-                    <h3 class="name">Customizable </h3>
+                    <h3 class="name">Ticket </h3>
                     <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                        aliquam in tellus eu.</p><a class="learn-more" href="#">Learn more >></a></div>
+                        aliquam in tellus eu.</p><a class="learn-more" href="/ticket">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-leaf icon"></i>
