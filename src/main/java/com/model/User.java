@@ -90,7 +90,7 @@ public class User implements Serializable {
 	// //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
 	// private List<Procedure> procedures;
 
-    @OneToMany(mappedBy="userT", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="userT", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
     private List<Ticket> tickets;
 
@@ -225,6 +225,14 @@ public class User implements Serializable {
 
 	public void setGender(GenderType gender) {
 		this.gender = gender;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
 	}
 
 	//public Customer getCustomer() {

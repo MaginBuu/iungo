@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false"%>
+
 <html>
 
 <head>
@@ -12,25 +16,29 @@
 </head>
 
 <body>
+<%@ include file="/WEB-INF/page/navbar.jsp"%>
 <div class="row space-rows">
     <div class="col">
-        <div class="card cards-shadown cards-hover" data-aos="flip-up" data-aos-duration="950">
+    <c:forEach items="${user.tickets}" var="ticket">
+        <div class="row" style="padding-top: 10px">
+        <div class="card cards-shadown cards-hover" >
             <div class="card-header cards-header-hover"><span class="space"><a href="#"></a></span>
-                <div class="cardheader-text">
-                    <h4 id="heading-card">926.00</h4>
-                    <p id="cardheader-subtext">m1-co2</p>
+                <div class="row justify-content-between cardheader-text">
+                    <div class="col-4"><h4 id="heading-card">${ticket.title}</h4></div>
+                    <div class="col-4" align="right"><p id="cardheader-subtext">Ticket reference: ${ticket.ticketId}</p></div>
                 </div>
             </div>
             <div class="card-body">
-                <p class="card-text sub-text-color">Last activity:</p>
-                <p class="card-text cardbody-sub-text">2 minutes ago</p>
+                <p class="card-text sub-text-color"><strong>Description:</strong></p>
+                <p class="card-text sub-text-color">${ticket.description}</p>
+                <p class="card-text sub-text-color"><strong>Status: </strong>${ticket.status}</p>
             </div>
         </div>
+        </div>
+    </c:forEach>
     </div>
 </div>
-<script src="/resource/js/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="/resource/js/bs-init.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
 </body>
 

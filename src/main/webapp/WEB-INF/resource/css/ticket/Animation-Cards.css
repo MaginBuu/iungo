@@ -1,17 +1,16 @@
-.card-header {
-  height: 200px;
-  background-color: orange;
+.card {
+  margin: auto;
+  width: 75%;
 }
 
-#download-icon {
-  font-size: 30px;
-  color: black;
-  opacity: 0.4;
+.card-header {
+  height: 75px;
+  background-color: #de9d3f;
 }
 
 #heading-card {
-  margin-top: 40px;
-  font-size: 45px;
+  margin-top: 5px;
+  font-size: 30px;
 }
 
 .cardheader-text {
@@ -19,11 +18,11 @@
 }
 
 .card-text.sub-text-color {
-  color: #8c8c8c;
+  color: #595959;
 }
 
 .card-text:last-child {
-  font-size: 30px;
+  font-size: 15px;
   color: #595959;
 }
 
@@ -36,21 +35,21 @@
 }
 
 .row.space-rows {
-  margin: 40px;
+  margin: 20px;
 }
 
 .col {
   padding: 20px 7px 0px 7px;
 }
 
-.card.cards-shadown.cards-hover:hover {
+/*.card.cards-shadown.cards-hover:hover {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
   -o-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
   z-index: 99;
-}
+}*/
 
 .card-header:first-child:hover {
   background-color: #ffb366;

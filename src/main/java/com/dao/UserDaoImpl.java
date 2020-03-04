@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.Authorities;
 import com.model.Procedure;
+import com.model.Ticket;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,6 +36,10 @@ public class UserDaoImpl implements UserDao {
 	public User getAllUserTickets() {
 		Session session = sessionFactory.openSession();
 		User users = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", "primer").uniqueResult();
+		List<Ticket> tits = users.getTickets();
+		for(Ticket t : tits){
+			System.out.println(t.getTitle());
+		}
 		session.close();
 		return users;
 	}
