@@ -15,4 +15,6 @@ public interface UserDao {
 	User getUserById(String userId);
 
 	User getAllUserTickets();
+	
+	User getUserByEmail(String email);
 }

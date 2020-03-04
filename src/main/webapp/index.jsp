@@ -26,40 +26,34 @@
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-user-plus icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/customer/registration">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/creation">
                     <h3 class="name">Create User</h3></a>
-                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                        aliquam in tellus eu.</p>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-clock-o icon"></i>
                     <h3 class="name">Always available</h3>
-                    <p class="description">Hi User : ${pageContext.request.userPrincipal}</p><a class="learn-more" href="#">Learn more >></a></div>
+                    <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-list-alt icon"></i>
-                    <h3 class="name">Ticket </h3>
-                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                        aliquam in tellus eu.</p><a class="learn-more" href="/ticket">Learn more >></a></div>
+                    <h3 class="name">Tickets </h3>
+                    <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-leaf icon"></i>
                     <h3 class="name">Organic </h3>
-                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                        aliquam in tellus eu.</p><a class="learn-more" href="#">Learn more >></a></div>
+                   <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-plane icon"></i>
                     <h3 class="name">Fast </h3>
-                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                        aliquam in tellus eu.</p><a class="learn-more" href="#">Learn more >></a></div>
+                    <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-phone icon"></i>
                     <h3 class="name">Mobile-first</h3>
-                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                        aliquam in tellus eu.</p><a class="learn-more" href="#">Learn more >></a></div>
+                    <a class="learn-more" href="#">Learn more >></a></div>
             </div>
         </div>
     </div>

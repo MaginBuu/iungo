@@ -34,8 +34,18 @@
 							<i class="fa fa-wpexplorer"></i>&nbsp;Explore</a></li>
 					<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
 							class="fa fa-star-o"></i>&nbsp;Features</a></li>
-					<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
-							class="fa fa-user-circle-o"></i>&nbsp;Perfil</a></li>
+
+					<c:choose>
+						<c:when test="${pageContext.request.userPrincipal.name == null}">
+							<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
+									class="fa fa-user-circle-o"></i>&nbsp;Perfil</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
+									class="fa fa-user-circle-o"></i> ${sessionScope.name}</a></li>
+						</c:otherwise>
+					</c:choose>
+
 					<c:choose>
 						<c:when test="${pageContext.request.userPrincipal.name == null}">
 							<li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/login"><i
