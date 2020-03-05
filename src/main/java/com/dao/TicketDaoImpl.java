@@ -6,16 +6,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-public class TicketDaoImpl {
+
+@Repository
+public class TicketDaoImpl implements TicketDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     public void addTicket(Ticket ticket){
+        System.out.println("ticketCreation");
         Session session = sessionFactory.openSession();
         Transaction tx = null;
-        Authorities authorities = new Authorities();
         try{
             tx = session.beginTransaction();
             session.save(ticket);

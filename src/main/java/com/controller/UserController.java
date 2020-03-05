@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.service.UserService;
-import com.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,13 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.model.BillingAddress;
-import com.model.Customer;
-import com.model.ShippingAddress;
 import com.model.User;
-import com.service.CustomerService;
-
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -58,7 +51,7 @@ public class UserController {
 	@RequestMapping(value = "/user/creation")
 	public ModelAndView getRegistrationForm() {
 		User user = new User();
-		return new ModelAndView("register", "user", user);
+		return new ModelAndView("createUser", "user", user);
 	}
 
 	// to insert the data
@@ -66,7 +59,7 @@ public class UserController {
 	public String registerCustomer(@Valid @ModelAttribute(value = "user") User user, Model model,
 			BindingResult result) {
 		if (result.hasErrors())
-			return "register";
+			return "createUser";
 		user.setPassword(passwordEncoder.encode("pass"));
 		userService.addUser(user);
 		//customerService.addCustomer(customer);

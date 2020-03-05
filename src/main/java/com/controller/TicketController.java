@@ -2,10 +2,8 @@ package com.controller;
 
 import com.model.Ticket;
 import com.model.User;
+import com.model.enums.TicketStatus;
 import com.service.TicketService;
-import com.service.UserService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class TicketController {
 
-	//@Autowired
-	//private TicketService ticketService = new TicketServiceImpl();
+	@Autowired
+	private TicketService ticketService;
 
 	@RequestMapping(value = "/ticket/creation")
 	public ModelAndView getRegistrationForm() {
@@ -34,11 +36,18 @@ public class TicketController {
 
 	// to insert the data
 	@RequestMapping(value = "/ticket/creation", method = RequestMethod.POST)
-	public String createTicket(@Valid @ModelAttribute(value = "ticket") Ticket ticket, Model model, BindingResult result) {
+	public String createTicket(@Valid @ModelAttribute(value = "ticket") Ticket ticket, Model model, BindingResult result) throws ParseException {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		User user = (User)request.getSession().getAttribute("user");
+
 		ticket.setuser(user);
-		//ticketService.addTicket(ticket);
+		ticket.setStatus(TicketStatus.CREATED);
+
+		DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		ticket.setCreationDate(sdf.parse(sdf.format(date)));
+
+		ticketService.addTicket(ticket);
 
 		return "redirect:/";
 	}

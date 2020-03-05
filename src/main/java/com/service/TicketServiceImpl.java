@@ -3,8 +3,11 @@ package com.service;
 import com.dao.TicketDao;
 import com.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class ticketServiceImpl {
+
+@Service
+public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketDao ticketDao;

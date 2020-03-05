@@ -42,16 +42,8 @@
 		<!-- packages to scan for Entity Classes annotated Classes package -->
 		<property name="annotatedClasses">
 			<list>
-				<value>com.model.Product</value>
 				<value>com.model.Authorities</value>
-				<value>com.model.BillingAddress</value>
-				<value>com.model.Cart</value>
-				<value>com.model.CartItem</value>
-				<value>com.model.Customer</value>
-				<value>com.model.CustomerOrder</value>
-				<value>com.model.ShippingAddress</value>
 				<value>com.model.User</value>
-				<value>com.model.Queries</value>
 				<value>com.model.Procedure</value>
 				<value>com.model.Conversation</value>
 				<value>com.model.Message</value>
