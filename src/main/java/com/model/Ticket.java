@@ -4,6 +4,7 @@ import com.model.enums.TicketStatus;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
@@ -34,8 +35,10 @@ public class Ticket {
     @Column(name = "STATUS")
     private TicketStatus status;
 
-    //@Column(name = "AD_RESPONSE")
-    //private String adminResponse;
+    @Column(name = "AD_RESPONSE")
+    private String adminResponse = "";
+
+
 
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
@@ -95,24 +98,21 @@ public class Ticket {
         this.userT = users;
     }
 
-    /*public String getAdminResponse() {
+    public String getAdminResponse() {
         return adminResponse;
     }
 
     public void setAdminResponse(String adminResponse) {
         this.adminResponse = adminResponse;
-    }*/
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ticket ticket = (Ticket) o;
-        return ticketId.equals(ticket.ticketId) &&
-                title.equals(ticket.title) &&
-                Objects.equals(description, ticket.description) &&
-                creationDate.equals(ticket.creationDate) &&
-                userT.equals(ticket.userT);
+        return creationDate.equals(ticket.creationDate);
     }
 
     @Override
