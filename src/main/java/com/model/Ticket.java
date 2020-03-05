@@ -34,6 +34,9 @@ public class Ticket {
     @Column(name = "STATUS")
     private TicketStatus status;
 
+    //@Column(name = "AD_RESPONSE")
+    //private String adminResponse;
+
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     private User userT;
@@ -91,6 +94,14 @@ public class Ticket {
     public void setuser(User users) {
         this.userT = users;
     }
+
+    /*public String getAdminResponse() {
+        return adminResponse;
+    }
+
+    public void setAdminResponse(String adminResponse) {
+        this.adminResponse = adminResponse;
+    }*/
 
     @Override
     public boolean equals(Object o) {

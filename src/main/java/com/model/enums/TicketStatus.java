@@ -4,6 +4,6 @@ public enum TicketStatus {
     CREATED,
     ONGOING,
     RESOLVED,
-    CANCELED,
+    CANCELLED,
     DENIED;
 }

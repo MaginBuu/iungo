@@ -22,7 +22,8 @@
     <c:forEach items="${user.tickets}" var="ticket">
         <div class="row" style="padding-top: 10px">
         <div class="card cards-shadown cards-hover" >
-            <div class="card-header cards-header-hover"><span class="space"><a href="#"></a></span>
+
+            <div id="${ticket.ticketId}" class="card-header cards-header-hover"><span class="space"><a href="#"></a></span>
                 <div class="row justify-content-between cardheader-text">
                     <div class="col-4"><h4 id="heading-card">${ticket.title}</h4></div>
                     <div class="col-4" align="right"><p id="cardheader-subtext">Ticket reference: ${ticket.ticketId}</p></div>
@@ -31,10 +32,32 @@
             <div class="card-body">
                 <p class="card-text sub-text-color"><strong>Description:</strong></p>
                 <p class="card-text sub-text-color">${ticket.description}</p>
-                <p class="card-text sub-text-color"><strong>Status: </strong>${ticket.status}</p>
+                <p class="card-text sub-text-color"><strong>Admin Response:</strong></p>
+                <p class="card-text sub-text-color">Not yet responded.</p>
+                <div class="row justify-content-between cardheader-text">
+                    <p class="card-text sub-text-color" style="padding-left: 15px"><strong>Status: </strong>${ticket.status}</p>
+                    <p class="card-text sub-text-color" style="padding-right: 15px"><strong>Creation date: </strong>${ticket.creationDate}</p>
+                </div>
             </div>
         </div>
         </div>
+        <c:choose>
+            <c:when test = "${ticket.status eq 'CREATED'}">
+                <script>
+                    document.getElementById("${ticket.ticketId}").style.background = "orange";
+                </script>
+            </c:when>
+            <c:when test = "${ticket.status eq 'ONGOING'}">
+                <script>
+                    document.getElementById("${ticket.ticketId}").style.background = "green";
+                </script>
+            </c:when>
+            <c:otherwise>
+                <script>
+                    document.getElementById("${ticket.ticketId}").style.background = "tomato";
+                </script>
+            </c:otherwise>
+        </c:choose>
     </c:forEach>
     </div>
 </div>
