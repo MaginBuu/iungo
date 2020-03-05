@@ -5,6 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -228,7 +231,15 @@ public class User implements Serializable {
 	}
 
 	public List<Ticket> getTickets() {
-		return tickets;
+		List<Ticket> sortTickets = tickets;
+		Collections.sort(sortTickets, new Comparator<Ticket>() {
+			@Override
+			public int compare(Ticket u1, Ticket u2) {
+				return u1.getCreationDate().compareTo(u2.getCreationDate());
+			}
+		});
+		System.out.println(sortTickets);
+		return sortTickets;
 	}
 
 	public void setTickets(List<Ticket> tickets) {
@@ -250,6 +261,7 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 	@Override
 	public String toString() {

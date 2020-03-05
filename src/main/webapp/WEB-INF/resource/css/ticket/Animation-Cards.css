@@ -1,6 +1,16 @@
 .card {
   margin: auto;
-  width: 75%;
+  width: 65%;
+}
+
+h1 {
+  display: inline-block;
+  color: #4c565e;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 10px 15px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #DE9D3F;
 }
 
 .card-header {

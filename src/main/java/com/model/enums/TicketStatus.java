@@ -1,9 +1,8 @@
 package com.model.enums;
 
 public enum TicketStatus {
-    CREATED,
-    ONGOING,
-    RESOLVED,
-    CANCELLED,
-    DENIED;
+    CREATED,    //gris
+    ONGOING,    //EDDEA4
+    RESOLVED,   //verd
+    CANCELLED;  //vermell
 }
