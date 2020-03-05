@@ -23,11 +23,6 @@
 		<form:form class="custom-form" method="post" action="/user/creation" commandName="user" enctype="multipart/form-data">
 			<h1>Register Form</h1>
 			<div class="form-row form-group">
-				<%--<div class="col-sm-6 form-group">
-					<form:label path="name" class="label-column">First Name</form:label>
-					<form:input type="text" class="input-column" placeholder="Enter First Name.."
-								path="name"></form:input>
-				</div>--%>
 				<div class="col-sm-3 label-column"><form:label path="name" class="col-form-label">Name </form:label></div>
 				<div class="col-sm-3 input-column"><form:input path="name" class="form-control" type="text"></form:input></div>
 				<div class="col-sm-2 label-column"><form:label path="surname" class="col-form-label">Surname </form:label></div>

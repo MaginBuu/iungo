@@ -15,7 +15,7 @@
 </head>
 
 <body style="height: 1200px;">
-<%@ include file="WEB-INF/page/navbar.jsp"%>
+<%@ include file="WEB-INF/page/navbar.jsp" %>
 <div class="features-boxed">
     <div class="container">
         <div class="intro">
@@ -26,7 +26,7 @@
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-user-plus icon"></i>
                     <a class="nav-link stretched-link" style="color:#000000;" href="/user/creation">
-                    <h3 class="name">Create User</h3></a>
+                        <h3 class="name">Create User</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -42,7 +42,7 @@
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-ticket icon"></i>
                     <h3 class="name">Ticket </h3>
-                   <a class="learn-more" href="/ticket/creation">Learn more >></a></div>
+                    <a class="learn-more" href="/ticket/creation">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-tasks icon"></i>
@@ -52,7 +52,7 @@
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-wrench icon"></i>
                     <h3 class="name">Settings</h3>
-                    <a class="learn-more" href="#">Learn more >></a></div>
+                    <a class="learn-more" href="/test/search">Learn more >></a></div>
             </div>
         </div>
     </div>
@@ -63,3 +63,4 @@
 </body>
 
 </html>
+

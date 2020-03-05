@@ -23,13 +23,10 @@ public class UserDaoImpl implements UserDao {
 	
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.openSession();
-		List<User> users =  session.getNamedQuery("Users.findAllWithProcedures").list();
-		//session.createQuery("from Product").list();
-	 	//List<User> users=	 session.createCriteria(User.class).list();
+		List<User> users =  session.getNamedQuery("Users.findAll").list();
 	 	for(User u : users){
 			System.out.println(u.getName());
 		}
-		//System.out.println(users);
 		session.close();
 		return users;
 	}
@@ -57,6 +54,7 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Authorities authorities = new Authorities();
+		System.out.println(user);
 		String roles[] = user.getRole().split(",");
 		authorities.setAuthorities(roles[roles.length-1]);
 		authorities.setEmailId(user.getEmailId());
