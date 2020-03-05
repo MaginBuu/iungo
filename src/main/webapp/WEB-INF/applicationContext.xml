@@ -73,6 +73,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+	<!--access="isAuthenticated()" -->
 	<!-- Spring - Security Purpose -->
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/index/**"
@@ -81,6 +82,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/login"
 			access="permitAll" />
+		<security:intercept-url pattern="/ticket/creation"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/cart/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/get*/**"

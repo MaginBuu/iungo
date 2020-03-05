@@ -58,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 		Transaction tx = null;
 		Authorities authorities = new Authorities();
 		String roles[] = user.getRole().split(",");
-		authorities.setAuthorities(Role.valueOf(roles[roles.length-1]));
+		authorities.setAuthorities(roles[roles.length-1]);
 		authorities.setEmailId(user.getEmailId());
 		try{
 			tx = session.beginTransaction();

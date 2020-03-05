@@ -20,8 +20,7 @@
     <div class="container">
         <div class="intro">
             <h2 class="text-center">Penis </h2>
-            <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat,
-                pellentesque ut laoreet vitae.</p>
+            <p class="text-center">"${pageContext.request.userPrincipal}"</p>
         </div>
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -41,18 +40,18 @@
                     <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-leaf icon"></i>
-                    <h3 class="name">Organic </h3>
+                <div class="box"><i class="fa fa-ticket icon"></i>
+                    <h3 class="name">Ticket </h3>
                    <a class="learn-more" href="/ticket/creation">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-plane icon"></i>
-                    <h3 class="name">Fast </h3>
+                <div class="box"><i class="fa fa-tasks icon"></i>
+                    <h3 class="name">Procedure </h3>
                     <a class="learn-more" href="#">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-phone icon"></i>
-                    <h3 class="name">Mobile-first</h3>
+                <div class="box"><i class="fa fa-wrench"></i>
+                    <h3 class="name">Settings</h3>
                     <a class="learn-more" href="#">Learn more >></a></div>
             </div>
         </div>

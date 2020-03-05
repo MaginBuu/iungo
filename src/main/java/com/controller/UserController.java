@@ -81,6 +81,7 @@ public class UserController {
 		System.out.println(request.getUserPrincipal().getName());
 		User user = userService.getUserByEmail(request.getUserPrincipal().getName());
 		request.getSession().setAttribute("name", user.getName());
+		request.getSession().setAttribute("user", user);
 		System.out.println(user);
 
 		//customerService.addCustomer(customer);
