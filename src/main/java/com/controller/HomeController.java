@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.model.Queries;
-import com.service.QueriesService;
-
 @Controller
 public class HomeController {
 
@@ -43,25 +40,5 @@ public class HomeController {
 		return "aboutUs";
 	}
 
-	@Autowired
-	private QueriesService queryService;
 
-	@RequestMapping(value = "/contactus")
-	public ModelAndView getQuery() {
-		Queries query = new Queries();
-		return new ModelAndView("contactUs", "contact", query);
-	}
-
-	@RequestMapping(value = "/contactus", method = RequestMethod.POST)
-	public String addQuery(@Valid @ModelAttribute(value = "contact") Queries query, Model model, BindingResult result) {
-
-		if (result.hasErrors())
-			return "contactUs";
-
-		queryService.addQuery(query);
-		model.addAttribute("querySuccess",
-				"Thank you, Your Message stored in our Server we will contact through corresponding Mail");
-		return "login";
-
-	}
 }

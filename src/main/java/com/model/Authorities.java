@@ -21,7 +21,7 @@ public class Authorities implements Serializable {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String authorityId;
 	private String emailId;
-	private Role role;
+	private String authorities;
 
 	public String getAuthorityId() {
 		return authorityId;
@@ -31,12 +31,12 @@ public class Authorities implements Serializable {
 		this.authorityId = authorityId;
 	}
 
-	public Role getRole() {
-		return role;
+	public String getAuthorities() {
+		return authorities;
 	}
 
-	public void setAuthorities(Role role) {
-		this.role = role;
+	public void setAuthorities(String authorities) {
+		this.authorities = authorities;
 	}
 
 	public String getEmailId() {
