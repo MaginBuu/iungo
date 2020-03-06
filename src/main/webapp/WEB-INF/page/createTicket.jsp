@@ -21,8 +21,7 @@
 <div class="row register-form">
     <div class="col-md-8 offset-md-2">
         <c:url value="/ticket/creation" var="url"></c:url>
-        <form:form class="custom-form" method="post" action="/ticket/creation" commandName="ticket"
-                   enctype="multipart/form-data">
+        <form:form class="custom-form" method="post" action="/ticket/creation" commandName="ticket"">
             <h1>Create Ticket</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="title"
