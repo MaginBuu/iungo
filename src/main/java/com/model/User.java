@@ -235,7 +235,7 @@ public class User implements Serializable {
 		Collections.sort(sortTickets, new Comparator<Ticket>() {
 			@Override
 			public int compare(Ticket u1, Ticket u2) {
-				return u1.getCreationDate().compareTo(u2.getCreationDate());
+				return -u1.getCreationDate().compareTo(u2.getCreationDate());
 			}
 		});
 		System.out.println(sortTickets);
