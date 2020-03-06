@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.model.User;
 
+import java.util.List;
+
 @Controller
 public class UserController {
 
@@ -79,5 +81,12 @@ public class UserController {
 
 		//customerService.addCustomer(customer);
 		return "redirect:/";
+	}
+
+
+	@RequestMapping(value = "/test/search")
+	public ModelAndView searchTest() {
+		List<User> users = userService.getAllUsers();
+		return new ModelAndView("searchTest", "users", users);
 	}
 }
