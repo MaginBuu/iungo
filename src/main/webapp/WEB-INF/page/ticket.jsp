@@ -29,10 +29,14 @@
     <a class="fa fa-square" style="padding-left:5px;color: #E19268"> Cancelled</a>
 </div>
 
-<div class="row space-rows">
-    <div class="col">
-        <c:forEach items="${user.tickets}" var="ticket">
-            <div class="row" style="padding-top: 10px">
+
+<table id="dtBasicExample" class="table table-borderless table-sm" cellspacing="0" width="70%">
+    <tbody>
+
+    <c:forEach items="${user.tickets}" var="ticket">
+        <tr>
+            <td>
+            <div class="row">
                 <div class="card cards-shadown cards-hover">
                     <div id="${ticket.ticketId}" class="card-header cards-header-hover"><span class="space"><a
                             href="#"></a></span>
@@ -45,10 +49,10 @@
                     <div class="card-body">
                         <p class="card-text sub-text-color"><strong>Description:</strong></p>
                         <p class="card-text sub-text-color">${ticket.description}</p>
-                            <c:if test="${ticket.adminResponse ne null}">
-                                <p class="card-text sub-text-color"><strong>Admin Response:</strong></p>
-                                <p class="card-text sub-text-color">${ticket.adminResponse}</p>
-                            </c:if>
+                        <c:if test="${ticket.adminResponse ne null}">
+                            <p class="card-text sub-text-color"><strong>Admin Response:</strong></p>
+                            <p class="card-text sub-text-color">${ticket.adminResponse}</p>
+                        </c:if>
 
                         <div class="row justify-content-between cardheader-text">
                             <p class="card-text sub-text-color" style="padding-left: 15px">
@@ -81,9 +85,27 @@
                     </script>
                 </c:otherwise>
             </c:choose>
-        </c:forEach>
-    </div>
-</div>
+        </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
+<script>
+    // Basic example
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable({
+            "paging": true
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable({
+            "pagingType": "simple_numbers"
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
 </body>
