@@ -11,17 +11,17 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resource/css/registration/Pretty-Registration-Form.css">
-    <link rel="stylesheet" href="/resource/css/registration/styles.css">
+    <link rel="stylesheet" href="/resource/css/creation/Pretty-Registration-Form.css">
+    <link rel="stylesheet" href="/resource/css/creation/styles.css">
 
 </head>
 
 <body>
 <%@ include file="navbar.jsp" %>
-<div class="row register-form">
+<div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <c:url value="/ticket/creation" var="url"></c:url>
-        <form:form class="custom-form" method="post" action="/ticket/creation" commandName="ticket"">
+        <form:form class="custom-form" method="post" action="/ticket/creation" commandName="ticket">
             <h1>Create Ticket</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="title"

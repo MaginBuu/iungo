@@ -51,7 +51,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/creation")
-	public ModelAndView getRegistrationForm() {
+	public ModelAndView getTicketCreationForm() {
 		User user = new User();
 		return new ModelAndView("createUser", "user", user);
 	}
