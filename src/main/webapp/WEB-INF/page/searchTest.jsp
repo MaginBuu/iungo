@@ -1,65 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>UserCreation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
+    <title>searchTest</title>
 </head>
-
 <body>
-<%@ include file="navbar.jsp" %>
-<div class="row register-form">
-    <div class="col-md-8 offset-md-2">
-        <c:url value="/test/search" var="url"></c:url>
-        <div class="container">
-            <input class="form-control mb-4" id="tableSearch" type="text"
-                   placeholder="Type something to search list items">
-            <table class="table table-bordered table-striped" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>email</th>
-                </tr>
-                </thead>
-                <tbody id="myTable">
-                <c:forEach items="${users}" var="user">
-                <tr>
-                    <td>${user.name} ${user.surname} ${user.secondSurname}</td>
-                    <td>${user.emailId}</td>
-                </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+<%@ include file="/WEB-INF/page/navbar.jsp" %>
+<c:url value="/test/search" var="url"></c:url>
+    <div class="container">
+        <div class="row">
+            <div>
+                <select class="selectpicker" multiple data-live-search="true">
+                    <c:forEach items="${users}" var="user">
+                        <option data-tokens="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
+                    </c:forEach>
+                    <option data-tokens="mustard">Burger, Shake and a Smile</option>
+                    <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                </select>
+            </div>
         </div>
-    </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
+
 </body>
-
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#tableSearch").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
-
-
-
 </html>
-

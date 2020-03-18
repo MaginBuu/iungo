@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/resource/css/creation/Pretty-Registration-Form.css">
 	<link rel="stylesheet" href="/resource/css/creation/styles.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
 
 </head>
 
@@ -43,17 +45,25 @@
 			</div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label class="col-form-label">Gender </label></div>
-                <div class="col-sm-8 input-column">
-                    <div class="dropdown">
-                        <form:select class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button" path="gender">
-                            <form:option class="dropdown-item" value="MALE">Male</form:option>
-                            <form:option class="dropdown-item" value="FEMALE">Female</form:option>
-                            <form:option class="dropdown-item" value="PIKACHU">Pikachu</form:option>
-                        </form:select>
-                    </div>
+                <div class="col-sm-2 input-column">
+					<form:select class="selectpicker" data-width="100%" path="gender">
+						<form:option value="MALE">Male</form:option>
+						<form:option value="FEMALE">Female</form:option>
+						<form:option value="PIKACHU">Pikachu</form:option>
+					</form:select>
                 </div>
-            </div>
-			<div class="form-row form-group">
+				<div class="col-sm-1 label-column"><label class="col-form-label">Roles </label></div>
+				<div class="col-sm-6 input-column">
+					<form:select class="selectpicker" multiple="true" data-width="100%" path="role">
+						<form:option value="STUDENT">Student</form:option>
+						<form:option value="RESPONSIBLE">Responsible</form:option>
+						<form:option value="TEACHER">Teacher</form:option>
+						<form:option value="SECRETARY">Secretary</form:option>
+						<form:option value="ADMIN">Admin</form:option>
+					</form:select>
+				</div>
+			</div>
+			<%--<div class="form-row form-group">
 				<div class="col-sm-3 label-column"><label class="col-form-label">Role </label></div>
 				<div class="col-sm-9 checkbox-column"><label class="col-form-label">
 				<div class="form-check form-check-inline">
@@ -77,7 +87,7 @@
 					<label class="form-check-label">Admin</label>
 				</div>
                 </label></div>
-			</div>
+			</div>--%>
 			<button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
 		</form:form>
 	</div>
@@ -89,8 +99,13 @@
 	}
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
 <script src="/resource/js/My-Date-Picker.js"></script>

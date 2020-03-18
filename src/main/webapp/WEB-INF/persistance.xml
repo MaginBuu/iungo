@@ -5,16 +5,8 @@
              version="2.1">
 
     <persistence-unit name="persistenceUnitName" transaction-type="RESOURCE_LOCAL">
-        <class>com.model.Product</class>
         <class>com.model.Authorities</class>
-        <class>com.model.BillingAddress</class>
-        <class>com.model.Cart</class>
-        <class>com.model.CartItem</class>
-        <class>com.model.Customer</class>
-        <class>com.model.CustomerOrder</class>
-        <class>com.model.ShippingAddress</class>
         <class>com.model.User</class>
-        <class>com.model.Queries</class>
         <class>com.model.Procedure</class>
         <class>com.model.Conversation</class>
         <class>com.model.Message</class>
