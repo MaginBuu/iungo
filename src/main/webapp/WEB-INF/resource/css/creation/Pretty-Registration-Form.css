@@ -1,4 +1,4 @@
-.register-form form.custom-form {
+.creation-form form.custom-form {
   padding: 55px;
   box-sizing: border-box;
   background-color: #ffffff;
@@ -10,12 +10,12 @@
 }
 
 @media (max-width:400px) {
-  .register-form form.custom-form {
+  .creation-form form.custom-form {
     padding: 55px 10px;
   }
 }
 
-.register-form .custom-form h1 {
+.creation-form .custom-form h1 {
   display: inline-block;
   color: #4c565e;
   font-size: 24px;
@@ -25,37 +25,37 @@
   border-bottom: 2px solid #DE9D3F;
 }
 
-.register-form .custom-form .form-group {
+.creation-form .custom-form .form-group {
   margin-bottom: 25px;
 }
 
-.register-form .custom-form .label-column {
+.creation-form .custom-form .label-column {
   text-align: right;
   color: #5F5F5F;
 }
 
-.register-form .custom-form .checkbox-column {
+.creation-form .custom-form .checkbox-column {
   text-align: left;
   color: #5F5F5F;
 }
 
-.register-form .custom-form .form-check-label{
+.creation-form .custom-form .form-check-label{
   color: #5F5F5F;
   font: 14px sans-serif;
 }
 
 @media (max-width:768px) {
-  .register-form .custom-form .label-column {
+  .creation-form .custom-form .label-column {
     text-align: left;
   }
 }
 
-.register-form .custom-form .input-column {
+.creation-form .custom-form .input-column {
   color: #5f5f5f;
   text-align: left;
 }
 
-.register-form .custom-form .input-column input {
+.creation-form .custom-form .input-column input {
   color: #5f5f5f;
   box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
   padding: 12px;
@@ -64,7 +64,7 @@
   height: 42px;
 }
 
-.register-form .custom-form .input-column textarea {
+.creation-form .custom-form .input-column textarea {
   color: #5f5f5f;
   box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
   padding: 12px;
@@ -73,7 +73,16 @@
   height: 250px;
 }
 
-.register-form .custom-form .dropdown .dropdown-toggle {
+.creation-form .custom-form .input-column-Procedure textarea {
+  color: #5f5f5f;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  height: 100px;
+}
+
+.creation-form .custom-form .dropdown .dropdown-toggle {
   background: #fff;
   border: 1px solid #dbdbdb;
   box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
@@ -83,21 +92,21 @@
 }
 
 
-.register-form .custom-form .dropdown ul {
+.creation-form .custom-form .dropdown ul {
   background: #fff;
 }
 
-.register-form .custom-form .dropdown ul li a {
+.creation-form .custom-form .dropdown ul li a {
   background: #fff;
   color: #333;
   opacity: 0.8;
 }
 
-.register-form .custom-form .dropdown ul li a:hover {
+.creation-form .custom-form .dropdown ul li a:hover {
   opacity: 1;
 }
 
-.register-form .custom-form .submit-button {
+.creation-form .custom-form .submit-button {
   border-radius: 2px;
   background: #DE9D3F;
   color: #ffffff;

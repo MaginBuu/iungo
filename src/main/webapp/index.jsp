@@ -47,7 +47,7 @@
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-tasks icon"></i>
                     <h3 class="name">Procedure </h3>
-                    <a class="learn-more" href="#">Learn more >></a></div>
+                    <a class="learn-more" href="/procedure/creation">Learn more >></a></div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-wrench icon"></i>

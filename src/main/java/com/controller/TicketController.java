@@ -1,8 +1,10 @@
 package com.controller;
 
+import com.model.Procedure;
 import com.model.Ticket;
 import com.model.User;
 import com.model.enums.TicketStatus;
+import com.service.ProcedureService;
 import com.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +30,11 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 
-	@RequestMapping(value = "/ticket/creation")
-	public ModelAndView getRegistrationForm() {
+	@Autowired
+	private ProcedureService procedureService;
+
+	@RequestMapping(value = "/ticket/creation", method = RequestMethod.GET)
+	public ModelAndView getTicketCreationForm() {
 		Ticket ticket = new Ticket();
 		return new ModelAndView("createTicket", "ticket", ticket);
 	}

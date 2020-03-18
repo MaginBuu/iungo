@@ -1,7 +1,9 @@
 package com.model;
 
 import com.model.enums.ProcedureStatus;
+import com.service.UserService;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.Objects;
@@ -13,11 +15,13 @@ import javax.validation.constraints.NotNull;
 @Table(name = "procedures")
 public class Procedure {
     private static final long serialVersionUID = 2681531852204068105L;
+
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "PROCEDURE_ID")
-    private Integer procedureId;
+    private String procedureId;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
@@ -62,12 +66,20 @@ public class Procedure {
         this.limitDate = limitDate;
     }
 
-    public Integer getProcedureId() {
+    public String getProcedureId() {
         return procedureId;
     }
 
     public User getUserP() {
         return userP;
+    }
+
+    public void setUserP(String userId) {
+
+
+
+
+
     }
 
     public String getTitle() {
@@ -82,9 +94,7 @@ public class Procedure {
         return status;
     }
 
-    public void setStatus(ProcedureStatus status) {
-        this.status = status;
-    }
+    public void setStatus(ProcedureStatus status) { this.status = status; }
 
     public String getDescription() {
         return description;

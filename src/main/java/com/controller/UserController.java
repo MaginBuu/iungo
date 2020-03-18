@@ -50,8 +50,8 @@ public class UserController {
 		return new ModelAndView("ticket", "user", user);
 	}
 
-	@RequestMapping(value = "/user/creation")
-	public ModelAndView getRegistrationForm() {
+	@RequestMapping(value = "/user/creation", method = RequestMethod.GET)
+	public ModelAndView getTicketCreationForm() {
 		User user = new User();
 		return new ModelAndView("createUser", "user", user);
 	}
