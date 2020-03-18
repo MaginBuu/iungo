@@ -28,6 +28,7 @@
 </div>
 
 
+<c:if test="${not lists.isEmpty(user.tickets)}">
 <div class="container" style="padding-top: 15px">
     <input class="form-control mb-4" id="tableSearch" type="text"
            placeholder="Type something to search list items">
@@ -92,7 +93,8 @@
         </tbody>
     </table>
 </div>
-
+</c:if>
+<c:otherwise> No tickets yet!</c:otherwise>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
