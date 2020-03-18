@@ -74,13 +74,7 @@ public class Procedure {
         return userP;
     }
 
-    public void setUserP(String userId) {
-
-
-
-
-
-    }
+    public void setUserP(User user) { this.userP = user;}
 
     public String getTitle() {
         return title;

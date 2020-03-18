@@ -22,7 +22,7 @@
 <div class="row creation-form">
 	<div class="col-md-8 offset-md-2">
 		<c:url value="/procedure/creation" var="url"></c:url>
-		<form:form class="custom-form" method="post" action="/procedure/creation" modelAttribute="procedure">
+		<form:form class="custom-form" method="post" action="/procedure/creation" modelAttribute="procedure" commandName="procedure">
 			<h1>Create Procedure</h1>
 			<div class="form-row form-group">
 				<div class="col-sm-3 label-column"><form:label path="title"
@@ -41,7 +41,7 @@
 				<div class="col-sm-3 label-column">
 					<form:label path="userP" class="col-form-label">Users </form:label></div>
 				<div class="col-sm-8 input-column">
-					<form:select class="selectpicker" data-live-search="true" path="userP" id="userP">
+					<form:select class="selectpicker" data-live-search="true" path="userP.userId" id="userP">
 						<c:forEach items="${users}" var="user" >
 							<form:option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</form:option>
 						</c:forEach>

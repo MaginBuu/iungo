@@ -1,18 +1,14 @@
 package com.controller;
 
-import com.controller.PropertyEditor.UserProcedurePropertyEditor;
 import com.model.Procedure;
-import com.model.Ticket;
+import com.model.User;
 import com.model.enums.ProcedureStatus;
 import com.service.ProcedureService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,16 +30,12 @@ public class ProcedureController {
 	UserService userService;
 
 
-	@InitBinder
-	private void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(String.class, "procedure.userP",
-				new UserProcedurePropertyEditor());
-	}
-
 	@RequestMapping(value = "/procedure/creation")
 	public ModelAndView getProcedureCreationForm() {
 		ModelAndView model = new ModelAndView("createProcedure");
-		model.addObject("procedure", new Procedure());
+		Procedure procedure = new Procedure();
+		procedure.setUserP(new User());
+		model.addObject("procedure", procedure);
 		model.addObject("users", userService.getAllUsers());
 		return model;
 	}
@@ -56,6 +48,7 @@ public class ProcedureController {
 		Date date = new Date();
 		procedure.setCreationDate(sdf.parse(sdf.format(date)));
 		procedure.setLimitDate(sdf.parse(sdf.format(date)));
+		procedure.setUserP(userService.getUserById(procedure.getUserP().getUserId()));
 
 		procedureService.addProcedure(procedure);
 		return "redirect:/";
