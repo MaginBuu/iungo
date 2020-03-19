@@ -12,6 +12,11 @@ import static com.model.enums.TicketStatus.CREATED;
 
 @Entity
 @Table(name = "tickets")
+@NamedQueries({
+        @NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t"),
+        @NamedQuery(name = "Ticket.findAllCreatedOngoing", query ="SELECT t FROM Ticket t WHERE t.status=1 OR t.status=0"),
+
+})
 public class Ticket {
 
     @Id @GeneratedValue(generator="system-uuid")

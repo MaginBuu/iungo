@@ -52,7 +52,7 @@
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-wrench icon"></i>
                     <h3 class="name">Settings</h3>
-                    <a class="learn-more" href="/test/search">Learn more >></a></div>
+                    <a class="learn-more" href="/ticket/access">Learn more >></a></div>
             </div>
         </div>
     </div>
