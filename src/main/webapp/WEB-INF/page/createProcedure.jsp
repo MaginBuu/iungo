@@ -42,6 +42,7 @@
 					<form:label path="userP" class="col-form-label">Users </form:label></div>
 				<div class="col-sm-8 input-column">
 					<form:select class="selectpicker" data-live-search="true" path="userP.userId" id="userP">
+						<form:option disabled="disabled" selected="selected" value="">Select an user</form:option>
 						<c:forEach items="${users}" var="user" >
 							<form:option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</form:option>
 						</c:forEach>
@@ -56,6 +57,11 @@
 
 <script type="text/javascript">
 	function Validate() {
+		var userP = document.getElementById("userP").value;
+		if (userP == "") {
+			alert("Select an user");
+			return false;
+		}
 		return true;
 	}
 </script>
