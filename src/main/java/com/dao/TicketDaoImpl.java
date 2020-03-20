@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public class TicketDaoImpl implements TicketDao {
@@ -29,6 +31,11 @@ public class TicketDaoImpl implements TicketDao {
         }finally {
             session.close();
         }
+    }
 
+    public List<Ticket> getOngoingCreatedTickets(){
+        Session session = sessionFactory.openSession();
+        List<Ticket> tickets = session.getNamedQuery("Ticket.findAllCreatedOngoing").list();
+        return tickets;
     }
 }

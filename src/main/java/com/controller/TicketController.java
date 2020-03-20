@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.dao.TicketDaoImpl;
 import com.model.Procedure;
 import com.model.Ticket;
 import com.model.User;
@@ -23,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class TicketController {
@@ -55,5 +57,14 @@ public class TicketController {
 		ticketService.addTicket(ticket);
 
 		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/ticket/access", method = RequestMethod.GET)
+	public ModelAndView getTicketAccessForm() {
+		List<Ticket> tickets = ticketService.getOngoingCreatedTickets();
+		for(Ticket t : tickets){
+			System.out.println(t.getTitle());
+		}
+		return new ModelAndView("ticketAdmin", "tickets", tickets);
 	}
 }

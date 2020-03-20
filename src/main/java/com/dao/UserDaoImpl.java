@@ -14,6 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.model.User;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -33,13 +37,11 @@ public class UserDaoImpl implements UserDao {
 
 	public User getAllUserTickets() {
 		Session session = sessionFactory.openSession();
-		User users = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", "primer").uniqueResult();
-		List<Ticket> tits = users.getTickets();
-		for(Ticket t : tits){
-			System.out.println(t.getTitle());
-		}
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		User user = (User)request.getSession().getAttribute("user");
+		User userWithTicket = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", user.getUserId()).uniqueResult();
 		session.close();
-		return users;
+		return userWithTicket;
 	}
 
 	public void deleteUser(String userId) {

@@ -47,7 +47,7 @@ public class UserController {
 	@RequestMapping(value = "/user/tickets", method = RequestMethod.GET)
 	public ModelAndView getUsers(){
 		User user = userService.getAllUserTickets();
-		return new ModelAndView("ticket", "user", user);
+		return new ModelAndView("ticketUser", "user", user);
 	}
 
 	@RequestMapping(value = "/user/creation", method = RequestMethod.GET)
@@ -84,9 +84,9 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/test/search")
+	@RequestMapping(value = "/test/admin")
 	public ModelAndView searchTest() {
 		List<User> users = userService.getAllUsers();
-		return new ModelAndView("searchTest", "users", users);
+		return new ModelAndView("ticketAdmin", "users", users);
 	}
 }
