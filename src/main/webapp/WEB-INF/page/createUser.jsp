@@ -54,7 +54,7 @@
                 </div>
 				<div class="col-sm-1 label-column"><label class="col-form-label">Roles </label></div>
 				<div class="col-sm-6 input-column">
-					<form:select class="selectpicker" multiple="true" data-width="100%" path="role">
+					<form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role" name="role" onchange="selectChange(value)">
 						<form:option value="STUDENT">Student</form:option>
 						<form:option value="RESPONSIBLE">Responsible</form:option>
 						<form:option value="TEACHER">Teacher</form:option>
@@ -63,31 +63,6 @@
 					</form:select>
 				</div>
 			</div>
-			<%--<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><label class="col-form-label">Role </label></div>
-				<div class="col-sm-9 checkbox-column"><label class="col-form-label">
-				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="STUDENT"/>
-					<label class="form-check-label"> Student</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="RESPONSIBLE"/>
-					<label class="form-check-label"> Responsible</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="TEACHER"/>
-					<label class="form-check-label">Teacher</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="SECRETARY"/>
-					<label class="form-check-label">Secretary</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<form:checkbox class="form-check-input" path="role" value="ADMIN"/>
-					<label class="form-check-label">Admin</label>
-				</div>
-                </label></div>
-			</div>--%>
 			<button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
 		</form:form>
 	</div>

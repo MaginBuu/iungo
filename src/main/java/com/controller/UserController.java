@@ -66,7 +66,7 @@ public class UserController {
 		userService.addUser(user);
 		//customerService.addCustomer(customer);
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
-		return "redirect:/login";
+		return "redirect:/";
 	}
 
 
