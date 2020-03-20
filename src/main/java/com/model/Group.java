@@ -35,7 +35,7 @@ public class Group implements Serializable {
     //@NotNull
     private String level;
 
-    @Column(name = "GROUP")
+    @Column(name = "GROUP_VALUE")
     //@NotNull
     private String group;
 
