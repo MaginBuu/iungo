@@ -47,29 +47,27 @@ public class Space implements Serializable {
     //@NotNull
     private boolean tables;
 
-    @Column(name = "LAB")
-    //@NotNull
-    private boolean lab;
-
     @Column(name = "TYPOLOGY")
     //@NotNull
     private Typology typology;
 
     @Column(name = "CAPACITY")
     //@NotNull
-    private boolean capacity;
+    private int capacity;
+
+    @Transient
+    private String attributesTemp;
 
     public Space() {
     }
 
-    public Space(String name, boolean blackboard, boolean interior, boolean projector, boolean platform, boolean tables, boolean lab, Typology typology, boolean capacity) {
+    public Space(String name, boolean blackboard, boolean interior, boolean projector, boolean platform, boolean tables, boolean lab, Typology typology, int capacity) {
         this.name = name;
         this.blackboard = blackboard;
         this.interior = interior;
         this.projector = projector;
         this.platform = platform;
         this.tables = tables;
-        this.lab = lab;
         this.typology = typology;
         this.capacity = capacity;
     }
@@ -126,14 +124,6 @@ public class Space implements Serializable {
         this.tables = tables;
     }
 
-    public boolean isLab() {
-        return lab;
-    }
-
-    public void setLab(boolean lab) {
-        this.lab = lab;
-    }
-
     public Typology getTypology() {
         return typology;
     }
@@ -142,13 +132,19 @@ public class Space implements Serializable {
         this.typology = typology;
     }
 
-    public boolean isCapacity() {
+    public int isCapacity() {
         return capacity;
     }
 
-    public void setCapacity(boolean capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    public int getCapacity() { return capacity; }
+
+    public String getAttributesTemp() { return attributesTemp; }
+
+    public void setAttributesTemp(String attributesTemp) { this.attributesTemp = attributesTemp; }
 
     @Override
     public boolean equals(Object o) {
@@ -160,7 +156,6 @@ public class Space implements Serializable {
                 projector == space.projector &&
                 platform == space.platform &&
                 tables == space.tables &&
-                lab == space.lab &&
                 capacity == space.capacity &&
                 Objects.equals(spaceId, space.spaceId) &&
                 Objects.equals(name, space.name) &&
@@ -169,6 +164,6 @@ public class Space implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(spaceId, name, blackboard, interior, projector, platform, tables, lab, typology, capacity);
+        return Objects.hash(spaceId, name, blackboard, interior, projector, platform, tables, typology, capacity);
     }
 }
