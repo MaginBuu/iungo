@@ -30,7 +30,7 @@
 				<!-- hibernate mapping to database automatically -->
 				<!-- when we use create-drop instead of update the table is created automatically
 					when the server runs after that it will drop when server stops -->
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 
 				<!-- whether the query wants to show the data in console -->
 				<prop key="hibernate.show_sql">true</prop>

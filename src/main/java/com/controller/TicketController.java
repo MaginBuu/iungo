@@ -10,6 +10,7 @@ import com.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,9 +71,17 @@ public class TicketController {
 	}
 
 	@RequestMapping(value = "/ticket/modify", method = RequestMethod.GET)
-	public void getTicketModify(@RequestParam String ticketId) {
-		System.out.println(ticketId);
-			//Ticket ticket = new Ticket();
-			//return new ModelAndView("createTicket", "ticket", ticket);
+	public ModelAndView getTicketModify(@RequestParam String ticketId) {
+			Ticket ticket = ticketService.getTicketById(ticketId);
+			return new ModelAndView("updateTicket", "ticket", ticket);
+	}
+
+	@RequestMapping(value = "/ticket/modify", method = RequestMethod.POST)
+	public String updateTicketModify(@Valid @ModelAttribute("ticket") Ticket ticket){
+		Ticket outdatedTicket = ticketService.getTicketById(ticket.getTicketId());
+		outdatedTicket.setStatus(ticket.getStatus());
+		outdatedTicket.setAdminResponse(ticket.getAdminResponse());
+		ticketService.updateTicket(outdatedTicket);
+		return "redirect:/";
 	}
 }

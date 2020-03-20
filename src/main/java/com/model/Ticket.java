@@ -14,6 +14,7 @@ import static com.model.enums.TicketStatus.CREATED;
 @Table(name = "tickets")
 @NamedQueries({
         @NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t"),
+        @NamedQuery(name = "Ticket.findById", query = "SELECT t FROM Ticket t WHERE t.ticketId = :id"),
         @NamedQuery(name = "Ticket.findAllCreatedOngoing", query ="SELECT t FROM Ticket t WHERE t.status=1 OR t.status=0"),
 
 })
@@ -57,6 +58,10 @@ public class Ticket {
         this.userT = users;
         //this.creationDate = new Date();
         this.status = CREATED;
+    }
+
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
     }
 
     public String getTicketId() {
