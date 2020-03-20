@@ -37,9 +37,9 @@ public class UserDaoImpl implements UserDao {
 
 	public User getAllUserTickets() {
 		Session session = sessionFactory.openSession();
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		User user = (User)request.getSession().getAttribute("user");
-		User userWithTicket = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", user.getUserId()).uniqueResult();
+		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		//User user = (User)request.getSession().getAttribute("user");
+		User userWithTicket = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", "ff80808170ed37140170ed37ca590001" ).uniqueResult(); //user.getUserId()
 		session.close();
 		return userWithTicket;
 	}

@@ -37,9 +37,8 @@
                         <td>${ticket.status}</td>
                         <td>${ticket.title}</td>
                         <td>
-                            <button class="btn btn-sm btn-outline-secondary align-items-center" type="submit"
-                                    onclick="return Validate()">Access
-                            </button>
+                                <a href="/ticket/modify?ticketId=${ticket.ticketId}"> Get details</a>
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>

@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -66,5 +67,12 @@ public class TicketController {
 			System.out.println(t.getTitle());
 		}
 		return new ModelAndView("ticketAdmin", "tickets", tickets);
+	}
+
+	@RequestMapping(value = "/ticket/modify", method = RequestMethod.GET)
+	public void getTicketModify(@RequestParam String ticketId) {
+		System.out.println(ticketId);
+			//Ticket ticket = new Ticket();
+			//return new ModelAndView("createTicket", "ticket", ticket);
 	}
 }
