@@ -11,7 +11,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resource/css/creation/Pretty-Registration-Form.css">
+    <link rel="stylesheet" href="/resource/css/ticket/ticket.css">
     <link rel="stylesheet" href="/resource/css/creation/styles.css">
 
 </head>
@@ -25,41 +25,42 @@
             <h1>Update Ticket</h1>
             <form:hidden path="ticketId"/>
             <form:hidden path="title"/>
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Title </label></div>
-                <div class="col-sm-8 input-column">${ticket.title}</div>
+            <div class="container">
+                <table class="table table-borderless">
+                    <tbody id="myTable">
+                        <tr>
+                            <td style="vertical-align: middle; text-align: right"><strong>Title:</strong></td>
+                            <td style="vertical-align: middle; text-align: left">${ticket.title}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle; text-align: right"><strong>Ticket ID:</strong></td>
+                            <td style="vertical-align: middle; text-align: left">${ticket.ticketId}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle; text-align: right"><strong>Creation Date:</strong> </td>
+                            <td style="vertical-align: middle; text-align: left">${ticket.creationDate}</td>
+                        </tr>
+                        <tr>
+                            <td style="horiz-align: right; text-align: right"><strong>Description:</strong></td>
+                            <td style="text-justify: distribute; text-align: left">${ticket.description}</td>
+                        </tr>
+                        <tr>
+                            <td style="horiz-align: right; text-align: right"><strong>Response:</strong></td>
+                            <td><form:input path="adminResponse" class="form-control" type="text"/></td>
+                        </tr>
+                        <tr>
+                            <td style="horiz-align: right; text-align: right"><strong>Status:</strong></td>
+                            <td>
+                                <form:select class="selectpicker" data-width="100%" path="status">
+                                    <form:option value="CREATED">Created</form:option>
+                                    <form:option value="ONGOING">Ongoing</form:option>
+                                    <form:option value="CANCELLED">Cancelled</form:option>
+                                    <form:option value="RESOLVED">Resolved</form:option>
+                                </form:select></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Ticket ID </label></div>
-                <div class="col-sm-8 input-column">${ticket.ticketId}</div>
-            </div>
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Date </label></div>
-                <div class="col-sm-8 input-column">${ticket.creationDate}</div>
-            </div>
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Description </label></div>
-                <div class="col-sm-8 input-column">${ticket.description}</div>
-            </div>
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><form:label path="adminResponse"
-                                                               class="col-form-label">Title </form:label></div>
-                <div class="col-sm-8 input-column"><form:input path="adminResponse" class="form-control"
-                                                               type="text"></form:input></div>
-            </div>
-
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Status </label></div>
-                <div class="col-sm-2 input-column">
-                    <form:select class="selectpicker" data-width="100%" path="status">
-                        <form:option value="CREATED">Created</form:option>
-                        <form:option value="ONGOING">Ongoing</form:option>
-                        <form:option value="CANCELLED">Cancelled</form:option>
-                        <form:option value="RESOLVED">Resolved</form:option>
-                    </form:select>
-                </div>
-            </div>
-
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
         </form:form>
     </div>

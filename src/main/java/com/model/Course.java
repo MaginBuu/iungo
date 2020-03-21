@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "courses")
 public class Course {
 
-    private String courseId
+    private String courseId;
 
     private Date StartDate;
 
