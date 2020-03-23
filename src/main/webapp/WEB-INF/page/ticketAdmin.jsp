@@ -28,7 +28,7 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Title</th>
-                    <th>Access</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
@@ -37,7 +37,7 @@
                         <td style="vertical-align: middle; horiz-align: center">${ticket.creationDate}</td>
                         <td style="vertical-align: middle; horiz-align: center">${ticket.status}</td>
                         <td style="vertical-align: middle; horiz-align: center">${ticket.title}</td>
-                        <td style="vertical-align: middle; horiz-align: center"><a href="/ticket/modify?ticketId=${ticket.ticketId}">Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="/ticket/modify?ticketId=${ticket.ticketId}">Edit</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

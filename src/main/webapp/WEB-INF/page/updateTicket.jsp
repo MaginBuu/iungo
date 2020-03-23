@@ -28,36 +28,36 @@
             <div class="container">
                 <table class="table table-borderless">
                     <tbody id="myTable">
-                        <tr>
-                            <td style="vertical-align: middle; text-align: right"><strong>Title:</strong></td>
-                            <td style="vertical-align: middle; text-align: left">${ticket.title}</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle; text-align: right"><strong>Ticket ID:</strong></td>
-                            <td style="vertical-align: middle; text-align: left">${ticket.ticketId}</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle; text-align: right"><strong>Creation Date:</strong> </td>
-                            <td style="vertical-align: middle; text-align: left">${ticket.creationDate}</td>
-                        </tr>
-                        <tr>
-                            <td style="horiz-align: right; text-align: right"><strong>Description:</strong></td>
-                            <td style="text-justify: distribute; text-align: left">${ticket.description}</td>
-                        </tr>
-                        <tr>
-                            <td style="horiz-align: right; text-align: right"><strong>Response:</strong></td>
-                            <td><form:input path="adminResponse" class="form-control" type="text"/></td>
-                        </tr>
-                        <tr>
-                            <td style="horiz-align: right; text-align: right"><strong>Status:</strong></td>
-                            <td>
-                                <form:select class="selectpicker" data-width="100%" path="status">
-                                    <form:option value="CREATED">Created</form:option>
-                                    <form:option value="ONGOING">Ongoing</form:option>
-                                    <form:option value="CANCELLED">Cancelled</form:option>
-                                    <form:option value="RESOLVED">Resolved</form:option>
-                                </form:select></td>
-                        </tr>
+                    <tr>
+                        <td style="vertical-align: middle; text-align: right"><strong>Title:</strong></td>
+                        <td style="vertical-align: middle; text-align: left">${ticket.title}</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle; text-align: right"><strong>Ticket ID:</strong></td>
+                        <td style="vertical-align: middle; text-align: left">${ticket.ticketId}</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle; text-align: right"><strong>Creation Date:</strong></td>
+                        <td style="vertical-align: middle; text-align: left">${ticket.creationDate}</td>
+                    </tr>
+                    <tr>
+                        <td style="horiz-align: right; text-align: right"><strong>Description:</strong></td>
+                        <td style="text-justify: distribute; text-align: left">${ticket.description}</td>
+                    </tr>
+                    <tr>
+                        <td style="horiz-align: right; text-align: right"><strong>Response:</strong></td>
+                        <td><form:input path="adminResponse" class="form-control" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <td style="horiz-align: right; text-align: right"><strong>Status:</strong></td>
+                        <td>
+                            <form:select class="selectpicker" data-width="100%" path="status">
+                                <form:option value="CREATED">Created</form:option>
+                                <form:option value="ONGOING">Ongoing</form:option>
+                                <form:option value="CANCELLED">Cancelled</form:option>
+                                <form:option value="RESOLVED">Resolved</form:option>
+                            </form:select></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
