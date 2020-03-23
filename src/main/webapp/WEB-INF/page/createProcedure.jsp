@@ -25,17 +25,13 @@
 		<form:form class="custom-form" method="post" action="/procedure/creation" modelAttribute="procedure" commandName="procedure">
 			<h1>Create Procedure</h1>
 			<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><form:label path="title"
-															   class="col-form-label">Title </form:label></div>
-				<div class="col-sm-8 input-column"><form:input path="title" class="form-control"
-															   type="text"></form:input></div>
+				<div class="col-sm-3 label-column"><form:label path="title" class="col-form-label">Title </form:label></div>
+				<div class="col-sm-8 input-column"><form:input path="title" class="form-control" type="text"></form:input></div>
 			</div>
 
 			<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><form:label path="description"
-															   class="col-form-label">Description </form:label></div>
-				<div class="col-sm-8 input-column-Procedure"><form:textarea path="description" class="form-control"
-																  type="text"></form:textarea></div>
+				<div class="col-sm-3 label-column"><form:label path="description" class="col-form-label">Description </form:label></div>
+				<div class="col-sm-8 input-column-Procedure"><form:textarea path="description" class="form-control" type="text"></form:textarea></div>
 			</div>
 			<div class="form-row form-group">
 				<div class="col-sm-3 label-column">

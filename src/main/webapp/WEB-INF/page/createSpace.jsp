@@ -26,23 +26,19 @@
 		<form:form class="custom-form" method="post" action="/space/creation" modelAttribute="space" commandName="space">
 			<h1>Create Space</h1>
 			<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><form:label path="name"
-															   class="col-form-label">Name </form:label></div>
-				<div class="col-sm-8 input-column"><form:input path="name" class="form-control"
-															   type="text"></form:input></div>
+				<div class="col-sm-3 label-column"><form:label path="name" class="col-form-label">Name </form:label></div>
+				<div class="col-sm-8 input-column"><form:input path="name" class="form-control" type="text"></form:input></div>
 			</div>
 			<div class="form-row form-group">
-				<div class="col-sm-3 label-column"><form:label path="capacity"
-															   class="col-form-label">Capacity </form:label></div>
-				<div class="col-sm-8 input-column"><form:input path="capacity" class="form-control"
-															   type="number"></form:input></div>
+				<div class="col-sm-3 label-column"><form:label path="level" class="col-form-label">Level </form:label></div>
+				<div class="col-sm-8 input-column"><form:input path="level" class="form-control" type="number"></form:input></div>
 			</div>
 			<c:set var="enumValues" value="<%=Typology.values()%>"/>
 			<div class="form-row form-group">
 				<div class="col-sm-3 label-column">
 					<form:label path="typology" class="col-form-label">Typology </form:label></div>
 				<div class="col-sm-8 input-column">
-					<form:select class="selectpicker" data-width="100%" path="typology">
+					<form:select class="selectpicker" data-width="100%" path="typology" id="typology">
 						<form:option disabled="disabled" selected="selected" value="">Select a typology</form:option>
 						<c:forEach items="${enumValues}" var="enumValue" >
 							<form:option value="${enumValue}"></form:option>
@@ -72,9 +68,9 @@
 
 <script type="text/javascript">
 	function Validate() {
-		var userP = document.getElementById("userP").value;
+		var userP = document.getElementById("typology").value;
 		if (userP == "") {
-			alert("Select an user");
+			alert("Select a typology");
 			return false;
 		}
 		return true;

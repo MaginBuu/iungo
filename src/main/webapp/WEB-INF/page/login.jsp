@@ -1,13 +1,18 @@
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 
 <head>
+    <sec:authorize access="isAuthenticated()">
+        <% response.sendRedirect("/"); %>
+    </sec:authorize>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>SignIn</title>
     <link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resource/fonts/ionicons.min.css">
     <link rel="stylesheet" href="resource/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="resource/css/creation/Pretty-Registration-Form.css">
     <link rel="stylesheet" href="resource/css/styles-login.css">
 </head>
 

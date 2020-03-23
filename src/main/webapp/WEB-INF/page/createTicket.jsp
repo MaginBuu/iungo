@@ -24,17 +24,13 @@
         <form:form class="custom-form" method="post" action="/ticket/creation" modelAttribute="ticket">
             <h1>Create Ticket</h1>
             <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><form:label path="title"
-                                                               class="col-form-label">Title </form:label></div>
-                <div class="col-sm-8 input-column"><form:input path="title" class="form-control"
-                                                               type="text"></form:input></div>
+                <div class="col-sm-3 label-column"><form:label path="title" class="col-form-label">Title </form:label></div>
+                <div class="col-sm-8 input-column"><form:input path="title" class="form-control" type="text"></form:input></div>
             </div>
 
             <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><form:label path="description"
-                                                               class="col-form-label">Description </form:label></div>
-                <div class="col-sm-8 input-column"><form:textarea path="description" class="form-control"
-                                                                  type="text"></form:textarea></div>
+                <div class="col-sm-3 label-column"><form:label path="description" class="col-form-label">Description </form:label></div>
+                <div class="col-sm-8 input-column"><form:textarea path="description" class="form-control" type="text"></form:textarea></div>
             </div>
 
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>

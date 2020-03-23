@@ -26,15 +26,15 @@
 }
 
 .login-clean form .form-control {
-  background: #f7f9fc;
-  border: none;
-  border-bottom: 1px solid #dfe7f1;
-  border-radius: 0;
+  color: #5f5f5f;
   box-shadow: none;
-  outline: none;
-  color: inherit;
-  text-indent: 8px;
+  padding: 12px;
+  border: none;
+  border-bottom: 2px solid #DE9D3F;
+  border-radius: 0;
   height: 42px;
+  text-indent: 8px;
+  outline: none;
 }
 
 .login-clean form .btn-primary {

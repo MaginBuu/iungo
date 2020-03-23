@@ -54,6 +54,7 @@
 				<value>com.model.Space</value>
 				<value>com.model.Subject</value>
 				<value>com.model.Group</value>
+				<value>com.model.Course</value>
 			</list>
 		</property>
 
@@ -90,7 +91,8 @@
 			username-parameter="j_username"
 			password-parameter="j_password"
 			authentication-failure-url="/login?error"
-			default-target-url="/postlogin" />
+			default-target-url="/postlogin"
+		 	always-use-default-target="true"/>
 		<security:logout logout-url="/logout" delete-cookies="JSESSIONID" logout-success-url="/login?logout" />
 		<security:csrf disabled="true"/>
 	</security:http>

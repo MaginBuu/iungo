@@ -33,7 +33,7 @@ public class Group implements Serializable {
 
     @Column(name = "LEVEL")
     //@NotNull
-    private String level;
+    private int level;
 
     @Column(name = "GROUP_VALUE")
     //@NotNull
@@ -42,7 +42,7 @@ public class Group implements Serializable {
     public Group() {
     }
 
-    public Group(String name, Stage stage, String level, String group) {
+    public Group(String name, Stage stage, int level, String group) {
         this.name = name;
         this.stage = stage;
         this.level = level;
@@ -69,11 +69,11 @@ public class Group implements Serializable {
         this.stage = stage;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
