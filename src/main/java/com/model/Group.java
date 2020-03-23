@@ -39,8 +39,11 @@ public class Group implements Serializable {
     //@NotNull
     private String group;
 
-    public Group() {
-    }
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "COURSE_ID")
+    private Course course;
+
+    public Group() { }
 
     public Group(String name, Stage stage, int level, String group) {
         this.name = name;
@@ -84,6 +87,10 @@ public class Group implements Serializable {
     public void setGroup(String group) {
         this.group = group;
     }
+
+    public Course getCourse() { return course; }
+
+    public void setCourse(Course course) { this.course = course; }
 
     @Override
     public boolean equals(Object o) {

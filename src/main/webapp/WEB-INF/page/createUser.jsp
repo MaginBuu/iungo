@@ -54,7 +54,7 @@
                 </div>
 				<div class="col-sm-1 label-column"><label class="col-form-label">Roles </label></div>
 				<div class="col-sm-6 input-column">
-					<form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role" name="role" onchange="selectChange(value)">
+					<form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role" name="role">
 						<form:option value="STUDENT">Student</form:option>
 						<form:option value="RESPONSIBLE">Responsible</form:option>
 						<form:option value="TEACHER">Teacher</form:option>
@@ -70,6 +70,12 @@
 
 <script type="text/javascript">
 	function Validate() {
+		var select = jQuery("#role");
+		var roles = select.val().toString().split(',');
+		if(roles.length > 1 && roles[0] === "STUDENT") {
+			alert("student only can have 1 role assigned")
+			return false;
+		}
 		return true;
 	}
 </script>

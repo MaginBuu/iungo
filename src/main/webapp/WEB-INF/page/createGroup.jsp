@@ -6,18 +6,15 @@
 <html>
 
 <script>
-	function disable() {
-		var select1 = jQuery('#stage');
-		select1.prop('disabled', true).selectpicker('refresh');
+	window.onload = function() {
+		var select1 = jQuery('#year');
+		select1.prop('disabled', true);
 	}
-	function enable() {
-		var select1 = jQuery('#stage');
-		select1.prop('disabled', false).selectpicker('refresh');
-	}
+
 	function changeDisabled() {
-		var select1 = jQuery('#stage');
+		var select1 = jQuery('#year');
 		var checkbox = jQuery('#thisCourse');
-		//if(checkbox)
+		select1.prop('disabled', checkbox.prop("checked")).selectpicker('refresh');
 	}
 </script>
 
@@ -25,7 +22,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>GroupCreation</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css">
 	<link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/resource/css/creation/Pretty-Registration-Form.css">
 	<link rel="stylesheet" href="/resource/css/creation/styles.css">
@@ -68,21 +64,22 @@
 				<div class="col-sm-3 label-column"><label class="col-form-label"> </label></div>
 				<div class="col-sm-9 checkbox-column"><label class="col-form-label">
 					<div class="form-check form-check-inline">
-						<input type="checkbox" class="form-check-input" checked="checked" onclick="toggleSelect()" id="thisCourse"/>
+						<input type="checkbox" class="form-check-input" checked="checked" onclick="changeDisabled()" id="thisCourse"/>
 						<label class="form-check-label"> This group is created in this academic course</label>
 					</div>
 				</label></div>
 			</div>
-
-			<select id="mySelect">
-				<option>Apple</option>
-				<option>Pear</option>
-				<option>Banana</option>
-				<option>Orange</option>
-			</select>
-			<br><br>
-			<input type="button" onclick="disable()" value="Disable list">
-			<input type="button" onclick="enable()" value="Enable list">
+			<div class="form-row form-group">
+				<div class="col-sm-3 label-column">
+					<form:label path="course.courseId" class="col-form-label">Year </form:label></div>
+				<div class="col-sm-8 input-column">
+					<form:select class="selectpicker" data-width="100%" path="course.courseId" id="year" name="year">
+						<c:forEach items="${courses}" var="course" >
+							<form:option value="${course.courseId}"> ${course.startDate} - ${course.endDate}</form:option>
+						</c:forEach>
+					</form:select>
+				</div>
+			</div>
 			<button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
 		</form:form>
 	</div>
