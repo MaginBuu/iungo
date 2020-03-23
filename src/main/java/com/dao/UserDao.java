@@ -17,4 +17,7 @@ public interface UserDao {
 	User getAllUserTickets();
 	
 	User getUserByEmail(String email);
+
+	List<User> getQueryResults(String query);
+
 }

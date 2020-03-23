@@ -1,0 +1,125 @@
+.creation-form form.custom-form {
+  padding: 55px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  font: bold 14px sans-serif;
+  text-align: center;
+  margin: 50px;
+  color: #333;
+}
+
+@media (max-width:400px) {
+  .creation-form form.custom-form {
+    padding: 55px 10px;
+  }
+}
+
+.creation-form .custom-form h1 {
+  display: inline-block;
+  color: #4c565e;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 10px 15px;
+  margin-bottom: 60px;
+  border-bottom: 2px solid #DE9D3F;
+}
+
+.creation-form .custom-form .form-group {
+  margin-bottom: 25px;
+}
+
+.creation-form .custom-form .label-column {
+  text-align: right;
+  color: #5F5F5F;
+}
+
+.creation-form .custom-form .checkbox-column {
+  text-align: left;
+  color: #5F5F5F;
+}
+
+.creation-form .custom-form .form-check-label{
+  color: #5F5F5F;
+  font: 14px sans-serif;
+}
+
+@media (max-width:768px) {
+  .creation-form .custom-form .label-column {
+    text-align: left;
+  }
+}
+
+.creation-form .custom-form .input-column {
+  color: #5f5f5f;
+  text-align: left;
+}
+
+.creation-form .custom-form .input-column input {
+  color: #5f5f5f;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  height: 42px;
+}
+
+.creation-form .custom-form .input-column textarea {
+  color: #5f5f5f;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  height: 250px;
+}
+
+.creation-form .custom-form .input-column-Procedure textarea {
+  color: #5f5f5f;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  height: 100px;
+}
+
+.creation-form .custom-form .dropdown .dropdown-toggle {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  outline: none;
+  color: #5F5F5F;
+  font: 15px sans-serif;
+}
+
+
+.creation-form .custom-form .dropdown ul {
+  background: #fff;
+}
+
+.creation-form .custom-form .dropdown ul li a {
+  background: #fff;
+  color: #333;
+  opacity: 0.8;
+}
+
+.creation-form .custom-form .dropdown ul li a:hover {
+  opacity: 1;
+}
+
+.creation-form .custom-form .submit-button {
+  border-radius: 2px;
+  background: #DE9D3F;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 14px 22px;
+  border: 0;
+  margin: 30px;
+  outline: none;
+}
+
+form-check-input{
+
+  font: bold 14px sans-serif;
+}
+

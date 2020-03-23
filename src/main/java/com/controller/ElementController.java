@@ -1,49 +1,79 @@
 package com.controller;
 
 
-import com.model.Procedure;
-import com.model.Ticket;
-import com.model.User;
-import com.model.enums.ProcedureStatus;
-import com.service.ProcedureService;
-import com.service.UserService;
+import com.model.*;
+import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
 @Controller
 public class ElementController {
 
+    @Autowired
+    ElementService elementService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    GroupService groupService;
+
+    @Autowired
+    SpaceService spaceService;
+
+    //@Autowired
+    //SubjectSpace subjectSpace;
+
     @RequestMapping(value = "/element/access", method = RequestMethod.GET)
     public ModelAndView getElementAccessForm() {
         ModelAndView model = new ModelAndView("findElement");
-        String elementKind = "", id = "", name = "";
+        String elementKind = "", idNumber = "", name = "";
         model.addObject("elementKind", elementKind);
-        //model.addObject("id", id);
-        //model.addObject("name", name);
+        model.addObject("idNumber", idNumber);
+        model.addObject("name", name);
         return model;
     }
 
     @RequestMapping(value = "/element/find", method = RequestMethod.GET)
-    public void findElement(@Valid @ModelAttribute("elementKind") String element) {
-        //ModelAndView model = new ModelAndView("createProcedure");
-        System.out.println(element);
-        //return model;
+    public ModelAndView findElement(@Valid @ModelAttribute("elementKind") String element, @ModelAttribute("idNumber")
+            String id, @ModelAttribute("name") String name) {
+
+        String query = elementService.generateQuery(element, id, name);
+        ModelAndView model;
+        switch (element){
+            case "group":
+                model = new ModelAndView("listGroupSearch");
+                //List<Group> groups = userService.getQueryResults(query);
+                //model.addObject("groups", groups);
+                break;
+
+            case "space":
+                model = new ModelAndView("listSpaceSearch");
+                //List<Space> spaces = userService.getQueryResults(query);
+                //model.addObject("spaces", spaces);
+                break;
+
+            case "subject":
+                model = new ModelAndView("listSubjectSearch");
+                //List<Subject> subjects = userService.getQueryResults(query);
+                //model.addObject("subjects", subjects);
+                break;
+            default: //user
+                model = new ModelAndView("listProfileSearch");
+                List<User> profiles = userService.getQueryResults(query);
+                model.addObject("profiles", profiles);
+                break;
+        }
+        System.out.println(query);
+        return model;
     }
 
 }
