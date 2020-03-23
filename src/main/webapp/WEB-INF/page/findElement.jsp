@@ -37,7 +37,7 @@
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label class="col-form-label">Name </label></div>
                 <div class="col-sm-3 input-column"><input id="name" name="name" class="form-control" type="text"></input></div>
-                <div class="col-sm-2 label-column"><label class="col-form-label">Surname </label></div>
+                <div class="col-sm-2 label-column"><label class="col-form-label">ID Number </label></div>
                 <div class="col-sm-3 input-column"><input id="idNumber" name="idNumber" class="form-control" type="text"></input></div>
             </div>
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Search</button>

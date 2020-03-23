@@ -3,7 +3,6 @@ package com.service;
 import java.util.List;
 
 import com.model.User;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface UserService {
 
@@ -18,5 +17,7 @@ public interface UserService {
 	User getAllUserTickets();
 	
 	User getUserByEmail(String emailId);
+
+	List<User> getQueryResults(String query);
 
 }

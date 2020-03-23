@@ -92,6 +92,12 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.openSession();
 		List<User> users = session.getNamedQuery("Users.findByEmail").setParameter("email", email).list();
 		return users.get(0);
+
 	}
-	
+
+	public List<User> getQueryResults(String query){
+		Session session = sessionFactory.openSession();
+		List<User> users = session.createQuery(query).list();
+		return users;
+	}
 }

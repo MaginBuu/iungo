@@ -34,9 +34,6 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 
-	@Autowired
-	private ProcedureService procedureService;
-
 	@RequestMapping(value = "/ticket/creation", method = RequestMethod.GET)
 	public ModelAndView getTicketCreationForm() {
 		Ticket ticket = new Ticket();
