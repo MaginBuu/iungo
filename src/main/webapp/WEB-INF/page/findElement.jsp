@@ -9,29 +9,39 @@
     <title>Tickets history</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
+    <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 </head>
 
 <body>
 <%@ include file="navbar.jsp" %>
-<div class="row register-form">
+<div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <c:url value="/element/find" var="url"></c:url>
         <br><br>
-        <div class="container">
-            <h1>Ticket List</h1>
-            <form action="/element/find" method="get">
-                <select class="selectpicker" data-width="100%"  id="elementKind" name="elementKind">
+        <form class="custom-form" action="/element/find" method="get">
+            <h1>Find Element</h1>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><label path="name" class="col-form-label">Kind </label></div>
+                <div class="col-sm-3 label-column"><select class="selectpicker" data-width="100%" id="elementKind"
+                                                           name="elementKind">
                     <option value="profile">Profile</option>
                     <option value="space">Space</option>
                     <option value="subject">Subject</option>
                     <option value="group">Group</option>
                 </select>
-                <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
-            </form>
-
-        </div>
+                </div>
+            </div>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><label class="col-form-label">Name </label></div>
+                <div class="col-sm-3 input-column"><input id="name" name="name" class="form-control" type="text"></input></div>
+                <div class="col-sm-2 label-column"><label class="col-form-label">Surname </label></div>
+                <div class="col-sm-3 input-column"><input id="idNumber" name="idNumber" class="form-control" type="text"></input></div>
+            </div>
+            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Search</button>
+        </form>
     </div>
 </div>
 

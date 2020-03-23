@@ -32,10 +32,10 @@ public class ElementController {
     @RequestMapping(value = "/element/access", method = RequestMethod.GET)
     public ModelAndView getElementAccessForm() {
         ModelAndView model = new ModelAndView("findElement");
-        String elementKind = "", id = "", name = "";
+        String elementKind = "", idNumber = "", name = "";
         model.addObject("elementKind", elementKind);
-        //model.addObject("id", id);
-        //model.addObject("name", name);
+        model.addObject("idNumber", idNumber);
+        model.addObject("name", name);
         return model;
     }
 
