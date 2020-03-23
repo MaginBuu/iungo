@@ -1,6 +1,6 @@
 package com.dao;
 
-import com.model.Group;
+import com.model.Subject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,20 +9,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
-public class GroupDaoImpl implements GroupDao {
+public class SubjectDaoImpl implements SubjectDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addGroup(Group group){
-        System.out.println("groupCreation");
+    public void addSubject(Subject subject){
         Session session = sessionFactory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(group);
+            session.save(subject);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();
@@ -32,9 +30,9 @@ public class GroupDaoImpl implements GroupDao {
         }
     }
 
-    public List<Group> getQueryResults(String query){
+    public List<Subject> getQueryResults(String query){
         Session session = sessionFactory.openSession();
-        List<Group> groups = session.createQuery(query).list();
-        return groups;
+        List<Subject> subjects = session.createQuery(query).list();
+        return subjects;
     }
 }

@@ -51,19 +51,19 @@ public class ElementController {
         switch (element){
             case "group":
                 model = new ModelAndView("listGroupSearch");
-                //List<Group> groups = userService.getQueryResults(query);
-                //model.addObject("groups", groups);
+                List<Group> groups = groupService.getQueryResults(query);
+                model.addObject("groups", groups);
                 break;
 
             case "space":
                 model = new ModelAndView("listSpaceSearch");
-                //List<Space> spaces = userService.getQueryResults(query);
-                //model.addObject("spaces", spaces);
+                List<Space> spaces = spaceService.getQueryResults(query);
+                model.addObject("spaces", spaces);
                 break;
 
             case "subject":
                 model = new ModelAndView("listSubjectSearch");
-                //List<Subject> subjects = userService.getQueryResults(query);
+                //List<Subject> subjects = subjectService.getQueryResults(query);
                 //model.addObject("subjects", subjects);
                 break;
             default: //user

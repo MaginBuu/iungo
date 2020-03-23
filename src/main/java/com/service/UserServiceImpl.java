@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserByEmail(emailId);
 	}
 
-	public List<User> getQueryResults(String query) {return userDao.getQueryResults(query);}
+	public List<User> getQueryResults(String query) { return userDao.getQueryResults(query); }
 
 	@Override
 	public User getAllUserTickets() {

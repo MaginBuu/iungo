@@ -27,7 +27,7 @@
                 <div class="col-sm-3 label-column"><label path="name" class="col-form-label">Kind </label></div>
                 <div class="col-sm-3 label-column"><select class="selectpicker" data-width="100%" id="elementKind"
                                                            name="elementKind">
-                    <option value="profile">Profile</option>
+                    <option value="user">Profile</option>
                     <option value="space">Space</option>
                     <option value="subject">Subject</option>
                     <option value="group">Group</option>

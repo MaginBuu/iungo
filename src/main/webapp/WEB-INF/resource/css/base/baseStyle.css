@@ -9,6 +9,27 @@
   color: #333;
 }
 
+.creation-form div.custom-div{
+  padding: 55px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  font: 14px sans-serif;
+  text-align: center;
+  margin: 50px;
+  color: #333;
+}
+
+.creation-form .custom-div h1 {
+  display: inline-block;
+  color: #4c565e;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 10px 15px;
+  margin-bottom: 60px;
+  border-bottom: 2px solid #DE9D3F;
+}
+
 @media (max-width:400px) {
   .creation-form form.custom-form {
     padding: 55px 10px;
@@ -119,7 +140,6 @@
 }
 
 form-check-input{
-
   font: bold 14px sans-serif;
 }
 

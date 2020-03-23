@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public class SpaceDaoImpl implements SpaceDao {
@@ -28,5 +30,11 @@ public class SpaceDaoImpl implements SpaceDao {
         }finally {
             session.close();
         }
+    }
+
+    public List<Space> getQueryResults(String query){
+        Session session = sessionFactory.openSession();
+        List<Space> spaces = session.createQuery(query).list();
+        return spaces;
     }
 }

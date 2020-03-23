@@ -20,28 +20,28 @@
     <div class="col-md-8 offset-md-2">
         <br><br>
         <div class="container custom-div">
-            <h1>Profiles Found</h1>
+            <h1>Groups Found</h1>
             <input class="form-control mb-4" id="tableSearch" type="text"
                    placeholder="Type something to search list items">
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th><strong>ID</strong></th>
-                    <th><strong>Username</strong></th>
                     <th><strong>Name</strong></th>
-                    <th><strong>Surname</strong></th>
-                    <th><strong>2nd Surname</strong></th>
+                    <th><strong>Stage</strong></th>
+                    <th><strong>Level</strong></th>
+                    <th><strong>Group</strong></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
-                <c:forEach items="${profiles}" var="profile">
+                <c:forEach items="${groups}" var="group">
                     <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.userId}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.username}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.name}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.surname}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.secondSurname}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.groupId}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.name}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.stage}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.level}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.group}</td>
                         <td style="vertical-align: middle; text-align: center"><a href="">Edit</a></td>
                     </tr>
                 </c:forEach>
