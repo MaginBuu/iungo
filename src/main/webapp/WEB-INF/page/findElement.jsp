@@ -22,13 +22,12 @@
         <div class="container">
             <h1>Ticket List</h1>
             <form action="/element/find" method="get">
-                <form:select class="selectpicker" data-width="100%" path="elementKind" id="elementKind" name="elementKind"
-                        onchange="selectChange(value)">
-                    <form:option value="profile">Profile</form:option>
-                    <form:option value="space">Space</form:option>
-                    <form:option value="subject">Subject</form:option>
-                    <form:option value="group">Group</form:option>
-                </form:select>
+                <select class="selectpicker" data-width="100%"  id="elementKind" name="elementKind">
+                    <option value="profile">Profile</option>
+                    <option value="space">Space</option>
+                    <option value="subject">Subject</option>
+                    <option value="group">Group</option>
+                </select>
                 <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
             </form>
 
@@ -44,8 +43,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 </body>
 
 </html>
