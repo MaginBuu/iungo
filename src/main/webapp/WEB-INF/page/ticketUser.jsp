@@ -88,7 +88,6 @@
                     </script>
                 </c:otherwise>
             </c:choose>
-
         </c:forEach>
         </tbody>
     </table>

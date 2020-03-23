@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
-    <link rel="stylesheet" href="/resource/css/ticket/styles.css">
 </head>
 
 <body>
@@ -18,7 +17,9 @@
 <div class="row register-form">
     <div class="col-md-8 offset-md-2">
         <c:url value="/ticket/access" var="url"></c:url>
+        <br><br>
         <div class="container">
+            <h1>Ticket List</h1>
             <input class="form-control mb-4" id="tableSearch" type="text"
                    placeholder="Type something to search list items">
             <table class="table table-bordered table-striped">
@@ -27,19 +28,16 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Title</th>
-                    <th>Access</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
                 <c:forEach items="${tickets}" var="ticket">
                     <tr>
-                        <td>${ticket.creationDate}</td>
-                        <td>${ticket.status}</td>
-                        <td>${ticket.title}</td>
-                        <td>
-                                <a href="/ticket/modify?ticketId=${ticket.ticketId}"> Get details</a>
-                            </form>
-                        </td>
+                        <td style="vertical-align: middle; horiz-align: center">${ticket.creationDate}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${ticket.status}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${ticket.title}</td>
+                        <td style="vertical-align: middle; text-align: center"><a href="/ticket/modify?ticketId=${ticket.ticketId}">Edit</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -33,9 +33,31 @@ public class TicketDaoImpl implements TicketDao {
         }
     }
 
+    public void updateTicket(Ticket ticket){
+        System.out.println("ticketUpdate");
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.update(ticket);
+            tx.commit();
+        }catch(Exception e){
+            if(tx != null) tx.rollback();
+            throw e;
+        }finally {
+            session.close();
+        }
+    }
+
     public List<Ticket> getOngoingCreatedTickets(){
         Session session = sessionFactory.openSession();
         List<Ticket> tickets = session.getNamedQuery("Ticket.findAllCreatedOngoing").list();
         return tickets;
     }
+
+    public Ticket getTicketById(String id){
+        Session session = sessionFactory.openSession();
+        Ticket tickets = (Ticket) session.getNamedQuery("Ticket.findById").setParameter("id", id).uniqueResult();
+        return tickets;
+    };
 }
