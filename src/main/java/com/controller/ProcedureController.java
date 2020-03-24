@@ -41,7 +41,7 @@ public class ProcedureController {
 		model.addObject("users", userService.getAllUsers());
 
 		// THIS IS ONLY FOR TESTING, THIS WILL BE DELETED SOON
-
+/*
 		User user = userService.getAllUserRoles();
 		System.out.println("after query");
 		Set<Role> roles = user.getRoles().keySet();
@@ -49,7 +49,7 @@ public class ProcedureController {
 			System.out.println(role);
 		}
 		System.out.println(user.getRoles().get(Role.RESPONSIBLE));
-		System.out.println(user.getRoles().get(Role.TEACHER));
+		System.out.println(user.getRoles().get(Role.TEACHER));*/
 
 
 
