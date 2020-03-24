@@ -38,7 +38,7 @@
                         <td style="vertical-align: middle; horiz-align: center">${space.spaceId}</td>
                         <td style="vertical-align: middle; horiz-align: center">${space.name}</td>
                         <td style="vertical-align: middle; horiz-align: center">${space.typology}</td>
-                        <td style="vertical-align: middle; text-align: center"><a href="">Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="/space/modify?spaceId=${space.spaceId}">Edit</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

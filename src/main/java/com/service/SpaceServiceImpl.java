@@ -19,4 +19,6 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     public List<Space> getQueryResults(String query) { return spaceDao.getQueryResults(query); }
+
+    public Space getSpaceById(String id) { return  spaceDao.getSpaceById(id); }
 }

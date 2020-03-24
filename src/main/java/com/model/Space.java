@@ -4,6 +4,7 @@ import com.model.enums.Typology;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +13,8 @@ import java.util.Objects;
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
+        @NamedQuery(name = "Space.findById", query = "SELECT r FROM Space r WHERE r.spaceId = :id"),
+        @NamedQuery(name = "Space.findByIdWithTimeline", query ="SELECT s FROM Space s JOIN FETCH s.timelines t WHERE s.spaceId = :id"),
 
 })
 public class Space implements Serializable {
@@ -55,6 +58,9 @@ public class Space implements Serializable {
     //@NotNull
     private int capacity;
 
+    @OneToMany(mappedBy="spaceTimeLine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TimeLine> timelines;
+
     @Transient
     private String attributesTemp;
 
@@ -75,6 +81,8 @@ public class Space implements Serializable {
     public String getSpaceId() {
         return spaceId;
     }
+
+    public void setSpaceId(String id) { this.spaceId = id; }
 
     public String getName() {
         return name;
@@ -145,6 +153,14 @@ public class Space implements Serializable {
     public String getAttributesTemp() { return attributesTemp; }
 
     public void setAttributesTemp(String attributesTemp) { this.attributesTemp = attributesTemp; }
+
+    public List<TimeLine> getTimelines() {
+        return timelines;
+    }
+
+    public void setTimelines(List<TimeLine> timeline) {
+        this.timelines = timeline;
+    }
 
     @Override
     public boolean equals(Object o) {

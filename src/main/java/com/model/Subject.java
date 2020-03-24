@@ -1,9 +1,9 @@
 package com.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import com.model.enums.Stage;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +27,16 @@ public class Subject implements Serializable {
     //@NotNull
     private String name;
 
+    @OneToMany(mappedBy="subjectTimeLine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TimeLine> timeline;
+
+    @OneToMany(mappedBy="subjectEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Event> events;
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "GROUP_ID")
+    private Space subjectGroup;
+
     public Subject() {
     }
 
@@ -44,6 +54,14 @@ public class Subject implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<TimeLine> getTimeline() {
+        return timeline;
+    }
+
+    public void setTimeline(List<TimeLine> timeline) {
+        this.timeline = timeline;
     }
 
     @Override

@@ -9,4 +9,5 @@ public interface SpaceService {
 
     void addSpace(Space space);
     List<Space> getQueryResults(String query);
+    Space getSpaceById(String id);
 }

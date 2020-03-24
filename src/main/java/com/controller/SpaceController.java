@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.model.Space;
+import com.model.TimeLine;
 import com.service.SpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.List;
 
 
 @Controller
@@ -66,5 +69,26 @@ public class SpaceController {
 			space.setTables(true);
 		else
 			space.setTables(false);
+	}
+
+	@RequestMapping(value = "/space/modify", method = RequestMethod.GET)
+	public ModelAndView getSpaceModify(@RequestParam String spaceId) {
+		Space space = spaceService.getSpaceById(spaceId);
+		List<TimeLine> yep = space.getTimelines();
+		for(TimeLine t: yep){
+			System.out.println(t.getStartingHour()+"-"+t.getFinishingHour());
+		}
+		return new ModelAndView("updateSpace", "space", space);
+	}
+
+	@RequestMapping(value = "/space/modify", method = RequestMethod.POST)
+	public String updateSpaceModify(@Valid @ModelAttribute("space") Space space){
+		spaceService.addSpace(space);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/space/add/timeline", method = RequestMethod.GET)
+	public void addTimeline(){
+		System.out.println("ADD");
 	}
 }
