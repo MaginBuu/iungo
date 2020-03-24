@@ -16,6 +16,8 @@ import java.util.List;
 })
 public class Course {
 
+    private static final long serialVersionUID = 2681531852204068105L;
+
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")

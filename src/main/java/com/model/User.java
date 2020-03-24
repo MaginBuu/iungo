@@ -1,14 +1,12 @@
 package com.model;
 
 import com.model.enums.GenderType;
+import com.model.enums.Role;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,13 +17,14 @@ import javax.validation.constraints.NotNull;
 		@NamedQuery(name = "Users.findAll", query = "SELECT c FROM User c"),
 		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i"),
 		@NamedQuery(name = "Users.findAllWithTickets", query ="SELECT o FROM User o JOIN FETCH o.tickets i WHERE o.userId =:id"),
+		@NamedQuery(name = "Users.findAllWithRoles", query ="SELECT o FROM User o JOIN FETCH o.roles i"),
+
 		//@NamedQuery(name = "Users.findAllWithProcedures", query="SELECT DISTINCT e FROM User e LEFT JOIN FETCH e.procedures t"),
 		@NamedQuery(name = "Users.findById", query = "SELECT r FROM User r WHERE r.userId = :id"),
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
 		@NamedQuery(name = "Users.findByEmail", query = "SELECT r FROM User r WHERE r.emailId = :email"),
-
 })
 public class User implements Serializable {
 
@@ -69,8 +68,12 @@ public class User implements Serializable {
 	//@NotNull
 	private String username;
 
-	@Column(name = "ROLE") //ENUM
+	@Transient
 	private String role;
+
+	@OneToMany(mappedBy = "userR", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@MapKey(name="roleKey")
+	private Map<Role, RoleClass> roles = new HashMap<>();
 
 	@Column(name = "EMAIL")
 	//@NotNull
@@ -218,9 +221,7 @@ public class User implements Serializable {
 		return notificiationsEnabled;
 	}
 
-	public void setNotificiationsEnabled(boolean notificiationsEnabled) {
-		this.notificiationsEnabled = notificiationsEnabled;
-	}
+	public void setNotificiationsEnabled(boolean notificiationsEnabled) { this.notificiationsEnabled = notificiationsEnabled; }
 
 	public GenderType getGender() {
 		return gender;
@@ -229,6 +230,8 @@ public class User implements Serializable {
 	public void setGender(GenderType gender) {
 		this.gender = gender;
 	}
+
+	public Map<Role, RoleClass> getRoles() { return roles; }
 
 	public List<Ticket> getTickets() {
 		List<Ticket> sortTickets = tickets;
@@ -240,6 +243,11 @@ public class User implements Serializable {
 		});
 		System.out.println(sortTickets);
 		return sortTickets;
+	}
+
+	public void addRole(Role roleType, RoleClass role){
+		roles.put(roleType, role);
+
 	}
 
 	public void setTickets(List<Ticket> tickets) {

@@ -11,6 +11,7 @@ import java.util.Objects;
 @Table(name = "reminders")
 public class Reminder {
 
+    private static final long serialVersionUID = 2681531852204068105L;
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -28,6 +29,10 @@ public class Reminder {
     public Reminder(String title) {
         this.title = title;
         //this.creationDate = new Date();
+    }
+
+    public Reminder() {
+
     }
 
     public String getReminderId() {

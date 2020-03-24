@@ -44,6 +44,15 @@ public class UserDaoImpl implements UserDao {
 		return userWithTicket;
 	}
 
+	public User getAllUserRoles() {
+		Session session = sessionFactory.openSession();
+		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		//User user = (User)request.getSession().getAttribute("user");
+		User userWithRoles = (User) session.getNamedQuery("Users.findAllWithRoles").uniqueResult(); //user.getUserId()
+		session.close();
+		return userWithRoles;
+	}
+
 	public void deleteUser(String userId) {
 		Session session = sessionFactory.openSession();
 		User user = (User) session.get(User.class, userId);
@@ -52,17 +61,30 @@ public class UserDaoImpl implements UserDao {
 		session.close();// close the session
 	}
 
+	public void addAuthorities(Authorities authorities){
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			session.save(authorities);
+			tx.commit();
+		}catch(Exception e){
+			if(tx != null) tx.rollback();
+			throw e;
+		}finally {
+			session.close();
+		}
+
+	}
+
 	public void addUser(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Authorities authorities = new Authorities();
 		System.out.println(user);
-		String roles[] = user.getRole().split(",");
-		authorities.setAuthorities(roles[roles.length-1]);
-		authorities.setEmailId(user.getEmailId());
+
 		try{
 			tx = session.beginTransaction();
-			session.save(authorities);
 			session.save(user);
 			tx.commit();
 		}catch(Exception e){

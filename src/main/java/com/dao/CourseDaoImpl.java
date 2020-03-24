@@ -43,7 +43,6 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public Course findByDate(int date) {
         Session session = sessionFactory.openSession();
-        System.out.println(date + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         List<Course> courses =  session.getNamedQuery("Courses.findByStart").setParameter("startDate", date).list();
         session.close();
         return courses.get(0);

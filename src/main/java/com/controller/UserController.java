@@ -3,6 +3,9 @@ package com.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.model.*;
+import com.model.enums.Role;
+import com.service.RoleService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.model.User;
-
 import java.util.List;
 
 @Controller
@@ -23,6 +24,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RoleService roleService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -63,8 +67,35 @@ public class UserController {
 		if (result.hasErrors())
 			return "createUser";
 		user.setPassword(passwordEncoder.encode("pass"));
+
+		String roles[] = user.getRole().split(",");
+
+		for (String role : roles){
+			RoleClass roleClass = null;
+			if(role.equals("STUDENT"))
+				roleClass = new RoleStudent();
+			else if(role.equals("RESPONSIBLE"))
+				roleClass = new RoleResponsible();
+			else if(role.equals("TEACHER"))
+				roleClass = new RoleTeacher();
+			else if(role.equals("SECRETARY"))
+				roleClass = new RoleSecretary();
+			else
+				roleClass = new RoleAdmin();
+
+			roleClass.setUserR(user);
+			roleClass.setRoleKey(Role.valueOf(role));
+			user.addRole(Role.valueOf(role), roleClass);
+		}
+
 		userService.addUser(user);
-		//customerService.addCustomer(customer);
+
+
+		Authorities authorities = new Authorities();
+		authorities.setAuthorities(roles[roles.length-1]);
+		authorities.setEmailId(user.getEmailId());
+		userService.addAuthorities(authorities);
+
 		model.addAttribute("registrationSuccess", "Registered Successfully. Login using username and password");
 		return "redirect:/";
 	}
