@@ -2,6 +2,7 @@ package com.service;
 
 import java.util.List;
 
+import com.model.Authorities;
 import com.model.User;
 
 public interface UserService {
@@ -12,9 +13,13 @@ public interface UserService {
 
 	void addUser(User user);
 
+	public void addAuthorities(Authorities authorities);
+
 	User getUserById(String userId);
 
 	User getAllUserTickets();
+
+	User getAllUserRoles();
 	
 	User getUserByEmail(String emailId);
 

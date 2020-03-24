@@ -1,16 +1,11 @@
 package com.controller;
 
-import com.dao.TicketDaoImpl;
-import com.model.Procedure;
-import com.model.Ticket;
-import com.model.User;
+import com.model.*;
 import com.model.enums.TicketStatus;
-import com.service.ProcedureService;
 import com.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;

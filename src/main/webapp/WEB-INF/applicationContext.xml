@@ -57,6 +57,12 @@
 				<value>com.model.TimeLine</value>
 				<value>com.model.User</value>
 				<value>com.model.UserCredentials</value>
+				<value>com.model.RoleResponsible</value>
+				<value>com.model.RoleStudent</value>
+				<value>com.model.RoleTeacher</value>
+				<value>com.model.RoleSecretary</value>
+				<value>com.model.RoleAdmin</value>
+				<value>com.model.RoleClass</value>
 			</list>
 		</property>
 
