@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 	
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.openSession();
-		List<User> users =  session.getNamedQuery("Users.findAll").list();
+		List<User> users =  session.getNamedQuery("Users.findAllStudents").list();
 	 	for(User u : users){
 			System.out.println(u.getName());
 		}
@@ -44,11 +44,11 @@ public class UserDaoImpl implements UserDao {
 		return userWithTicket;
 	}
 
-	public User getAllUserRoles() {
+	public User getAllUserRoles(String id) {
 		Session session = sessionFactory.openSession();
 		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		//User user = (User)request.getSession().getAttribute("user");
-		User userWithRoles = (User) session.getNamedQuery("Users.findAllWithRoles").uniqueResult(); //user.getUserId()
+		User userWithRoles = (User) session.getNamedQuery("Users.findAllWithRoles").setParameter("id", id).uniqueResult(); //user.getUserId()
 		session.close();
 		return userWithRoles;
 	}

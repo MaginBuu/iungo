@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -120,4 +121,20 @@ public class UserController {
 		List<User> users = userService.getAllUsers();
 		return new ModelAndView("ticketAdmin", "users", users);
 	}
+
+	@RequestMapping(value = "/user/creation/selectChild")
+	public ModelAndView getProcedureCreationForm() {
+		ModelAndView model = new ModelAndView("selectChild");
+		model.addObject("users", userService.getAllUsers());
+
+		return model;
+	}
+
+
+	@RequestMapping(value = "/user/creation/selectChild", method = RequestMethod.POST)
+	public String findElement(@Valid @ModelAttribute("child") String child){
+		System.out.println(child);
+		return "redirect:/";
+	}
+
 }

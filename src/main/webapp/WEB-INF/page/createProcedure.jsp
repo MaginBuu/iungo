@@ -7,8 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-	<title>UserCreation</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css">
+	<title>ProcedureCreation</title>
 	<link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/resource/css/creation/Pretty-Registration-Form.css">
 	<link rel="stylesheet" href="/resource/css/creation/styles.css">
@@ -67,9 +66,6 @@
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
-<script src="/resource/js/My-Date-Picker.js"></script>
 </body>
 
 </html>

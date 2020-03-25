@@ -1,6 +1,8 @@
+<%@ page import="com.model.enums.GenderType" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 		 pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -24,7 +26,7 @@
 		<c:url value="/user/creation" var="url"></c:url>
 		<form:form class="custom-form" method="post" action="/user/creation" commandName="user">
 			<h1>Register Form</h1>
-			<div class="form-row form-group">
+			<div class="form-row form-group";>
 				<div class="col-sm-3 label-column"><form:label path="name" class="col-form-label">Name </form:label></div>
 				<div class="col-sm-3 input-column"><form:input path="name" class="form-control" type="text"></form:input></div>
 				<div class="col-sm-2 label-column"><form:label path="surname" class="col-form-label">Surname </form:label></div>
@@ -43,17 +45,18 @@
 				<div class="col-sm-3 label-column"><form:label path="emailId" class="col-form-label">Email </form:label></div>
 				<div class="col-sm-8 input-column"><form:input path="emailId" class="form-control" type="email"></form:input></div>
 			</div>
+			<c:set var="enumValues" value="<%=GenderType.values()%>"/>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label class="col-form-label">Gender </label></div>
                 <div class="col-sm-2 input-column">
 					<form:select class="selectpicker" data-width="100%" path="gender">
-						<form:option value="MALE">Male</form:option>
-						<form:option value="FEMALE">Female</form:option>
-						<form:option value="PIKACHU">Pikachu</form:option>
+						<c:forEach items="${enumValues}" var="enumValue">
+							<form:option value="${enumValue}">${fn:toUpperCase(fn:substring(enumValue.name(),0,1))}${fn:toLowerCase(fn:substring(enumValue.name(),1,fn:length(enumValue.name())))}</form:option>
+						</c:forEach>
 					</form:select>
                 </div>
 				<div class="col-sm-1 label-column"><label class="col-form-label">Roles </label></div>
-				<div class="col-sm-6 input-column">
+				<div class="col-sm-5 input-column">
 					<form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role" name="role">
 						<form:option value="STUDENT">Student</form:option>
 						<form:option value="RESPONSIBLE">Responsible</form:option>

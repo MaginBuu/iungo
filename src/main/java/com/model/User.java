@@ -17,7 +17,8 @@ import javax.validation.constraints.NotNull;
 		@NamedQuery(name = "Users.findAll", query = "SELECT c FROM User c"),
 		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i"),
 		@NamedQuery(name = "Users.findAllWithTickets", query ="SELECT o FROM User o JOIN FETCH o.tickets i WHERE o.userId =:id"),
-		@NamedQuery(name = "Users.findAllWithRoles", query ="SELECT o FROM User o JOIN FETCH o.roles i"),
+		@NamedQuery(name = "Users.findAllWithRoles", query ="SELECT o FROM User o JOIN FETCH o.roles i WHERE o.userId =:id"),
+		@NamedQuery(name = "Users.findAllStudents", query ="SELECT o FROM User o WHERE o.userId IN (SELECT i.userR FROM RoleClass i WHERE i.roleKey = 0)"),
 
 		//@NamedQuery(name = "Users.findAllWithProcedures", query="SELECT DISTINCT e FROM User e LEFT JOIN FETCH e.procedures t"),
 		@NamedQuery(name = "Users.findById", query = "SELECT r FROM User r WHERE r.userId = :id"),

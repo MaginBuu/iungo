@@ -19,7 +19,7 @@ public interface UserService {
 
 	User getAllUserTickets();
 
-	User getAllUserRoles();
+	User getAllUserRoles(String id);
 	
 	User getUserByEmail(String emailId);
 
