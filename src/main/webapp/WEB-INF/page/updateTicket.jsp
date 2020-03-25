@@ -59,8 +59,6 @@
                             </form:select></td>
                     </tr>
                     </tbody>
-                </table>
-            </div>
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
         </form:form>
     </div>

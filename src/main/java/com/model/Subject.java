@@ -1,9 +1,9 @@
 package com.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import com.model.enums.Stage;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +12,8 @@ import java.util.Objects;
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
+        @NamedQuery(name = "Subject.findById", query = "SELECT r FROM Subject r WHERE r.subjectId = :id"),
+        @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s JOIN FETCH s.timeline k JOIN FETCH s.subjectGroup d WHERE s.subjectId = :id"),
 
 })
 public class Subject implements Serializable {
@@ -26,6 +28,16 @@ public class Subject implements Serializable {
     @Column(name = "NAME")
     //@NotNull
     private String name;
+
+    @OneToMany(mappedBy="subjectTimeLine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TimeLine> timeline;
+
+    @OneToMany(mappedBy="subjectEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Event> events;
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "GROUP_ID")
+    private Group subjectGroup;
 
     public Subject() {
     }
@@ -44,6 +56,26 @@ public class Subject implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<TimeLine> getTimeline() {
+        return timeline;
+    }
+
+    public void setTimeline(List<TimeLine> timeline) {
+        this.timeline = timeline;
+    }
+
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public Group getSubjectGroup() {
+        return subjectGroup;
+    }
+
+    public void setSubjectGroup(Group subjectGroup) {
+        this.subjectGroup = subjectGroup;
     }
 
     @Override

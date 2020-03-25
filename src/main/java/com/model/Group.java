@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.model.enums.Stage;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -42,6 +43,9 @@ public class Group implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "COURSE_ID")
     private Course course;
+
+    @OneToMany(mappedBy="subjectGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Subject> timeline;
 
     public Group() { }
 

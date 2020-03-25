@@ -9,4 +9,6 @@ public interface SubjectDao {
     void addSubject(Subject subject);
 
     List<Subject> getQueryResults(String query);
+
+    Subject getByIdWithAll(String id);
 }

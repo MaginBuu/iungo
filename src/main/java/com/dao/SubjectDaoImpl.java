@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.model.Space;
 import com.model.Subject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +21,7 @@ public class SubjectDaoImpl implements SubjectDao {
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(subject);
+            session.saveOrUpdate(subject);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();
@@ -34,5 +35,12 @@ public class SubjectDaoImpl implements SubjectDao {
         Session session = sessionFactory.openSession();
         List<Subject> subjects = session.createQuery(query).list();
         return subjects;
+    }
+
+    public Subject getByIdWithAll(String id){
+        Session session = sessionFactory.openSession();
+        Subject subject = (Subject) session.getNamedQuery("Subject.findByIdWithAll").setParameter("id", id).uniqueResult();
+        session.close();
+        return subject;
     }
 }

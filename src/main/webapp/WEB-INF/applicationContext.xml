@@ -42,19 +42,21 @@
 		<!-- packages to scan for Entity Classes annotated Classes package -->
 		<property name="annotatedClasses">
 			<list>
-				<value>com.model.Authorities</value>
-				<value>com.model.User</value>
-				<value>com.model.Procedure</value>
-				<value>com.model.Conversation</value>
-				<value>com.model.Message</value>
-				<value>com.model.Ticket</value>
-				<value>com.model.Reminder</value>
 				<value>com.model.AntiBullyingReport</value>
-				<value>com.model.UserCredentials</value>
+				<value>com.model.Authorities</value>
+				<value>com.model.Conversation</value>
+				<value>com.model.Course</value>
+				<value>com.model.Event</value>
+				<value>com.model.Group</value>
+				<value>com.model.Message</value>
+				<value>com.model.Procedure</value>
+				<value>com.model.Reminder</value>
 				<value>com.model.Space</value>
 				<value>com.model.Subject</value>
-				<value>com.model.Group</value>
-				<value>com.model.Course</value>
+				<value>com.model.Ticket</value>
+				<value>com.model.TimeLine</value>
+				<value>com.model.User</value>
+				<value>com.model.UserCredentials</value>
 				<value>com.model.RoleResponsible</value>
 				<value>com.model.RoleStudent</value>
 				<value>com.model.RoleTeacher</value>
