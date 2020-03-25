@@ -40,7 +40,7 @@ public class SpaceDaoImpl implements SpaceDao {
     }
 
 
-    public Space getSpaceById(String id) {
+    public Space getByIdWithTimeline(String id) {
         Session session = sessionFactory.openSession();
         Space space = (Space) session.getNamedQuery("Space.findByIdWithTimeline").setParameter("id", id).uniqueResult();
         session.close();

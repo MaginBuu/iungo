@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 </head>
 

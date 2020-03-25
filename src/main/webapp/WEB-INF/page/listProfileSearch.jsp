@@ -6,11 +6,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Tickets history</title>
+    <title>Subjects Found</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 </head>
 
@@ -20,29 +19,23 @@
     <div class="col-md-8 offset-md-2">
         <br><br>
         <div class="container custom-div">
-            <h1>Profiles Found</h1>
+            <h1>Subjects Found</h1>
             <input class="form-control mb-4" id="tableSearch" type="text"
                    placeholder="Type something to search list items">
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th><strong>ID</strong></th>
-                    <th><strong>Username</strong></th>
                     <th><strong>Name</strong></th>
-                    <th><strong>Surname</strong></th>
-                    <th><strong>2nd Surname</strong></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
-                <c:forEach items="${profiles}" var="profile">
+                <c:forEach items="${subjects}" var="subject">
                     <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.userId}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.username}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.name}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.surname}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${profile.secondSurname}</td>
-                        <td style="vertical-align: middle; text-align: center"><a href="">Edit</a></td>
+                        <td style="vertical-align: middle; horiz-align: center">${subject.subjectId}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${subject.name}</td>
+                        <td style="vertical-align: middle; text-align: center"><a href="/subject/modify?subjectId=${subject.subjectId}">Edit</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

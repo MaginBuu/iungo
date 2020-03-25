@@ -29,8 +29,8 @@ public class ElementController {
     @Autowired
     SpaceService spaceService;
 
-    //@Autowired
-    //SubjectSpace subjectSpace;
+    @Autowired
+    SubjectService subjectService;
 
     @RequestMapping(value = "/element/access", method = RequestMethod.GET)
     public ModelAndView getElementAccessForm() {
@@ -63,8 +63,11 @@ public class ElementController {
 
             case "subject":
                 model = new ModelAndView("listSubjectSearch");
-                //List<Subject> subjects = subjectService.getQueryResults(query);
-                //model.addObject("subjects", subjects);
+                List<Subject> subjects = subjectService.getQueryResults(query);
+                for(Subject s: subjects){
+                    System.out.println(s.getSubjectGroup());
+                }
+                model.addObject("subjects", subjects);
                 break;
             default: //user
                 model = new ModelAndView("listProfileSearch");
@@ -75,5 +78,6 @@ public class ElementController {
         System.out.println(query);
         return model;
     }
+
 
 }

@@ -11,7 +11,6 @@
     <title>Modify Space</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
-    <link rel="stylesheet" href="/resource/css/ticket/cards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
@@ -24,11 +23,12 @@
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <form:form class="custom-form" method="post" action="/space/modify" modelAttribute="space">
-        <h1>Modify Space</h1>
-        <form:hidden path="spaceId"/>
-        <form:hidden path="name"/>
-        <div class="container">
+
+        <div class="container custom-div">
+            <form:form method="post" action="/space/modify" modelAttribute="space">
+            <h1>Modify Space</h1>
+            <form:hidden path="spaceId"/>
+            <form:hidden path="name"/>
             <table class="table table-borderless">
                 <tbody id="myTable">
                 <tr>
@@ -111,8 +111,8 @@
                 </c:forEach>
                 </tbody>
             </table>
+                <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
         </div>
-            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
     </div>
 </div>
 </form:form>

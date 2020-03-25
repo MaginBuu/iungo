@@ -73,11 +73,7 @@ public class SpaceController {
 
 	@RequestMapping(value = "/space/modify", method = RequestMethod.GET)
 	public ModelAndView getSpaceModify(@RequestParam String spaceId) {
-		Space space = spaceService.getSpaceById(spaceId);
-		List<TimeLine> yep = space.getTimelines();
-		for(TimeLine t: yep){
-			System.out.println(t.getStartingHour()+"-"+t.getFinishingHour());
-		}
+		Space space = spaceService.getByIdWithTimeline(spaceId);
 		return new ModelAndView("updateSpace", "space", space);
 	}
 
