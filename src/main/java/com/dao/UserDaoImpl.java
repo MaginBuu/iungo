@@ -27,8 +27,18 @@ public class UserDaoImpl implements UserDao {
 	
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.openSession();
-		List<User> users =  session.getNamedQuery("Users.findAllStudents").list();
+		List<User> users =  session.getNamedQuery("Users.findAll").list();
 	 	for(User u : users){
+			System.out.println(u.getName());
+		}
+		session.close();
+		return users;
+	}
+
+	public List<User> getAllUsersWithRole(Role role) {
+		Session session = sessionFactory.openSession();
+		List<User> users =  session.getNamedQuery("Users.findAllWithRole").setParameter("role", role).list();
+		for(User u : users){
 			System.out.println(u.getName());
 		}
 		session.close();
@@ -85,7 +95,7 @@ public class UserDaoImpl implements UserDao {
 
 		try{
 			tx = session.beginTransaction();
-			session.save(user);
+			session.saveOrUpdate(user);
 			tx.commit();
 		}catch(Exception e){
 			if(tx != null) tx.rollback();

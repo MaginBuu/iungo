@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.Authorities;
 import com.model.User;
+import com.model.enums.Role;
 
 public interface UserService {
 
@@ -19,7 +20,7 @@ public interface UserService {
 
 	User getAllUserTickets();
 
-	User getAllUserRoles(String id);
+	List<User> getAllUsersWithRole(Role role);
 	
 	User getUserByEmail(String emailId);
 

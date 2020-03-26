@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i"),
 		@NamedQuery(name = "Users.findAllWithTickets", query ="SELECT o FROM User o JOIN FETCH o.tickets i WHERE o.userId =:id"),
 		@NamedQuery(name = "Users.findAllWithRoles", query ="SELECT o FROM User o JOIN FETCH o.roles i WHERE o.userId =:id"),
-		@NamedQuery(name = "Users.findAllStudents", query ="SELECT o FROM User o WHERE o.userId IN (SELECT i.userR FROM RoleClass i WHERE i.roleKey = 0)"),
+		@NamedQuery(name = "Users.findAllWithRole", query ="SELECT o FROM User o WHERE o.userId IN (SELECT i.userR FROM RoleClass i WHERE i.roleKey =:role)"),
 
 		//@NamedQuery(name = "Users.findAllWithProcedures", query="SELECT DISTINCT e FROM User e LEFT JOIN FETCH e.procedures t"),
 		@NamedQuery(name = "Users.findById", query = "SELECT r FROM User r WHERE r.userId = :id"),
@@ -72,7 +72,7 @@ public class User implements Serializable {
 	@Transient
 	private String role;
 
-	@OneToMany(mappedBy = "userR", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "userR", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@MapKey(name="roleKey")
 	private Map<Role, RoleClass> roles = new HashMap<>();
 
@@ -224,9 +224,7 @@ public class User implements Serializable {
 
 	public void setNotificiationsEnabled(boolean notificiationsEnabled) { this.notificiationsEnabled = notificiationsEnabled; }
 
-	public GenderType getGender() {
-		return gender;
-	}
+	public GenderType getGender() { return gender; }
 
 	public void setGender(GenderType gender) {
 		this.gender = gender;
@@ -255,13 +253,32 @@ public class User implements Serializable {
 		this.tickets = tickets;
 	}
 
-	//public Customer getCustomer() {
-	//	return customer;
-	//}
+	/**
+	 * this function relate 2 users with family relationship. It updates both relationship lists.
+	 * @param user2 other user to set the relationship.
+	 *                 	If this.role == STUDENT then user2.role needs to be Responsible
+	 *              	else if this.role == Responsible then user2.role needs to be Student
+	 * @return 0 if correct, -1 if incorrect
+	 *
+	 * In order to save this into the db, at least one of the users has to be saved or updated.
+	 */
+	public int setParentalRelationship(User user2){
+		RoleStudent roleStudent = null;
+		RoleResponsible roleResponsible = null;
+		if(this.roles.containsKey(Role.STUDENT) && user2.getRoles().containsKey(Role.RESPONSIBLE)){
+			roleStudent = (RoleStudent) this.roles.get(Role.STUDENT);
+			roleResponsible = (RoleResponsible) user2.getRoles().get(Role.RESPONSIBLE);
+		}else if(this.roles.containsKey(Role.RESPONSIBLE) && user2.getRoles().containsKey(Role.STUDENT)){
+			roleStudent = (RoleStudent) user2.getRoles().get(Role.STUDENT);
+			roleResponsible = (RoleResponsible) this.roles.get(Role.RESPONSIBLE);
+		}else
+			return -1;
+		roleStudent.addResponsible(roleResponsible);
+		roleResponsible.addChild(roleStudent);
 
-	//public void setCustomer(Customer customer) {
-	//	this.customer = customer;
-	//}
+
+		return 0;
+	}
 
 	public String getPassword() {
 		return password;

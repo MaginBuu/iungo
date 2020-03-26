@@ -20,7 +20,7 @@ public class RoleDaoImpl implements RoleDao {
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(role);
+            session.saveOrUpdate(role);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();
