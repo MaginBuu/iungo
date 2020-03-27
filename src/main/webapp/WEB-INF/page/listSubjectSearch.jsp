@@ -36,7 +36,7 @@
                     <tr>
                         <td style="vertical-align: middle; horiz-align: center">${subject.subjectId}</td>
                         <td style="vertical-align: middle; horiz-align: center">${subject.name}</td>
-                        <td style="vertical-align: middle; text-align: center"><a href="/subject/modify?subjectId=${subject.subjectId}">Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="/subject/modify/${subject.subjectId}">Edit</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

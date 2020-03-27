@@ -46,4 +46,11 @@ public class SpaceDaoImpl implements SpaceDao {
         session.close();
         return space;
     }
+
+    public List<Space> getAll(){
+        Session session = sessionFactory.openSession();
+        List<Space> spaces = session.getNamedQuery("Space.findAll").list();
+        session.close();
+        return spaces;
+    }
 }

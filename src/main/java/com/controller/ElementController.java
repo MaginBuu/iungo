@@ -64,9 +64,6 @@ public class ElementController {
             case "subject":
                 model = new ModelAndView("listSubjectSearch");
                 List<Subject> subjects = subjectService.getQueryResults(query);
-                for(Subject s: subjects){
-                    System.out.println(s.getSubjectGroup());
-                }
                 model.addObject("subjects", subjects);
                 break;
             default: //user

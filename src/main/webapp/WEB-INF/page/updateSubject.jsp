@@ -32,14 +32,14 @@
                 <tbody id="myTable">
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Name:</strong></td>
-                    <form:input path="name" data-width="30%" class="form-control" type="text"></form:input>
+                    <td><form:input path="name" data-width="30%" class="form-control" type="text"></form:input></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Subject ID:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${subject.subjectId}</td>
                 </tr>
                 <tr>
-                    <td style="horiz-align: right; text-align: right"><strong>Capacity:</strong></td>
+                    <td style="horiz-align: right; text-align: right"><strong>Group:</strong></td>
 
                     <td style="vertical-align: middle; text-align: left">${subject.subjectGroup.name}</td>
 
@@ -52,7 +52,7 @@
                         <th><strong>Starting hour</strong></th>
                         <th><strong>Finishing hour</strong></th>
                         <th><strong>Week Day</strong></th>
-                        <th><strong>Subject</strong></th>
+                        <th><strong>Space</strong></th>
                     </tr>
                 </thead>
                 <tbody id="timelines">
@@ -61,25 +61,52 @@
                         <td style="vertical-align: middle; horiz-align: center">${timelines.startingHour}</td>
                         <td style="vertical-align: middle; horiz-align: center">${timelines.finishingHour}</td>
                         <td style="vertical-align: middle; horiz-align: center">${timelines.weekday}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${timelines.subjectName}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${timelines.spaceName}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-                <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
+                <button class="btn btn-light submit-button" type="submit" value="add" name="buttonName"
+                        id="add" onclick="return Validate()">Add timeline</button>
+                <button class="btn btn-light submit-button" type="submit" value="update" name="buttonName" id="update"
+                        onclick="return Validate()">Update</button>
         </div>
     </div>
 </div>
 </form:form>
 </div>
 </div>
+<div align="center">
+    <br> <br> ${message} <br> <br>
+    <div id="result"></div>
+    <br>
+</div>
 
 <script type="text/javascript">
     function Validate() {
         return true;
     }
+
 </script>
 
+
+<!--
+<script type="text/javascript">
+    function crunchifyAjax() {
+        $.ajax({
+            url : 'ajaxtest.html',
+            success : function(data) {
+                $('#result').html(data);
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    var intervalId = 0;
+    intervalId = setInterval(crunchifyAjax, 3000);
+</script>
+-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

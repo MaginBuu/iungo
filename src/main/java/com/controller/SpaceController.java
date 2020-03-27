@@ -87,4 +87,8 @@ public class SpaceController {
 	public void addTimeline(){
 		System.out.println("ADD");
 	}
+
+	public List<Space> getAll(){
+		return spaceService.getAll();
+	}
 }
