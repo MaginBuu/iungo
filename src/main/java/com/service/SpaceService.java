@@ -8,6 +8,10 @@ import java.util.List;
 public interface SpaceService {
 
     void addSpace(Space space);
+
     List<Space> getQueryResults(String query);
+
     Space getByIdWithTimeline(String id);
+
+    List<Space> getAll();
 }
