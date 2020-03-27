@@ -52,17 +52,38 @@
             </div>
         </div>
         <div class="form-row form-group">
-            <div class="col-sm-3 label-column">
-                <form:label path="attributesTemp" class="col-form-label">Atributes </form:label></div>
-            <div class="col-sm-6 input-column">
-                <form:select class="selectpicker" multiple="true" data-width="100%" path="attributesTemp" id="role"
-                             name="role" onchange="selectChange(value)">
-                    <form:option value="Blackboard"></form:option>
-                    <form:option value="Interior"></form:option>
-                    <form:option value="Projector"></form:option>
-                    <form:option value="Platform"></form:option>
-                    <form:option value="Tables"></form:option>
-                </form:select>
+            <div class="col-sm-2 label-column"></div>
+            <div class="col-sm-8 label-column">
+                <table class="table table-borderless">
+                    <tbody id="booleans">
+                    <tr>
+                        <td style="horiz-align: right; text-align: right; color: #5F5F5F;">Blackboard:</td>
+                        <td>
+                            <form:checkbox path="blackboard"></form:checkbox>
+                        </td>
+                        <td style="horiz-align: right; text-align: right; color: #5F5F5F;">Interior:</td>
+                        <td>
+                            <form:checkbox path="interior"></form:checkbox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="horiz-align: right; text-align: right; color: #5F5F5F;">Projector:</td>
+                        <td>
+                            <form:checkbox path="projector"></form:checkbox>
+                        </td>
+                        <td style="horiz-align: right; text-align: right; color: #5F5F5F;">Platform:</td>
+                        <td>
+                            <form:checkbox path="platform"></form:checkbox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="horiz-align: right; text-align: right; color: #5F5F5F;">Tables:</td>
+                        <td>
+                            <form:checkbox path="tables"></form:checkbox>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div>
