@@ -37,6 +37,7 @@
 .creation-form .custom-form .checkbox-column {
   text-align: left;
   color: #5F5F5F;
+  margin:0;
 }
 
 .creation-form .custom-form .form-check-label{

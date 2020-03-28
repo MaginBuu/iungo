@@ -90,7 +90,6 @@
                 </tr>
                 </tbody>
             </table>
-            </table>
             <table class="table table-borderless table-striped">
                 <thead>
                     <tr>

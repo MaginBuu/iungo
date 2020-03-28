@@ -36,9 +36,9 @@ public class SpaceController {
 	// to insert the data
 	@RequestMapping(value = "/space/creation", method = RequestMethod.POST)
 	public String createProcedure(@Valid @ModelAttribute("space") Space space, BindingResult result, ModelMap model) throws ParseException {
-		String attributes = space.getAttributesTemp();
+		//String attributes = space.getAttributesTemp();
 
-		setAttributes(space, attributes);
+		//setAttributes(space, attributes);
 
 		spaceService.addSpace(space);
 		return "redirect:/";
