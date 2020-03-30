@@ -12,5 +12,9 @@ public interface SpaceDao {
 
     Space getByIdWithTimeline(String id);
 
+    Space getById(String id);
+
+    void deleteSpace(Space space);
+
     List<Space> getAll();
 }

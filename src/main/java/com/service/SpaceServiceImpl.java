@@ -22,5 +22,9 @@ public class SpaceServiceImpl implements SpaceService {
 
     public Space getByIdWithTimeline(String id) { return  spaceDao.getByIdWithTimeline(id); }
 
+    public Space getById(String id) { return  spaceDao.getById(id); }
+
+    public void deleteSpace(Space space){ spaceDao.deleteSpace(space); }
+
     public List<Space> getAll() { return spaceDao.getAll(); }
 }

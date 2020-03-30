@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.model.Space;
-import com.model.TimeLine;
 import com.service.SpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
@@ -36,44 +38,14 @@ public class SpaceController {
 	// to insert the data
 	@RequestMapping(value = "/space/creation", method = RequestMethod.POST)
 	public String createProcedure(@Valid @ModelAttribute("space") Space space, BindingResult result, ModelMap model) throws ParseException {
-		//String attributes = space.getAttributesTemp();
-
-		//setAttributes(space, attributes);
 
 		spaceService.addSpace(space);
 		return "redirect:/";
 	}
 
-	private void setAttributes(Space space, String attributes){
-		if(attributes.contains("Blackboard"))
-			space.setBlackboard(true);
-		else
-			space.setBlackboard(false);
-
-		if(attributes.contains("Interior"))
-			space.setInterior(true);
-		else
-			space.setInterior(false);
-
-		if(attributes.contains("Projector"))
-			space.setProjector(true);
-		else
-			space.setProjector(false);
-
-		if(attributes.contains("Platform"))
-			space.setPlatform(true);
-		else
-			space.setPlatform(false);
-
-		if(attributes.contains("Tables"))
-			space.setTables(true);
-		else
-			space.setTables(false);
-	}
-
 	@RequestMapping(value = "/space/modify", method = RequestMethod.GET)
 	public ModelAndView getSpaceModify(@RequestParam String spaceId) {
-		Space space = spaceService.getByIdWithTimeline(spaceId);
+		Space space = spaceService.getById(spaceId);
 		return new ModelAndView("updateSpace", "space", space);
 	}
 
@@ -81,6 +53,17 @@ public class SpaceController {
 	public String updateSpaceModify(@Valid @ModelAttribute("space") Space space){
 		spaceService.addSpace(space);
 		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/space/delete", method = RequestMethod.GET)
+	public String deleteSpace(@RequestParam String spaceId){
+		System.out.println("delete " + spaceId);
+		spaceService.deleteSpace(spaceService.getById(spaceId));
+
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String referer = request.getHeader("Referer");
+
+		return "redirect:" + referer;
 	}
 
 	@RequestMapping(value = "/space/add/timeline", method = RequestMethod.GET)

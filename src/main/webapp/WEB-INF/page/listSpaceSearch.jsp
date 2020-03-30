@@ -31,6 +31,7 @@
 
     function deleteSpace(){
         var hiddenInput = jQuery('#spaceId');
+        window.location.href = '/space/delete?spaceId=' + hiddenInput.val();
         //alert("/space/delete?" + hiddenInput.val());
     }
 </script>
