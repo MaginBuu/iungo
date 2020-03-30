@@ -22,5 +22,7 @@ public class SpaceServiceImpl implements SpaceService {
 
     public Space getByIdWithTimeline(String id) { return  spaceDao.getByIdWithTimeline(id); }
 
+    public Space getByIdWithTimelineDay(String id, int day) { return spaceDao.getByIdWithTimelineDay(id, day); }
+
     public List<Space> getAll() { return spaceDao.getAll(); }
 }

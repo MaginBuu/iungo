@@ -12,5 +12,7 @@ public interface SpaceDao {
 
     Space getByIdWithTimeline(String id);
 
+    Space getByIdWithTimelineDay(String id, int day);
+
     List<Space> getAll();
 }

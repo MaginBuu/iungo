@@ -2,6 +2,7 @@ package com.dao;
 
 
 import com.model.Space;
+import com.model.TimeLine;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -43,6 +44,18 @@ public class SpaceDaoImpl implements SpaceDao {
     public Space getByIdWithTimeline(String id) {
         Session session = sessionFactory.openSession();
         Space space = (Space) session.getNamedQuery("Space.findByIdWithTimeline").setParameter("id", id).uniqueResult();
+        session.close();
+        return space;
+    }
+
+    public Space getByIdWithTimelineDay(String id, int day){
+        Session session = sessionFactory.openSession();
+        Space space = (Space) session.getNamedQuery("Space.findByIdWithTimelineDay").setParameter("id", id).setParameter("wd", day).uniqueResult();
+        System.out.println("----------------");
+        System.out.println("id: "+id+" - dia: "+day);
+        for(TimeLine t : space.getTimelines()){
+            System.out.println(t.getSpaceName());
+        }
         session.close();
         return space;
     }
