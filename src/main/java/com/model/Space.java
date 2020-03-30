@@ -66,8 +66,7 @@ public class Space implements Serializable {
     @Transient
     private String attributesTemp;
 
-    public Space() {
-    }
+    public Space() { }
 
     public Space(String name, boolean blackboard, boolean interior, boolean projector, boolean platform, boolean tables, boolean lab, Typology typology, int capacity) {
         this.name = name;

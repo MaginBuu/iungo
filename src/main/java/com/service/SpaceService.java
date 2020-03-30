@@ -13,7 +13,9 @@ public interface SpaceService {
 
     Space getByIdWithTimeline(String id);
 
-    Space getByIdWithTimelineDay(String id, int day);
+    Space getById(String id);
+
+    void deleteSpace(Space space);
 
     List<Space> getAll();
 }

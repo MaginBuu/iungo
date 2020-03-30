@@ -33,6 +33,21 @@ public class SpaceDaoImpl implements SpaceDao {
         }
     }
 
+    public void deleteSpace(Space space){
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.delete(space);
+            tx.commit();
+        }catch(Exception e){
+            if(tx != null) tx.rollback();
+            throw e;
+        }finally {
+            session.close();
+        }
+    }
+
     public List<Space> getQueryResults(String query){
         Session session = sessionFactory.openSession();
         List<Space> spaces = session.createQuery(query).list();
@@ -48,14 +63,9 @@ public class SpaceDaoImpl implements SpaceDao {
         return space;
     }
 
-    public Space getByIdWithTimelineDay(String id, int day){
+    public Space getById(String id){
         Session session = sessionFactory.openSession();
-        Space space = (Space) session.getNamedQuery("Space.findByIdWithTimelineDay").setParameter("id", id).setParameter("wd", day).uniqueResult();
-        System.out.println("----------------");
-        System.out.println("id: "+id+" - dia: "+day);
-        for(TimeLine t : space.getTimelines()){
-            System.out.println(t.getSpaceName());
-        }
+        Space space = (Space) session.getNamedQuery("Space.findById").setParameter("id", id).uniqueResult();
         session.close();
         return space;
     }
