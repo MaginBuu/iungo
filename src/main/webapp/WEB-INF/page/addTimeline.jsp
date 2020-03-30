@@ -23,39 +23,46 @@
 
 <body>
 <%@ include file="navbar.jsp" %>
+<input id="hores-inicials" type="hidden">
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-
         <div class="container custom-div">
-            <form:form modelAttribute="bookSpace">
-            <h1>Add timeline</h1>
-            <div class="row justify-content-md-center">
-                <div class="col col-md-auto"><strong>Spaces:</strong></div>
-                <div class="col">
-                    <form:select class="selectpicker" data-width="100%" path="name" id="select-ajax">
-                        <form:option selected="selected" value="">Select a typology
-                        </form:option>
-                        <c:forEach items="${spaces}" var="space">
-                            <form:option value="${space.spaceId}">${space.name}</form:option>
-                        </c:forEach>
-                    </form:select>
+            <form:form modelAttribute="timeline">
+                <h1>Add timeline</h1>
+                <div class="row justify-content-md-center">
+                    <div class="col col-md-auto"><strong>Spaces:</strong></div>
+                    <div class="col">
+                        <form:select class="selectpicker" data-width="100%" path="finishingHour" id="select-ajax">
+                            <form:option selected="selected" value="">Select a typology
+                            </form:option>
+                            <c:forEach items="${spaces}" var="space">
+                                <form:option value="${space.spaceId}">${space.name}</form:option>
+                            </c:forEach>
+                        </form:select>
+                    </div>
+
+                </div>
+            </form:form>
+            <div class="container">
+                <div class="col col-md-auto">
+                    <button class="btn btn-light" id="btn-ajax">Search availability</button>
+                </div>
+                <div class="row justify-content-md-center" id="availability-table">
+                    <table class="table table-borderless">
+                        <tbody id="myTable">
+                        <tr>
+                            <td style="horiz-align: right; text-align: right"><strong>Text 1:</strong></td>
+                            <td style="horiz-align: right;" id="potato"></td>
+                        </tr>
+                        <tr>
+                            <td style="horiz-align: right; text-align: right"><strong>Text 2:</strong></td>
+                            <td style="horiz-align: right;" id="potato2"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-    </div>
-</div>
-</form:form>
-    <button class="btn btn-light" id="btn-ajax">Ajax</button>
-    <div class="row" id="div-tabela">
-
-        <table class="table table-borderless">
-            <tbody id="myTable">
-            <tr>
-                <td style="horiz-align: right; text-align: right"><strong>Typology:</strong></td>
-                <td style="horiz-align: right;" id="potato"></td>
-            </tr>
-            </tbody>
-        </table>
+        </div>
     </div>
 </div>
 </div>
@@ -64,7 +71,7 @@
 <script type="text/javascript">
 
     console.log("inici ajax");
-    $("#btn-ajax").click(function(){
+    $("#btn-ajax").click(function () {
         console.log("function ajax");
         $.ajax({
 
@@ -75,17 +82,19 @@
             data: {
                 "var1": $("#select-ajax option:selected").val()
             }, //aqui es passen els parametres
-            success: function(data) {
+            success: function (data) {
                 $.each(data, function (index, currEmp) {
                     console.log(currEmp); //to print name of employee
+                    $("#potato").html("changed value");
+                    $("#potato2").html("angawa value");
+                    $("#hores-inicials").html(data);
                 });
-                //$("#potato").innerhtml=result;
 
 
             }
-        }).done(function(){
+        }).done(function () {
 
-        }).fail(function(){
+        }).fail(function () {
             console.log("Error Ajax");
         });
     });

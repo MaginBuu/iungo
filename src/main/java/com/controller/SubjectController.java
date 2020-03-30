@@ -65,10 +65,10 @@ public class SubjectController {
 			case "add":
 				model = new ModelAndView("addTimeline");
 				List<Space> spaces = spaceService.getAll();
-				Space bookSpace = new Space();
+				TimeLine timeline = new TimeLine();
 				model.addObject("subject", subject);
 				model.addObject("spaces", spaces);
-				model.addObject("bookSpace", bookSpace);
+				model.addObject("timeline", timeline);
 				break;
 			default:
 				subjectService.addSubject(subject);
@@ -84,15 +84,6 @@ public class SubjectController {
 	public void addTimeline(@Valid @ModelAttribute("subject") Subject subject){
 		System.out.println("ADD");
 		System.out.println(subject.getName());
-	}
-
-	@RequestMapping("/ajax")
-	public ModelAndView helloAjaxTest() {
-		System.out.println("ENTRA");
-		ModelAndView model = new ModelAndView("tabela");
-		Subject subject = subjectService.getByIdWithAll("1");
-		model.addObject("subject", subject);
-		return model;
 	}
 
 	@RequestMapping("/subject/ajaxdos")
