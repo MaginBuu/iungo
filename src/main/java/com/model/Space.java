@@ -16,6 +16,7 @@ import java.util.Objects;
         @NamedQuery(name = "Space.findById", query = "SELECT r FROM Space r WHERE r.spaceId = :id"),
         @NamedQuery(name = "Space.findAll", query = "SELECT r FROM Space r"),
         @NamedQuery(name = "Space.findByIdWithTimeline", query ="SELECT s FROM Space s JOIN FETCH s.timelines t WHERE s.spaceId = :id"),
+        @NamedQuery(name = "Space.findByIdWithTimelineDay", query ="SELECT s FROM Space s JOIN FETCH s.timelines t WHERE s.spaceId = :id AND t.weekday = :wd"),
 
 })
 public class Space implements Serializable {

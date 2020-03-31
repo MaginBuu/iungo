@@ -2,6 +2,7 @@ package com.dao;
 
 
 import com.model.Space;
+import com.model.TimeLine;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

@@ -27,12 +27,13 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
-            <form:form modelAttribute="timeline">
+            <form:hidden path="subjectId"/>
+            <form:form action="/subject/add/timeline" method="post" modelAttribute="timeline">
                 <h1>Add timeline</h1>
                 <div class="row justify-content-md-center">
-                    <div class="col col-md-auto"><strong>Spaces:</strong></div>
+                    <div class="col justify-content-md-center"><strong>Spaces:</strong></div>
                     <div class="col">
-                        <form:select class="selectpicker" data-width="100%" path="finishingHour" id="select-ajax">
+                        <form:select class="selectpicker" path="spaceTimeLine" id="select-ajax">
                             <form:option selected="selected" value="">Select a typology
                             </form:option>
                             <c:forEach items="${spaces}" var="space">
@@ -40,28 +41,41 @@
                             </c:forEach>
                         </form:select>
                     </div>
-
+                    <div class="col justify-content-md-center"><strong>Weekday:</strong></div>
+                    <div class="col">
+                        <form:select class="selectpicker" path="weekday" id="select-weekday">
+                            <form:option selected="selected" value="">Select a typology
+                            </form:option>
+                            <form:option value="MONDAY">Monday</form:option>
+                            <form:option value="TUESDAY">Tuesday</form:option>
+                            <form:option value="WEDNESDAY">Wednesday</form:option>
+                            <form:option value="THURSDAY">Thursday</form:option>
+                            <form:option value="FRIDAY">Friday</form:option>
+                        </form:select>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col justify-content-md-center"><strong>Starting Hour:</strong></div>
+                    <div class="col">
+                        <form:select class="selectpicker" id="select-start" name="select-start" path="startingHour">
+                        </form:select>
+                    </div>
+                    <div class="col justify-content-md-center"><strong>Finishing Hour:</strong></div>
+                    <div class="col">
+                        <form:select class="selectpicker" id="select-finish" name="select-finish" path="finishingHour">
+                        </form:select>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col justify-content-md-center">
+                        <a class="btn btn-warning" id="btn-ajax">Search availability</a>
+                    </div>
+                    <div class="col justify-content-md-center">
+                        <button type="submit" class="btn btn-dark" id="btn-smb">Save</button>
+                    </div>
                 </div>
             </form:form>
-            <div class="container">
-                <div class="col col-md-auto">
-                    <button class="btn btn-light" id="btn-ajax">Search availability</button>
-                </div>
-                <div class="row justify-content-md-center" id="availability-table">
-                    <table class="table table-borderless">
-                        <tbody id="myTable">
-                        <tr>
-                            <td style="horiz-align: right; text-align: right"><strong>Text 1:</strong></td>
-                            <td style="horiz-align: right;" id="potato"></td>
-                        </tr>
-                        <tr>
-                            <td style="horiz-align: right; text-align: right"><strong>Text 2:</strong></td>
-                            <td style="horiz-align: right;" id="potato2"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -70,9 +84,7 @@
 
 <script type="text/javascript">
 
-    console.log("inici ajax");
     $("#btn-ajax").click(function () {
-        console.log("function ajax");
         $.ajax({
 
             type: "GET",
@@ -80,15 +92,41 @@
             dataType: "json",
             contentType: 'application/json',
             data: {
-                "var1": $("#select-ajax option:selected").val()
+                "id": $("#select-ajax option:selected").val(),
+                "weekday": $("#select-weekday option:selected").val()
             }, //aqui es passen els parametres
             success: function (data) {
-                $.each(data, function (index, currEmp) {
-                    console.log(currEmp); //to print name of employee
-                    $("#potato").html("changed value");
-                    $("#potato2").html("angawa value");
-                    $("#hores-inicials").html(data);
+                let options, select, selectFinish, i;
+
+                // Get the raw DOM object for the select box
+                select = document.getElementById('select-start');
+                selectFinish = document.getElementById('select-finish');
+                
+                // Clear the old options
+                select.options.length = 0;
+                
+                // Adds the available hours (from 8 to 17:30)
+                for (i = 8; i < 18; ++i) {
+                    select.options.add(new Option(i + ":00", i + ":00"));
+                    select.options.add(new Option(i + ":30", i + ":30"));
+                }
+                
+                // In order of just doing this process once, we clone the options to the other select
+                options = select.innerHTML;
+                selectFinish.innerHTML = options;
+
+                // Disable the booked options in both select, each one with its list
+                $.each(data.start, function (index, current) {
+                    $("#select-start option[value='" + current + "']").attr("disabled", "disabled");
                 });
+
+                $.each(data.end, function (index, current) {
+                    $("#select-finish option[value='" + current + "']").attr("disabled", "disabled");
+                });
+
+                // Selectpicker refresh
+                $('#select-finish').selectpicker('refresh');
+                $('#select-start').selectpicker('refresh');
 
 
             }
