@@ -8,7 +8,11 @@ public interface SubjectDao {
 
     void addSubject(Subject subject);
 
+    void deleteSubject(Subject subject);
+
     List<Subject> getQueryResults(String query);
 
     Subject getByIdWithAll(String id);
+
+    Subject getById(String id);
 }

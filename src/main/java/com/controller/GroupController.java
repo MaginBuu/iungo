@@ -29,7 +29,7 @@ public class GroupController {
 
 
 	@RequestMapping(value = "/group/creation")
-	public ModelAndView getProcedureCreationForm() {
+	public ModelAndView getGroupCreationForm() {
 
 		List<Course> courses = courseService.getAllCourses();
 		if(courses.size() == 0){
@@ -51,7 +51,7 @@ public class GroupController {
 
 	// to insert the data
 	@RequestMapping(value = "/group/creation", method = RequestMethod.POST)
-	public String createProcedure(@Valid @ModelAttribute("group") Group group, BindingResult result, ModelMap model) throws ParseException {
+	public String createGroup(@Valid @ModelAttribute("group") Group group, BindingResult result, ModelMap model) throws ParseException {
 
 		if(group.getCourse() == null){
 			System.out.println("null");

@@ -17,7 +17,12 @@ public class SubjectServiceImpl implements SubjectService {
         subjectDao.addSubject(subject);
     }
 
+    public void deleteSubject(Subject subject){subjectDao.deleteSubject(subject);}
+
     public List<Subject> getQueryResults(String query) { return subjectDao.getQueryResults(query); }
 
     public Subject getByIdWithAll(String id) { return subjectDao.getByIdWithAll(id); }
+
+    public Subject getById(String id) { return subjectDao.getById(id); }
+
 }

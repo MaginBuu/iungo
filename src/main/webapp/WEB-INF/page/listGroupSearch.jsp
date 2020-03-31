@@ -42,11 +42,36 @@
                         <td style="vertical-align: middle; horiz-align: center">${group.stage}</td>
                         <td style="vertical-align: middle; horiz-align: center">${group.level}</td>
                         <td style="vertical-align: middle; horiz-align: center">${group.group}</td>
-                        <td style="vertical-align: middle; text-align: center"><a href="">Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/group/modify?userId=${group.groupId}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${group.groupId}')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal HTML -->
+<div id="myModal" name="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title">Are you sure?</h4>
+                <p id="deleteText">Do you really want to delete this space?
+                    This process cannot be undone.</p>
+            </div>
+            <input type="hidden" name="elementId" id="elementId" value=""/>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteElement()">Delete</button>
+            </div>
         </div>
     </div>
 </div>

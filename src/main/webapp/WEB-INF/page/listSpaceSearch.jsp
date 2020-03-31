@@ -22,7 +22,7 @@
     }
 
     //triggered when modal is about to be shown
-    function changeDisabled(spaceId, spaceName) {
+    function deleteClicked(spaceId, spaceName) {
         var hiddenInput = jQuery('#spaceId');
         var deleteText = jQuery('#deleteText');
         deleteText.html("Do you really want to delete the space <\strong>" + spaceName + "</strong>? This process cannot be undone.")
@@ -32,7 +32,6 @@
     function deleteSpace(){
         var hiddenInput = jQuery('#spaceId');
         window.location.href = '/space/delete?spaceId=' + hiddenInput.val();
-        //alert("/space/delete?" + hiddenInput.val());
     }
 </script>
 
@@ -63,7 +62,7 @@
                         <td style="vertical-align: middle; horiz-align: center">${space.name}</td>
                         <td style="vertical-align: middle; horiz-align: center">${space.typology}</td>
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/space/modify?spaceId=${space.spaceId}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="changeDisabled('${space.spaceId}', '${space.name}')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${space.spaceId}', '${space.name}')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

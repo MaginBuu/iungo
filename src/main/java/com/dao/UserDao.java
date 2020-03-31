@@ -12,7 +12,7 @@ public interface UserDao {
 
 	List<User> getAllUsersWithRole(Role role);
 
-	void deleteUser(String userId);
+	void deleteUser(User user);
 	
 	void addUser(User user);
 
@@ -25,6 +25,8 @@ public interface UserDao {
 	User getAllUserRoles(String id);
 	
 	User getUserByEmail(String email);
+
+	List<String> getAllUsernames(String username);
 
 	List<User> getQueryResults(String query);
 

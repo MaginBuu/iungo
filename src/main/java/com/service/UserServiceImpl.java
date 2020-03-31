@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Transactional
-	public void deleteUser(String userId) {
-		userDao.deleteUser(userId);
+	public void deleteUser(User user) {
+		userDao.deleteUser(user);
 	}
 
 	@Transactional
@@ -41,6 +41,8 @@ public class UserServiceImpl implements UserService {
 	public User getUserByEmail(String emailId) {
 		return userDao.getUserByEmail(emailId);
 	}
+
+	public List<String> getAllUsernames(String username){ return userDao.getAllUsernames(username);}
 
 	public List<User> getQueryResults(String query) { return userDao.getQueryResults(query); }
 

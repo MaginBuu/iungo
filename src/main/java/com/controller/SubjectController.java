@@ -13,10 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.json.simple.JSONObject;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -78,6 +81,16 @@ public class SubjectController {
 
 		return model;
 
+	}
+
+	@RequestMapping(value = "/subject/delete", method = RequestMethod.GET)
+	public String deleteSpace(@RequestParam String subjectId){
+		subjectService.deleteSubject(subjectService.getById(subjectId));
+
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String referer = request.getHeader("Referer");
+
+		return "redirect:" + referer;
 	}
 
 	@RequestMapping(value = "/subject/add/timeline", method = RequestMethod.GET)

@@ -76,7 +76,11 @@
 		var select = jQuery("#role");
 		var roles = select.val().toString().split(',');
 		if(roles.length > 1 && roles[0] === "STUDENT") {
-			alert("student only can have 1 role assigned")
+			alert("student only can have 1 role assigned");
+			return false;
+		}
+		else if(roles[0] === '') {
+			alert("user has to have at least one role assigned");
 			return false;
 		}
 		return true;

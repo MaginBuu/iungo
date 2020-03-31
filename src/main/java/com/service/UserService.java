@@ -10,7 +10,7 @@ public interface UserService {
 
 	List<User> getAllUsers();
 	
-	void deleteUser(String userId);
+	void deleteUser(User user);
 
 	void addUser(User user);
 
@@ -23,6 +23,8 @@ public interface UserService {
 	List<User> getAllUsersWithRole(Role role);
 	
 	User getUserByEmail(String emailId);
+
+	List<String> getAllUsernames(String username);
 
 	List<User> getQueryResults(String query);
 

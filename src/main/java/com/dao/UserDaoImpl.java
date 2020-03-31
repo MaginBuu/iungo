@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.model.Authorities;
@@ -63,12 +64,19 @@ public class UserDaoImpl implements UserDao {
 		return userWithRoles;
 	}
 
-	public void deleteUser(String userId) {
+	public void deleteUser(User user) {
 		Session session = sessionFactory.openSession();
-		User user = (User) session.get(User.class, userId);
-		session.saveOrUpdate(user);
-		session.flush();
-		session.close();// close the session
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			session.delete(user);
+			tx.commit();
+		}catch(Exception e){
+			if(tx != null) tx.rollback();
+			throw e;
+		}finally {
+			session.close();
+		}
 	}
 
 	public void addAuthorities(Authorities authorities){
@@ -126,6 +134,23 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return users.get(0);
 
+	}
+
+	/**
+	 *
+	 * @param username
+	 * @return All usernames equal to the param or with some numbers on it. The non numeric part is the same
+	 */
+	public List<String> getAllUsernames(String username){
+		Session session = sessionFactory.openSession();
+		List<String> usernames = session.getNamedQuery("Users.findAllByUsername").setParameter("username", "%" + username + "%").list();
+		List<String> usernamesTemp = new LinkedList<>();
+		for (String usernameT : usernames){
+			if((usernameT.equals(username) || usernameT.matches("" + username + "[0-9]{2}")))
+				usernamesTemp.add(usernameT);
+		}
+		session.close();
+		return usernamesTemp;
 	}
 
 	public List<User> getQueryResults(String query){

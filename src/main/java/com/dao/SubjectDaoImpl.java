@@ -31,6 +31,21 @@ public class SubjectDaoImpl implements SubjectDao {
         }
     }
 
+    public void deleteSubject(Subject subject){
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.delete(subject);
+            tx.commit();
+        }catch(Exception e){
+            if(tx != null) tx.rollback();
+            throw e;
+        }finally {
+            session.close();
+        }
+    }
+
     public List<Subject> getQueryResults(String query){
         Session session = sessionFactory.openSession();
         List<Subject> subjects = session.createQuery(query).list();
@@ -40,6 +55,13 @@ public class SubjectDaoImpl implements SubjectDao {
     public Subject getByIdWithAll(String id){
         Session session = sessionFactory.openSession();
         Subject subject = (Subject) session.getNamedQuery("Subject.findByIdWithAll").setParameter("id", id).uniqueResult();
+        session.close();
+        return subject;
+    }
+
+    public Subject getById(String id){
+        Session session = sessionFactory.openSession();
+        Subject subject = (Subject) session.getNamedQuery("Subject.findById").setParameter("id", id).uniqueResult();
         session.close();
         return subject;
     }
