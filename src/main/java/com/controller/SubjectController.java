@@ -74,16 +74,24 @@ public class SubjectController {
 
     }
 
-    @RequestMapping(value = "/subject/add/timeline", method = RequestMethod.GET)
-    public void addTimeline(@Valid @ModelAttribute("subject") Subject subject) {
-        System.out.println("ADD");
-        System.out.println(subject.getName());
+    @RequestMapping(value = "/subject/add/timeline", method = RequestMethod.POST)
+    public void addTimeLine(@ModelAttribute("subjectId") String subjectId){
+
+        System.out.println(subjectId);
+        /*
+        System.out.println(timeline.getWeekday());
+        System.out.println(timeline.getStartingHour());
+        System.out.println(timeline.getFinishingHour());
+        System.out.println(timeline.getSpaceTimeLine());
+        System.out.println(timeline.getSubjectTimeLine());*/
+
+        //getSubjectModify(timeline.getSubjectTimeLine().getSubjectId());
     }
 
     @RequestMapping("/subject/ajaxdos")
     public @ResponseBody
-    JSONObject peeenis(@RequestParam("var1") String var1, @RequestParam("weekday") String weekday) {
-        Space selectedSpace = spaceService.getByIdWithTimeline(var1);
+    JSONObject showAddTimeLine(@RequestParam("id") String id, @RequestParam("weekday") String weekday) {
+        Space selectedSpace = spaceService.getByIdWithTimeline(id);
         List<String> bookedHours = new ArrayList();
         List<String> endHours = new ArrayList();
         if (selectedSpace != null) {
@@ -95,7 +103,10 @@ public class SubjectController {
                     int finishMin = Integer.parseInt(t.getFinishingHour().split(":")[1]);
 
                     bookedHours.add(startHour + ":" + startMin);
-                    if("00".equals(startMin)) bookedHours.add(startHour + ":30");
+                    if("00".equals(startMin)) {
+                        bookedHours.add(startHour + ":30");
+                        endHours.add(startHour + ":30");
+                    }
                     for (int index = Integer.parseInt(startHour)+1; index < finishHour; index = index + 1) {
                         bookedHours.add(index + ":00");
                         bookedHours.add(index + ":30");
@@ -115,4 +126,6 @@ public class SubjectController {
         data.put("end", endHours);
         return data;
     }
+
+
 }

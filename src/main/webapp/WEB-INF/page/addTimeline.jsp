@@ -28,12 +28,12 @@
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
             <form:hidden path="subjectId"/>
-            <form:form path="/subject/add/timeline" method="post" modelAttribute="timeline">
+            <form:form action="/subject/add/timeline" method="post" modelAttribute="timeline">
                 <h1>Add timeline</h1>
                 <div class="row justify-content-md-center">
                     <div class="col justify-content-md-center"><strong>Spaces:</strong></div>
                     <div class="col">
-                        <form:select class="selectpicker" path="finishingHour" id="select-ajax">
+                        <form:select class="selectpicker" path="spaceTimeLine" id="select-ajax">
                             <form:option selected="selected" value="">Select a typology
                             </form:option>
                             <c:forEach items="${spaces}" var="space">
@@ -57,24 +57,25 @@
                 <div class="row justify-content-md-center">
                     <div class="col justify-content-md-center"><strong>Starting Hour:</strong></div>
                     <div class="col">
-                        <select class="selectpicker" id="select-start" name="select-start">
-                        </select>
+                        <form:select class="selectpicker" id="select-start" name="select-start" path="startingHour">
+                        </form:select>
                     </div>
                     <div class="col justify-content-md-center"><strong>Finishing Hour:</strong></div>
                     <div class="col">
-                        <select class="selectpicker" id="select-finish" name="select-finish">
-                        </select>
+                        <form:select class="selectpicker" id="select-finish" name="select-finish" path="finishingHour">
+                        </form:select>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col justify-content-md-center">
+                        <a class="btn btn-warning" id="btn-ajax">Search availability</a>
+                    </div>
+                    <div class="col justify-content-md-center">
+                        <button type="submit" class="btn btn-dark" id="btn-smb">Save</button>
                     </div>
                 </div>
             </form:form>
-            <div class="row justify-content-md-center">
-                <div class="col justify-content-md-center">
-                    <button class="btn btn-dark" id="btn-ajax">Search availability</button>
-                </div>
-                <div class="col justify-content-md-center">
-                    <button type="submit" class="btn btn-dark" id="btn-smb">Save</button>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -82,9 +83,8 @@
 
 
 <script type="text/javascript">
-    console.log("inici ajax");
+
     $("#btn-ajax").click(function () {
-        console.log("function ajax");
         $.ajax({
 
             type: "GET",
@@ -92,51 +92,39 @@
             dataType: "json",
             contentType: 'application/json',
             data: {
-                "var1": $("#select-ajax option:selected").val(),
+                "id": $("#select-ajax option:selected").val(),
                 "weekday": $("#select-weekday option:selected").val()
             }, //aqui es passen els parametres
             success: function (data) {
-                console.log("success ajax");
-                var options, index, select, select2, option;
-                $.each(data, function (i, result) {
-                    console.log(result);
-                });
+                let options, select, selectFinish, i;
 
                 // Get the raw DOM object for the select box
                 select = document.getElementById('select-start');
-                select2 = document.getElementById('select-finish');
+                selectFinish = document.getElementById('select-finish');
+                
                 // Clear the old options
                 select.options.length = 0;
-                console.log("abans del for ajax");
-                var i;
-                for (i = 8; i < 18/*cars.length*/; ++i) {
-
-                    //option = cars[index];
-                    //select.options.add(new Option(cars[index], cars[index]));
+                
+                // Adds the available hours (from 8 to 17:30)
+                for (i = 8; i < 18; ++i) {
                     select.options.add(new Option(i + ":00", i + ":00"));
                     select.options.add(new Option(i + ":30", i + ":30"));
-
                 }
+                
+                // In order of just doing this process once, we clone the options to the other select
                 options = select.innerHTML;
-                select2.innerHTML = options;
+                selectFinish.innerHTML = options;
 
-                console.log("despres del for ajax");
-
-                // Load the new options
-                //options = data.options; // Or whatever source information you're working with
-                console.log("abans del disable ajax");
-                $.each(data.start, function (index, currEmp) {
-                    console.log(typeof currEmp)
-                    $("#select-start option[value='" + currEmp + "']").attr("disabled", "disabled");
-                    console.log(currEmp); //to print name of employee
+                // Disable the booked options in both select, each one with its list
+                $.each(data.start, function (index, current) {
+                    $("#select-start option[value='" + current + "']").attr("disabled", "disabled");
                 });
 
-                $.each(data.end, function (index, currEmp) {
-                    console.log(typeof currEmp)
-                    $("#select-finish option[value='" + currEmp + "']").attr("disabled", "disabled");
-                    console.log(currEmp); //to print name of employee
+                $.each(data.end, function (index, current) {
+                    $("#select-finish option[value='" + current + "']").attr("disabled", "disabled");
                 });
 
+                // Selectpicker refresh
                 $('#select-finish').selectpicker('refresh');
                 $('#select-start').selectpicker('refresh');
 

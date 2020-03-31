@@ -67,6 +67,7 @@
             </table>
                 <button class="btn btn-light submit-button" type="submit" value="add" name="buttonName"
                         id="add" onclick="return Validate()">Add timeline</button>
+
                 <button class="btn btn-light submit-button" type="submit" value="update" name="buttonName" id="update"
                         onclick="return Validate()">Update</button>
         </div>
