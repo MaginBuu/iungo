@@ -1,12 +1,14 @@
 package com.dao;
 
-import com.model.Group;
+import com.model.ClassGroup;
 
 import java.util.List;
 
 public interface GroupDao {
 
-    void addGroup(Group group);
+    void addGroup(ClassGroup group);
 
-    List<Group> getQueryResults(String query);
+    List<ClassGroup> getQueryResults(String query);
+
+    ClassGroup getClassGroupById(String id);
 }

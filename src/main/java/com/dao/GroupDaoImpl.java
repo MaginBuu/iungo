@@ -1,6 +1,6 @@
 package com.dao;
 
-import com.model.Group;
+import com.model.ClassGroup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,7 +16,7 @@ public class GroupDaoImpl implements GroupDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addGroup(Group group){
+    public void addGroup(ClassGroup group){
         System.out.println("groupCreation");
         Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -32,9 +32,15 @@ public class GroupDaoImpl implements GroupDao {
         }
     }
 
-    public List<Group> getQueryResults(String query){
+    public List<ClassGroup> getQueryResults(String query){
         Session session = sessionFactory.openSession();
-        List<Group> groups = session.createQuery(query).list();
+        List<ClassGroup> groups = session.createQuery(query).list();
         return groups;
+    }
+
+   public ClassGroup getClassGroupById(String id){
+       Session session = sessionFactory.openSession();
+       ClassGroup group = (ClassGroup) session.getNamedQuery("ClassGroup.findById").setParameter("id", id).uniqueResult();;
+       return group;
     }
 }

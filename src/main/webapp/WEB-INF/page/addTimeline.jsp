@@ -28,12 +28,12 @@
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
             <form:hidden path="subjectId"/>
-            <form:form action="/subject/add/timeline" method="post" modelAttribute="timeline">
+            <form:form method="post" action="/subject/add/timeline" modelAttribute="timeline">
                 <h1>Add timeline</h1>
                 <div class="row justify-content-md-center">
                     <div class="col justify-content-md-center"><strong>Spaces:</strong></div>
                     <div class="col">
-                        <form:select class="selectpicker" path="spaceTimeLine" id="select-ajax">
+                        <form:select class="selectpicker" path="timelineSpaceId" id="select-ajax">
                             <form:option selected="selected" value="">Select a typology
                             </form:option>
                             <c:forEach items="${spaces}" var="space">

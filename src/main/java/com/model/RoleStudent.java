@@ -13,7 +13,7 @@ public class RoleStudent extends RoleClass {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "GROUP_ID")
-    private Group group;
+    private ClassGroup group;
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "families")
@@ -21,9 +21,9 @@ public class RoleStudent extends RoleClass {
 
     public RoleStudent() { }
 
-    public Group getGroup() { return group; }
+    public ClassGroup getGroup() { return group; }
 
-    public void setGroup(Group group) { this.group = group; }
+    public void setGroup(ClassGroup group) { this.group = group; }
 
     public List<RoleResponsible> getResponsibles() { return responsibles; }
 

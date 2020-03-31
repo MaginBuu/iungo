@@ -51,7 +51,7 @@ public class ElementController {
         switch (element){
             case "group":
                 model = new ModelAndView("listGroupSearch");
-                List<Group> groups = groupService.getQueryResults(query);
+                List<ClassGroup> groups = groupService.getQueryResults(query);
                 model.addObject("groups", groups);
                 break;
 

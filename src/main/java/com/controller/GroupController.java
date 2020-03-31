@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.model.Course;
-import com.model.Group;
+import com.model.ClassGroup;
 import com.service.CourseService;
 import com.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +42,16 @@ public class GroupController {
 			}
 		}
 		ModelAndView model = new ModelAndView("createGroup");
-		Group group = new Group();
+		ClassGroup group = new ClassGroup();
 		group.setCourse(new Course());
-		model.addObject("group", new Group());
+		model.addObject("group", new ClassGroup());
 		model.addObject("courses", courses);
 		return model;
 	}
 
 	// to insert the data
 	@RequestMapping(value = "/group/creation", method = RequestMethod.POST)
-	public String createGroup(@Valid @ModelAttribute("group") Group group, BindingResult result, ModelMap model) throws ParseException {
+	public String createGroup(@Valid @ModelAttribute("group") ClassGroup group, BindingResult result, ModelMap model) throws ParseException {
 
 		if(group.getCourse() == null){
 			System.out.println("null");

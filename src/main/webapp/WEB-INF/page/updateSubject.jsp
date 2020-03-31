@@ -27,6 +27,7 @@
             <form:form method="post" action="/subject/modify" modelAttribute="subject">
             <h1>Modify Subject</h1>
             <form:hidden path="subjectId"/>
+                <form:hidden path="groupId"/>
             <table class="table table-borderless">
                 <tbody id="myTable">
                 <tr>

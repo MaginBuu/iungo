@@ -10,12 +10,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "groups")
 @NamedQueries({
-//     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
+        @NamedQuery(name = "ClassGroup.findById", query = "SELECT g FROM ClassGroup g WHERE g.groupId = :id"),
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
 
 })
-public class Group implements Serializable {
+public class ClassGroup implements Serializable {
 
     private static final long serialVersionUID = 2681531852204068105L;
     @Id
@@ -47,9 +47,9 @@ public class Group implements Serializable {
     @OneToMany(mappedBy="subjectGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Subject> timeline;
 
-    public Group() { }
+    public ClassGroup() { }
 
-    public Group(String name, Stage stage, int level, String group) {
+    public ClassGroup(String name, Stage stage, int level, String group) {
         this.name = name;
         this.stage = stage;
         this.level = level;
@@ -100,7 +100,7 @@ public class Group implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Group group1 = (Group) o;
+        ClassGroup group1 = (ClassGroup) o;
         return Objects.equals(groupId, group1.groupId) &&
                 Objects.equals(name, group1.name) &&
                 stage == group1.stage &&

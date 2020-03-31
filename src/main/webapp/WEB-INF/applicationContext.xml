@@ -47,7 +47,7 @@
 				<value>com.model.Conversation</value>
 				<value>com.model.Course</value>
 				<value>com.model.Event</value>
-				<value>com.model.Group</value>
+				<value>com.model.ClassGroup</value>
 				<value>com.model.Message</value>
 				<value>com.model.Procedure</value>
 				<value>com.model.Reminder</value>

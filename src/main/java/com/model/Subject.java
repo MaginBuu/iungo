@@ -37,7 +37,10 @@ public class Subject implements Serializable {
 
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "GROUP_ID")
-    private Group subjectGroup;
+    private ClassGroup subjectGroup;
+
+    @Transient
+    private String groupId="";
 
     public Subject() {
     }
@@ -70,12 +73,24 @@ public class Subject implements Serializable {
         this.subjectId = subjectId;
     }
 
-    public Group getSubjectGroup() {
+    public ClassGroup getSubjectGroup() {
         return subjectGroup;
     }
 
-    public void setSubjectGroup(Group subjectGroup) {
+    public void setSubjectGroup(ClassGroup subjectGroup) {
         this.subjectGroup = subjectGroup;
+    }
+
+    public String getGroupId() {
+        String group = groupId;
+        if("".equals(group)) {
+            group = getSubjectGroup().getGroupId();
+        }
+        return group;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     @Override

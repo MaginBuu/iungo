@@ -1,8 +1,10 @@
 package com.controller;
 
+import com.model.ClassGroup;
 import com.model.Space;
 import com.model.Subject;
 import com.model.TimeLine;
+import com.service.GroupService;
 import com.service.SpaceService;
 import com.service.SubjectService;
 import org.json.simple.JSONObject;
@@ -31,6 +33,9 @@ public class SubjectController {
     @Autowired
     SpaceService spaceService;
 
+    @Autowired
+    GroupService groupService;
+
 
     @RequestMapping(value = "/subject/creation")
     public ModelAndView getProcedureCreationForm() {
@@ -56,6 +61,8 @@ public class SubjectController {
     @RequestMapping(value = "/subject/modify", method = RequestMethod.POST)
     public ModelAndView updateSubjectModify(@Valid @ModelAttribute("subject") Subject subject, @ModelAttribute("buttonName")
             String selection) {
+        ClassGroup group = groupService.getClassGroupById(subject.getGroupId());
+        subject.setSubjectGroup(group);
         subjectService.addSubject(subject);
         ModelAndView model;
         switch (selection) {
@@ -78,9 +85,9 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject/add/timeline", method = RequestMethod.POST)
-    public void addTimeLine(@ModelAttribute("subjectId") String subjectId){
+    public String addTimeLine(@ModelAttribute("timeline") TimeLine timeLine){
 
-        System.out.println(subjectId);
+        System.out.println(timeLine);
         /*
         System.out.println(timeline.getWeekday());
         System.out.println(timeline.getStartingHour());
@@ -89,6 +96,10 @@ public class SubjectController {
         System.out.println(timeline.getSubjectTimeLine());*/
 
         //getSubjectModify(timeline.getSubjectTimeLine().getSubjectId());
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
     }
 
     @RequestMapping("/subject/ajaxdos")

@@ -47,6 +47,9 @@ public class TimeLine implements Serializable {
 
     @Transient
     private String spaceName = "";
+    
+    @Transient
+    private String timelineSpaceId = "";
 
     public TimeLine() {
     }
@@ -115,6 +118,18 @@ public class TimeLine implements Serializable {
 
     public void setSpaceName(String spaceName) {
         this.spaceName = spaceName;
+    }
+
+    public String getTimelineSpaceId() {
+        String space = timelineSpaceId;
+        if("".equals(space)) {
+            if(getSpaceTimeLine()!=null) space = getSpaceTimeLine().getSpaceId();
+        }
+        return space;
+    }
+
+    public void setTimelineSpaceId(String timelineSpaceId) {
+        this.timelineSpaceId = timelineSpaceId;
     }
 
     @Override
