@@ -247,10 +247,7 @@ public class User implements Serializable {
 		return sortTickets;
 	}
 
-	public void addRole(Role roleType, RoleClass role){
-		roles.put(roleType, role);
-
-	}
+	public void addRole(Role roleType, RoleClass role){ roles.put(roleType, role); }
 
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
@@ -279,6 +276,44 @@ public class User implements Serializable {
 		roleStudent.addResponsible(roleResponsible);
 		roleResponsible.addChild(roleStudent);
 
+
+		return 0;
+	}
+
+	/**
+	 * This function relates an Student with a group. this.student MUST be an student or this function will not work
+	 *
+	 * @param group to relate with the student.
+	 *
+	 * @return 0 if correct, -1 if incorrect
+	 *
+	 * In order to save this into the the student must be updated.
+	 */
+	public int setGroup(ClassGroup group){
+		if(this.roles.containsKey(Role.STUDENT)){
+			RoleStudent roleStudent = (RoleStudent) this.roles.get(Role.STUDENT);
+			roleStudent.setGroup(group);
+		}else
+			return -1;
+
+		return 0;
+	}
+
+	/**
+	 * This function relates an Student with a group. this.student MUST be an student or this function will not work
+	 *
+	 * @param group to relate with the student.
+	 *
+	 * @return 0 if correct, -1 if incorrect
+	 *
+	 * In order to save this into the the student must be updated.
+	 */
+	public int setSubject(ClassGroup group){
+		if(this.roles.containsKey(Role.STUDENT)){
+			RoleStudent roleStudent = (RoleStudent) this.roles.get(Role.STUDENT);
+			roleStudent.setGroup(group);
+		}else
+			return -1;
 
 		return 0;
 	}

@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "groups")
 @NamedQueries({
+        @NamedQuery(name = "ClassGroup.findAll", query = "SELECT g FROM ClassGroup g"),
         @NamedQuery(name = "ClassGroup.findById", query = "SELECT g FROM ClassGroup g WHERE g.groupId = :id"),
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")

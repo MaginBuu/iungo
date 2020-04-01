@@ -20,5 +20,7 @@ public class GroupServiceImpl implements GroupService {
 
     public List<ClassGroup> getQueryResults(String query) { return groupDao.getQueryResults(query); }
 
+    public List<ClassGroup> getAllClassGroup(){ return groupDao.getAllClassGroup(); }
+
     public ClassGroup getClassGroupById(String id) { return groupDao.getClassGroupById(id); }
 }

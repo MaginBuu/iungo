@@ -54,8 +54,14 @@ public class GroupController {
 	public String createGroup(@Valid @ModelAttribute("group") ClassGroup group, BindingResult result, ModelMap model) throws ParseException {
 
 		if(group.getCourse() == null){
-			System.out.println("null");
-			group.setCourse(courseService.findByDate(2019));}
+			Course course = courseService.findByDate(2019);
+			if (course == null){
+				course = new Course(2019, 2020);
+				courseService.addCourse(course);
+
+			}
+			group.setCourse(course);
+		}
 
 		groupService.addGroup(group);
 

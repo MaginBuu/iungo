@@ -10,5 +10,7 @@ public interface GroupService {
 
     List<ClassGroup> getQueryResults(String query);
 
+    List<ClassGroup> getAllClassGroup();
+
     ClassGroup getClassGroupById(String id);
 }

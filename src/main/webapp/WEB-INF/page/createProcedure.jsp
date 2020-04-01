@@ -12,8 +12,6 @@
 	<link rel="stylesheet" href="/resource/css/creation/Pretty-Registration-Form.css">
 	<link rel="stylesheet" href="/resource/css/creation/styles.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-
-
 </head>
 
 <body>

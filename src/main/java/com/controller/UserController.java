@@ -1,15 +1,12 @@
 package com.controller;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import antlr.StringUtils;
 import com.model.*;
 import com.model.enums.Role;
-import com.service.RoleService;
+import com.service.GroupService;
 import com.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +20,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -33,7 +30,7 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
-	private RoleService roleService;
+	private GroupService groupService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -140,13 +137,13 @@ public class UserController {
 
 
 		if(request.getSession().getAttribute("userRelate") != null && !request.getSession().getAttribute("userRelate").equals("")){
-			return "redirect:/user/creation/relate";
+			return "redirect:/user/creation/relateResponsible";
 		}
 
 		if(roles[0].equals("STUDENT")){
 			request.getSession().setAttribute("userRelate", username);
 			request.getSession().setAttribute("userRelateName", user.getName() + " " + user.getSurname() + " " +user.getSecondSurname());
-			return "redirect:/user/creation/relate";}
+			return "redirect:/user/creation/relateResponsible";}
 
 
 		return "redirect:/";
@@ -193,7 +190,7 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/user/creation/relate", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/creation/relateResponsible", method = RequestMethod.GET)
 	public ModelAndView relateUsers(){
 		ModelAndView model = new ModelAndView("selectResponsible");
 		model.addObject("users", userService.getAllUsersWithRole(Role.RESPONSIBLE));
@@ -204,34 +201,51 @@ public class UserController {
 
 	// FOR TESTING, WILL BE DELETED SOON
 	@RequestMapping(value = "/user/creation/setParentalRelationship")
-	public String findElement(@RequestParam String responsibles){
+	public String seParentalRelationship(@RequestParam String responsibles){
 
-		System.out.println("1");
 
 		//get child and delete session var
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		String childUsername = (String)request.getSession().getAttribute("userRelate");
-		request.getSession().removeAttribute("userRelate");
 		User userChild = userService.getUserByUsername(childUsername);
 
 
-		System.out.println("2");
 		//get responsibles
 		String responsiblesSplitted[] = responsibles.split(",");
 
-		System.out.println("3");
 		for (String id : responsiblesSplitted){
-			System.out.println("4");
 			User user = userService.getUserById(id);
-			System.out.println(user + ">>>>>>>>>>>>>>>>>>>>");
 			userChild.setParentalRelationship(user);
 		}
 
-
-		System.out.println("creating relationship");
-		//System.out.println(userChild.setParentalRelationship(userResponsible));
 		userService.addUser(userChild); // addUser = add or update
-		//userService.addUser(userResponsible);
+		return "redirect:/user/creation/relateGroup";
+	}
+
+	@RequestMapping(value = "/user/creation/relateGroup", method = RequestMethod.GET)
+	public ModelAndView relateGroup(){
+		ModelAndView model = new ModelAndView("relateGroupWithStudent");
+		model.addObject("groups", groupService.getAllClassGroup());
+		return model;
+	}
+
+	// FOR TESTING, WILL BE DELETED SOON
+	@RequestMapping(value = "/user/creation/setStudentGroupRelation")
+	public String setStudentGroupRelation(@RequestParam String groupId){
+
+
+		//get child and delete session var
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String username = (String)request.getSession().getAttribute("userRelate");
+		request.getSession().removeAttribute("userRelate");
+		request.getSession().removeAttribute("userRelateName");
+
+
+		User student = userService.getUserByUsername(username);
+
+		student.setGroup(groupService.getClassGroupById(groupId));
+
+		userService.addUser(student); // addUser = add or update
 		return "redirect:/";
 	}
 

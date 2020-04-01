@@ -43,8 +43,8 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public Course findByDate(int date) {
         Session session = sessionFactory.openSession();
-        List<Course> courses =  session.getNamedQuery("Courses.findByStart").setParameter("startDate", date).list();
+        Course course =  (Course)session.getNamedQuery("Courses.findByStart").setParameter("startDate", date).uniqueResult();
         session.close();
-        return courses.get(0);
+        return course;
     }
 }
