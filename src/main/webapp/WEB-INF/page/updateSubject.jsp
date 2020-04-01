@@ -98,10 +98,10 @@
                 <p id="deleteText">Do you really want to delete this time line?
                     This process cannot be undone.</p>
             </div>
-            <input type="hidden" name="timeLineId" id="timeLineId" value=""/>
+            <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteSpace()">Delete
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteTimeLine()">Delete
                 </button>
             </div>
         </div>
@@ -117,15 +117,18 @@
     }
 
     function deleteClicked(timeLineId) {
-        console.log(timeLineId);
-        var hiddenInput = jQuery('#timeLineId');
-        deleteText.html("Do you really want to delete the time line? This process cannot be undone.")
+        var hiddenInput = jQuery('#elementId');
         hiddenInput.val(timeLineId);
     }
 
-    function deleteSpace(){
-        var hiddenInput = jQuery('#timeLineId');
+    function deleteTimeLine(){
+        var hiddenInput = jQuery('#elementId');
         window.location.href = '/subject/delete/timeline?timeLineId=' + hiddenInput.val();
+    }
+
+    function deleteTeacher(){
+        var hiddenInput = jQuery('#elementId');
+        window.location.href = '/subject/delete/teacher?teacherId=' + hiddenInput.val();
     }
 
 </script>
