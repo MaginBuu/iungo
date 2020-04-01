@@ -3,6 +3,7 @@ package com.model;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,8 +43,10 @@ public class Subject implements Serializable {
     @Transient
     private String groupId="";
 
-    public Subject() {
-    }
+    @ManyToMany(mappedBy="subjects" , fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<RoleStudent> teachers = new LinkedList<>();
+
+    public Subject() { }
 
     public Subject(String name) {
         this.name = name;

@@ -10,5 +10,7 @@ public interface GroupDao {
 
     List<ClassGroup> getQueryResults(String query);
 
+    List<ClassGroup> getAllClassGroup();
+
     ClassGroup getClassGroupById(String id);
 }

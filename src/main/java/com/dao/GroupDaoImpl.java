@@ -35,12 +35,21 @@ public class GroupDaoImpl implements GroupDao {
     public List<ClassGroup> getQueryResults(String query){
         Session session = sessionFactory.openSession();
         List<ClassGroup> groups = session.createQuery(query).list();
+        session.close();
+        return groups;
+    }
+
+    public List<ClassGroup> getAllClassGroup(){
+        Session session = sessionFactory.openSession();
+        List<ClassGroup> groups = session.getNamedQuery("ClassGroup.findAll").list();
+        session.close();
         return groups;
     }
 
    public ClassGroup getClassGroupById(String id){
        Session session = sessionFactory.openSession();
-       ClassGroup group = (ClassGroup) session.getNamedQuery("ClassGroup.findById").setParameter("id", id).uniqueResult();;
+       ClassGroup group = (ClassGroup) session.getNamedQuery("ClassGroup.findById").setParameter("id", id).uniqueResult();
+       session.close();
        return group;
     }
 }
