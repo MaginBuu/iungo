@@ -119,7 +119,6 @@
     function deleteClicked(timeLineId) {
         console.log(timeLineId);
         var hiddenInput = jQuery('#timeLineId');
-        deleteText.html("Do you really want to delete the time line? This process cannot be undone.")
         hiddenInput.val(timeLineId);
     }
 

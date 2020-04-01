@@ -1,5 +1,7 @@
 package com.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,7 +46,7 @@ public class Subject implements Serializable {
     private String groupId="";
 
     @ManyToMany(mappedBy="subjects" , fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<RoleStudent> teachers = new LinkedList<>();
+    private List<RoleTeacher> teachers = new LinkedList<>();
 
     public Subject() { }
 
