@@ -16,7 +16,7 @@ import java.util.Objects;
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
         @NamedQuery(name = "Subject.findById", query = "SELECT r FROM Subject r WHERE r.subjectId = :id"),
-        @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s JOIN FETCH s.timeline k JOIN FETCH s.subjectGroup d WHERE s.subjectId = :id"),
+        @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.timeline k JOIN FETCH s.subjectGroup d WHERE s.subjectId = :id"),
 
 })
 public class Subject implements Serializable {
@@ -74,6 +74,8 @@ public class Subject implements Serializable {
         this.timeline = timeline;
     }
 
+    public void deleteTimeline(TimeLine timeLine) { this.timeline.remove(timeLine); }
+
     public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
     }
@@ -85,6 +87,8 @@ public class Subject implements Serializable {
     public void setSubjectGroup(ClassGroup subjectGroup) {
         this.subjectGroup = subjectGroup;
     }
+
+    public void addTeacher(RoleTeacher roleTeacher){ this.teachers.add(roleTeacher); }
 
     public String getGroupId() {
         String group = groupId;

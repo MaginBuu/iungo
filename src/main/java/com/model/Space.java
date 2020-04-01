@@ -4,6 +4,7 @@ import com.model.enums.Typology;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.List;
 import java.util.Objects;
 
@@ -162,6 +163,8 @@ public class Space implements Serializable {
     public void setTimelines(List<TimeLine> timeline) {
         this.timelines = timeline;
     }
+
+    public void deleteTimeline(TimeLine timeLine){ this.timelines.remove(timeLine); }
 
     @Override
     public boolean equals(Object o) {

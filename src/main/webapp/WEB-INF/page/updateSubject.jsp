@@ -17,7 +17,6 @@
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
@@ -45,7 +44,7 @@
                 <tr>
                     <td style="horiz-align: right; text-align: right"><strong>Group:</strong></td>
 
-                    <td style="vertical-align: middle; text-align: left">${subject.subjectGroup.name}</td>
+                    <td style="vertical-align: middle; text-align: left">${subject.subjectGroup.stage} ${subject.subjectGroup.level} ${subject.subjectGroup.group}</td>
 
                 </tr>
                 </tbody>
@@ -68,9 +67,9 @@
                         <td style="vertical-align: middle; horiz-align: center">${timelines.weekday}</td>
                         <td style="vertical-align: middle; horiz-align: center">${timelines.spaceName}</td>
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                  data-toggle="modal"
-                                                                                  data-target="#myModal"
-                                                                                  onclick="deleteClicked('${timelines.timeLineId}')"><i
+                                  data-toggle="modal"
+                                  data-target="#myModal"
+                                  onclick="deleteClicked('${timelines.timeLineId}')"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>

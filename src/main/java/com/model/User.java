@@ -104,12 +104,6 @@ public class User implements Serializable {
     //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
     private List<Ticket> tickets;
 
-	//@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	//private List<CartItem> cartItem;
-
-	//@OneToOne(mappedBy = "users")
-	//private Customer customer;
-
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="ANTI_BULLYING_REPORT_ID")
 	private List<AntiBullyingReport> antiBullyingReports;
@@ -300,18 +294,19 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * This function relates an Student with a group. this.student MUST be an student or this function will not work
-	 *
-	 * @param group to relate with the student.
+	 * This function relates a Teacher with a group. this.teacher MUST be an teacher or this function will not work
+	 * It updates both relationship lists.
+	 * @param subject to relate with the teacher.
 	 *
 	 * @return 0 if correct, -1 if incorrect
 	 *
 	 * In order to save this into the the student must be updated.
 	 */
-	public int setSubject(ClassGroup group){
-		if(this.roles.containsKey(Role.STUDENT)){
-			RoleStudent roleStudent = (RoleStudent) this.roles.get(Role.STUDENT);
-			roleStudent.setGroup(group);
+	public int setSubject(Subject subject){
+		if(this.roles.containsKey(Role.TEACHER)){
+			RoleTeacher roleTeacher = (RoleTeacher) this.roles.get(Role.TEACHER);
+			roleTeacher.addSubject(subject);
+			subject.addTeacher(roleTeacher);
 		}else
 			return -1;
 

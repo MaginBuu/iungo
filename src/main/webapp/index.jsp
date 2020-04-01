@@ -64,8 +64,6 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-
-
                 <div class="modal-body">
                     <!-- 16:9 aspect ratio -->
                     <div class="row justify-content-center" style="margin-bottom: 0%">

@@ -60,13 +60,10 @@
                         <td style="vertical-align: middle; horiz-align: center">${space.spaceId}</td>
                         <td style="vertical-align: middle; horiz-align: center">${space.name}</td>
                         <td style="vertical-align: middle; horiz-align: center">${space.typology}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
-                                                                                  href="/space/modify?spaceId=${space.spaceId}"><i
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/space/modify?spaceId=${space.spaceId}"><i
                                 class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                  data-toggle="modal"
-                                                                                  data-target="#myModal"
-                                                                                  onclick="deleteClicked('${space.spaceId}', '${space.name}')"><i
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
+                                onclick="deleteClicked('${space.spaceId}', '${space.name}')"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>

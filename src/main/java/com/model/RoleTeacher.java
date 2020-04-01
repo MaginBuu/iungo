@@ -19,5 +19,9 @@ public class RoleTeacher extends RoleClass {
 
     public RoleTeacher() {}
 
+    public void addSubject(Subject subject){
+        this.subjects.add(subject);
+    }
+
 
 }

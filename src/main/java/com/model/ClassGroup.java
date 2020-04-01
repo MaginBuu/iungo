@@ -1,5 +1,7 @@
 package com.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import com.model.enums.Stage;
 import javax.persistence.*;
@@ -60,6 +62,8 @@ public class ClassGroup implements Serializable {
     public String getGroupId() {
         return groupId;
     }
+
+    public void setGroupId(String groupId) { this.groupId = groupId; }
 
     public String getName() {
         return name;

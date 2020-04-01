@@ -8,6 +8,7 @@ import com.service.GroupService;
 import com.service.SpaceService;
 import com.service.SubjectService;
 import com.service.TimeLineService;
+import javafx.animation.Timeline;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,9 +45,13 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/creation")
     public ModelAndView getProcedureCreationForm() {
-        ModelAndView model = new ModelAndView("createSubject");
         Subject subject = new Subject();
+        subject.setSubjectGroup(new ClassGroup());
+        List<ClassGroup> groups = groupService.getAllClassGroup();
+
+        ModelAndView model = new ModelAndView("createSubject");
         model.addObject("subject", subject);
+        model.addObject("groups", groups);
         return model;
     }
 
@@ -57,7 +63,8 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/creation", method = RequestMethod.POST)
     public String createProcedure(@Valid @ModelAttribute("subject") Subject subject) {
-        //PER A FER
+        System.out.println(subject.getSubjectGroup().getGroupId());
+        subjectService.addSubject(subject);
         return "redirect:/";
     }
 
@@ -70,6 +77,7 @@ public class SubjectController {
     @RequestMapping(value = "/subject/modify/{subjectId}", method = RequestMethod.GET)
     public ModelAndView getSubjectModify(@PathVariable String subjectId) {
         Subject subject = subjectService.getByIdWithAll(subjectId);
+        System.out.println(subject.getSubjectId());
         return new ModelAndView("updateSubject", "subject", subject);
     }
 
@@ -189,8 +197,13 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/delete/timeline", method = RequestMethod.GET)
     public String deleteTimeline(@RequestParam String timeLineId){
-        timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
-        spaceService.deleteSpace(spaceService.getById(timeLineId));
+        //TimeLine timeline = timeLineService.getById(timeLineId);
+        //timeline.deleteThis();
+
+        //subjectService.addSubject(timeline.getSubjectTimeLine()); // update
+        //spaceService.addSpace(timeline.getSpaceTimeLine()); //update
+        //timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
+        //spaceService.deleteSpace(spaceService.getById(timeLineId)); <-- ????
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String referer = request.getHeader("Referer");
@@ -206,6 +219,8 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/delete", method = RequestMethod.GET)
     public String deleteSubject(@RequestParam String subjectId){
+
+        subjectService.deleteSubject(subjectService.getById(subjectId));
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String referer = request.getHeader("Referer");

@@ -13,7 +13,7 @@ import java.util.Objects;
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
-        @NamedQuery(name = "TimeLine.findById", query = "SELECT r FROM TimeLine r WHERE r.timeLineId = :id"),
+        @NamedQuery(name = "TimeLine.findById", query = "SELECT r FROM TimeLine r JOIN FETCH r.spaceTimeLine s JOIN FETCH r.subjectTimeLine o WHERE r.timeLineId = :id"),
 
 })
 public class TimeLine implements Serializable {
@@ -162,5 +162,10 @@ public class TimeLine implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(timeLineId, weekday, startingHour, finishingHour);
+    }
+
+    public void deleteThis(){
+        spaceTimeLine.deleteTimeline(this);
+        subjectTimeLine.deleteTimeline(this);
     }
 }

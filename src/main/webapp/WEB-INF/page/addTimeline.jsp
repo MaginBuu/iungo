@@ -34,7 +34,7 @@
                     <div class="col justify-content-md-center"><strong>Spaces:</strong></div>
                     <div class="col">
                         <form:select class="selectpicker" path="timelineSpaceId" id="select-ajax">
-                            <form:option selected="selected" value="">Select a typology
+                            <form:option selected="selected" value="">Select an space
                             </form:option>
                             <c:forEach items="${spaces}" var="space">
                                 <form:option value="${space.spaceId}">${space.name}</form:option>
@@ -44,7 +44,7 @@
                     <div class="col justify-content-md-center"><strong>Weekday:</strong></div>
                     <div class="col">
                         <form:select class="selectpicker" path="weekday" id="select-weekday">
-                            <form:option selected="selected" value="">Select a typology
+                            <form:option selected="selected" value="">Select a day
                             </form:option>
                             <form:option value="MONDAY">Monday</form:option>
                             <form:option value="TUESDAY">Tuesday</form:option>

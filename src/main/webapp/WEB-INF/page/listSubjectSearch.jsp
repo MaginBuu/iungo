@@ -59,13 +59,10 @@
                     <tr>
                         <td style="vertical-align: middle; horiz-align: center">${subject.subjectId}</td>
                         <td style="vertical-align: middle; horiz-align: center">${subject.name}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
-                                                                                  href="/subject/modify/${subject.subjectId}"><i
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/subject/modify/${subject.subjectId}"><i
                                 class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                  data-toggle="modal"
-                                                                                  data-target="#myModal"
-                                                                                  onclick="deleteClicked('${subject.subjectId}', '${subject.name}')"><i
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
+                                onclick="deleteClicked('${subject.subjectId}', '${subject.name}')"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
