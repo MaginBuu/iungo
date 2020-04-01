@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Modify Subject</title>
+    <title>Iungo - Modify Subject</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
@@ -67,7 +67,11 @@
                         <td style="vertical-align: middle; horiz-align: center">${timelines.finishingHour}</td>
                         <td style="vertical-align: middle; horiz-align: center">${timelines.weekday}</td>
                         <td style="vertical-align: middle; horiz-align: center">${timelines.spaceName}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${timelines.timeLineId}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
+                                                                                  data-toggle="modal"
+                                                                                  data-target="#myModal"
+                                                                                  onclick="deleteClicked('${timelines.timeLineId}')"><i
+                                class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -121,12 +125,12 @@
         hiddenInput.val(timeLineId);
     }
 
-    function deleteTimeLine(){
+    function deleteTimeLine() {
         var hiddenInput = jQuery('#elementId');
         window.location.href = '/subject/delete/timeline?timeLineId=' + hiddenInput.val();
     }
 
-    function deleteTeacher(){
+    function deleteTeacher() {
         var hiddenInput = jQuery('#elementId');
         window.location.href = '/subject/delete/teacher?teacherId=' + hiddenInput.val();
     }

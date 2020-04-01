@@ -29,13 +29,23 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 
+	/**
+	 * Processes the petition to get to the ticket creation page.
+	 *
+	 * @return ModelAndView with the desired .jsp file
+	 */
 	@RequestMapping(value = "/ticket/creation", method = RequestMethod.GET)
 	public ModelAndView getTicketCreationForm() {
 		Ticket ticket = new Ticket();
 		return new ModelAndView("createTicket", "ticket", ticket);
 	}
 
-	// to insert the data
+	/**
+	 * Processes the creation of a new ticket by using all parameters from the "New Ticket" form.
+	 *
+	 * @param ticket the ticket with all its elements
+	 * @return returns the user to the main page with an url
+	 */
 	@RequestMapping(value = "/ticket/creation", method = RequestMethod.POST)
 	public String createTicket(@Valid @ModelAttribute(value = "ticket") Ticket ticket, Model model, BindingResult result) throws ParseException {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -53,6 +63,11 @@ public class TicketController {
 		return "redirect:/";
 	}
 
+	/**
+	 * Processes the petition to get to the ticket history page.
+	 *
+	 * @return ModelAndView with the desired .jsp file
+	 */
 	@RequestMapping(value = "/ticket/access", method = RequestMethod.GET)
 	public ModelAndView getTicketAccessForm() {
 		List<Ticket> tickets = ticketService.getOngoingCreatedTickets();
@@ -62,12 +77,24 @@ public class TicketController {
 		return new ModelAndView("ticketAdmin", "tickets", tickets);
 	}
 
+	/**
+	 * Processes the petition to get to the ticket modification page.
+	 *
+	 * @param ticketId the id of the specific ticket to modify
+	 * @return ModelAndView with the desired .jsp file and its required model & objects
+	 */
 	@RequestMapping(value = "/ticket/modify", method = RequestMethod.GET)
 	public ModelAndView getTicketModify(@RequestParam String ticketId) {
 			Ticket ticket = ticketService.getTicketById(ticketId);
 			return new ModelAndView("updateTicket", "ticket", ticket);
 	}
 
+	/**
+	 * Processes the update of a specific ticket by using all parameters from the "Modify Space" form.
+	 *
+	 * @param ticket the updated ticket with all its elements
+	 * @return returns the user to the main page with an url
+	 */
 	@RequestMapping(value = "/ticket/modify", method = RequestMethod.POST)
 	public String updateTicketModify(@Valid @ModelAttribute("ticket") Ticket ticket){
 		Ticket outdatedTicket = ticketService.getTicketById(ticket.getTicketId());

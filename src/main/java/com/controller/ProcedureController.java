@@ -31,7 +31,11 @@ public class ProcedureController {
 	@Autowired
 	UserService userService;
 
-
+	/**
+	 * Processes the petition to get to the procedure creation page.
+	 *
+	 * @return ModelAndView with the desired .jsp file and its required model & objects
+	 */
 	@RequestMapping(value = "/procedure/creation")
 	public ModelAndView getProcedureCreationForm() {
 		ModelAndView model = new ModelAndView("createProcedure");
@@ -51,12 +55,15 @@ public class ProcedureController {
 		System.out.println(user.getRoles().get(Role.RESPONSIBLE));
 		System.out.println(user.getRoles().get(Role.TEACHER));*/
 
-
-
 		return model;
 	}
 
-	// to insert the data
+	/**
+	 * Processes the creation of a new procedure by using all parameters from the "New Procedure" form.
+	 *
+	 * @param procedure the procedure with all its elements
+	 * @return returns the user to the main page with an url
+	 */
 	@RequestMapping(value = "/procedure/creation", method = RequestMethod.POST)
 	public String createProcedure(@Valid @ModelAttribute("procedure") Procedure procedure, BindingResult result, ModelMap model) throws ParseException {
 		procedure.setStatus(ProcedureStatus.CREATED);

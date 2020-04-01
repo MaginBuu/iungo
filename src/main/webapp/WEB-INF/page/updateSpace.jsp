@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Modify Space</title>
+    <title>Iungo - Modify Space</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
@@ -92,12 +92,12 @@
             </table>
             <table class="table table-borderless table-striped">
                 <thead>
-                    <tr>
-                        <th><strong>Starting hour</strong></th>
-                        <th><strong>Finishing hour</strong></th>
-                        <th><strong>Week Day</strong></th>
-                        <th><strong>Subject</strong></th>
-                    </tr>
+                <tr>
+                    <th><strong>Starting hour</strong></th>
+                    <th><strong>Finishing hour</strong></th>
+                    <th><strong>Week Day</strong></th>
+                    <th><strong>Subject</strong></th>
+                </tr>
                 </thead>
                 <tbody id="timelines">
                 <c:forEach items="${space.timelines}" var="timeline">
@@ -110,7 +110,7 @@
                 </c:forEach>
                 </tbody>
             </table>
-                <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
+            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
         </div>
     </div>
 </div>
@@ -123,7 +123,6 @@
         return true;
     }
 </script>
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

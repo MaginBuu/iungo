@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Tickets history</title>
+    <title>Iungo - Groups</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
@@ -42,8 +42,14 @@
                         <td style="vertical-align: middle; horiz-align: center">${group.stage}</td>
                         <td style="vertical-align: middle; horiz-align: center">${group.level}</td>
                         <td style="vertical-align: middle; horiz-align: center">${group.group}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/group/modify?userId=${group.groupId}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${group.groupId}')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
+                                                                                  href="/group/modify?userId=${group.groupId}"><i
+                                class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
+                                                                                  data-toggle="modal"
+                                                                                  data-target="#myModal"
+                                                                                  onclick="deleteClicked('${group.groupId}')"><i
+                                class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -70,7 +76,8 @@
             <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteElement()">Delete</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteElement()">Delete
+                </button>
             </div>
         </div>
     </div>

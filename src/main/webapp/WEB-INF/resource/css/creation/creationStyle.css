@@ -1,3 +1,8 @@
+body {
+  /* background-color:#f1f7fc; */
+  background-color: #f5f5f5;
+}
+
 .creation-form form.custom-form {
   padding: 55px;
   box-sizing: border-box;

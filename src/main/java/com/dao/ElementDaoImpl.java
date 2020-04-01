@@ -10,6 +10,14 @@ public class ElementDaoImpl implements ElementDao{
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * It generates a query depending on its parameters.
+     *
+     * @param element the kind of the element we want to generate a query for
+     * @param id id of the element we want to generate a query for
+     * @param name name of the element we want to generate a query for
+     * @return a string containing the query whith the actual parameters
+     */
     @Override
     public String generateQuery(String element, String id, String name) {
 

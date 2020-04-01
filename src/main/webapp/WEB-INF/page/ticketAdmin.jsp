@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Tickets history</title>
+    <title>Iungo - Tickets</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
@@ -37,7 +37,8 @@
                         <td style="vertical-align: middle; horiz-align: center">${ticket.creationDate}</td>
                         <td style="vertical-align: middle; horiz-align: center">${ticket.status}</td>
                         <td style="vertical-align: middle; horiz-align: center">${ticket.title}</td>
-                        <td style="vertical-align: middle; text-align: center"><a href="/ticket/modify?ticketId=${ticket.ticketId}">Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a
+                                href="/ticket/modify?ticketId=${ticket.ticketId}">Edit</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

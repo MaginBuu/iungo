@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Subjects Found</title>
+    <title>Iungo - Profiles</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
@@ -29,7 +29,7 @@
         hiddenInput.val(userId);
     }
 
-    function deleteElement(){
+    function deleteElement() {
         var hiddenInput = jQuery('#elementId');
         window.location.href = '/user/delete?userId=' + hiddenInput.val();
     }
@@ -60,8 +60,14 @@
                         <td style="vertical-align: middle; horiz-align: center">${user.userId}</td>
                         <td style="vertical-align: middle; horiz-align: center">${user.name} ${user.surname} ${user.secondSurname}</td>
                         <td style="vertical-align: middle; horiz-align: center">${user.username}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/user/modify?userId=${subject.userId}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${user.userId}', '${user.name} ${user.surname} ${user.secondSurname}', '${user.username}')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
+                                                                                  href="/user/modify?userId=${subject.userId}"><i
+                                class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
+                                                                                  data-toggle="modal"
+                                                                                  data-target="#myModal"
+                                                                                  onclick="deleteClicked('${user.userId}', '${user.name} ${user.surname} ${user.secondSurname}', '${user.username}')"><i
+                                class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -88,7 +94,8 @@
             <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteElement()">Delete</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteElement()">Delete
+                </button>
             </div>
         </div>
     </div>

@@ -6,15 +6,12 @@ import com.service.CourseService;
 import com.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+import java.util.Calendar;
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.List;
 
 
@@ -27,16 +24,20 @@ public class GroupController {
 	@Autowired
 	CourseService courseService;
 
-
+	/**
+	 * Processes the petition to get to the group creation page.
+	 *
+	 * @return ModelAndView with the desired .jsp file and its required model & objects
+	 */
 	@RequestMapping(value = "/group/creation")
 	public ModelAndView getGroupCreationForm() {
 
 		List<Course> courses = courseService.getAllCourses();
 		if(courses.size() == 0){
-			int year = 2018;
+			int year = Calendar.getInstance().get(Calendar.YEAR);
 			for(int i = 0; i < 4; i++){
 				year += 1;
-				Course course = new Course(year, year + 1);
+				Course course = new Course(year-1, year);
 				courses.add(course);
 				courseService.addCourse(course);
 			}
@@ -49,14 +50,20 @@ public class GroupController {
 		return model;
 	}
 
-	// to insert the data
+	/**
+	 * Processes the creation of a new group by using all parameters from the "New Group" form.
+	 *
+	 * @param group the group with all its elements
+	 * @return returns the user to the main page with an url
+	 */
 	@RequestMapping(value = "/group/creation", method = RequestMethod.POST)
-	public String createGroup(@Valid @ModelAttribute("group") ClassGroup group, BindingResult result, ModelMap model) throws ParseException {
+	public String createGroup(@Valid @ModelAttribute("group") ClassGroup group) {
 
 		if(group.getCourse() == null){
-			Course course = courseService.findByDate(2019);
+			int year = Calendar.getInstance().get(Calendar.YEAR); // Gets the actual year
+			Course course = courseService.findByDate(year-1); // Looks for a date one less, as the course starts by the smaller year (2019-2020)
 			if (course == null){
-				course = new Course(2019, 2020);
+				course = new Course(year-1, year); // It generates a new course
 				courseService.addCourse(course);
 
 			}

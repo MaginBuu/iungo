@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Add timeline</title>
+    <title>Iungo - Add Timeline</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
@@ -66,7 +66,7 @@
                         </form:select>
                     </div>
                 </div>
-                <div class="row justify-content-center"  style="padding-top: 5px;">
+                <div class="row justify-content-center" style="padding-top: 5px;">
                     <div class="col">
                         <a class="btn alt-submit-button" id="btn-ajax">Search availability</a>
                     </div>
@@ -101,16 +101,16 @@
                 // Get the raw DOM object for the select box
                 select = document.getElementById('select-start');
                 selectFinish = document.getElementById('select-finish');
-                
+
                 // Clear the old options
                 select.options.length = 0;
-                
+
                 // Adds the available hours (from 8 to 17:30)
                 for (i = 8; i < 18; ++i) {
                     select.options.add(new Option(i + ":00", i + ":00"));
                     select.options.add(new Option(i + ":30", i + ":30"));
                 }
-                
+
                 // In order of just doing this process once, we clone the options to the other select
                 options = select.innerHTML;
                 selectFinish.innerHTML = options;

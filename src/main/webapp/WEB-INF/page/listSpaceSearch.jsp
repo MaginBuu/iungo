@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Spaces Found</title>
+    <title>Iungo - Spaces</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
@@ -28,7 +28,7 @@
         hiddenInput.val(spaceId);
     }
 
-    function deleteSpace(){
+    function deleteSpace() {
         var hiddenInput = jQuery('#spaceId');
         window.location.href = '/space/delete?spaceId=' + hiddenInput.val();
     }
@@ -60,8 +60,14 @@
                         <td style="vertical-align: middle; horiz-align: center">${space.spaceId}</td>
                         <td style="vertical-align: middle; horiz-align: center">${space.name}</td>
                         <td style="vertical-align: middle; horiz-align: center">${space.typology}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/space/modify?spaceId=${space.spaceId}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${space.spaceId}', '${space.name}')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
+                                                                                  href="/space/modify?spaceId=${space.spaceId}"><i
+                                class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
+                                                                                  data-toggle="modal"
+                                                                                  data-target="#myModal"
+                                                                                  onclick="deleteClicked('${space.spaceId}', '${space.name}')"><i
+                                class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -89,7 +95,8 @@
             <input type="hidden" name="spaceId" id="spaceId" value=""/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteSpace()">Delete</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteSpace()">Delete
+                </button>
             </div>
         </div>
     </div>

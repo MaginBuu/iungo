@@ -11,16 +11,12 @@ import com.service.TimeLineService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +36,11 @@ public class SubjectController {
     @Autowired
     TimeLineService timeLineService;
 
+    /**
+     * Processes the petition to get to the subject creation page.
+     *
+     * @return ModelAndView with the desired .jsp file and its required model & objects
+     */
     @RequestMapping(value = "/subject/creation")
     public ModelAndView getProcedureCreationForm() {
         ModelAndView model = new ModelAndView("createSubject");
@@ -48,19 +49,38 @@ public class SubjectController {
         return model;
     }
 
-    // to insert the data
+    /**
+     * Processes the creation of a new subject by using all parameters from the "New Subject" form.
+     *
+     * @param subject the space with all its elements
+     * @return returns the user to the main page with an url
+     */
     @RequestMapping(value = "/subject/creation", method = RequestMethod.POST)
-    public String createProcedure(@Valid @ModelAttribute("subject") Subject subject, BindingResult result, ModelMap model) throws ParseException {
+    public String createProcedure(@Valid @ModelAttribute("subject") Subject subject) {
         //PER A FER
         return "redirect:/";
     }
 
+    /**
+     * Processes the petition to get to the subject modification page.
+     *
+     * @param subjectId the id of the specific subject to modify
+     * @return ModelAndView with the desired .jsp file and its required model & objects
+     */
     @RequestMapping(value = "/subject/modify/{subjectId}", method = RequestMethod.GET)
     public ModelAndView getSubjectModify(@PathVariable String subjectId) {
         Subject subject = subjectService.getByIdWithAll(subjectId);
         return new ModelAndView("updateSubject", "subject", subject);
     }
 
+    /**
+     * Processes the update of a specific space by using all parameters from the "Modify Space" form or processes the
+     * petition to create a new time line for the space.
+     *
+     * @param subject the updated space with all its elements
+     * @param selection the option that the user selects
+     * @return returns the user to a page depending on the users previous choice
+     */
     @RequestMapping(value = "/subject/modify", method = RequestMethod.POST)
     public ModelAndView updateSubjectModify(@Valid @ModelAttribute("subject") Subject subject, @ModelAttribute("buttonName")
             String selection) {
@@ -87,6 +107,12 @@ public class SubjectController {
 
     }
 
+    /**
+     * Processes the creation of a new time line by using all parameters from the "New TimeLine" form.
+     *
+     * @param timeLine the time line with all its elements
+     * @return returns the user to the previous page with an url
+     */
     @RequestMapping(value = "/subject/add/timeline", method = RequestMethod.POST)
     public String addTimeLine(@ModelAttribute("timeline") TimeLine timeLine){
 
@@ -100,27 +126,39 @@ public class SubjectController {
         return "redirect:/subject/modify/"+timeLine.getTimelineSubjectId()+".do";
     }
 
-
+    /**
+     * Method created in order to response an Ajax petition. It gets all booked hours in a space.
+     *
+     * @param id the id of the space in which we want to book a time line
+     * @param weekday day of the week to book
+     * and the other for the finishing hours
+     */
     @RequestMapping("/subject/requestHours")
     public @ResponseBody
     JSONObject showAddTimeLine(@RequestParam("id") String id, @RequestParam("weekday") String weekday) {
         Space selectedSpace = spaceService.getByIdWithTimeline(id);
-        List<String> bookedHours = new ArrayList();
-        List<String> endHours = new ArrayList();
+        List<String> bookedHours = new ArrayList(); // Start and meantime booked hours
+        List<String> endHours = new ArrayList(); // Meantime and finish booked hours
         if (selectedSpace != null) {
-            for (TimeLine t : selectedSpace.getTimelines()) {
-                if ((t.getWeekday().toString().toLowerCase()).equals(weekday.toLowerCase())) {
+            for (TimeLine t : selectedSpace.getTimelines()) { // For all the timelines in a specific space
+                if ((t.getWeekday().toString().toLowerCase()).equals(weekday.toLowerCase())) { // If the time line is in within the weekday
+
+                    // Start and finishing hours parse
                     String startHour = t.getStartingHour().split(":")[0];
                     String startMin = t.getStartingHour().split(":")[1];
                     int finishHour = Integer.parseInt(t.getFinishingHour().split(":")[0]);
                     int finishMin = Integer.parseInt(t.getFinishingHour().split(":")[1]);
 
-                    if("8".equals(startHour)) endHours.add(startHour + ":00");
+                    endHours.add("8:00"); // We add this hour to the endHours as we can't finish a class at 8:00
+                    bookedHours.add("17:30"); // We add this hour to the bookedHours as we can't start a class at 17:30
+
                     bookedHours.add(startHour + ":" + startMin);
+                    // If the starting hour is an o'clock we add the half past time to both lists
                     if("00".equals(startMin)) {
                         bookedHours.add(startHour + ":30");
                         endHours.add(startHour + ":30");
                     }
+                    // Navigation in all in between hours
                     for (int index = Integer.parseInt(startHour)+1; index < finishHour; index = index + 1) {
                         bookedHours.add(index + ":00");
                         bookedHours.add(index + ":30");
@@ -128,6 +166,7 @@ public class SubjectController {
                         endHours.add(index + ":00");
                         endHours.add(index + ":30");
                     }
+                    // Same process as starting hour in reverse
                     if (finishMin == 30) {
                         bookedHours.add(finishHour + ":00");
                         endHours.add(finishHour + ":00");
@@ -142,9 +181,14 @@ public class SubjectController {
         return data;
     }
 
+    /**
+     * Processes the removal of a specific time line.
+     *
+     * @param timeLineId the id of the time line to delete
+     * @return returns the user to the previous page with an url
+     */
     @RequestMapping(value = "/subject/delete/timeline", method = RequestMethod.GET)
-    public String deleteSpace(@RequestParam String timeLineId){
-        System.out.println("delete " + timeLineId);
+    public String deleteTimeline(@RequestParam String timeLineId){
         timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
         spaceService.deleteSpace(spaceService.getById(timeLineId));
 
@@ -154,4 +198,18 @@ public class SubjectController {
         return "redirect:" + referer;
     }
 
+    /**
+     * Processes the removal of a specific subject.
+     *
+     * @param subjectId the id of the subject to delete
+     * @return returns the user to the previous page with an url
+     */
+    @RequestMapping(value = "/subject/delete", method = RequestMethod.GET)
+    public String deleteSubject(@RequestParam String subjectId){
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
+    }
 }

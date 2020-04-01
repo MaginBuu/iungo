@@ -1,4 +1,4 @@
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 
@@ -8,16 +8,15 @@
     </sec:authorize>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>SignIn</title>
+    <title>Iungo - Log In</title>
     <link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resource/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="resource/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="resource/css/creation/Pretty-Registration-Form.css">
-    <link rel="stylesheet" href="resource/css/styles-login.css">
+    <link rel="stylesheet" href="resource/css/loginStyle.css">
+    <link rel="stylesheet" href="resource/css/creation/creationStyle.css">
 </head>
 
 <body>
-<%@ include file="navbar.jsp"%>
+<%@ include file="navbar.jsp" %>
 <div class="login-clean">
     <form name="loginForm" action="<c:url value="/j_spring_security_check"/>" method="post">
         <h2 class="sr-only">Login Form</h2>
@@ -37,10 +36,16 @@
 
         <fieldset>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
-            <div class="form-group"><input class="form-control" placeholder="E-mail" name="j_username" type="email"></div>
-            <div class="form-group"><input class="form-control" placeholder="Password" name="j_password" type="password"></div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a class="forgot" href="#">Forgot your email or password?</a></form>
-        </fieldset>
+            <div class="form-group"><input class="form-control" placeholder="E-mail" name="j_username" type="email">
+            </div>
+            <div class="form-group"><input class="form-control" placeholder="Password" name="j_password"
+                                           type="password"></div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">Log In</button>
+            </div>
+            <a class="forgot" href="#">Forgot your email or password?</a>
+    </form>
+    </fieldset>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="resource/bootstrap/js/bootstrap.min.js"></script>
