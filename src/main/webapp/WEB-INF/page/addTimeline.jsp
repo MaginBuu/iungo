@@ -27,8 +27,8 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
-            <form:hidden path="subjectId"/>
             <form:form method="post" action="/subject/add/timeline" modelAttribute="timeline">
+                <form:hidden path="timelineSubjectId"/>
                 <h1>Add timeline</h1>
                 <div class="row justify-content-md-center">
                     <div class="col justify-content-md-center"><strong>Spaces:</strong></div>
@@ -54,7 +54,7 @@
                         </form:select>
                     </div>
                 </div>
-                <div class="row justify-content-md-center">
+                <div class="row justify-content-md-center" style="padding-top: 5px;">
                     <div class="col justify-content-md-center"><strong>Starting Hour:</strong></div>
                     <div class="col">
                         <form:select class="selectpicker" id="select-start" name="select-start" path="startingHour">
@@ -66,12 +66,12 @@
                         </form:select>
                     </div>
                 </div>
-                <div class="row justify-content-md-center">
-                    <div class="col justify-content-md-center">
-                        <a class="btn btn-warning" id="btn-ajax">Search availability</a>
+                <div class="row justify-content-center"  style="padding-top: 5px;">
+                    <div class="col">
+                        <a class="btn alt-submit-button" id="btn-ajax">Search availability</a>
                     </div>
-                    <div class="col justify-content-md-center">
-                        <button type="submit" class="btn btn-dark" id="btn-smb">Save</button>
+                    <div class="col">
+                        <button type="submit" class="btn submit-button" id="btn-smb">Save</button>
                     </div>
                 </div>
             </form:form>
@@ -88,7 +88,7 @@
         $.ajax({
 
             type: "GET",
-            url: "ajaxdos",
+            url: "requestHours",
             dataType: "json",
             contentType: 'application/json',
             data: {

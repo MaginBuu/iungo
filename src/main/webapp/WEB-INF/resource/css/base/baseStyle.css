@@ -139,6 +139,18 @@
   outline: none;
 }
 
+.creation-form .custom-div .alt-submit-button {
+  border-radius: 2px;
+  background: #dec54e;
+  color: #5f5f5f;
+  font-weight: bold;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 14px 22px;
+  border: 0;
+  margin: 30px;
+  outline: none;
+}
+
 .creation-form .custom-form .submit-button {
   border-radius: 2px;
   background: #DE9D3F;

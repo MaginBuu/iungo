@@ -45,7 +45,7 @@ public class SpaceController {
 
 	@RequestMapping(value = "/space/modify", method = RequestMethod.GET)
 	public ModelAndView getSpaceModify(@RequestParam String spaceId) {
-		Space space = spaceService.getById(spaceId);
+		Space space = spaceService.getByIdWithTimeline(spaceId);
 		return new ModelAndView("updateSpace", "space", space);
 	}
 
