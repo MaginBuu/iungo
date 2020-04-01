@@ -26,6 +26,7 @@
 		<c:url value="/user/creation" var="url"></c:url>
 		<form:form class="custom-form" method="post" action="/user/creation" commandName="user">
 			<h1>Register Form</h1>
+			<input type="hidden" name="usernameRelate" id="usernameRelate" value="${sessionScope.userRelate}"/>
 			<div class="form-row form-group";>
 				<div class="col-sm-3 label-column"><form:label path="name" class="col-form-label">Name </form:label></div>
 				<div class="col-sm-3 input-column"><form:input path="name" class="form-control" type="text"></form:input></div>
@@ -74,15 +75,23 @@
 <script type="text/javascript">
 	function Validate() {
 		var select = jQuery("#role");
+		var usernameRelate = jQuery("#usernameRelate");
 		var roles = select.val().toString().split(',');
 		if(roles.length > 1 && roles[0] === "STUDENT") {
 			alert("student only can have 1 role assigned");
 			return false;
 		}
-		else if(roles[0] === '') {
+		else if(roles[0] === "") {
 			alert("user has to have at least one role assigned");
 			return false;
 		}
+		else if(usernameRelate.val() !== "" && usernameRelate.val() != null){
+			if(roles[0] !== "RESPONSIBLE"){
+				alert("This user must be a responsible");
+				return false;
+			}
+		}
+
 		return true;
 	}
 </script>

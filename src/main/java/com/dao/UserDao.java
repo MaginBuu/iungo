@@ -20,6 +20,8 @@ public interface UserDao {
 	
 	User getUserById(String userId);
 
+	User getUserByUsername(String username);
+
 	User getAllUserTickets();
 
 	User getAllUserRoles(String id);

@@ -18,6 +18,8 @@ public interface UserService {
 
 	User getUserById(String userId);
 
+	User getUserByUsername(String username);
+
 	User getAllUserTickets();
 
 	List<User> getAllUsersWithRole(Role role);

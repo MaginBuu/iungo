@@ -127,6 +127,16 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	public User getUserByUsername(String username) {
+		// Reading the records from the table
+		Session session = sessionFactory.openSession();
+		User user = (User) session.getNamedQuery("Users.findByUsername").setParameter("username", username).uniqueResult();
+		session.close();
+		return user;
+
+	}
+
+
 	public User getUserByEmail(String email) {
 		// Reading the records from the table
 		Session session = sessionFactory.openSession();
