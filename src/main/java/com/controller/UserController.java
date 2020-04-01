@@ -9,6 +9,7 @@ import com.model.*;
 import com.model.enums.Role;
 import com.service.RoleService;
 import com.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -82,6 +83,8 @@ public class UserController {
 						+ user.getSurname().substring(0, Math.min(user.getSurname().length(), 3));
 		}
 
+		username = username.toLowerCase();
+
 
 		List<String> usernames = userService.getAllUsernames(username);
 
@@ -99,6 +102,8 @@ public class UserController {
 
 		user.setUsername(username);
 
+
+		//set roles
 		String roles[] = user.getRole().split(",");
 
 		for (String role : roles){
@@ -122,6 +127,7 @@ public class UserController {
 		userService.addUser(user);
 
 
+		//set authorities
 		Authorities authorities = new Authorities();
 		//the authority saved is the last one as it is the one that allow the user to do more things
 		authorities.setAuthorities(roles[roles.length-1]);
@@ -129,15 +135,24 @@ public class UserController {
 		userService.addAuthorities(authorities);
 
 
+		//check if this user will relate with a child
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-		if(roles[0].equals(Role.STUDENT)){
-			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-			request.getSession().setAttribute("userNameRelation", username);
-			return "redirect:/user/creation/relateChildResponsible";}
+
+		if(request.getSession().getAttribute("userRelate") != null && !request.getSession().getAttribute("userRelate").equals("")){
+			return "redirect:/user/creation/relate";
+		}
+
+		if(roles[0].equals("STUDENT")){
+			request.getSession().setAttribute("userRelate", username);
+			request.getSession().setAttribute("userRelateName", user.getName() + " " + user.getSurname() + " " +user.getSecondSurname());
+			return "redirect:/user/creation/relate";}
 
 
 		return "redirect:/";
 	}
+
+
 
 	@RequestMapping(value = "/user/delete", method = RequestMethod.GET)
 	public String deleteSpace(@RequestParam String userId){
@@ -178,10 +193,9 @@ public class UserController {
 	}
 
 
-	// FOR TESTING, WILL BE DELETED SOON
-	@RequestMapping(value = "/user/creation/relateChildResponsible")
-	public ModelAndView getProcedureCreationForm() {
-		ModelAndView model = new ModelAndView("selectChild");
+	@RequestMapping(value = "/user/creation/relate", method = RequestMethod.GET)
+	public ModelAndView relateUsers(){
+		ModelAndView model = new ModelAndView("selectResponsible");
 		model.addObject("users", userService.getAllUsersWithRole(Role.RESPONSIBLE));
 
 		return model;
@@ -189,15 +203,35 @@ public class UserController {
 
 
 	// FOR TESTING, WILL BE DELETED SOON
-	@RequestMapping(value = "/user/creation/selectChild", method = RequestMethod.POST)
-	public String findElement(@Valid @ModelAttribute("child") String child){
-		System.out.println(child);
-		User userResponsible = userService.getUserById("ff8080817111975101711197a00a0000");
-		User userChild = userService.getUserById(child);
+	@RequestMapping(value = "/user/creation/setParentalRelationship")
+	public String findElement(@RequestParam String responsibles){
+
+		System.out.println("1");
+
+		//get child and delete session var
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String childUsername = (String)request.getSession().getAttribute("userRelate");
+		request.getSession().removeAttribute("userRelate");
+		User userChild = userService.getUserByUsername(childUsername);
+
+
+		System.out.println("2");
+		//get responsibles
+		String responsiblesSplitted[] = responsibles.split(",");
+
+		System.out.println("3");
+		for (String id : responsiblesSplitted){
+			System.out.println("4");
+			User user = userService.getUserById(id);
+			System.out.println(user + ">>>>>>>>>>>>>>>>>>>>");
+			userChild.setParentalRelationship(user);
+		}
+
+
 		System.out.println("creating relationship");
-		System.out.println(userChild.setParentalRelationship(userResponsible));
-		userService.addUser(userChild);
-		userService.addUser(userResponsible);
+		//System.out.println(userChild.setParentalRelationship(userResponsible));
+		userService.addUser(userChild); // addUser = add or update
+		//userService.addUser(userResponsible);
 		return "redirect:/";
 	}
 
