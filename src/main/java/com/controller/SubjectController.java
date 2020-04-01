@@ -7,6 +7,7 @@ import com.model.TimeLine;
 import com.service.GroupService;
 import com.service.SpaceService;
 import com.service.SubjectService;
+import com.service.TimeLineService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,8 @@ public class SubjectController {
     @Autowired
     GroupService groupService;
 
+    @Autowired
+    TimeLineService timeLineService;
 
     @RequestMapping(value = "/subject/creation")
     public ModelAndView getProcedureCreationForm() {
@@ -70,7 +73,7 @@ public class SubjectController {
                 model = new ModelAndView("addTimeline");
                 List<Space> spaces = spaceService.getAll();
                 TimeLine timeline = new TimeLine();
-                model.addObject("subjectId", subject.getSubjectId());
+                timeline.setTimelineSubjectId(subject.getSubjectId());
                 model.addObject("spaces", spaces);
                 model.addObject("timeline", timeline);
                 break;
@@ -88,21 +91,17 @@ public class SubjectController {
     public String addTimeLine(@ModelAttribute("timeline") TimeLine timeLine){
 
         System.out.println(timeLine);
-        /*
-        System.out.println(timeline.getWeekday());
-        System.out.println(timeline.getStartingHour());
-        System.out.println(timeline.getFinishingHour());
-        System.out.println(timeline.getSpaceTimeLine());
-        System.out.println(timeline.getSubjectTimeLine());*/
+        Space space = spaceService.getById(timeLine.getTimelineSpaceId());
+        Subject subject = subjectService.getById(timeLine.getTimelineSubjectId());
+        timeLine.setSubjectTimeLine(subject);
+        timeLine.setSpaceTimeLine(space);
+        timeLineService.addTimeLine(timeLine);
 
-        //getSubjectModify(timeline.getSubjectTimeLine().getSubjectId());
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String referer = request.getHeader("Referer");
-
-        return "redirect:" + referer;
+        return "redirect:/subject/modify/"+timeLine.getTimelineSubjectId()+".do";
     }
 
-    @RequestMapping("/subject/ajaxdos")
+
+    @RequestMapping("/subject/requestHours")
     public @ResponseBody
     JSONObject showAddTimeLine(@RequestParam("id") String id, @RequestParam("weekday") String weekday) {
         Space selectedSpace = spaceService.getByIdWithTimeline(id);
@@ -116,6 +115,7 @@ public class SubjectController {
                     int finishHour = Integer.parseInt(t.getFinishingHour().split(":")[0]);
                     int finishMin = Integer.parseInt(t.getFinishingHour().split(":")[1]);
 
+                    if("8".equals(startHour)) endHours.add(startHour + ":00");
                     bookedHours.add(startHour + ":" + startMin);
                     if("00".equals(startMin)) {
                         bookedHours.add(startHour + ":30");
@@ -132,6 +132,7 @@ public class SubjectController {
                         bookedHours.add(finishHour + ":00");
                         endHours.add(finishHour + ":00");
                     }
+                    endHours.add(finishHour+":"+finishMin);
                 }
             }
         }
@@ -141,5 +142,16 @@ public class SubjectController {
         return data;
     }
 
+    @RequestMapping(value = "/subject/delete/timeline", method = RequestMethod.GET)
+    public String deleteSpace(@RequestParam String timeLineId){
+        System.out.println("delete " + timeLineId);
+        timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
+        spaceService.deleteSpace(spaceService.getById(timeLineId));
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
+    }
 
 }

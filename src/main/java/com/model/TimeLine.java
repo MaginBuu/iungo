@@ -13,6 +13,7 @@ import java.util.Objects;
 //     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
+        @NamedQuery(name = "TimeLine.findById", query = "SELECT r FROM TimeLine r WHERE r.timeLineId = :id"),
 
 })
 public class TimeLine implements Serializable {
@@ -22,7 +23,7 @@ public class TimeLine implements Serializable {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "TIMELINE_ID")
-    private String timeLineID;
+    private String timeLineId;
 
     @Column(name = "WEEKDAY")
     //@NotNull
@@ -51,6 +52,9 @@ public class TimeLine implements Serializable {
     @Transient
     private String timelineSpaceId = "";
 
+    @Transient
+    private String timelineSubjectId = "";
+
     public TimeLine() {
     }
 
@@ -60,8 +64,8 @@ public class TimeLine implements Serializable {
         this.finishingHour = finishingHour;
     }
 
-    public String getTimeLineID() {
-        return timeLineID;
+    public String getTimeLineId() {
+        return timeLineId;
     }
 
     public WeekDay getWeekday() {
@@ -132,12 +136,24 @@ public class TimeLine implements Serializable {
         this.timelineSpaceId = timelineSpaceId;
     }
 
+    public String getTimelineSubjectId() {
+        String space = timelineSubjectId;
+        if("".equals(space)) {
+            if(getSubjectTimeLine()!=null) space = getSubjectTimeLine().getSubjectId();
+        }
+        return space;
+    }
+
+    public void setTimelineSubjectId(String timelineSubjectId) {
+        this.timelineSubjectId = timelineSubjectId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TimeLine timeLine = (TimeLine) o;
-        return Objects.equals(timeLineID, timeLine.timeLineID) &&
+        return Objects.equals(timeLineId, timeLine.timeLineId) &&
                 weekday == timeLine.weekday &&
                 Objects.equals(startingHour, timeLine.startingHour) &&
                 Objects.equals(finishingHour, timeLine.finishingHour);
@@ -145,6 +161,6 @@ public class TimeLine implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(timeLineID, weekday, startingHour, finishingHour);
+        return Objects.hash(timeLineId, weekday, startingHour, finishingHour);
     }
 }

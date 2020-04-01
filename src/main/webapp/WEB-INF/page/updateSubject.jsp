@@ -13,8 +13,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
 
@@ -27,7 +31,7 @@
             <form:form method="post" action="/subject/modify" modelAttribute="subject">
             <h1>Modify Subject</h1>
             <form:hidden path="subjectId"/>
-                <form:hidden path="groupId"/>
+            <form:hidden path="groupId"/>
             <table class="table table-borderless">
                 <tbody id="myTable">
                 <tr>
@@ -48,12 +52,13 @@
             </table>
             <table class="table table-borderless table-striped">
                 <thead>
-                    <tr>
-                        <th><strong>Starting hour</strong></th>
-                        <th><strong>Finishing hour</strong></th>
-                        <th><strong>Week Day</strong></th>
-                        <th><strong>Space</strong></th>
-                    </tr>
+                <tr>
+                    <th><strong>Starting hour</strong></th>
+                    <th><strong>Finishing hour</strong></th>
+                    <th><strong>Week Day</strong></th>
+                    <th><strong>Space</strong></th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody id="timelines">
                 <c:forEach items="${subject.timeline}" var="timelines">
@@ -62,55 +67,70 @@
                         <td style="vertical-align: middle; horiz-align: center">${timelines.finishingHour}</td>
                         <td style="vertical-align: middle; horiz-align: center">${timelines.weekday}</td>
                         <td style="vertical-align: middle; horiz-align: center">${timelines.spaceName}</td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${timelines.timeLineId}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-                <button class="btn btn-light submit-button" type="submit" value="add" name="buttonName"
-                        id="add" onclick="return Validate()">Add timeline</button>
+            <button class="btn btn-light submit-button" type="submit" value="add" name="buttonName"
+                    id="add" onclick="return Validate()">Add timeline
+            </button>
 
-                <button class="btn btn-light submit-button" type="submit" value="update" name="buttonName" id="update"
-                        onclick="return Validate()">Update</button>
+            <button class="btn btn-light submit-button" type="submit" value="update" name="buttonName" id="update"
+                    onclick="return Validate()">Update
+            </button>
         </div>
     </div>
 </div>
+
+<!-- Modal HTML -->
+<div id="myModal" name="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title">Are you sure?</h4>
+                <p id="deleteText">Do you really want to delete this time line?
+                    This process cannot be undone.</p>
+            </div>
+            <input type="hidden" name="timeLineId" id="timeLineId" value=""/>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteSpace()">Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </form:form>
-</div>
-</div>
-<div align="center">
-    <br> <br> ${message} <br> <br>
-    <div id="result"></div>
-    <br>
-</div>
 
 <script type="text/javascript">
     function Validate() {
         return true;
     }
 
-</script>
-
-
-<!--
-<script type="text/javascript">
-    function crunchifyAjax() {
-        $.ajax({
-            url : 'ajaxtest.html',
-            success : function(data) {
-                $('#result').html(data);
-            }
-        });
+    function deleteClicked(timeLineId) {
+        console.log(timeLineId);
+        var hiddenInput = jQuery('#timeLineId');
+        deleteText.html("Do you really want to delete the time line? This process cannot be undone.")
+        hiddenInput.val(timeLineId);
     }
+
+    function deleteSpace(){
+        var hiddenInput = jQuery('#timeLineId');
+        window.location.href = '/subject/delete/timeline?timeLineId=' + hiddenInput.val();
+    }
+
 </script>
 
-<script type="text/javascript">
-    var intervalId = 0;
-    intervalId = setInterval(crunchifyAjax, 3000);
-</script>
--->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 </body>
 
 </html>
