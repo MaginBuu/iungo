@@ -16,7 +16,7 @@ public class TimeLineServiceImpl implements TimeLineService {
         timeLineDao.addTimeLine(timeline);
     }
 
-    public void deleteTimeLine(TimeLine timeline) { timeLineDao.addTimeLine(timeline); }
+    public void deleteTimeLine(TimeLine timeline) { timeLineDao.deleteTimeLine(timeline); }
 
     public TimeLine getById(String id) { return timeLineDao.getById(id); }
 }
