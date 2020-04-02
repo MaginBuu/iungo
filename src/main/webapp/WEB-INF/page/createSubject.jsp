@@ -25,13 +25,13 @@
             <h1>Create Subject</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="name"
-                                                               class="col-form-label">Level </form:label></div>
+                                                               class="col-form-label">Name </form:label></div>
                 <div class="col-sm-8 input-column"><form:input path="name" class="form-control"
                                                                type="text"></form:input></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
-                    <form:label path="subjectGroup" class="col-form-label">Name </form:label></div>
+                    <form:label path="subjectGroup" class="col-form-label">Group </form:label></div>
                 <div class="col-sm-8 input-column">
                     <form:select class="selectpicker" data-width="100%" path="subjectGroup.groupId" id="groupSelect" name="groupSelect">
                         <form:option disabled="disabled" selected="selected" value="">Select a group</form:option>

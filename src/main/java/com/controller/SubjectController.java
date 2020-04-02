@@ -197,13 +197,9 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/delete/timeline", method = RequestMethod.GET)
     public String deleteTimeline(@RequestParam String timeLineId){
-        //TimeLine timeline = timeLineService.getById(timeLineId);
-        //timeline.deleteThis();
 
-        //subjectService.addSubject(timeline.getSubjectTimeLine()); // update
-        //spaceService.addSpace(timeline.getSpaceTimeLine()); //update
         timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
-        spaceService.deleteSpace(spaceService.getById(timeLineId)); //<-- ????
+        //spaceService.deleteSpace(spaceService.getById(timeLineId)); //<-- ????
 
         System.out.println("deleted");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
