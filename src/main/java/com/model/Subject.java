@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.enums.Department;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -41,6 +42,9 @@ public class Subject implements Serializable {
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "GROUP_ID")
     private ClassGroup subjectGroup;
+
+    @Column(name = "DEPARTMENT")
+    private Department department;
 
     @Transient
     private String groupId="";
@@ -89,6 +93,14 @@ public class Subject implements Serializable {
     }
 
     public void addTeacher(RoleTeacher roleTeacher){ this.teachers.add(roleTeacher); }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public String getGroupId() {
         String group = groupId;

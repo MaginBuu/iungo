@@ -111,7 +111,7 @@
                     select.options.add(new Option(i + ":30", i + ":30"));
                 }
                 select.options.add(new Option("17:00", "17:00"));
-                
+
                 // In order of just doing this process once, we clone the options to the other select
                 options = select.innerHTML;
                 selectFinish.innerHTML = options;
