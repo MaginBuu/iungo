@@ -25,7 +25,6 @@
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-
         <div class="container custom-div">
             <form:form method="post" action="/subject/modify" modelAttribute="subject">
             <h1>Modify Subject</h1>

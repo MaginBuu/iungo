@@ -164,8 +164,4 @@ public class TimeLine implements Serializable {
         return Objects.hash(timeLineId, weekday, startingHour, finishingHour);
     }
 
-    public void deleteThis(){
-        spaceTimeLine.deleteTimeline(this);
-        subjectTimeLine.deleteTimeline(this);
-    }
 }
