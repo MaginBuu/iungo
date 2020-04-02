@@ -96,6 +96,8 @@ public class Subject implements Serializable {
 
     public void addTeacher(RoleTeacher roleTeacher){ this.teachers.add(roleTeacher); }
 
+    public void deleteTeacher(RoleTeacher roleTeacher){ this.teachers.remove(roleTeacher); }
+
     public Department getDepartment() { return department; }
 
     public void setDepartment(Department department) { this.department = department; }

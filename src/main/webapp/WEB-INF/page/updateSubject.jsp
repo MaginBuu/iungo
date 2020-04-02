@@ -28,7 +28,7 @@
         <div class="container custom-div">
             <form:form method="post" action="/subject/modify" modelAttribute="subject">
             <h1>Modify Subject</h1>
-            <form:hidden path="subjectId"/>
+            <form:hidden name="subjectId" id="subjectId" path="subjectId"/>
             <form:hidden path="groupId"/>
             <table class="table table-borderless">
                 <tbody id="myTable">
@@ -64,7 +64,7 @@
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
                               data-toggle="modal"
                               data-target="#myModal"
-                              onclick="deleteClicked('${teacher.userR.userId}')"><i
+                              onclick="deleteClicked('${teacher.userR.userId}', 'teacher')"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
@@ -90,7 +90,7 @@
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
                                   data-toggle="modal"
                                   data-target="#myModal"
-                                  onclick="deleteClicked('${timelines.timeLineId}')"><i
+                                  onclick="deleteClicked('${timelines.timeLineId}', 'timeLine')"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
@@ -122,10 +122,11 @@
                 <p id="deleteText">Do you really want to delete this time line?
                     This process cannot be undone.</p>
             </div>
+            <input type="hidden" name="elementType" id="elementType" value=""/>
             <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteTimeLine()">Delete
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteElement()">Delete
                 </button>
             </div>
         </div>
@@ -140,20 +141,26 @@
         return true;
     }
 
-    function deleteClicked(timeLineId) {
-        var hiddenInput = jQuery('#elementId');
-        hiddenInput.val(timeLineId);
+    function deleteClicked(elementId, elementType) {
+        var hiddenInputId = jQuery('#elementId');
+        var hiddenInputType= jQuery('#elementType');
+        hiddenInputId.val(elementId);
+        hiddenInputType.val(elementType);
     }
 
-    function deleteTimeLine() {
-        var hiddenInput = jQuery('#elementId');
-        window.location.href = '/subject/delete/timeline?timeLineId=' + hiddenInput.val();
+    function deleteElement() {
+        var hiddenInputId = jQuery('#elementId');
+        var hiddenInputType= jQuery('#elementType');
+        var type = hiddenInputType.val()
+        if(type === 'timeLine'){
+            window.location.href = '/subject/delete/' + type.toLowerCase()+ '?' + type + 'Id=' + hiddenInputId.val();
+
+        }else if(type === 'teacher'){
+            var subjectId = jQuery('#subjectId').val();
+            window.location.href = '/subject/delete/' + type+ '?' + type + 'Id=' + hiddenInputId.val() + '&subjectId=' + subjectId;
+        }
     }
 
-    function deleteTeacher() {
-        var hiddenInput = jQuery('#elementId');
-        window.location.href = '/subject/delete/teacher?teacherId=' + hiddenInput.val();
-    }
 
 </script>
 

@@ -62,15 +62,12 @@ public abstract class RoleClass {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         RoleClass roleClass = (RoleClass) o;
-        return roleId.equals(roleClass.roleId) &&
-                userR.equals(roleClass.userR) &&
-                roleKey == roleClass.roleKey;
+        return roleId.equals(roleClass.roleId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleId, userR, roleKey);
+        return Objects.hash(roleId);
     }
 }
