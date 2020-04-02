@@ -147,6 +147,10 @@ public class SubjectController {
         Space selectedSpace = spaceService.getByIdWithTimeline(id);
         List<String> bookedHours = new ArrayList(); // Start and meantime booked hours
         List<String> endHours = new ArrayList(); // Meantime and finish booked hours
+
+        endHours.add("8:00"); // We add this hour to the endHours as we can't finish a class at 8:00
+        bookedHours.add("17:30"); // We add this hour to the bookedHours as we can't start a class at 17:30
+
         if (selectedSpace != null) {
             for (TimeLine t : selectedSpace.getTimelines()) { // For all the timelines in a specific space
                 if ((t.getWeekday().toString().toLowerCase()).equals(weekday.toLowerCase())) { // If the time line is in within the weekday
@@ -156,9 +160,6 @@ public class SubjectController {
                     String startMin = t.getStartingHour().split(":")[1];
                     int finishHour = Integer.parseInt(t.getFinishingHour().split(":")[0]);
                     int finishMin = Integer.parseInt(t.getFinishingHour().split(":")[1]);
-
-                    endHours.add("8:00"); // We add this hour to the endHours as we can't finish a class at 8:00
-                    bookedHours.add("17:30"); // We add this hour to the bookedHours as we can't start a class at 17:30
 
                     bookedHours.add(startHour + ":" + startMin);
                     // If the starting hour is an o'clock we add the half past time to both lists
@@ -197,7 +198,7 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/delete/timeline", method = RequestMethod.GET)
     public String deleteTimeline(@RequestParam String timeLineId){
-        
+
         timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
 
         System.out.println("deleted");

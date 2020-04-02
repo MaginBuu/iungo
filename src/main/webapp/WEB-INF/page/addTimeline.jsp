@@ -106,11 +106,12 @@
                 select.options.length = 0;
 
                 // Adds the available hours (from 8 to 17:30)
-                for (i = 8; i < 18; ++i) {
+                for (i = 8; i < 17; ++i) {
                     select.options.add(new Option(i + ":00", i + ":00"));
                     select.options.add(new Option(i + ":30", i + ":30"));
                 }
-
+                select.options.add(new Option("17:00", "17:00"));
+                
                 // In order of just doing this process once, we clone the options to the other select
                 options = select.innerHTML;
                 selectFinish.innerHTML = options;
