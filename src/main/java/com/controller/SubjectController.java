@@ -4,7 +4,6 @@ import com.model.*;
 import com.model.enums.Department;
 import com.model.enums.Role;
 import com.service.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -207,6 +206,27 @@ public class SubjectController {
         timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
 
         System.out.println("deleted");
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
+    }
+
+    /**
+     * Processes the removal of a specific time line.
+     *
+     * @param teacherId the id of the teacher to delete from subject with subjectId
+     * @return returns the user to the previous page with an url
+     */
+    @RequestMapping(value = "/subject/delete/teacher", method = RequestMethod.GET)
+    public String deleteTeacher(@RequestParam String teacherId, String subjectId){
+
+        Subject subject = subjectService.getByIdWithAll(subjectId);
+        User teacher = userService.getUserById(teacherId);
+        subject.deleteTeacher((RoleTeacher) teacher.getRoleClass(Role.TEACHER));
+
+        subjectService.addSubject(subject);
+
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String referer = request.getHeader("Referer");
 
