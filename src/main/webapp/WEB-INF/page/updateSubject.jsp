@@ -51,6 +51,28 @@
             <table class="table table-borderless table-striped">
                 <thead>
                 <tr>
+                    <th><strong>Teacher name</strong></th>
+                    <th><strong>Teacher department</strong></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="teachers">
+                <c:forEach items="${subject.teachers}" var="teacher">
+                    <tr>
+                        <td style="vertical-align: middle; horiz-align: center">${teacher.userR.name} ${teacher.userR.surname} ${teacher.userR.secondSurname}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${teacher.userR.department}</td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
+                              data-toggle="modal"
+                              data-target="#myModal"
+                              onclick="deleteClicked('${teacher.userR.userId}')"><i
+                                class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+            <table class="table table-borderless table-striped">
+                <thead>
+                <tr>
                     <th><strong>Starting hour</strong></th>
                     <th><strong>Finishing hour</strong></th>
                     <th><strong>Week Day</strong></th>

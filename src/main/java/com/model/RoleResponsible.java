@@ -1,6 +1,9 @@
 package com.model;
 
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 public class RoleResponsible extends RoleClass {
 
     @ManyToMany(mappedBy="responsibles" , fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<RoleStudent> child = new LinkedList<>();
 
     public RoleResponsible() { }

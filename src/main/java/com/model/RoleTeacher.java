@@ -12,9 +12,7 @@ import java.util.List;
 @Table(name = "role_teacher")
 public class RoleTeacher extends RoleClass {
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name = "teacher_subjects")
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(mappedBy="teachers" , fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Subject> subjects = new LinkedList<>();
 
     public RoleTeacher() {}
@@ -22,6 +20,9 @@ public class RoleTeacher extends RoleClass {
     public void addSubject(Subject subject){
         this.subjects.add(subject);
     }
+
+
+
 
 
 }

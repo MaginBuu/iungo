@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "subjects")
@@ -17,7 +18,7 @@ import java.util.Objects;
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
         @NamedQuery(name = "Subject.findById", query = "SELECT r FROM Subject r WHERE r.subjectId = :id"),
-        @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.timeline k JOIN FETCH s.subjectGroup d WHERE s.subjectId = :id"),
+        @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.timeline k LEFT JOIN FETCH s.teachers t JOIN FETCH s.subjectGroup d WHERE s.subjectId = :id"),
 
 })
 public class Subject implements Serializable {
@@ -49,8 +50,9 @@ public class Subject implements Serializable {
     @Transient
     private String groupId="";
 
-    @ManyToMany(mappedBy="subjects" , fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<RoleTeacher> teachers = new LinkedList<>();
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
+    @JoinTable(name = "teacher_subjects")
+    private Set<RoleTeacher> teachers;
 
     public Subject() { }
 

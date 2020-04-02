@@ -82,9 +82,10 @@ public class UserController {
 
 		username = username.toLowerCase();
 
-
+		//search all similar usernames
 		List<String> usernames = userService.getAllUsernames(username);
 
+		//if username exist, add a number at the end to difference between users
 		if(usernames.size() == 1 && usernames.get(0).equals(username)){
 			username += String.format("%02d", 1);
 		}else if (usernames.size() > 1){
@@ -199,7 +200,6 @@ public class UserController {
 	}
 
 
-	// FOR TESTING, WILL BE DELETED SOON
 	@RequestMapping(value = "/user/creation/setParentalRelationship")
 	public String seParentalRelationship(@RequestParam String responsibles){
 
@@ -213,6 +213,7 @@ public class UserController {
 		//get responsibles
 		String responsiblesSplitted[] = responsibles.split(",");
 
+		//set teachers to subject
 		for (String id : responsiblesSplitted){
 			User user = userService.getUserById(id);
 			userChild.setParentalRelationship(user);

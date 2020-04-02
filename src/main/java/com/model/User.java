@@ -199,6 +199,8 @@ public class User implements Serializable {
 		return role;
 	}
 
+	public RoleClass getRoleClass(Role role) { return this.roles.get(role); }
+
 	public void setRole(String role) {
 		this.role = role;
 	}

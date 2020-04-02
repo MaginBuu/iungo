@@ -4,6 +4,7 @@ import com.model.enums.Role;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "role_user")
@@ -24,7 +25,6 @@ public abstract class RoleClass {
 
     @Column(name = "ROLE_KEY")
     private Role roleKey;
-
 
     public String getRoleId() {
         return roleId;
@@ -56,5 +56,21 @@ public abstract class RoleClass {
                 "roleId='" + roleId + '\'' +
                 ", roleKey=" + roleKey +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoleClass roleClass = (RoleClass) o;
+        return roleId.equals(roleClass.roleId) &&
+                userR.equals(roleClass.userR) &&
+                roleKey == roleClass.roleKey;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roleId, userR, roleKey);
     }
 }

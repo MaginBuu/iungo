@@ -1,14 +1,9 @@
 package com.controller;
 
-import com.model.ClassGroup;
-import com.model.Space;
-import com.model.Subject;
-import com.model.TimeLine;
-import com.service.GroupService;
-import com.service.SpaceService;
-import com.service.SubjectService;
-import com.service.TimeLineService;
-import javafx.animation.Timeline;
+import com.model.*;
+import com.model.enums.Role;
+import com.service.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +13,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +31,9 @@ public class SubjectController {
 
     @Autowired
     TimeLineService timeLineService;
+
+    @Autowired
+    UserService userService;
 
     /**
      * Processes the petition to get to the subject creation page.
@@ -65,7 +62,8 @@ public class SubjectController {
     public String createProcedure(@Valid @ModelAttribute("subject") Subject subject) {
         System.out.println(subject.getSubjectGroup().getGroupId());
         subjectService.addSubject(subject);
-        return "redirect:/";
+        //return "redirect:/";
+        return "redirect:/subject/relate/teacher?subjectId=" + subject.getSubjectId();
     }
 
     /**
@@ -223,5 +221,39 @@ public class SubjectController {
         String referer = request.getHeader("Referer");
 
         return "redirect:" + referer;
+    }
+
+    @RequestMapping(value = "/subject/relate/setTeacher")
+    public String setTeacherSubjectRelationship(@RequestParam String subjectId, @RequestParam String teachersId){
+
+        System.out.println(subjectId);
+        System.out.println(teachersId);
+        //get responsibles
+        String teachersSplitted[] = teachersId.split(",");
+
+        Subject subject = subjectService.getByIdWithAll(subjectId);
+
+        for (String id : teachersSplitted){
+            subject.addTeacher((RoleTeacher) userService.getUserById(id).getRoleClass(Role.TEACHER));
+        }
+
+        subjectService.addSubject(subject); // addUser = add or update
+        return "redirect:/";
+    }
+
+
+    @RequestMapping(value = "/subject/relate/teacher", method = RequestMethod.GET)
+    public ModelAndView relateSubjectTeacher(@RequestParam String subjectId){
+
+        Subject subject = subjectService.getById(subjectId);
+        List<User> teachers = userService.getAllUsersWithRole(Role.TEACHER);
+
+        ModelAndView model = new ModelAndView("relateSubjectTeacher");
+
+        model.addObject("subject", subject);
+        model.addObject("teachers", teachers);
+
+
+        return model;
     }
 }
