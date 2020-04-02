@@ -125,4 +125,8 @@ public class Subject implements Serializable {
     public int hashCode() {
         return Objects.hash(subjectId, name);
     }
+
+    public Set<RoleTeacher> getTeachers() { return teachers; }
+
+    public void setTeachers(Set<RoleTeacher> teachers) { this.teachers = teachers; }
 }
