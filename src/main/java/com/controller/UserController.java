@@ -110,9 +110,12 @@ public class UserController {
 				roleClass = new RoleStudent();
 			else if(role.equals("RESPONSIBLE"))
 				roleClass = new RoleResponsible();
-			else if(role.equals("TEACHER"))
-				roleClass = new RoleTeacher();
-			else if(role.equals("SECRETARY"))
+			else if(role.equals("TEACHER")) {
+				RoleTeacher roleTeacher = new RoleTeacher();
+				if (!"".equals(user.getDepartment()))
+					roleTeacher.setDepartment(user.getDepartment());
+				roleClass = roleTeacher;
+			}else if(role.equals("SECRETARY"))
 				roleClass = new RoleSecretary();
 			else
 				roleClass = new RoleAdmin();

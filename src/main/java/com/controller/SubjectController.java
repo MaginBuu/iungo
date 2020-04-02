@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.model.*;
+import com.model.enums.Department;
 import com.model.enums.Role;
 import com.service.*;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -102,6 +103,12 @@ public class SubjectController {
                 timeline.setTimelineSubjectId(subject.getSubjectId());
                 model.addObject("spaces", spaces);
                 model.addObject("timeline", timeline);
+                break;
+            case "addTeacher":
+                List<User> teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                model = new ModelAndView("relateSubjectTeacher");
+                model.addObject("subject", subject);
+                model.addObject("teacher", teachers);
                 break;
             default:
                 subjectService.addSubject(subject);
@@ -255,5 +262,19 @@ public class SubjectController {
 
 
         return model;
+    }
+
+    @RequestMapping("/subject/relate/requestTeachers")
+    public @ResponseBody
+    JSONObject showAddTimeLine(@RequestParam("department") String dept) {
+
+
+        String query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1)";
+        if(dept != null) query = query + " AND WHERE u.department = " + Department.valueOf(dept);
+
+        List<User> teachers = userService.getQueryResults(query);
+        JSONObject data = new JSONObject();
+        data.put("teachers", teachers);
+        return data;
     }
 }
