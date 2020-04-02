@@ -202,9 +202,10 @@ public class SubjectController {
 
         //subjectService.addSubject(timeline.getSubjectTimeLine()); // update
         //spaceService.addSpace(timeline.getSpaceTimeLine()); //update
-        //timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
-        //spaceService.deleteSpace(spaceService.getById(timeLineId)); <-- ????
+        timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
+        spaceService.deleteSpace(spaceService.getById(timeLineId)); //<-- ????
 
+        System.out.println("deleted");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String referer = request.getHeader("Referer");
 
