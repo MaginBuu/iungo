@@ -94,13 +94,9 @@ public class Subject implements Serializable {
 
     public void addTeacher(RoleTeacher roleTeacher){ this.teachers.add(roleTeacher); }
 
-    public Department getDepartment() {
-        return department;
-    }
+    public Department getDepartment() { return department; }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+    public void setDepartment(Department department) { this.department = department; }
 
     public String getGroupId() {
         String group = groupId;

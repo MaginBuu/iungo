@@ -1,4 +1,4 @@
-<%@ page import="com.model.enums.Stage" %>
+<%@ page import="com.model.enums.Department" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -26,17 +26,28 @@
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="name"
                                                                class="col-form-label">Name </form:label></div>
-                <div class="col-sm-8 input-column"><form:input path="name" class="form-control"
+                <div class="col-sm-9 input-column"><form:input path="name" class="form-control"
                                                                type="text"></form:input></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <form:label path="subjectGroup" class="col-form-label">Group </form:label></div>
-                <div class="col-sm-8 input-column">
+                <div class="col-sm-3 input-column">
                     <form:select class="selectpicker" data-width="100%" path="subjectGroup.groupId" id="groupSelect" name="groupSelect">
                         <form:option disabled="disabled" selected="selected" value="">Select a group</form:option>
                         <c:forEach items="${groups}" var="group">
                             <form:option value="${group.groupId}">${group.stage} ${group.level} ${group.group}</form:option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+                <c:set var="enumValues" value="<%=Department.values()%>"/>
+                <div class="col-sm-2 label-column">
+                    <form:label path="department" class="col-form-label">Department </form:label></div>
+                <div class="col-sm-3 input-column">
+                    <form:select class="selectpicker" data-width="100%" path="department">
+                        <form:option disabled="disabled" selected="selected" value="">Select a Department</form:option>
+                        <c:forEach items="${enumValues}" var="enumValue">
+                            <form:option value="${enumValue}"></form:option>
                         </c:forEach>
                     </form:select>
                 </div>
