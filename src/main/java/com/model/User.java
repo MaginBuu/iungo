@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.enums.Department;
 import com.model.enums.GenderType;
 import com.model.enums.Role;
 import org.hibernate.annotations.GenericGenerator;
@@ -107,6 +108,9 @@ public class User implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="ANTI_BULLYING_REPORT_ID")
 	private List<AntiBullyingReport> antiBullyingReports;
+
+	@Transient
+	private Department department;
 
 	public User() {
 	}
@@ -321,6 +325,13 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 
 	@Override
 	public String toString() {

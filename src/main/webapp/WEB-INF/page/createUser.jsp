@@ -1,4 +1,6 @@
 <%@ page import="com.model.enums.GenderType" %>
+<%@ page import="com.model.enums.Department" %>
+<%@ page import="com.model.enums.Role" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -69,13 +71,23 @@
                 </div>
                 <div class="col-sm-1 label-column"><label class="col-form-label">Roles </label></div>
                 <div class="col-sm-5 input-column">
+                    <c:set var="enumValues" value="<%=Role.values()%>"/>
                     <form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role"
-                                 name="role">
-                        <form:option value="STUDENT">Student</form:option>
-                        <form:option value="RESPONSIBLE">Responsible</form:option>
-                        <form:option value="TEACHER">Teacher</form:option>
-                        <form:option value="SECRETARY">Secretary</form:option>
-                        <form:option value="ADMIN">Admin</form:option>
+                                 name="role" onchange="changeDisableDept()">
+                        <c:forEach items="${enumValues}" var="enumValue">
+                            <form:option value="${enumValue}"></form:option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+                <div class="col-sm-1 label-column"><label class="col-form-label">Department </label></div>
+                <div class="col-sm-5 input-column">
+                    <c:set var="enumValues" value="<%=Department.values()%>"/>
+                    <form:select class="selectpicker" multiple="true" data-width="100%" path="department" id="department"
+                                 name="department">
+                        <form:option selected="selected" value="">Select a department</form:option>
+                        <c:forEach items="${enumValues}" var="enumValue">
+                            <form:option value="${enumValue}"></form:option>
+                        </c:forEach>
                     </form:select>
                 </div>
             </div>
@@ -103,6 +115,13 @@
         }
 
         return true;
+    }
+
+    function changeDisableDept(){
+        var select1 = jQuery('#role');
+        console.log(select1);
+        //var checkbox = jQuery('#thisCourse');
+        //select1.prop('disabled', checkbox.prop("checked")).selectpicker('refresh');
     }
 </script>
 
