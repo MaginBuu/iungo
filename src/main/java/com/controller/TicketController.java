@@ -101,6 +101,10 @@ public class TicketController {
 		outdatedTicket.setStatus(ticket.getStatus());
 		outdatedTicket.setAdminResponse(ticket.getAdminResponse());
 		ticketService.updateTicket(outdatedTicket);
-		return "redirect:/";
+
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String referer = request.getHeader("Referer");
+
+		return "redirect:" + referer;
 	}
 }

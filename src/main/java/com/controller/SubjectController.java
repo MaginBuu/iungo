@@ -4,6 +4,7 @@ import com.model.*;
 import com.model.enums.Department;
 import com.model.enums.Role;
 import com.service.*;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -286,14 +287,21 @@ public class SubjectController {
 
     @RequestMapping("/subject/relate/requestTeachers")
     public @ResponseBody
-    JSONObject showAddTimeLine(@RequestParam("department") String dept) {
+    JSONArray showAddTimeLine(@RequestParam("department") String dept) {
         List<User> teachers;
         if(dept != null) teachers = userService.getTeachersByDepartment(dept);
         else teachers = userService.getTeachers();
 
-        JSONObject data = new JSONObject();
-        
-        data.put("teachers", teachers);
+        JSONArray data = new JSONArray();
+        for(User t : teachers){
+            JSONObject o = new JSONObject();
+            o.put("id", t.getUserId());
+            o.put("name", t.getName());
+            o.put("surname", t.getSurname());
+            o.put("secondSurname", t.getSecondSurname());
+
+            data.add(o);
+        }
         return data;
     }
 }

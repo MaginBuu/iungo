@@ -9,16 +9,16 @@
     <title>Iungo - Tickets</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
+    <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 </head>
 
 <body>
 <%@ include file="navbar.jsp" %>
-<div class="row register-form">
+<div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <c:url value="/ticket/access" var="url"></c:url>
         <br><br>
-        <div class="container">
+        <div class="container custom-div">
             <h1>Ticket List</h1>
             <input class="form-control mb-4" id="tableSearch" type="text"
                    placeholder="Type something to search list items">
@@ -55,8 +55,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
 </body>
 
 
@@ -68,13 +66,6 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-    });
-
-    $(document).ready(function () {
-        $('#myTable').DataTable({
-            "paging": true // false to disable pagination (or any other option)
-        });
-        $('.dataTables_length').addClass('bs-select');
     });
 </script>
 

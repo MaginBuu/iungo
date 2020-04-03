@@ -16,9 +16,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 </head>
@@ -30,8 +30,8 @@
         <form class="custom-form">
             <h1>Select teacher for ${subject.name}</h1>
             <div class="form-row form-group">
-                <div class="col-sm-2 label-column"><label class="col-form-label">Department </label></div>
-                <div class="col-sm-3 input-column">
+                <div class="col-sm-3 label-column"><label class="col-form-label">Department </label></div>
+                <div class="col-sm-4 input-column">
                     <c:set var="enumValues" value="<%=Department.values()%>"/>
                     <select class="selectpicker" data-width="100%" id="select-department"
                             name="select-department">
@@ -41,23 +41,24 @@
                         </c:forEach>
                     </select>
                 </div>
-                <div class="col-sm-2 label-column">
-                    <a class="btn alt-submit-button" id="btn-ajax">Search teacher</a></div>
+                <div class="col-sm-3"><a class="btn  btn-light" id="btn-ajax">Search teachers</a></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
-                    <label class="col-form-label">Teacher </label></div>
+                    <label class="col-form-label">Teachers </label></div>
                 <div class="col-sm-7 input-column">
                     <select class="selectpicker" data-live-search="true" data-width="100%" multiple="true"
                             id="select-teacher" name="select-teacher">
                         <c:forEach items="${teachers}" var="teacher">
-                        <option value="${teacher.userId}">${teacher.name} ${teacher.surname} ${teacher.secondSurname}</option>
+                            <option value="${teacher.userId}">${teacher.name} ${teacher.surname} ${teacher.secondSurname}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <input type="hidden" name="subjectId" id="subjectId" value="${subject.subjectId}"/>
             </div>
-            <a class="btn btn-light submit-button" onclick="relate()">Accept</a>
+
+
+            <a class="btn btn-light submit-button" onclick="relate()">Select teachers</a>
         </form>
     </div>
 </div>
@@ -93,17 +94,13 @@
                 // Clear the old options
                 select.options.length = 0;
 
-                console.log(data.teachers);
-
                 // Disable the booked options in both select, each one with its list
-                $.each(data.teachers, function (index, current) {
-
-                    console.log(current.name);
-                //    select.options.add(new Option(current.getName()+,))
+                $.each(data, function (index, current) {
+                    select.options.add(new Option(current.name + " " + current.surname + " " + current.secondSurname, current.id));
                 });
 
                 // Selectpicker refresh
-                //$('#select-finish').selectpicker('refresh');
+                $('#select-teacher').selectpicker('refresh');
                 //$('#select-start').selectpicker('refresh');
 
 
