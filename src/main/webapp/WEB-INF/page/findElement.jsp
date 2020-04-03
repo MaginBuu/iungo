@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Tickets history</title>
+    <title>Iungo - Find Elements</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
@@ -22,7 +22,7 @@
         <c:url value="/element/find" var="url"></c:url>
         <br><br>
         <form class="custom-form" action="/element/find" method="get">
-            <h1>Iungo - Find Element</h1>
+            <h1>Find Element</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label path="name" class="col-form-label">Kind </label></div>
                 <div class="col-sm-3 label-column"><select class="selectpicker" data-width="100%" id="elementKind"

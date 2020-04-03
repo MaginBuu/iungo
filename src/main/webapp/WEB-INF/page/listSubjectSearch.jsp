@@ -106,8 +106,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
 </body>
 
 
@@ -121,12 +119,6 @@
         });
     });
 
-    $(document).ready(function () {
-        $('#myTable').DataTable({
-            "paging": true // false to disable pagination (or any other option)
-        });
-        $('.dataTables_length').addClass('bs-select');
-    });
 </script>
 
 </html>
