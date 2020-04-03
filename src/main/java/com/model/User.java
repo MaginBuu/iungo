@@ -29,6 +29,8 @@ import javax.validation.constraints.NotNull;
 //             + "WHERE r.id = :id")
 		@NamedQuery(name = "Users.findByEmail", query = "SELECT r FROM User r WHERE r.emailId =:email"),
         @NamedQuery(name = "Users.findByUsername", query = "SELECT r FROM User r WHERE r.username =:username"),
+		@NamedQuery(name = "User.findTeachers", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1)"),
+		@NamedQuery(name = "Users.findTeacherByDepartment", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1 AND i.roleId IN(SELECT n.roleId FROM RoleTeacher n WHERE n.department =:department))"),
 
 })
 public class User implements Serializable {

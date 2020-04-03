@@ -144,6 +144,13 @@
         select.selectpicker('refresh');
     }
 
+    function selectTeacher(){
+        var valors = $('#role-select').val().toString().split(',');
+        if(valors.includes("COORDINATOR") || valors.includes("TUTOR")){
+            document.getElementById("department-select").selectedIndex = "0";
+        }
+    }
+
 </script>
 
 </body>

@@ -6,6 +6,7 @@ import java.util.List;
 import com.model.Authorities;
 import com.model.Procedure;
 import com.model.Ticket;
+import com.model.enums.Department;
 import com.model.enums.Role;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -168,5 +169,19 @@ public class UserDaoImpl implements UserDao {
 		List<User> users = session.createQuery(query).list();
 		session.close();
 		return users;
+	}
+
+	public List<User> getTeachers(){
+		Session session = sessionFactory.openSession();
+		List<User> teachers = session.getNamedQuery("Users.findTeacherByDepartment").list();
+		session.close();
+		return teachers;
+	}
+
+	public List<User> getTeachersByDepartment(String department){
+		Session session = sessionFactory.openSession();
+		List<User> teachers = session.getNamedQuery("Users.findTeacherByDepartment").setParameter("department", Department.valueOf(department)).list();
+		session.close();
+		return teachers;
 	}
 }

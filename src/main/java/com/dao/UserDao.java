@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.Authorities;
 import com.model.User;
+import com.model.enums.Department;
 import com.model.enums.Role;
 
 public interface UserDao {
@@ -31,5 +32,9 @@ public interface UserDao {
 	List<String> getAllUsernames(String username);
 
 	List<User> getQueryResults(String query);
+
+	List<User> getTeachers();
+
+	List<User> getTeachersByDepartment(String department);
 
 }

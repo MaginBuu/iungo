@@ -36,10 +36,10 @@ public class GroupController {
 		if(courses.size() == 0){
 			int year = Calendar.getInstance().get(Calendar.YEAR);
 			for(int i = 0; i < 4; i++){
-				year += 1;
 				Course course = new Course(year-1, year);
 				courses.add(course);
 				courseService.addCourse(course);
+				year += 1;
 			}
 		}
 		ModelAndView model = new ModelAndView("createGroup");

@@ -287,13 +287,12 @@ public class SubjectController {
     @RequestMapping("/subject/relate/requestTeachers")
     public @ResponseBody
     JSONObject showAddTimeLine(@RequestParam("department") String dept) {
+        List<User> teachers;
+        if(dept != null) teachers = userService.getTeachersByDepartment(dept);
+        else teachers = userService.getTeachers();
 
-
-        String query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1)";
-        if(dept != null) query = query + " AND WHERE u.department = " + Department.valueOf(dept);
-
-        List<User> teachers = userService.getQueryResults(query);
         JSONObject data = new JSONObject();
+        
         data.put("teachers", teachers);
         return data;
     }

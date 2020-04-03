@@ -30,4 +30,8 @@ public interface UserService {
 
 	List<User> getQueryResults(String query);
 
+	List<User> getTeachers();
+
+	List<User> getTeachersByDepartment(String department);
+
 }

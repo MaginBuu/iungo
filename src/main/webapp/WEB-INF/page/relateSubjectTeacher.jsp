@@ -33,7 +33,7 @@
                 <div class="col-sm-2 label-column"><label class="col-form-label">Department </label></div>
                 <div class="col-sm-3 input-column">
                     <c:set var="enumValues" value="<%=Department.values()%>"/>
-                    <select class="selectpicker" data-width="100%" multiple="true" id="select-department"
+                    <select class="selectpicker" data-width="100%" id="select-department"
                             name="select-department">
                         <option selected="selected" value="">Select a department</option>
                         <c:forEach items="${enumValues}" var="enumValue">
@@ -65,7 +65,7 @@
 
 <script type="text/javascript">
     function relate() {
-        var teacherId = jQuery("#teacher").val().toString();
+        var teacherId = jQuery("#select-teacher").val().toString();
         var subjectId = jQuery("#subjectId").val().toString();
         if (teacherId == "") {
             alert("Select a teacher");
@@ -96,9 +96,11 @@
                 console.log(data.teachers);
 
                 // Disable the booked options in both select, each one with its list
-                //$.each(data.teachers, function (index, current) {
+                $.each(data.teachers, function (index, current) {
+
+                    console.log(current.name);
                 //    select.options.add(new Option(current.getName()+,))
-                //});
+                });
 
                 // Selectpicker refresh
                 //$('#select-finish').selectpicker('refresh');
