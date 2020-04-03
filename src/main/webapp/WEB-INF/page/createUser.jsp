@@ -134,13 +134,25 @@
 
     function changeDisableDept() {
         var select = $('#department-select');
+        var select2 = $('#role-select');
         var valors = $('#role-select').val().toString().split(',');
+
+
         select.prop('disabled', !(valors.includes("TEACHER")
             || valors.includes("COORDINATOR")
                 || valors.includes("TUTOR"))).selectpicker('refresh');
         if(!(valors.includes("TEACHER") || valors.includes("COORDINATOR") || valors.includes("TUTOR"))){
             document.getElementById("department-select").selectedIndex = "0";
         }
+
+        if(valors.includes("COORDINATOR") || valors.includes("TUTOR")){
+            var values = select2.val();
+            values.push("TEACHER");
+            select2.val(values);
+            select2.selectpicker('refresh');
+
+        }
+
         select.selectpicker('refresh');
     }
 
