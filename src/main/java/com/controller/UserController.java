@@ -12,16 +12,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -200,6 +198,27 @@ public class UserController {
 		model.addObject("users", userService.getAllUsersWithRole(Role.RESPONSIBLE));
 
 		return model;
+	}
+
+
+
+	/**
+	 * Processes the petition to get to the subject modification page.
+	 *
+	 * @param userId the id of the specific user to modify
+	 * @return ModelAndView with the desired .jsp file and its required model & objects
+	 */
+	@RequestMapping(value = "/user/modify", method = RequestMethod.GET)
+	public ModelAndView getSubjectModify(@RequestParam String userId) {
+		User user = userService.getUserById(userId);
+		Set<Role> keyset = user.getRoles().keySet();
+		String aux = "";
+		for (Role role : keyset)
+			aux += role.toString() + ",";
+		aux = aux.substring(0, aux.length()-1);
+		user.setRole(aux);
+		System.out.println(user.getRole());
+		return new ModelAndView("updateUser", "user", user);
 	}
 
 

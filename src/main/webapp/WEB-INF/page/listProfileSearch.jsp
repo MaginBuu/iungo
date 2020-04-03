@@ -61,13 +61,13 @@
                         <td style="vertical-align: middle; horiz-align: center">${user.name} ${user.surname} ${user.secondSurname}</td>
                         <td style="vertical-align: middle; horiz-align: center">${user.username}</td>
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
-                                                                                  href="/user/modify?userId=${subject.userId}"><i
-                                class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+                            href="/user/modify?userId=${user.userId}"><i
+                            class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                  data-toggle="modal"
-                                                                                  data-target="#myModal"
-                                                                                  onclick="deleteClicked('${user.userId}', '${user.name} ${user.surname} ${user.secondSurname}', '${user.username}')"><i
-                                class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                              data-toggle="modal"
+                              data-target="#myModal"
+                              onclick="deleteClicked('${user.userId}', '${user.name} ${user.surname} ${user.secondSurname}', '${user.username}')">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
