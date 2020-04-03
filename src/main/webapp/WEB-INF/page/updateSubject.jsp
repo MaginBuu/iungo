@@ -60,7 +60,7 @@
                 <c:forEach items="${subject.teachers}" var="teacher">
                     <tr>
                         <td style="vertical-align: middle; horiz-align: center">${teacher.userR.name} ${teacher.userR.surname} ${teacher.userR.secondSurname}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${teacher.userR.department}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${teacher.department}</td>
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
                               data-toggle="modal"
                               data-target="#myModal"
