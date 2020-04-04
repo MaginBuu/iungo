@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.system;
 
 import com.model.*;
 import com.model.enums.TicketStatus;
@@ -37,7 +37,7 @@ public class TicketController {
 	@RequestMapping(value = "/ticket/creation", method = RequestMethod.GET)
 	public ModelAndView getTicketCreationForm() {
 		Ticket ticket = new Ticket();
-		return new ModelAndView("createTicket", "ticket", ticket);
+		return new ModelAndView("system/createTicket", "ticket", ticket);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class TicketController {
 		for(Ticket t : tickets){
 			System.out.println(t.getTitle());
 		}
-		return new ModelAndView("ticketAdmin", "tickets", tickets);
+		return new ModelAndView("system/ticketAdmin", "tickets", tickets);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class TicketController {
 	@RequestMapping(value = "/ticket/modify", method = RequestMethod.GET)
 	public ModelAndView getTicketModify(@RequestParam String ticketId) {
 			Ticket ticket = ticketService.getTicketById(ticketId);
-			return new ModelAndView("updateTicket", "ticket", ticket);
+			return new ModelAndView("system/updateTicket", "ticket", ticket);
 	}
 
 	/**

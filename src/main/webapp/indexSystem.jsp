@@ -29,25 +29,25 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-pencil-square-o icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/element/access">
                         <h3 class="name">Element Edition</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-list-alt icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/ticket/access">
                         <h3 class="name">Ticket list</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-ticket icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/ticket/creation">
                         <h3 class="name">New ticket </h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-tasks icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/procedure/creation">
                         <h3 class="name">Procedures </h3></a>
                 </div>
             </div>
@@ -69,27 +69,27 @@
                     <div class="row justify-content-center" style="margin-bottom: 0%">
                         <div class="col item">
                             <div class="box"><i class="fa fa-user-plus icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/user/creation">
                                     <h3 class="name">New User</h3></a>
                             </div>
                         </div>
                         <div class="col item">
                             <div class="box"><i class="fa fa-users icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                                    <h3 class="name">Messages</h3></a>
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/group/creation">
+                                    <h3 class="name">New Group</h3></a>
                             </div>
                         </div>
                     </div>
                     <div class="row justify-content-center" style="margin-bottom: 0%">
                         <div class="col item">
                             <div class="box"><i class="fa fa-book icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/subject/creation">
                                     <h3 class="name">New Subject</h3></a>
                             </div>
                         </div>
                         <div class="col item">
                             <div class="box"><i class="fa fa-building-o icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/space/creation">
                                     <h3 class="name">New Space</h3></a>
                             </div>
                         </div>

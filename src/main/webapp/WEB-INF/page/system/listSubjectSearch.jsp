@@ -6,21 +6,43 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Iungo - Groups</title>
+    <title>Iungo - Subjects</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 </head>
 
+<script type="text/javascript">
+    function Validate() {
+        return true;
+    }
+
+    //triggered when modal is about to be shown
+    function deleteClicked(subjectId, subjectName) {
+        var hiddenInput = jQuery('#elementId');
+        var deleteText = jQuery('#deleteText');
+        deleteText.html("Do you really want to delete the subject <\strong>" + subjectName + "</strong>? This process cannot be undone.")
+        hiddenInput.val(subjectId);
+    }
+
+    function deleteElement() {
+        var hiddenInput = jQuery('#elementId');
+        window.location.href = '/subject/delete?subjectId=' + hiddenInput.val();
+    }
+</script>
+
 <body>
-<%@ include file="navbar.jsp" %>
+<%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <br><br>
         <div class="container custom-div">
-            <h1>Groups Found</h1>
+            <h1>Subjects Found</h1>
             <input class="form-control mb-4" id="tableSearch" type="text"
                    placeholder="Type something to search list items">
             <table class="table table-bordered table-striped">
@@ -28,27 +50,19 @@
                 <tr>
                     <th><strong>ID</strong></th>
                     <th><strong>Name</strong></th>
-                    <th><strong>Stage</strong></th>
-                    <th><strong>Level</strong></th>
-                    <th><strong>Group</strong></th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
-                <c:forEach items="${groups}" var="group">
+                <c:forEach items="${subjects}" var="subject">
                     <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${group.groupId}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${group.name}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${group.stage}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${group.level}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${group.group}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
-                                                                                  href="/group/modify?userId=${group.groupId}"><i
+                        <td style="vertical-align: middle; horiz-align: center">${subject.subjectId}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${subject.name}</td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/subject/modify/${subject.subjectId}"><i
                                 class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                  data-toggle="modal"
-                                                                                  data-target="#myModal"
-                                                                                  onclick="deleteClicked('${group.groupId}')"><i
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
+                                                                                  onclick="deleteClicked('${subject.subjectId}', '${subject.name}')"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
@@ -83,6 +97,7 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
     function Validate() {
         return true;
@@ -91,8 +106,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
 </body>
 
 
@@ -107,7 +120,6 @@
     });
 
 </script>
-
 
 </html>
 

@@ -17,24 +17,23 @@
 </head>
 
 <body>
-<%@ include file="navbar.jsp" %>
+<%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form class="custom-form" action="/user/creation/selectChild" method="post">
-            <h1>Select Responsible for ${sessionScope.userRelateName}</h1>
+            <h1>Select Group for ${sessionScope.userRelateName}</h1>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
-                    <label path="userP" class="col-form-label">Responsible </label></div>
+                    <label path="userP" class="col-form-label">Group </label></div>
                 <div class="col-sm-7 input-column">
-                    <select class="selectpicker" data-live-search="true" data-width="100%" multiple="true"
-                            id="responsible" name="responsible">
-                        <c:forEach items="${users}" var="user">
-                            <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
+                    <select class="selectpicker" data-live-search="true" data-width="100%" multiple="true" id="group"
+                            name="group">
+                        <c:forEach items="${groups}" var="group">
+                            <option value="${group.groupId}">${group.stage} ${group.level} ${group.group}</option>
                         </c:forEach>
                     </select>
                 </div>
             </div>
-            <a class="btn btn-light submit-button" href="/user/creation">Add new Responsible</a>
             <a class="btn btn-light submit-button" onclick="relate()">Accept</a>
         </form>
     </div>
@@ -43,12 +42,12 @@
 
 <script type="text/javascript">
     function relate() {
-        var select = jQuery("#responsible");
-        var responsibles = select.val().toString();
-        if (responsibles == "") {
+        var select = jQuery("#group");
+        var group = select.val().toString();
+        if (group == "") {
             alert("Select a responsible");
         } else {
-            window.location.href = '/user/creation/setParentalRelationship?responsibles=' + responsibles;
+            window.location.href = '/user/creation/setStudentGroupRelation?groupId=' + group;
         }
     }
 

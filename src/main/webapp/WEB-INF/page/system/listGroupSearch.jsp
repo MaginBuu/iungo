@@ -2,46 +2,25 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Iungo - Spaces</title>
+    <title>Iungo - Groups</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
-    <link rel="stylesheet" href="/resource/fonts/index/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
 </head>
 
-<script type="text/javascript">
-    function Validate() {
-        return true;
-    }
-
-    //triggered when modal is about to be shown
-    function deleteClicked(spaceId, spaceName) {
-        var hiddenInput = jQuery('#spaceId');
-        var deleteText = jQuery('#deleteText');
-        deleteText.html("Do you really want to delete the space <\strong>" + spaceName + "</strong>? This process cannot be undone.")
-        hiddenInput.val(spaceId);
-    }
-
-    function deleteSpace() {
-        var hiddenInput = jQuery('#spaceId');
-        window.location.href = '/space/delete?spaceId=' + hiddenInput.val();
-    }
-</script>
-
-
 <body>
-<%@ include file="navbar.jsp" %>
+<%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <br><br>
         <div class="container custom-div">
-            <h1>Spaces Found</h1>
+            <h1>Groups Found</h1>
             <input class="form-control mb-4" id="tableSearch" type="text"
                    placeholder="Type something to search list items">
             <table class="table table-bordered table-striped">
@@ -49,21 +28,27 @@
                 <tr>
                     <th><strong>ID</strong></th>
                     <th><strong>Name</strong></th>
-                    <th><strong>Typology</strong></th>
-                    <th></th>
+                    <th><strong>Stage</strong></th>
+                    <th><strong>Level</strong></th>
+                    <th><strong>Group</strong></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
-                <c:forEach items="${spaces}" var="space">
+                <c:forEach items="${groups}" var="group">
                     <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${space.spaceId}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${space.name}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${space.typology}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/space/modify?spaceId=${space.spaceId}"><i
+                        <td style="vertical-align: middle; horiz-align: center">${group.groupId}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.name}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.stage}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.level}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${group.group}</td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
+                                                                                  href="/group/modify?userId=${group.groupId}"><i
                                 class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
-                                onclick="deleteClicked('${space.spaceId}', '${space.name}')"><i
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
+                                                                                  data-toggle="modal"
+                                                                                  data-target="#myModal"
+                                                                                  onclick="deleteClicked('${group.groupId}')"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                 </c:forEach>
@@ -72,7 +57,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal HTML -->
 <div id="myModal" name="myModal" class="modal fade">
@@ -89,18 +73,26 @@
                 <p id="deleteText">Do you really want to delete this space?
                     This process cannot be undone.</p>
             </div>
-            <input type="hidden" name="spaceId" id="spaceId" value=""/>
+            <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteSpace()">Delete
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteElement()">Delete
                 </button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+    function Validate() {
+        return true;
+    }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
 </body>
 
 
@@ -113,6 +105,7 @@
             });
         });
     });
+
 </script>
 
 

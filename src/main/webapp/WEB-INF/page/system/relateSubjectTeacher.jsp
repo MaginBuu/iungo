@@ -24,7 +24,7 @@
 </head>
 
 <body>
-<%@ include file="navbar.jsp" %>
+<%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form class="custom-form">

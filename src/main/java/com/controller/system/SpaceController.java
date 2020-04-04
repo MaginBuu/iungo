@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.system;
 
 import com.model.Space;
 import com.service.SpaceService;
@@ -29,7 +29,7 @@ public class SpaceController {
 	 */
 	@RequestMapping(value = "/space/creation")
 	public ModelAndView getProcedureCreationForm() {
-		ModelAndView model = new ModelAndView("createSpace");
+		ModelAndView model = new ModelAndView("system/createSpace");
 		Space space = new Space();
 		model.addObject("space", space);
 		return model;
@@ -57,7 +57,7 @@ public class SpaceController {
 	@RequestMapping(value = "/space/modify", method = RequestMethod.GET)
 	public ModelAndView getSpaceModify(@RequestParam String spaceId) {
 		Space space = spaceService.getByIdWithTimeline(spaceId);
-		return new ModelAndView("updateSpace", "space", space);
+		return new ModelAndView("system/updateSpace", "space", space);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.system;
 
 
 import com.model.*;
@@ -39,7 +39,7 @@ public class ElementController {
      */
     @RequestMapping(value = "/element/access", method = RequestMethod.GET)
     public ModelAndView getElementAccessForm() {
-        ModelAndView model = new ModelAndView("findElement");
+        ModelAndView model = new ModelAndView("system/findElement");
         String elementKind = "", idNumber = "", name = "";
         model.addObject("elementKind", elementKind); //The kind of the element(s) to look for
         model.addObject("idNumber", idNumber); //The name or strings contained in the name of the element(s) to look for
@@ -64,32 +64,32 @@ public class ElementController {
         ModelAndView model;
         switch (element){
             case "group":
-                model = new ModelAndView("listGroupSearch");
+                model = new ModelAndView("system/listGroupSearch");
                 List<ClassGroup> groups = groupService.getQueryResults(query);
                 model.addObject("groups", groups); //List of all groups found
                 break;
 
             case "space":
-                model = new ModelAndView("listSpaceSearch");
+                model = new ModelAndView("system/listSpaceSearch");
                 List<Space> spaces = spaceService.getQueryResults(query);
                 model.addObject("spaces", spaces); //List of all spaces found
                 break;
 
             case "subject":
-                model = new ModelAndView("listSubjectSearch");
+                model = new ModelAndView("system/listSubjectSearch");
                 List<Subject> subjects = subjectService.getQueryResults(query);
                 model.addObject("subjects", subjects); //Similar here...
                 break;
 
             default: //User
-                model = new ModelAndView("listProfileSearch");
+                model = new ModelAndView("system/listProfileSearch");
                 List<User> profiles = userService.getQueryResults(query);
                 model.addObject("profiles", profiles); //And here...
                 break;
         }
         return model;
     }
-    
+
 
 
 }

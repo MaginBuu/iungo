@@ -1,9 +1,8 @@
-package com.controller;
+package com.controller.system;
 
 import com.model.Procedure;
 import com.model.User;
 import com.model.enums.ProcedureStatus;
-import com.model.enums.Role;
 import com.service.ProcedureService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 
 @Controller
@@ -38,7 +36,7 @@ public class ProcedureController {
 	 */
 	@RequestMapping(value = "/procedure/creation")
 	public ModelAndView getProcedureCreationForm() {
-		ModelAndView model = new ModelAndView("createProcedure");
+		ModelAndView model = new ModelAndView("system/createProcedure");
 		Procedure procedure = new Procedure();
 		procedure.setUserP(new User());
 		model.addObject("procedure", procedure);

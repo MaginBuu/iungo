@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.system;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -17,7 +17,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +42,7 @@ public class UserController {
 	@RequestMapping(value = "/user/creation", method = RequestMethod.GET)
 	public ModelAndView getTicketCreationForm() {
 		User user = new User();
-		return new ModelAndView("createUser", "user", user);
+		return new ModelAndView("system/createUser", "user", user);
 	}
 
 	/**
@@ -64,7 +63,7 @@ public class UserController {
 	public String registerCustomer(@Valid @ModelAttribute(value = "user") User user, Model model,
 			BindingResult result) {
 		if (result.hasErrors())
-			return "createUser";
+			return "system/createUser";
 		user.setPassword(passwordEncoder.encode("pass"));
 
 		//Set username
@@ -188,13 +187,13 @@ public class UserController {
 	@RequestMapping(value = "/test/admin")
 	public ModelAndView searchTest() {
 		List<User> users = userService.getAllUsers();
-		return new ModelAndView("ticketAdmin", "users", users);
+		return new ModelAndView("system/ticketAdmin", "users", users);
 	}
 
 
 	@RequestMapping(value = "/user/creation/relateResponsible", method = RequestMethod.GET)
 	public ModelAndView relateUsers(){
-		ModelAndView model = new ModelAndView("selectResponsible");
+		ModelAndView model = new ModelAndView("system/selectResponsible");
 		model.addObject("users", userService.getAllUsersWithRole(Role.RESPONSIBLE));
 
 		return model;
@@ -218,7 +217,7 @@ public class UserController {
 		aux = aux.substring(0, aux.length()-1);
 		user.setRole(aux);
 		System.out.println(user.getRole());
-		return new ModelAndView("updateUser", "user", user);
+		return new ModelAndView("system/updateUser", "user", user);
 	}
 
 
@@ -247,7 +246,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/creation/relateGroup", method = RequestMethod.GET)
 	public ModelAndView relateGroup(){
-		ModelAndView model = new ModelAndView("relateGroupWithStudent");
+		ModelAndView model = new ModelAndView("system/relateGroupWithStudent");
 		model.addObject("groups", groupService.getAllClassGroup());
 		return model;
 	}

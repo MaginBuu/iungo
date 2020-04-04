@@ -1,7 +1,6 @@
-package com.controller;
+package com.controller.system;
 
 import com.model.*;
-import com.model.enums.Department;
 import com.model.enums.Role;
 import com.service.*;
 import org.json.simple.JSONArray;
@@ -47,7 +46,7 @@ public class SubjectController {
         subject.setSubjectGroup(new ClassGroup());
         List<ClassGroup> groups = groupService.getAllClassGroup();
 
-        ModelAndView model = new ModelAndView("createSubject");
+        ModelAndView model = new ModelAndView("system/createSubject");
         model.addObject("subject", subject);
         model.addObject("groups", groups);
         return model;
@@ -77,7 +76,7 @@ public class SubjectController {
     public ModelAndView getSubjectModify(@PathVariable String subjectId) {
         Subject subject = subjectService.getByIdWithAll(subjectId);
         System.out.println(subject.getSubjectId());
-        return new ModelAndView("updateSubject", "subject", subject);
+        return new ModelAndView("system/updateSubject", "subject", subject);
     }
 
     /**
@@ -97,7 +96,7 @@ public class SubjectController {
         ModelAndView model;
         switch (selection) {
             case "add":
-                model = new ModelAndView("addTimeline");
+                model = new ModelAndView("system/addTimeline");
                 List<Space> spaces = spaceService.getAll();
                 TimeLine timeline = new TimeLine();
                 timeline.setTimelineSubjectId(subject.getSubjectId());
@@ -106,13 +105,13 @@ public class SubjectController {
                 break;
             case "addTeacher":
                 List<User> teachers = userService.getAllUsersWithRole(Role.TEACHER);
-                model = new ModelAndView("relateSubjectTeacher");
+                model = new ModelAndView("system/relateSubjectTeacher");
                 model.addObject("subject", subject);
                 model.addObject("teacher", teachers);
                 break;
             default:
                 subjectService.addSubject(subject);
-                model = new ModelAndView("updateSubject", "subject", subject);
+                model = new ModelAndView("system/updateSubject", "subject", subject);
                 break;
         }
 
@@ -276,7 +275,7 @@ public class SubjectController {
         Subject subject = subjectService.getById(subjectId);
         List<User> teachers = userService.getAllUsersWithRole(Role.TEACHER);
 
-        ModelAndView model = new ModelAndView("relateSubjectTeacher");
+        ModelAndView model = new ModelAndView("system/relateSubjectTeacher");
 
         model.addObject("subject", subject);
         model.addObject("teachers", teachers);

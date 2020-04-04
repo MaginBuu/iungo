@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.system;
 
 import com.model.Course;
 import com.model.ClassGroup;
@@ -42,7 +42,7 @@ public class GroupController {
 				year += 1;
 			}
 		}
-		ModelAndView model = new ModelAndView("createGroup");
+		ModelAndView model = new ModelAndView("system/createGroup");
 		ClassGroup group = new ClassGroup();
 		group.setCourse(new Course());
 		model.addObject("group", new ClassGroup());
