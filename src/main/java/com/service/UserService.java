@@ -34,4 +34,6 @@ public interface UserService {
 
 	List<User> getTeachersByDepartment(String department);
 
+	List<User> getStudentsByGroup(String groupId);
+
 }

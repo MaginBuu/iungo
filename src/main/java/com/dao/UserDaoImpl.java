@@ -173,7 +173,7 @@ public class UserDaoImpl implements UserDao {
 
 	public List<User> getTeachers(){
 		Session session = sessionFactory.openSession();
-		List<User> teachers = session.getNamedQuery("Users.findTeacherByDepartment").list();
+		List<User> teachers = session.getNamedQuery("Users.findTeachers").list();
 		session.close();
 		return teachers;
 	}
@@ -183,5 +183,17 @@ public class UserDaoImpl implements UserDao {
 		List<User> teachers = session.getNamedQuery("Users.findTeacherByDepartment").setParameter("department", Department.valueOf(department)).list();
 		session.close();
 		return teachers;
+	}
+
+
+	public List<User> getStudentsByGroup(String groupId){
+		Session session = sessionFactory.openSession();
+		List<User> students = session.getNamedQuery("Users.findStudentsByGroup").setParameter("groupId", groupId).list();
+		System.out.println("groupId" + groupId);
+		for (User user : students){
+			System.out.println(user);
+		}
+		session.close();
+		return students;
 	}
 }
