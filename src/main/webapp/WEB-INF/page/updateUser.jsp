@@ -13,6 +13,7 @@
     <title>Iungo - Modify User</title>
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
+    <link rel="stylesheet" href="/resource/css/tabNavStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
@@ -83,12 +84,14 @@
                 </tr>
                 </tbody>
             </table>
+
             <button class="btn btn-light submit-button" type="submit" value="update" name="buttonName" id="update"
                     onclick="return Validate()">Update
             </button>
         </div>
     </div>
 </div>
+
 
 <!-- Modal HTML -->
 <div id="myModal" name="myModal" class="modal fade">
