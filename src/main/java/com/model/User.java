@@ -29,8 +29,9 @@ import javax.validation.constraints.NotNull;
 //             + "WHERE r.id = :id")
 		@NamedQuery(name = "Users.findByEmail", query = "SELECT r FROM User r WHERE r.emailId =:email"),
         @NamedQuery(name = "Users.findByUsername", query = "SELECT r FROM User r WHERE r.username =:username"),
-		@NamedQuery(name = "User.findTeachers", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1)"),
+		@NamedQuery(name = "Users.findTeachers", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1)"),
 		@NamedQuery(name = "Users.findTeacherByDepartment", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1 AND i.roleId IN(SELECT n.roleId FROM RoleTeacher n WHERE n.department =:department))"),
+		@NamedQuery(name = "Users.findStudentsByGroup", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 0 AND i.roleId IN(SELECT n.roleId FROM RoleStudent n WHERE n.group.groupId =:groupId ))"),
 
 })
 public class User implements Serializable {
@@ -356,5 +357,19 @@ public class User implements Serializable {
 
 	public void setProcedures(List<Procedure> procedures) {
 		this.procedures = procedures;
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return userId.equals(user.userId);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(userId);
 	}
 }

@@ -35,7 +35,7 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-list-alt icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/conversation/creation">
                         <h3 class="name">Ticket list</h3></a>
                 </div>
             </div>

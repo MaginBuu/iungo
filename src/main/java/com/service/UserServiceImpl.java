@@ -61,4 +61,6 @@ public class UserServiceImpl implements UserService {
 	public List<User> getTeachers() { return userDao.getTeachers(); }
 
 	public List<User> getTeachersByDepartment(String department) { return userDao.getTeachersByDepartment(department); }
+
+	public List<User> getStudentsByGroup(String groupId){ return userDao.getStudentsByGroup(groupId); }
 }

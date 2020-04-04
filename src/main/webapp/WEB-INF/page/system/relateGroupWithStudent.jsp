@@ -24,7 +24,7 @@
             <h1>Select Group for ${sessionScope.userRelateName}</h1>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
-                    <label path="userP" class="col-form-label">Group </label></div>
+                    <label class="col-form-label">Group </label></div>
                 <div class="col-sm-7 input-column">
                     <select class="selectpicker" data-live-search="true" data-width="100%" multiple="true" id="group"
                             name="group">
