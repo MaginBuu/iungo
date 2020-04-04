@@ -270,5 +270,4 @@ public class UserController {
 		userService.addUser(student); // addUser = add or update
 		return "redirect:/";
 	}
-
 }
