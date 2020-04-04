@@ -19,11 +19,17 @@ public class Conversation {
     @Column(name = "REPORTED", columnDefinition = "boolean default false")
     private boolean reported;
 
-    @OneToMany(targetEntity = Message.class)
+    @OneToMany(mappedBy = "conversationId", targetEntity = Message.class)
     private List<Message> messages;
 
-    public Conversation() {
-    }
+    @ManyToMany
+    private List<User> users;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
+    @JoinTable(name = "user_conversations")
+    private List<User> usersConversation;
+
+    public Conversation() {}
 
     public int getConversationId(){
         return conversationId;

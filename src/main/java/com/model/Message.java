@@ -1,6 +1,7 @@
 package com.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,12 +26,16 @@ public class Message {
     private String subject;
 
     @Column(name = "MESSAGE_BODY")
-    @NotNull
+    @Type(type="text")
     private String messageBody;
 
     @Column(name = "DATE")
     @NotNull
     private Date date;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "USER_ID")
+    private User sender;
 
     //FITXERS ADJUNTS
 
