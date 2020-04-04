@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -66,6 +65,7 @@ public class ConversationController {
 
 
         ModelAndView model = new ModelAndView("student/createConversation");
+        model.addObject("conversation", new Conversation());
         model.addObject("teachers", teachers);
         model.addObject("students", students);
         return model;

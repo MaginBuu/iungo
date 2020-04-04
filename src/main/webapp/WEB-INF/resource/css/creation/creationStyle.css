@@ -88,6 +88,15 @@ body {
   height: 100px;
 }
 
+.creation-form .custom-form .input-column-Conversation textarea {
+  color: #5f5f5f;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  height: 75px;
+}
+
 .creation-form .custom-form .dropdown .dropdown-toggle {
   background: #fff;
   border: 1px solid #dbdbdb;
