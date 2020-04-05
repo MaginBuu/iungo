@@ -22,21 +22,20 @@
 <%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <form:form class="custom-form" action="/user/creation/selectChild" method="post">
+        <form:form class="custom-form" action="/user/creation/selectChild" method="post" modelAttribute="conversation" commandName="conversation">
             <h1>Create conversation</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <label class="col-form-label">Title </label></div>
                 <div class="col-sm-8 label-column">
-                    <form:input path="title" class="form-control"
-                                type="number"></form:input></div>
+                    <form:input path="title" class="form-control" type="text"></form:input></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <label class="col-form-label">Description </label></div>
                 <div class="col-sm-8 label-column">
-                    <form:input path="description" class="form-control"
-                                type="number"></form:input></div>
+                    <div class="col-sm-8 input-column-Conversation"><form:textarea path="description" class="form-control"
+                                                                                type="text"></form:textarea></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
