@@ -9,11 +9,12 @@ import java.util.List;
 
 
 @Service
-public class ConversationServiceImpl implements ConversationService {
+public class ConversationServiceImpl implements ConversationService{
 
     @Autowired
     ConversationDao conversationDao;
 
+    @Override
     public void addConversation(Conversation conversation){
         conversationDao.addConversation(conversation);
     }

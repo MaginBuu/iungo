@@ -17,12 +17,11 @@ public class ConversationDaoImpl implements ConversationDao {
     private SessionFactory sessionFactory;
 
     public void addConversation(Conversation conversation){
-        System.out.println("conversationCreation");
         Session session = sessionFactory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(conversation);
+            session.saveOrUpdate(conversation);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();

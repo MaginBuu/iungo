@@ -115,12 +115,10 @@ public class User implements Serializable {
 	@Transient
 	private Department department;
 
-	@ManyToMany(mappedBy="usersConversation", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="users", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Conversation> conversations = new LinkedList<>();
 
-
-	public User() {
-	}
+	public User() { }
 
 	public String getUserId() {
 		return userId;
