@@ -30,12 +30,6 @@ public class Conversation {
     @Column(name = "REPORTED", columnDefinition = "boolean default false")
     private boolean reported;
 
-    @Column(name = "TITLE")
-    private String title;
-
-    @Column(name = "DESCRIPTION")
-    private String description;
-
     @OneToMany(mappedBy = "conversationId", targetEntity = Message.class)
     private List<Message> messages;
 
