@@ -44,17 +44,19 @@
                 <div class="inbox_chat">
                     <c:forEach items="${conversations}" var="conversation">
                         <div class="chat_list" onmouseout="unHoverElement(${conversation.conversationId})"
-                             onmouseover="hoverElement(${conversation.conversationId})" id="${conversation.conversationId}">
+                             onmouseover="hoverElement(${conversation.conversationId})"
+                             onclick="selectConversation(${conversation.conversationId},${conversation.title})"
+                             id="${conversation.conversationId}">
                             <div class="chat_people">
                                 <div class="chat_ib">
                                     <c:choose>
                                         <c:when test="${conversation.reported eq true}">
-                                            <h5>${conversation.title} <span class="chat_date"><i class="fa fa-envelope"
+                                            <h5>${conversation.title} <span class="chat_date"><i id="${conversation.conversationId}i" class="fa fa-envelope"
                                                                                                  aria-hidden="true"></i></span>
                                             </h5>
                                         </c:when>
                                         <c:otherwise>
-                                            <h5>${conversation.title} <span class="chat_date"><i
+                                            <h5>${conversation.title} <span class="chat_date"><i id="${conversation.conversationId}i"
                                                     class="fa fa-envelope-open-o" aria-hidden="true"></i></span></h5>
                                         </c:otherwise>
                                     </c:choose>
@@ -68,14 +70,11 @@
             <div class="mesgs">
                 <div class="heading_srch">
                     <div class="recent_heading">
-                        <h4>Recent</h4>
+                        <h4 id="chat-title"></h4>
                     </div>
                     <div class="srch_bar">
-                        <div class="stylish-input-group">
-                            <input type="text" class="search-bar">
-                            <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span></div>
+                       <span class="input-group-addon">
+                           <button type="button"> <i class="fa fa-reply" aria-hidden="true"></i> </button></span>
                     </div>
                 </div>
                 <div class="msg_history">
@@ -102,17 +101,33 @@
 
 <script type="text/javascript">
     function hoverElement(elem) {
-        let div = document.getElementById(elem);
+        var div = document.getElementById(elem);
         div.style.backgroundColor = "rgba(222, 157, 63, 0.3)";
     }
 
     function unHoverElement(elem) {
-        let div = document.getElementById(elem);
-        div.style.backgroundColor = "#f8f8f8";
+        var hiddenSelected = document.getElementById('selected-conversation');
+        console.log(hiddenSelected.value);
+        console.log(elem);
+        if(hiddenSelected.value != elem) {
+            var div = document.getElementById(elem);
+            div.style.backgroundColor = "#f8f8f8";
+        }
     }
 
-    function selectConversation(elem){
-
+    function selectConversation(elem, title){
+        var hiddenSelected = document.getElementById('selected-conversation'); //""
+        var icon = document.getElementById(elem+'i'); //Icono del div que seleccionem  sobert o sobre tancat
+        if("" !== hiddenSelected.value) {
+            document.getElementById(hiddenSelected.value).style.backgroundColor = "#f8f8f8";
+        } //Si hi ha algo seleccionat deselecciona
+        hiddenSelected.value = elem; //Posa al hidden la id del que cliquem
+        document.getElementById(elem).style.backgroundColor = "rgba(222, 157, 63, 0.3)";
+        if (icon.classList.contains('fa-envelope')){
+            icon.classList.remove('fa-envelope');
+            icon.classList.add('fa-envelope-open-o');
+        }
+        document.getElementById('chat-title').innerText = title;
     }
 
 </script>
