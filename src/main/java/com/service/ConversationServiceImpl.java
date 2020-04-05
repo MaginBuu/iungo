@@ -18,4 +18,9 @@ public class ConversationServiceImpl implements ConversationService {
         conversationDao.addConversation(conversation);
     }
 
+    @Override
+    public List<Conversation> getAllConversations() {
+        return conversationDao.getAllConversations();
+    }
+
 }

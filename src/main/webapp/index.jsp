@@ -29,8 +29,8 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-pencil-square-o icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                        <h3 class="name">Element Edition</h3></a>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/messages">
+                        <h3 class="name">Messages</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">

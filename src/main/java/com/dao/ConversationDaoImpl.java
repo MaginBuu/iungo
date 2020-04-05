@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
 
 @Repository
@@ -28,5 +29,13 @@ public class ConversationDaoImpl implements ConversationDao {
         }finally {
             session.close();
         }
+    }
+
+    @Override
+    public List<Conversation> getAllConversations() {
+        Session session = sessionFactory.openSession();
+        List<Conversation> conversations =  session.getNamedQuery("Conversation.findAll").list();
+        session.close();
+        return conversations;
     }
 }

@@ -9,6 +9,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "conversation")
+@NamedQueries({
+        @NamedQuery(name = "Conversation.findAll", query = "SELECT c FROM Conversation c"),
+})
 public class Conversation {
     private static final long serialVersionUID = 2681531852204068105L;
 
@@ -17,6 +20,12 @@ public class Conversation {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "CONVERSATION_ID")
     private String conversationId;
+
+    @Column(name = "TITLE")
+    private String title;
+
+    @Column(name = "DESCRIPTION", length = 100)
+    private String description;
 
     @Column(name = "REPORTED", columnDefinition = "boolean default false")
     private boolean reported;

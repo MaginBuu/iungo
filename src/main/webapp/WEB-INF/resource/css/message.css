@@ -1,16 +1,7 @@
 .card {
   margin: auto;
   width: 65%;
-}
-
-h1 {
-  display: inline-block;
-  color: #4c565e;
-  font-size: 24px;
-  font-weight: bold;
-  padding: 0 10px 15px;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #DE9D3F;
+  border: 1px solid #c4c4c4;
 }
 
 .card-header {
@@ -19,17 +10,28 @@ h1 {
 }
 
 .card-header-no-hover {
-  height: 75px;
-  background-color: #de9d3f;
+  background-color: #E5E6E4;
+  color: #595959;
 }
 
 #heading-card {
-  margin-top: 5px;
-  font-size: 30px;
+  padding-left: 2.5%;
+}
+
+.referer {
+  padding-left: 2.5%;
+  font-size: 15px;
+}
+
+.subject {
+  font-weight: bold;
+  padding-top: 1%;
+  padding-left: 2.5%;
+  font-size: 20px;
 }
 
 .cardheader-text {
-  color: #fff;
+  color: #595959;
 }
 
 .card-text.sub-text-color {
@@ -57,7 +59,10 @@ h1 {
   padding: 20px 7px 0px 7px;
 }
 
-.card-header:first-child:hover {
-  background-color: #ffb366;
+.header-text{
+  width: 80%;
 }
 
+.header-button{
+  width: 20%;
+}
