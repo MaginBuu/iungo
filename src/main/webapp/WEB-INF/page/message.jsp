@@ -23,6 +23,7 @@
 </head>
 <body>
 <%@ include file="navbar.jsp" %>
+<input id="selected-conversation" type="hidden" value="">
 <div class="container">
     <h3 class=" text-center">Messaging</h3>
     <div class="messaging">
@@ -42,8 +43,8 @@
                 </div>
                 <div class="inbox_chat">
                     <c:forEach items="${conversations}" var="conversation">
-                        <div class="chat_list" onmouseout="bye(${conversation.conversationId})"
-                             onmouseover="hello(${conversation.conversationId})" id="${conversation.conversationId}">
+                        <div class="chat_list" onmouseout="unHoverElement(${conversation.conversationId})"
+                             onmouseover="hoverElement(${conversation.conversationId})" id="${conversation.conversationId}">
                             <div class="chat_people">
                                 <div class="chat_ib">
                                     <c:choose>
@@ -100,14 +101,18 @@
 </div>
 
 <script type="text/javascript">
-    function hello(elem) {
+    function hoverElement(elem) {
         let div = document.getElementById(elem);
         div.style.backgroundColor = "rgba(222, 157, 63, 0.3)";
     }
 
-    function bye(elem) {
+    function unHoverElement(elem) {
         let div = document.getElementById(elem);
         div.style.backgroundColor = "#f8f8f8";
+    }
+
+    function selectConversation(elem){
+
     }
 
 </script>
