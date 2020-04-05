@@ -22,26 +22,25 @@
 <%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <form:form class="custom-form" action="/user/creation/selectChild" method="post" modelAttribute="conversation" commandName="conversation">
+        <form:form class="custom-form" action="/conversation/creation" method="post" modelAttribute="conversation" commandName="conversation">
             <h1>Create conversation</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <label class="col-form-label">Title </label></div>
-                <div class="col-sm-8 label-column">
+                <div class="col-sm-8 input-column">
                     <form:input path="title" class="form-control" type="text"></form:input></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <label class="col-form-label">Description </label></div>
-                <div class="col-sm-8 label-column">
-                    <div class="col-sm-8 input-column-Conversation"><form:textarea path="description" class="form-control"
-                                                                                type="text"></form:textarea></div>
+                <div class="col-sm-8 input-column-Conversation">
+                    <form:textarea path="description" class="form-control" type="text"></form:textarea></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                         <label class="col-form-label">Users </label></div>
                 <div class="col-sm-8 input-column">
-                    <select class="selectpicker" data-live-search="true" data-width="100%" multiple="true" id="users"
+                    <form:select path = "usersTemp" class="selectpicker" data-live-search="true" data-width="100%" multiple="true" id="users"
                             name="users">
                         <optgroup label="Students">
                         <c:forEach items="${students}" var="user">
@@ -51,10 +50,10 @@
                         <c:forEach items="${teachers}" var="user">
                             <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
                         </c:forEach>
-                    </select>
+                    </form:select>
                 </div>
             </div>
-            <a class="btn btn-light submit-button" onclick="relate()">Accept</a>
+            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
         </form:form>
     </div>
 </div>
@@ -62,7 +61,7 @@
 
 <script type="text/javascript">
 
-    function relate() {
+    function Validate() {
         var teacher = false;
 
         $('#users').find("option:selected").each(function(){
@@ -76,8 +75,9 @@
 
         if ($('#users').val().length > 1 && teacher === true) {
             alert("Teacher cannot be in a group of students");
+            return false;
         } else {
-            window.location.href = '/conversation/creation?usersId=' + $('#users').val().toString();
+            return true;
         }
     }
 

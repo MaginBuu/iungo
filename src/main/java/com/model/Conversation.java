@@ -3,6 +3,7 @@ package com.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,28 +11,37 @@ import java.util.Objects;
 @Table(name = "conversation")
 public class Conversation {
     private static final long serialVersionUID = 2681531852204068105L;
+
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "CONVERSATION_ID")
-    private int conversationId;
+    private String conversationId;
 
     @Column(name = "REPORTED", columnDefinition = "boolean default false")
     private boolean reported;
 
+    @Column(name = "TITLE")
+    private String title;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
+
     @OneToMany(mappedBy = "conversationId", targetEntity = Message.class)
     private List<Message> messages;
 
-    @ManyToMany
-    private List<User> users;
+    @Transient
+    private String usersTemp;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
     @JoinTable(name = "user_conversations")
-    private List<User> usersConversation;
+    private List<User> users = new LinkedList<>();
 
     public Conversation() {}
 
-    public int getConversationId(){
+    public void setConversationId(String conversationId) { this.conversationId = conversationId; }
+
+    public String getConversationId(){
         return conversationId;
     }
 
@@ -50,6 +60,24 @@ public class Conversation {
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
+
+    public String getUsersTemp() { return usersTemp; }
+
+    public void setUsersTemp(String usersTemp) { this.usersTemp = usersTemp; }
+
+    public String getTitle() { return title; }
+
+    public void setTitle(String title) { this.title = title; }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public void addUser(User user){ this.users.add(user); }
+
+    public List<User> getUsersConversation() { return users; }
+
+    public void setUsersConversation(List<User> usersConversation) { this.users = usersConversation; }
 
     @Override
     public boolean equals(Object o) {
