@@ -45,7 +45,7 @@
                     <c:forEach items="${conversations}" var="conversation">
                         <div class="chat_list" onmouseout="unHoverElement(${conversation.conversationId})"
                              onmouseover="hoverElement(${conversation.conversationId})"
-                             onclick="selectConversation(${conversation.conversationId},${conversation.title})"
+                             onclick="selectConversation(${conversation.conversationId})"
                              id="${conversation.conversationId}">
                             <div class="chat_people">
                                 <div class="chat_ib">
@@ -74,7 +74,7 @@
                     </div>
                     <div class="srch_bar">
                        <span class="input-group-addon">
-                           <button type="button"> <i class="fa fa-reply" aria-hidden="true"></i> </button></span>
+                           <button type="button"> <i class="fa fa-reply" aria-hidden="true"></i> </button><button type="button"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </button></span>
                     </div>
                 </div>
                 <div class="msg_history">
@@ -107,15 +107,13 @@
 
     function unHoverElement(elem) {
         var hiddenSelected = document.getElementById('selected-conversation');
-        console.log(hiddenSelected.value);
-        console.log(elem);
         if(hiddenSelected.value != elem) {
             var div = document.getElementById(elem);
             div.style.backgroundColor = "#f8f8f8";
         }
     }
 
-    function selectConversation(elem, title){
+    function selectConversation(elem){
         var hiddenSelected = document.getElementById('selected-conversation'); //""
         var icon = document.getElementById(elem+'i'); //Icono del div que seleccionem  sobert o sobre tancat
         if("" !== hiddenSelected.value) {
@@ -127,7 +125,7 @@
             icon.classList.remove('fa-envelope');
             icon.classList.add('fa-envelope-open-o');
         }
-        document.getElementById('chat-title').innerText = title;
+        document.getElementById('chat-title').innerText = elem;
     }
 
 </script>

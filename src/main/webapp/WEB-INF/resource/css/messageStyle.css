@@ -44,10 +44,10 @@ img{ max-width:100%;}
 .srch_bar .input-group-addon button {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
-    padding: 0;
     color: #ffffff;
     font-size: 18px;
     float: right;
+    padding-top: 6px;
 }
 .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
 
