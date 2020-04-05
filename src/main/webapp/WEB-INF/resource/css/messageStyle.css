@@ -23,6 +23,7 @@ img{ max-width:100%;}
     display: inline-block;
     text-align: right;
     width: 60%;
+    direction: ltr;
 }
 .heading_srch{ padding:10px 29px 10px 20px;
     overflow:hidden;
@@ -30,6 +31,7 @@ img{ max-width:100%;}
     solid #DE9D3F;
     background: #DE9D3F;
     border-bottom: 1px solid #c4c4c4;
+    min-height: 55px;
 }
 
 .recent_heading h4 {
@@ -45,6 +47,7 @@ img{ max-width:100%;}
     padding: 0;
     color: #ffffff;
     font-size: 18px;
+    float: right;
 }
 .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
 
@@ -57,7 +60,7 @@ img{ max-width:100%;}
     width: 88%;
 }
 
-.chat_people{ overflow:hidden; clear:both;}
+.chat_people{ overflow:hidden; clear:both;direction: ltr;}
 .chat_list {
     border-bottom: 1px solid #c4c4c4;
     border-right:1px solid #c4c4c4;
