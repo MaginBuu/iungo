@@ -10,6 +10,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "messages")
+
+@NamedQueries({
+        @NamedQuery(name = "Message.getByConversationId", query = "SELECT m FROM Message m WHERE m.conversation.conversationId =:conversationId"),
+})
+
 public class Message {
     private static final long serialVersionUID = 2681531852204068105L;
     @Id
@@ -20,7 +25,7 @@ public class Message {
 
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "CONVERSATION_ID")
-    private Conversation conversationId;
+    private Conversation conversation;
 
     @Column(name = "SUBJECT")
     private String subject;
@@ -42,8 +47,8 @@ public class Message {
     public Message() {
     }
 
-    public Message(Conversation conversationId, String subject, String messageBody) {
-        this.conversationId = conversationId;
+    public Message(Conversation conversation, String subject, String messageBody) {
+        this.conversation = conversation;
         this.subject = subject;
         this.messageBody = messageBody;
     }
@@ -53,12 +58,8 @@ public class Message {
     }
 
     public Conversation getConversationId() {
-        return conversationId;
+        return conversation;
     }
-
-    //public void setConversationId(Conversation conversationId) {
-    //    this.conversationId = conversationId;
-    //}
 
     public String getSubject() {
         return subject;
@@ -90,7 +91,7 @@ public class Message {
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
         return messageId == message.messageId &&
-                Objects.equals(conversationId, message.conversationId) &&
+                Objects.equals(conversation, message.conversation) &&
                 Objects.equals(subject, message.subject) &&
                 Objects.equals(messageBody, message.messageBody) &&
                 Objects.equals(date, message.date);
@@ -98,6 +99,18 @@ public class Message {
 
     @Override
     public int hashCode() {
-        return Objects.hash(messageId, conversationId, subject, messageBody, date);
+        return Objects.hash(messageId, conversation, subject, messageBody, date);
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "messageId=" + messageId +
+                ", conversation=" + conversation +
+                ", subject='" + subject + '\'' +
+                ", messageBody='" + messageBody + '\'' +
+                ", date=" + date +
+                ", sender=" + sender +
+                '}';
     }
 }
