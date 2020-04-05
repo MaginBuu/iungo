@@ -2,6 +2,7 @@ package com.service;
 
 import com.dao.ConversationDao;
 import com.model.Conversation;
+import com.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,8 @@ public class ConversationServiceImpl implements ConversationService{
     public List<Conversation> getAllConversations() {
         return conversationDao.getAllConversations();
     }
+
+    @Override
+    public Conversation getWithMessages(String id) { return conversationDao.getWithMessages(id); }
 
 }

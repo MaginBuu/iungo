@@ -43,7 +43,6 @@ public class ConversationController {
 
         students.remove(user);
 
-
         ModelAndView model = new ModelAndView("student/createConversation");
         model.addObject("conversation", new Conversation());
         model.addObject("teachers", teachers);
