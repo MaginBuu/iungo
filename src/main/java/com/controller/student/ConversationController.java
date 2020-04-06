@@ -3,6 +3,7 @@ package com.controller.student;
 import com.model.*;
 import com.model.enums.Role;
 import com.service.ConversationService;
+import com.service.ConversationUserService;
 import com.service.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,9 @@ public class ConversationController {
 
     @Autowired
     ConversationService conversationService;
+
+    @Autowired
+    ConversationUserService conversationUserService;
 
 
     /**
@@ -61,13 +67,18 @@ public class ConversationController {
     public String createConversation(@Valid @ModelAttribute("conversation") Conversation conversation) throws ParseException {
         String[] users = conversation.getUsersTemp().split(",");
 
-        for (String userId : users){
-            //conversation.addUser(userService.getUserById(userId));
-        }
-            //conversation.addUser(userService.getUserById("1")); // this will be the logged user
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         conversationService.addConversation(conversation);
 
+        for (String userId : users){
+            ConversationUser conversationUser = new ConversationUser(userService.getUserById(userId), conversation, new Date());
+            conversationUserService.addConversationUser(conversationUser);
+            conversation.addUserConversations(conversationUser);
+            System.out.println("1");
+        }
+        ConversationUser conversationUser = new ConversationUser(userService.getUserById("1"), conversation, new Date());
+        conversationUserService.addConversationUser(conversationUser);
 
         return "redirect:/";
     }

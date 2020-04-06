@@ -64,6 +64,7 @@
 				<value>com.model.RoleSecretary</value>
 				<value>com.model.RoleAdmin</value>
 				<value>com.model.RoleClass</value>
+				<value>com.model.ConversationUser</value>
 			</list>
 		</property>
 
