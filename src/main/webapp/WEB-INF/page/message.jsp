@@ -35,13 +35,13 @@
                     </div>
                     <div class="srch_bar">
                         <div class="stylish-input-group">
-                            <input type="text" class="search-bar">
+                            <input type="text" id="search" class="search-bar">
                             <span class="input-group-addon">
                 <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                 </span></div>
                     </div>
                 </div>
-                <div class="inbox_chat">
+                <div id="conversations" class="inbox_chat">
                     <c:forEach items="${conversations}" var="conversation">
                         <div class="chat_list" onmouseout="unHoverElement(${conversation.conversationId})"
                              onmouseover="hoverElement(${conversation.conversationId})"
@@ -127,6 +127,29 @@
         }
         document.getElementById('chat-title').innerText = elem;
     }
+
+
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toString().toLowerCase();
+            console.log(value);
+            $('#conversations').find('div').each(function(){
+                var childId = $(this).attr('id');
+                var containsText = false;
+                if(childId != undefined && childId !== ""){
+                    $(this).find('h5, p').each(function(){
+                        if($(this).text().toString().includes(value)){
+                            containsText = true;
+                        }
+                    });
+                    if(containsText)
+                        $(this).show()
+                    else
+                        $(this).hide()
+                }
+            });
+        });
+    });
 
 </script>
 
