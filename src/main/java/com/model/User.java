@@ -115,8 +115,11 @@ public class User implements Serializable {
 	@Transient
 	private Department department;
 
-	@ManyToMany(mappedBy="users", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Conversation> conversations = new LinkedList<>();
+	/*@ManyToMany(mappedBy="users", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Conversation> conversations = new LinkedList<>();*/
+
+	@OneToMany(mappedBy = "user", targetEntity = ConversationUser.class)
+	private List<ConversationUser> userConversations;
 
 	public User() { }
 
@@ -236,6 +239,18 @@ public class User implements Serializable {
 
 	public void setGender(GenderType gender) {
 		this.gender = gender;
+	}
+
+	public void addUserConversations(ConversationUser conversationUser){
+		this.userConversations.add(conversationUser);
+	}
+
+	public List<ConversationUser> getUserConversations() {
+		return userConversations;
+	}
+
+	public void setUserConversations(List<ConversationUser> userConversations) {
+		this.userConversations = userConversations;
 	}
 
 	public Map<Role, RoleClass> getRoles() { return roles; }

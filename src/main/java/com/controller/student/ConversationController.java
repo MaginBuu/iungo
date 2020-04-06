@@ -4,11 +4,11 @@ import com.model.*;
 import com.model.enums.Role;
 import com.service.ConversationService;
 import com.service.UserService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -70,5 +70,25 @@ public class ConversationController {
 
 
         return "redirect:/";
+    }
+
+    @RequestMapping("/conversation/getMessages")
+    public @ResponseBody
+    JSONArray conversationAjax(@RequestParam("conversationId") String conversationId) {
+        List<Message> messages;
+        messages = conversationService.getWithMessages(conversationId).getMessages();
+
+        JSONArray data = new JSONArray();
+        for(Message m : messages){
+            JSONObject o = new JSONObject();
+            o.put("id", m.getMessageId());
+            o.put("date", m.getDate().toString());
+            o.put("subject", m.getSubject());
+            o.put("body", m.getMessageBody());
+            o.put("sender", m.getSender().getName()+" "+m.getSender().getSurname()+" "+m.getSender().getSecondSurname());
+
+            data.add(o);
+        }
+        return data;
     }
 }
