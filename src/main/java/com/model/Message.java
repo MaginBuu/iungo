@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "messages")
 
 @NamedQueries({
-        @NamedQuery(name = "Message.getByConversationId", query = "SELECT m FROM Message m WHERE m.conversation.conversationId =:conversationId"),
+        @NamedQuery(name = "Message.getByConversationId", query = "SELECT m FROM Message m WHERE m.conversation.conversationId =:conversationId ORDER BY m.date DESC"),
 })
 
 public class Message {
@@ -41,6 +41,7 @@ public class Message {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     private User sender;
+
 
     //FITXERS ADJUNTS
 
@@ -83,6 +84,14 @@ public class Message {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
     @Override

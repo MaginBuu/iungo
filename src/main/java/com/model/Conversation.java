@@ -11,7 +11,7 @@ import java.util.Objects;
 @Table(name = "conversation")
 @NamedQueries({
         @NamedQuery(name = "Conversation.findAll", query = "SELECT c FROM Conversation c"),
-        @NamedQuery(name = "Conversation.getWithMessages", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.users WHERE c.conversationId =:id"),
+        //@NamedQuery(name = "Conversation.getWithMessages", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.users WHERE c.conversationId =:id"),
 })
 public class Conversation {
     private static final long serialVersionUID = 2681531852204068105L;
@@ -34,12 +34,17 @@ public class Conversation {
     @OneToMany(mappedBy = "conversation", targetEntity = Message.class)
     private List<Message> messages;
 
+    @OneToMany(mappedBy = "userConversation", targetEntity = ConversationUser.class)
+    private List<ConversationUser> userConversations;
+
     @Transient
     private String usersTemp;
 
+    /*
     @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
     @JoinTable(name = "user_conversations")
     private List<User> users = new LinkedList<>();
+*/
 
     public Conversation() {}
 
@@ -77,11 +82,23 @@ public class Conversation {
 
     public void setDescription(String description) { this.description = description; }
 
-    public void addUser(User user){ this.users.add(user); }
+    /*public void addUser(User user){ this.users.add(user); }
 
     public List<User> getUsersConversation() { return users; }
 
-    public void setUsersConversation(List<User> usersConversation) { this.users = usersConversation; }
+    public void setUsersConversation(List<User> usersConversation) { this.users = usersConversation; }*/
+
+    public void addUserConversations(ConversationUser conversationUser){
+        this.userConversations.add(conversationUser);
+    }
+
+    public List<ConversationUser> getUserConversations() {
+        return userConversations;
+    }
+
+    public void setUserConversations(List<ConversationUser> userConversations) {
+        this.userConversations = userConversations;
+    }
 
     @Override
     public boolean equals(Object o) {

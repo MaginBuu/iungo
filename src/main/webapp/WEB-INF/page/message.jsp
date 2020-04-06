@@ -70,29 +70,17 @@
             <div class="mesgs">
                 <div class="heading_srch">
                     <div class="recent_heading">
-                        <h4 id="chat-title"></h4>
+                        <h4 id="chat-title" style="color: #DE9D3F">placeholder</h4>
                     </div>
                     <div class="srch_bar">
                        <span class="input-group-addon">
-                           <button type="button"> <i class="fa fa-reply" aria-hidden="true"></i> </button><button type="button"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </button></span>
+                           <button type="button"> <i class="fa fa-reply" aria-hidden="true"></i> </button>
+                           <button type="button"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </button>
+                           <button type="button" onclick="selectConversation(document.getElementById('selected-conversation').value)"> <i class="fa fa-refresh" aria-hidden="true"></i> </button></span>
                     </div>
                 </div>
-                <div class="msg_history">
-                    <div class="card" style="width: 100%">
-                        <div id="anselm" class="container card-header-no-hover"><span class="space"></span>
-                            <p class="subject" id="heading-card">Classe dema per la tarda</p>
-                            <p class="referer" id="heading-card"><strong>From:</strong> Angela Martin <strong>
-                                at </strong> 02/08/2020</p>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text sub-text-color">"Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <div class="msg_history" id="div-messages">
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +113,40 @@
             icon.classList.remove('fa-envelope');
             icon.classList.add('fa-envelope-open-o');
         }
-        document.getElementById('chat-title').innerText = elem;
+        var missatgeria = document.getElementById("div-messages");
+        missatgeria.innerHTML = "";
+
+        $.ajax({
+
+            type: "GET",
+            url: "../conversation/getMessages",
+            dataType: "json",
+            contentType: 'application/json',
+            data: {
+                "conversationId": elem
+            }, //aqui es passen els parametres
+            success: function (data) {
+                let options, select, selectFinish, i;
+                console.log(data);
+                // Disable the booked options in both select, each one with its list
+                $.each(data, function (index, current) {
+                    console.log("ID: "+current.id+" Date: "+current.date+" Subj: "+current.subject+" Body: "+current.body);
+                    missatgeria.innerHTML += ' <div class="card" style="width: 100%">'+
+                        ' <div id="m'+current.id+'" class="container card-header-no-hover"><span class="space"></span> '+
+                        ' <p class="subject" id="heading-card">'+current.subject+'</p> '+
+                        ' <p class="referer" id="heading-card"><strong>From: </strong>'+current.sender+'<strong> '+
+                        ' at </strong>'+current.date+'</p> </div> <div class="card-body"> <p class="card-text sub-text-color">'+current.body+'</p> '+
+                        ' </div> </div>';
+                });
+
+                // Selectpicker refresh
+                //$('#select-teacher').selectpicker('refresh');
+            }
+        }).done(function () {
+
+        }).fail(function () {
+            console.log("Error Ajax");
+        });
     }
 
 
