@@ -35,7 +35,7 @@ public class Conversation {
     private List<Message> messages;
 
     @OneToMany(mappedBy = "userConversation", targetEntity = ConversationUser.class)
-    private List<ConversationUser> userConversations;
+    private List<ConversationUser> userConversations = new LinkedList<>();
 
     @Transient
     private String usersTemp;
