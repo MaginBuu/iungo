@@ -45,6 +45,7 @@
 				<value>com.model.AntiBullyingReport</value>
 				<value>com.model.Authorities</value>
 				<value>com.model.Conversation</value>
+				<value>com.model.ConversationUser</value>
 				<value>com.model.Course</value>
 				<value>com.model.Event</value>
 				<value>com.model.ClassGroup</value>

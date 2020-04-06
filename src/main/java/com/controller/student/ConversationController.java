@@ -62,9 +62,9 @@ public class ConversationController {
         String[] users = conversation.getUsersTemp().split(",");
 
         for (String userId : users){
-            conversation.addUser(userService.getUserById(userId));
+            //conversation.addUser(userService.getUserById(userId));
         }
-            conversation.addUser(userService.getUserById("1")); // this will be the logged user
+            //conversation.addUser(userService.getUserById("1")); // this will be the logged user
 
         conversationService.addConversation(conversation);
 
