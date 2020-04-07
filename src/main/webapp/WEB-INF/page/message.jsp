@@ -198,6 +198,26 @@
         });
     });
 
+    function reportConversation(){
+        var hiddenSelected = document.getElementById('selected-conversation');
+        $.ajax({
+
+            url: "../conversation/report",
+            data: {
+                "conversationId": hiddenSelected
+            }, //aqui es passen els parametres
+            success: function (data) {g
+                });
+
+                // Selectpicker refresh
+                //$('#select-teacher').selectpicker('refresh');
+            }
+        }).done(function () {
+
+        }).fail(function () {
+            console.log("Error Ajax");
+        });
+    }
 </script>
 
 </body>
