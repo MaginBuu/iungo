@@ -75,7 +75,7 @@
                     <div class="srch_bar">
                        <span class="input-group-addon">
                            <button type="button"> <i class="fa fa-reply" aria-hidden="true"></i> </button>
-                           <button type="button"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </button>
+                           <button type="button"> <i class="fa fa-exclamation-circle" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> </button>
                            <button type="button" onclick="selectConversation(document.getElementById('selected-conversation').value)"> <i class="fa fa-refresh" aria-hidden="true"></i> </button></span>
                     </div>
                 </div>
@@ -83,6 +83,32 @@
 
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title">Are you sure?</h4>
+                <p id="deleteText">Do you really want to report this conversation?
+                    False reporting can carry consequences.</p>
+            </div>
+            <input type="hidden" name="elementId" id="elementId" value=""/>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="reportConversation()">Report
+                </button>
+            </div>
+
         </div>
     </div>
 </div>
