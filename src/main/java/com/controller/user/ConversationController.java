@@ -1,4 +1,4 @@
-package com.controller.student;
+package com.controller.user;
 
 import com.model.*;
 import com.model.enums.Role;
@@ -8,14 +8,16 @@ import com.service.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -37,20 +39,61 @@ public class ConversationController {
      * @return ModelAndView with the desired .jsp file and its required model & objects
      */
     @RequestMapping(value = "/conversation/creation")
-    public ModelAndView getConversationCreationForm() {
-        Conversation conversation = new Conversation();
+    public ModelAndView getConversationCreationForm(HttpServletRequest request, Authentication authentication) {
+
+        User user = (User)request.getSession().getAttribute("user");
+        String role = authentication.getAuthorities().toArray()[0].toString();
 
 
-        User user = userService.getUserById("1"); //this will be the logged user
-        RoleStudent roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
+        List<User> teachers;
+        List<User> students = new LinkedList<>();
+        List<User> admins = new LinkedList<>();
+        List<User> secretaries = new LinkedList<>();
+        List<User> responsibles = new LinkedList<>();
 
-        List<User> teachers = userService.getAllUsersWithRole(Role.TEACHER);
-        List<User> students = userService.getStudentsByGroup(roleStudent.getGroup().getGroupId());
 
-        students.remove(user);
+        if("STUDENT".equals(role)){
 
-        ModelAndView model = new ModelAndView("student/createConversation");
+            RoleStudent roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
+            teachers = userService.getAllUsersWithRole(Role.TEACHER);
+            students = userService.getStudentsByGroup(roleStudent.getGroup().getGroupId());
+            students.remove(user);
+
+        }else if("RESPONSIBLE".equals(role)){
+
+            teachers = userService.getAllUsersWithRole(Role.TEACHER);
+
+        }else{
+
+            students = userService.getAllUsersWithRole(Role.STUDENT);
+            teachers = userService.getAllUsersWithRole(Role.TEACHER);
+            admins = userService.getAllUsersWithRole(Role.ADMIN);
+            secretaries = userService.getAllUsersWithRole(Role.SECRETARY);
+            responsibles = userService.getAllUsersWithRole(Role.RESPONSIBLE);
+
+            switch (role){
+                case "ADMIN":
+                    admins.remove(user);
+                    break;
+
+                case "SECRETARY":
+                    secretaries.remove(user);
+                    break;
+
+                default:
+                    teachers.remove(user);
+                    break;
+            }
+
+        }
+
+
+        ModelAndView model = new ModelAndView("createConversation");
         model.addObject("conversation", new Conversation());
+
+        model.addObject("responsibles", responsibles);
+        model.addObject("admins", admins);
+        model.addObject("secretaries", secretaries);
         model.addObject("teachers", teachers);
         model.addObject("students", students);
         return model;
@@ -64,10 +107,8 @@ public class ConversationController {
      * @return returns the user to the main page with an url
      */
     @RequestMapping(value = "/conversation/creation", method = RequestMethod.POST)
-    public String createConversation(@Valid @ModelAttribute("conversation") Conversation conversation) throws ParseException {
+    public String createConversation(@Valid @ModelAttribute("conversation") Conversation conversation, HttpServletRequest request) {
         String[] users = conversation.getUsersTemp().split(",");
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         conversationService.addConversation(conversation);
 
@@ -75,9 +116,10 @@ public class ConversationController {
             ConversationUser conversationUser = new ConversationUser(userService.getUserById(userId), conversation, new Date());
             conversationUserService.addConversationUser(conversationUser);
             conversation.addUserConversations(conversationUser);
-            System.out.println("1");
         }
-        ConversationUser conversationUser = new ConversationUser(userService.getUserById("1"), conversation, new Date());
+
+        User user = (User)request.getSession().getAttribute("user");
+        ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
         conversationUserService.addConversationUser(conversationUser);
 
         return "redirect:/";

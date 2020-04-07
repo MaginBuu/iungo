@@ -47,7 +47,7 @@ public class TicketController {
 	 * @return returns the user to the main page with an url
 	 */
 	@RequestMapping(value = "/ticket/creation", method = RequestMethod.POST)
-	public String createTicket(@Valid @ModelAttribute(value = "ticket") Ticket ticket, Model model, BindingResult result) throws ParseException {
+	public String createTicket(@Valid @ModelAttribute(value = "ticket") Ticket ticket) throws ParseException {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		User user = (User)request.getSession().getAttribute("user");
 
