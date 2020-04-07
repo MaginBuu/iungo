@@ -11,7 +11,7 @@ import java.util.Objects;
 @Table(name = "conversation")
 @NamedQueries({
         @NamedQuery(name = "Conversation.findAll", query = "SELECT c FROM Conversation c"),
-        //@NamedQuery(name = "Conversation.getWithMessages", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.users WHERE c.conversationId =:id"),
+        @NamedQuery(name = "Conversation.getWithMessages", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.userConversations u WHERE c.conversationId =:id"),
 })
 public class Conversation {
     private static final long serialVersionUID = 2681531852204068105L;
