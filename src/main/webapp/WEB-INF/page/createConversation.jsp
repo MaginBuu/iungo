@@ -19,11 +19,12 @@
 </head>
 
 <body>
-<%@ include file="../navbar.jsp" %>
+<%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" action="/conversation/creation" method="post" modelAttribute="conversation" commandName="conversation">
             <h1>Create conversation</h1>
+            <input id="roleUser" type="hidden" value="${pageContext.request.userPrincipal.authorities}">
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <label class="col-form-label">Title </label></div>
@@ -41,15 +42,36 @@
                         <label class="col-form-label">Users </label></div>
                 <div class="col-sm-8 input-column">
                     <form:select path = "usersTemp" class="selectpicker" data-live-search="true" data-width="100%" multiple="true" id="users"
-                            name="users">
-                        <optgroup label="Students">
-                        <c:forEach items="${students}" var="user">
-                            <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
-                        </c:forEach>
+                            name="users" data-dropup-auto="false">
+                        <c:if test="${pageContext.request.userPrincipal.authorities ne 'RESPONSIBLE'}">
+                            <optgroup label="Students">
+                            <c:forEach items="${students}" var="user">
+                                <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
+                            </c:forEach>
+                        </c:if>
+
                         <optgroup label="Teachers">
                         <c:forEach items="${teachers}" var="user">
                             <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
                         </c:forEach>
+
+                        <c:if test="${(pageContext.request.userPrincipal.authorities ne 'RESPONSIBLE')
+                                            and (pageContext.request.userPrincipal.authorities ne 'STUDENT')}">
+                            <optgroup label="responsibles">
+                            <c:forEach items="${responsibles}" var="user">
+                                <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
+                            </c:forEach>
+
+                            <optgroup label="secretaries">
+                            <c:forEach items="${secretaries}" var="user">
+                                <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
+                            </c:forEach>
+
+                            <optgroup label="admins">
+                            <c:forEach items="${admins}" var="user">
+                                <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
+                            </c:forEach>
+                        </c:if>
                     </form:select>
                 </div>
             </div>
@@ -63,7 +85,6 @@
 
     function Validate() {
         var teacher = false;
-
         $('#users').find("option:selected").each(function(){
             //optgroup label
             var label = $(this).parent().attr("label");
@@ -73,7 +94,8 @@
 
         });
 
-        if ($('#users').val().length > 1 && teacher === true) {
+        var role = $("#roleUser").val().toString();
+        if ((role === "[STUDENT]" || role === "[RESPONSIBLE]") && $('#users').val().length > 1 && teacher === true) {
             alert("Teacher cannot be in a group of students");
             return false;
         } else {
