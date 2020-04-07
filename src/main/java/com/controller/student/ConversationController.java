@@ -10,8 +10,11 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,8 +70,6 @@ public class ConversationController {
     public String createConversation(@Valid @ModelAttribute("conversation") Conversation conversation) throws ParseException {
         String[] users = conversation.getUsersTemp().split(",");
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         conversationService.addConversation(conversation);
 
         for (String userId : users){
@@ -85,7 +86,15 @@ public class ConversationController {
 
     @RequestMapping("/conversation/getMessages")
     public @ResponseBody
-    JSONArray conversationAjax(@RequestParam("conversationId") String conversationId) {
+    JSONObject conversationLoadMessages(@RequestParam("conversationId") String conversationId) {
+
+        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        ConversationUser conversationUser = conversationUserService.findByUserAndConversation("1",conversationId);
+        conversationUser.setLastVisit(new Date());
+        Date last = conversationUser.getLastVisit();
+        conversationUserService.addConversationUser(conversationUser);
+
         List<Message> messages;
         messages = conversationService.getWithMessages(conversationId).getMessages();
 
@@ -93,13 +102,32 @@ public class ConversationController {
         for(Message m : messages){
             JSONObject o = new JSONObject();
             o.put("id", m.getMessageId());
-            o.put("date", m.getDate().toString());
+            o.put("date", m.getDate());
+            o.put("stringDate", m.getDate().toString());
             o.put("subject", m.getSubject());
             o.put("body", m.getMessageBody());
             o.put("sender", m.getSender().getName()+" "+m.getSender().getSurname()+" "+m.getSender().getSecondSurname());
 
             data.add(o);
         }
-        return data;
+        JSONObject pepe = new JSONObject();
+        pepe.put("last",last);
+        pepe.put("msg",data);
+        return pepe;
+    }
+
+    @RequestMapping(value = "/conversation/delete", method = RequestMethod.GET)
+    public String deleteConversation(@RequestParam String conversationId){
+
+        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        ConversationUser conversationUser = conversationUserService.findByUserAndConversation("1",conversationId);
+        conversationUserService.deleteConversationUser(conversationUser);
+
+        System.out.println("deleted");
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
     }
 }

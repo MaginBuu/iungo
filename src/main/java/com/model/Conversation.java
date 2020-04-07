@@ -3,6 +3,7 @@ package com.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Conversation.findAll", query = "SELECT c FROM Conversation c"),
         @NamedQuery(name = "Conversation.getWithMessages", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.userConversations u WHERE c.conversationId =:id"),
+        @NamedQuery(name = "Conversation.findById", query = "SELECT c FROM Conversation c WHERE c.conversationId =:id"),
 })
 public class Conversation {
     private static final long serialVersionUID = 2681531852204068105L;
@@ -39,6 +41,9 @@ public class Conversation {
 
     @Transient
     private String usersTemp;
+
+    @Transient
+    private Date lastVisit;
 
     /*
     @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)

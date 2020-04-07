@@ -8,5 +8,8 @@ public interface ConversationUserService {
 
     void addConversationUser(ConversationUser conversation);
 
+    ConversationUser findByUserAndConversation(String userId, String conversationId);
+
+    void deleteConversationUser(ConversationUser conversationUser);
 
 }

@@ -25,6 +25,16 @@
   color: #333;
 }
 
+.creation-form div.custom-div-message{
+  padding: 55px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  font: 14px sans-serif;
+  margin: 50px;
+  color: #333;
+}
+
 .creation-form .custom-div h1 {
   display: inline-block;
   color: #4c565e;
@@ -41,15 +51,17 @@
   }
 }
 
-.creation-form .custom-form h1 {
+h1 {
   display: inline-block;
   color: #4c565e;
   font-size: 24px;
   font-weight: bold;
+  margin:0 auto;
   padding: 0 10px 15px;
   margin-bottom: 60px;
   border-bottom: 2px solid #DE9D3F;
 }
+
 
 .creation-form .custom-form .form-group {
   margin-bottom: 25px;

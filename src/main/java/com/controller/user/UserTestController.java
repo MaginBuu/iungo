@@ -1,6 +1,7 @@
 package com.controller.user;
 
 import com.model.Conversation;
+import com.model.User;
 import com.service.ConversationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,10 @@ public class UserTestController {
 
 	@RequestMapping(value = "/user/messages")
 	public ModelAndView messages(){
-		List<Conversation> conversations = conversationService.getAllConversations();
+		//FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+		List<Conversation> conversations = conversationService.findAllConversationsByUserId("1");
 		ModelAndView model = new ModelAndView("/message");
 		model.addObject("conversations", conversations);
 		return model;

@@ -13,4 +13,8 @@ public interface ConversationService {
 
     Conversation getWithMessages(String id);
 
+    Conversation findById(String id);
+
+    List<Conversation> findAllConversationsByUserId(String userId);
+
 }
