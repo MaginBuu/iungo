@@ -18,6 +18,7 @@ import java.text.ParseException;
 import com.model.User;
 import com.service.AntiBullyingReportService;
 import com.service.ConversationService;
+import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +38,9 @@ public class UserTestController {
 
 	@Autowired
 	AntiBullyingReportService antiBullyingReportService;
+
+	@Autowired
+	UserService userService;
 
 	@RequestMapping(value = "/user/messages")
 	public ModelAndView messages(){
@@ -88,6 +92,7 @@ public class UserTestController {
 
 		}
 		//Alertar responsable
+
 		antiBullyingReportService.addAntiBullyingReport(report);
 		return "redirect:/";
 	}

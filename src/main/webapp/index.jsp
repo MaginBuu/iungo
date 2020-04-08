@@ -40,9 +40,9 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-ticket icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                        <h3 class="name">New ticket </h3></a>
+                <div class="box"><i class="fa fa-graduation-cap icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/teachers">
+                        <h3 class="name">Teachers </h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
