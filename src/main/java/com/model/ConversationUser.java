@@ -24,6 +24,9 @@ public class ConversationUser implements Serializable {
     @Column(name = "LAST_VISIT")
     private Date lastVisit;
 
+    @Column(name = "UNREAD")
+    private boolean unread;
+
     public ConversationUser(){}
 
     public ConversationUser(User user, Conversation userConversation, Date lastVisit) {
@@ -54,6 +57,14 @@ public class ConversationUser implements Serializable {
 
     public void setLastVisit(Date lastVisit) {
         this.lastVisit = lastVisit;
+    }
+
+    public boolean isUnread() {
+        return unread;
+    }
+
+    public void setUnread(boolean unread) {
+        this.unread = unread;
     }
 
     @Override

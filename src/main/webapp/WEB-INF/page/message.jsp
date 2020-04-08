@@ -58,6 +58,10 @@
         }
         var missatgeria = document.getElementById("div-messages");
         missatgeria.innerHTML = "";
+        document.getElementById("btn-reply").style.display="block";
+        document.getElementById("btn-delete").style.display="block";
+        document.getElementById("btn-refresh").style.display="block";
+        document.getElementById("btn-report").style.display="block";
         $.ajax({
 
             type: "GET",
@@ -80,21 +84,17 @@
                     console.log(msgDate);
                     console.log(lastVisit>msgDate);
                     if(lastVisit<msgDate){
-                        style = "card-header-no-hover-unread"
+                        style = "msg-header-no-hover-unread"
                     }else{
-                        style = "card-header-no-hover"
+                        style = "msg-header-no-hover"
                     }
-                    missatgeria.innerHTML += ' <div class="card" style="width: 100%">'+
+                    missatgeria.innerHTML += ' <div class="msg" style="width: 100%">'+
                         ' <div id="m'+current.id+'" class="container '+style+'"><span class="space"></span> '+
-                        ' <p class="subject" id="heading-card">'+current.subject+'</p> '+
-                        ' <p class="referer" id="heading-card"><strong>From: </strong>'+current.sender+'<strong> '+
-                        ' at </strong>'+current.stringDate+'</p> </div> <div class="card-body"> <p class="card-text sub-text-color">'+current.body+'</p> '+
+                        ' <p class="subject" id="subject">'+current.subject+'</p> '+
+                        ' <p class="referer" id="referer"><strong>From: </strong>'+current.sender+'<strong> '+
+                        ' at </strong>'+current.stringDate+'</p> </div> <div class="msg-body"> <p class="msg-text sub-text-color">'+current.body+'</p> '+
                         ' </div> </div>';
                 });
-                document.getElementById("btn-reply").style.display="block";
-                document.getElementById("btn-delete").style.display="block";
-                document.getElementById("btn-refresh").style.display="block";
-                document.getElementById("btn-report").style.display="block";
                 // Selectpicker refresh
                 //$('#select-teacher').selectpicker('refresh');
             }

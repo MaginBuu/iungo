@@ -20,23 +20,21 @@
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <c:url value="/user/antibullying/report" var="url"></c:url>
-        <form:form class="custom-form" method="post" action="/ticket/creation" modelAttribute="report">
+        <form:form class="custom-form" method="post" action="/user/antibullying/report" modelAttribute="report">
+            <form:hidden path="observed"/>
             <h1><i class="fa fa-heart icon"></i></h1>
             <p><i>Feeling safe and good about ourselves as with each other is very important. This is a safe space to
                 express our worries and talk with confidence about our or others issues.</i></p>
             <br><br>
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><form:label path="description"
+            <div class="form-group">
+                <div class="label-column" style="text-align: center"><form:label path="description"
                                                                class="col-form-label">Description </form:label></div>
-                <div class="col-sm-8 input-column"><form:textarea path="description" class="form-control"
+                <div class="input-column"><form:textarea path="description" class="form-control"
                                                                type="text"></form:textarea></div>
             </div>
-
-            <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Report Anonymously </label></div>
-                <div class="col-sm-8 input-column"><input name="anonymously" is="anonymously" type="checkbox" class="form-control"
-                                                                  type="text"></input></div>
+            <div class="row form-group">
+                <div class="col label-column"><label class="col-form-label">Report Anonymously </label><span></span></div>
+                <div class="col input-column"><form:checkbox name="anonymously" path="anonymous" class="form-control"></form:checkbox></div>
             </div>
 
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Send</button>

@@ -7,6 +7,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public class ProcedureDaoImpl implements ProcedureDao {
@@ -20,7 +22,7 @@ public class ProcedureDaoImpl implements ProcedureDao {
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(procedure);
+            session.saveOrUpdate(procedure);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();
@@ -28,5 +30,13 @@ public class ProcedureDaoImpl implements ProcedureDao {
         }finally {
             session.close();
         }
+    }
+
+    @Override
+    public Procedure findById(String id) {
+        Session session = sessionFactory.openSession();
+        Procedure procedure = (Procedure) session.getNamedQuery("Procedure.findById").setParameter("id", id).uniqueResult();
+        session.close();
+        return procedure;
     }
 }

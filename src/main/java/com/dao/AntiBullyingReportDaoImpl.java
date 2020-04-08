@@ -30,12 +30,12 @@ public class AntiBullyingReportDaoImpl implements AntiBullyingReportDao {
         }
     }
 
-    public void deleteAntiBullyingReport(AntiBullyingReport timeLine){
+    public void deleteAntiBullyingReport(AntiBullyingReport antiBullyingReport){
         Session session = sessionFactory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.delete(timeLine);
+            session.delete(antiBullyingReport);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();

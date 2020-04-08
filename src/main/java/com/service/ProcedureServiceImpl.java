@@ -15,4 +15,6 @@ public class ProcedureServiceImpl implements ProcedureService {
     public void addProcedure(Procedure procedure){
         procedureDao.addProcedure(procedure);
     }
+
+    public Procedure findById(String id){ return procedureDao.findById(id); }
 }

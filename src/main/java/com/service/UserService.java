@@ -22,6 +22,8 @@ public interface UserService {
 
 	User getAllUserTickets();
 
+	User getAllUserProcedures();
+
 	List<User> getAllUsersWithRole(Role role);
 	
 	User getUserByEmail(String emailId);

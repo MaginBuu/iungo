@@ -5,4 +5,6 @@ import com.model.Procedure;
 public interface ProcedureService {
 
     void addProcedure(Procedure procedure);
+
+    Procedure findById(String id);
 }

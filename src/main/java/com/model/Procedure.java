@@ -13,6 +13,13 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "procedures")
+@NamedQueries({
+//     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
+//             + "LEFT JOIN Tenant te ON te.room = r.id"
+//             + "WHERE r.id = :id")
+        @NamedQuery(name = "Procedure.findById", query = "SELECT r FROM Procedure r WHERE r.procedureId = :id"),
+
+})
 public class Procedure {
     private static final long serialVersionUID = 2681531852204068105L;
 

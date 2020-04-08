@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 public class AntiBullyingReportServiceImpl implements AntiBullyingReportService {
 
     @Autowired
-    AntiBullyingReportDao timeLineDao;
+    AntiBullyingReportDao antiBullyingReportDao;
 
     public void addAntiBullyingReport(AntiBullyingReport report){
-        timeLineDao.addAntiBullyingReport(report);
+        antiBullyingReportDao.addAntiBullyingReport(report);
     }
 
-    public void deleteAntiBullyingReport(AntiBullyingReport report) { timeLineDao.deleteAntiBullyingReport(report); }
+    public void deleteAntiBullyingReport(AntiBullyingReport report) { antiBullyingReportDao.deleteAntiBullyingReport(report); }
 
-    public AntiBullyingReport getById(String id) { return timeLineDao.getById(id); }
+    public AntiBullyingReport getById(String id) { return antiBullyingReportDao.getById(id); }
 }

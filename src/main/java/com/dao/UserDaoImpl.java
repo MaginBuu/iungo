@@ -51,9 +51,18 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.openSession();
 		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		//User user = (User)request.getSession().getAttribute("user");
-		User userWithTicket = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", "ff80808170ed37140170ed37ca590001" ).uniqueResult(); //user.getUserId()
+		User userWithTicket = (User) session.getNamedQuery("Users.findAllWithTickets").setParameter("id", "1" ).uniqueResult(); //user.getUserId()
 		session.close();
 		return userWithTicket;
+	}
+
+	public User getAllUserProcedures() {
+		Session session = sessionFactory.openSession();
+		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		//User user = (User)request.getSession().getAttribute("user");
+		User userWithProcedures = (User) session.getNamedQuery("Users.findAllWithProcedures").setParameter("id", "1" ).uniqueResult(); //user.getUserId()
+		session.close();
+		return userWithProcedures;
 	}
 
 	public User getAllUserRoles(String id) {

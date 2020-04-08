@@ -46,15 +46,15 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-tasks icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
+                <div class="box"><i class="fa fa-bell-o icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/procedures">
                         <h3 class="name">Procedures </h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-wrench icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                        <h3 class="name">Settings </h3></a>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/ticket">
+                        <h3 class="name">Ticket Test </h3></a>
                 </div>
             </div>
         </div>

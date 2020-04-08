@@ -8,9 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "anti_bullying_reports")
 @NamedQueries({
-//     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
-//             + "LEFT JOIN Tenant te ON te.room = r.id"
-//             + "WHERE r.id = :id")
         @NamedQuery(name = "AntiBullyingReport.findById", query = "SELECT r FROM AntiBullyingReport r  WHERE r.reportId = :id"),
 
 })
@@ -29,6 +26,13 @@ public class AntiBullyingReport {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "ANONYMOUS")
+    private boolean anonymous;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     public AntiBullyingReport() {}
 
@@ -59,5 +63,21 @@ public class AntiBullyingReport {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

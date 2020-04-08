@@ -25,6 +25,8 @@ public interface UserDao {
 
 	User getAllUserTickets();
 
+	User getAllUserProcedures();
+
 	User getAllUserRoles(String id);
 	
 	User getUserByEmail(String email);

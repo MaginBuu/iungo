@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 @NamedQueries({
 		@NamedQuery(name = "Users.findAll", query = "SELECT c FROM User c"),
-		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i"),
 		@NamedQuery(name = "Users.findAllWithTickets", query ="SELECT o FROM User o JOIN FETCH o.tickets i WHERE o.userId =:id"),
+		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i WHERE o.userId =:id AND i.status = 0"),
 		@NamedQuery(name = "Users.findAllWithRoles", query ="SELECT o FROM User o JOIN FETCH o.roles i WHERE o.userId =:id"),
 		@NamedQuery(name = "Users.findAllWithRole", query ="SELECT o FROM User o WHERE o.userId IN (SELECT i.userR FROM RoleClass i WHERE i.roleKey =:role)"),
 		@NamedQuery(name = "Users.findAllByUsername", query ="SELECT o.username FROM User o WHERE o.username LIKE :username ORDER BY o.username ASC"),
@@ -107,10 +107,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy="userT", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "PROCEDURE_ID") <---- HO HEM DE POSAR?
     private List<Ticket> tickets;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="ANTI_BULLYING_REPORT_ID")
-	private List<AntiBullyingReport> antiBullyingReports;
 
 	@Transient
 	private Department department;

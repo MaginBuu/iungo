@@ -1,26 +1,17 @@
-.card {
+.msg {
   margin: auto;
   width: 65%;
   border: 1px solid #c4c4c4;
 }
 
-.card-header {
-  height: 75px;
-  background-color: #de9d3f;
-}
-
-.card-header-no-hover {
+.msg-header-no-hover {
   background-color: #E5E6E4;
   color: #595959;
 }
 
-.card-header-no-hover-unread{
+.msg-header-no-hover-unread{
   background-color: #c5e6b0;
   color: #595959;
-}
-
-#heading-card {
-  padding-left: 2.5%;
 }
 
 .referer {
@@ -35,39 +26,7 @@
   font-size: 20px;
 }
 
-.cardheader-text {
-  color: #595959;
-}
-
-.card-text.sub-text-color {
-  color: #595959;
-}
-
-.card-text:last-child {
+.msg-text:last-child {
   font-size: 15px;
   color: #595959;
-}
-
-#cardheader-subtext {
-  font-size: 20px;
-}
-
-.card.cards-shadown {
-  box-shadow: 2px 2px 30px #aaaaaa;
-}
-
-.row.space-rows {
-  margin: 20px;
-}
-
-.col {
-  padding: 20px 7px 0px 7px;
-}
-
-.header-text{
-  width: 80%;
-}
-
-.header-button{
-  width: 20%;
 }
