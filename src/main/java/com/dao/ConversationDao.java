@@ -13,6 +13,8 @@ public interface ConversationDao {
 
     Conversation getWithMessages(String id);
 
+    Conversation getWithUsers(String id);
+
     Conversation findById(String id);
 
     List<Conversation> findAllConversationsByUserId(String userId);

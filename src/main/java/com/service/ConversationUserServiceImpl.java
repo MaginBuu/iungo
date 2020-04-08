@@ -15,13 +15,15 @@ public class ConversationUserServiceImpl implements ConversationUserService{
     ConversationUserDao conversationUserDao;
 
     @Override
-    public void addConversationUser(ConversationUser conversationUser){
-        conversationUserDao.addConversationUser(conversationUser);
-    }
+    public void addConversationUser(ConversationUser conversationUser){ conversationUserDao.addConversationUser(conversationUser); }
 
     public ConversationUser findByUserAndConversation(String userId, String conversationId) { return conversationUserDao.findByUserAndConversation(userId, conversationId); }
 
-    public void deleteConversationUser(ConversationUser conversationUser){ conversationUserDao.deleteConversationUser(conversationUser); };
+    public List<ConversationUser> findByConversation(String conversationId) { return conversationUserDao.findByConversation(conversationId); }
+
+    public void deleteConversationUser(ConversationUser conversationUser){ conversationUserDao.deleteConversationUser(conversationUser); }
+
+    public boolean findUnread(String userId, String conversationId){ return conversationUserDao.findUnread(userId, conversationId); }
 
 
 }

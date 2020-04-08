@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,7 +110,7 @@ public class ConversationController {
     @RequestMapping(value = "/conversation/creation", method = RequestMethod.POST)
     public String createConversation(@Valid @ModelAttribute("conversation") Conversation conversation, HttpServletRequest request) {
         String[] users = conversation.getUsersTemp().split(",");
-
+        conversation.setLastMessageDate(new Date());
         conversationService.addConversation(conversation);
 
         for (String userId : users){
@@ -124,18 +123,28 @@ public class ConversationController {
         ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
         conversationUserService.addConversationUser(conversationUser);
 
-        return "redirect:/";
+        return "redirect:/user/messages";
     }
 
     @RequestMapping("/conversation/getMessages")
     public @ResponseBody
-    JSONObject conversationLoadMessages(@RequestParam("conversationId") String conversationId) {
+    JSONObject conversationLoadMessages(@RequestParam("conversationId") String conversationId, HttpServletRequest request) {
 
         //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        ConversationUser conversationUser = conversationUserService.findByUserAndConversation("1",conversationId);
-        conversationUser.setLastVisit(new Date());
+        User user = (User)request.getSession().getAttribute("user");
+
+        ConversationUser conversationUser;
+
+        if(user == null)
+            conversationUser = conversationUserService.findByUserAndConversation("1",conversationId);
+        else
+            conversationUser = conversationUserService.findByUserAndConversation(user.getUserId(),conversationId);
+
         Date last = conversationUser.getLastVisit();
+
+        conversationUser.setLastVisit(new Date());
+        conversationUser.messagesReaded();
         conversationUserService.addConversationUser(conversationUser);
 
         List<Message> messages;

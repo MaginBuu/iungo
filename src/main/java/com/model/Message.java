@@ -21,7 +21,7 @@ public class Message {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "MESSAGE_ID")
-    private int messageId;
+    private String messageId;
 
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "CONVERSATION_ID")
@@ -54,7 +54,9 @@ public class Message {
         this.messageBody = messageBody;
     }
 
-    public int getMessageId() {
+    public void setMessageId(String messageId) { this.messageId = messageId; }
+
+    public String getMessageId() {
         return messageId;
     }
 

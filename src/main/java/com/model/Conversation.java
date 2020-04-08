@@ -12,10 +12,10 @@ import java.util.Objects;
 @Table(name = "conversation")
 @NamedQueries({
         @NamedQuery(name = "Conversation.findAll", query = "SELECT c FROM Conversation c"),
-        @NamedQuery(name = "Conversation.getWithMessages", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.userConversations u WHERE c.conversationId =:id"),
+        @NamedQuery(name = "Conversation.getWithUsers", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.userConversations u WHERE c.conversationId =:id"),
         @NamedQuery(name = "Conversation.findById", query = "SELECT c FROM Conversation c WHERE c.conversationId =:id"),
 })
-public class Conversation {
+public class Conversation implements Comparable<Conversation>{
     private static final long serialVersionUID = 2681531852204068105L;
 
     @Id
@@ -39,11 +39,17 @@ public class Conversation {
     @OneToMany(mappedBy = "userConversation", targetEntity = ConversationUser.class)
     private List<ConversationUser> userConversations = new LinkedList<>();
 
+    @Column(name="LAST_MESSAGE_DATE")
+    private Date lastMessageDate;
+
     @Transient
     private String usersTemp;
 
     @Transient
     private Date lastVisit;
+
+    @Transient
+    private boolean unread;
 
     /*
     @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
@@ -93,17 +99,21 @@ public class Conversation {
 
     public void setUsersConversation(List<User> usersConversation) { this.users = usersConversation; }*/
 
-    public void addUserConversations(ConversationUser conversationUser){
-        this.userConversations.add(conversationUser);
-    }
+    public void addUserConversations(ConversationUser conversationUser){ this.userConversations.add(conversationUser); }
 
     public List<ConversationUser> getUserConversations() {
         return userConversations;
     }
 
-    public void setUserConversations(List<ConversationUser> userConversations) {
-        this.userConversations = userConversations;
-    }
+    public void setUserConversations(List<ConversationUser> userConversations) { this.userConversations = userConversations; }
+
+    public Date getLastMessageDate() { return lastMessageDate; }
+
+    public void setLastMessageDate(Date lastMessageDate) { this.lastMessageDate = lastMessageDate; }
+
+    public boolean isUnread() { return unread; }
+
+    public void setUnread(boolean unread) { this.unread = unread; }
 
     @Override
     public boolean equals(Object o) {
@@ -117,5 +127,11 @@ public class Conversation {
     @Override
     public int hashCode() {
         return Objects.hash(conversationId, reported);
+    }
+
+
+    @Override
+    public int compareTo(Conversation o) {
+        return o.getLastMessageDate().compareTo(this.lastMessageDate);
     }
 }

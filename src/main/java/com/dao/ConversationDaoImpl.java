@@ -47,9 +47,17 @@ public class ConversationDaoImpl implements ConversationDao {
     @Override
     public Conversation getWithMessages(String id) {
         Session session = sessionFactory.openSession();
-        Conversation conversation =  (Conversation) session.getNamedQuery("Conversation.getWithMessages").setParameter("id", id).uniqueResult();
+        Conversation conversation =  (Conversation) session.getNamedQuery("Conversation.getWithUsers").setParameter("id", id).uniqueResult();
         List<Message> messages = session.getNamedQuery("Message.getByConversationId").setParameter("conversationId", id).list();
         conversation.setMessages(messages);
+        session.close();
+        return conversation;
+    }
+
+    @Override
+    public Conversation getWithUsers(String id) {
+        Session session = sessionFactory.openSession();
+        Conversation conversation =  (Conversation) session.getNamedQuery("Conversation.getWithUsers").setParameter("id", id).uniqueResult();
         session.close();
         return conversation;
     }

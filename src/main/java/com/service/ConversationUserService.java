@@ -10,6 +10,10 @@ public interface ConversationUserService {
 
     ConversationUser findByUserAndConversation(String userId, String conversationId);
 
+    List<ConversationUser> findByConversation(String conversationId);
+
     void deleteConversationUser(ConversationUser conversationUser);
+
+    boolean findUnread(String userId, String conversationId);
 
 }
