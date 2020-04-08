@@ -94,6 +94,10 @@ public class Message {
         this.sender = sender;
     }
 
+    public Conversation getConversation() { return conversation; }
+
+    public void setConversation(Conversation conversation) { this.conversation = conversation; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

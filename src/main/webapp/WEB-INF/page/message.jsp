@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -11,6 +12,8 @@
           rel="stylesheet"/>
     <link rel="stylesheet" href="/resource/css/messageStyle.css">
     <link rel="stylesheet" href="/resource/css/message.css">
+    <link rel="stylesheet" href="/resource/css/creation/creationStyle.css">
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
@@ -22,97 +25,8 @@
 
 </head>
 <body>
-<%@ include file="navbar.jsp" %>
-<input id="selected-conversation" type="hidden" value="">
-<div class="container">
-    <h3 class=" text-center">Messaging</h3>
-    <div class="messaging">
-        <div class="inbox_msg">
-            <div class="inbox_people">
-                <div class="heading_srch">
-                    <div class="recent_heading">
-                        <h4>Recent</h4>
-                    </div>
-                    <div class="srch_bar">
-                        <div class="stylish-input-group">
-                            <input type="text" id="search" class="search-bar">
-                            <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span></div>
-                    </div>
-                </div>
-                <div id="conversations" class="inbox_chat">
-                    <c:forEach items="${conversations}" var="conversation">
-                        <div class="chat_list" onmouseout="unHoverElement(${conversation.conversationId})"
-                             onmouseover="hoverElement(${conversation.conversationId})"
-                             onclick="selectConversation(${conversation.conversationId})"
-                             id="${conversation.conversationId}">
-                            <div class="chat_people">
-                                <div class="chat_ib">
-                                    <c:choose>
-                                        <c:when test="${conversation.reported eq true}">
-                                            <h5>${conversation.title} <span class="chat_date"><i id="${conversation.conversationId}i" class="fa fa-envelope"
-                                                                                                 aria-hidden="true"></i></span>
-                                            </h5>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <h5>${conversation.title} <span class="chat_date"><i id="${conversation.conversationId}i"
-                                                    class="fa fa-envelope-open-o" aria-hidden="true"></i></span></h5>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <p>${conversation.description}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="mesgs">
-                <div class="heading_srch">
-                    <div class="recent_heading">
-                        <h4 id="chat-title" style="color: #DE9D3F">placeholder</h4>
-                    </div>
-                    <div class="srch_bar">
-                       <span class="input-group-addon">
-                           <button type="button"> <i class="fa fa-reply" aria-hidden="true"></i> </button>
-                           <button type="button"> <i class="fa fa-exclamation-circle" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> </button>
-                           <button type="button" onclick="selectConversation(document.getElementById('selected-conversation').value)"> <i class="fa fa-refresh" aria-hidden="true"></i> </button></span>
-                    </div>
-                </div>
-                <div class="msg_history" id="div-messages">
 
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="icon-box">
-                    <i class="material-icons">&#xE5CD;</i>
-                </div>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <h4 class="modal-title">Are you sure?</h4>
-                <p id="deleteText">Do you really want to report this conversation?
-                    False reporting can carry consequences.</p>
-            </div>
-            <input type="hidden" name="elementId" id="elementId" value=""/>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="reportConversation()">Report
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
+<!--JS-->
 <script type="text/javascript">
     function hoverElement(elem) {
         var div = document.getElementById(elem);
@@ -197,27 +111,135 @@
         });
     });
 
-    function reportConversation(){
-        var hiddenSelected = document.getElementById('selected-conversation');
-        $.ajax({
-
-            url: "../conversation/report",
-            data: {
-                "conversationId": hiddenSelected
-            }, //aqui es passen els parametres
-            success: function (data) {g
-                });
-
-                // Selectpicker refresh
-                //$('#select-teacher').selectpicker('refresh');
-            }
-        }).done(function () {
-
-        }).fail(function () {
-            console.log("Error Ajax");
-        });
+    function setConversationToForm(){
+        var conversationId = document.getElementById("selected-conversation").value;
+        document.getElementById("selected-conversation-form").value = conversationId.toString();
     }
+
 </script>
+
+
+
+<!--HTML-->
+<%@ include file="navbar.jsp" %>
+<input id="selected-conversation" type="hidden" value="">
+<div class="container">
+    <h3 class=" text-center">Messaging</h3>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="heading_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" id="search" class="search-bar">
+                            <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span></div>
+                    </div>
+                </div>
+                <div id="conversations" class="inbox_chat">
+                    <c:forEach items="${conversations}" var="conversation">
+                        <div class="chat_list" onmouseout="unHoverElement('${conversation.conversationId}')"
+                             onmouseover="hoverElement('${conversation.conversationId}')"
+                             onclick="selectConversation('${conversation.conversationId}')"
+                             id="${conversation.conversationId}">
+                            <div class="chat_people">
+                                <div class="chat_ib">
+                                    <c:choose>
+                                        <c:when test="${conversation.reported eq true}">
+                                            <h5>${conversation.title} <span class="chat_date"><i id="${conversation.conversationId}i" class="fa fa-envelope"
+                                                                                                 aria-hidden="true"></i></span>
+                                            </h5>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h5>${conversation.title} <span class="chat_date"><i id="${conversation.conversationId}i"
+                                                    class="fa fa-envelope-open-o" aria-hidden="true"></i></span></h5>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <p>${conversation.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+            <div class="mesgs">
+                <div class="heading_srch">
+                    <div class="recent_heading">
+                        <h4 id="chat-title" style="color: #DE9D3F">placeholder</h4>
+                    </div>
+                    <div class="srch_bar">
+                       <span class="input-group-addon">
+                           <button type="button"> <i class="fa fa-reply" aria-hidden="true" onclick="setConversationToForm()" data-toggle="modal" data-target="#modalCreateMessage"></i> </button>
+                           <button type="button"> <i class="fa fa-exclamation-circle" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> </button>
+                           <button type="button" onclick="selectConversation(document.getElementById('selected-conversation').value)"> <i class="fa fa-refresh" aria-hidden="true"></i> </button></span>
+                    </div>
+                </div>
+                <div class="msg_history" id="div-messages">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalCreateMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row creation-form-modal">
+                    <div class="col-md-10 offset-md-1">
+                        <form:form class="custom-form" method="post" action="/message/creation" modelAttribute="message" commandName="message">
+                            <h1>Create new message</h1>
+                            <form:hidden path="conversation.conversationId" id="selected-conversation-form"/>
+                            <div class="form-group">
+                                <div class="label-column"><form:label path="subject"
+                                                                           class="col-form-label">Subject </form:label></div>
+                                <div class="input-column"><form:input path="subject" class="form-control"
+                                                                               type="text"></form:input></div>
+                                <div class="label-column"><form:label path="messageBody" class="col-form-label">Body </form:label></div>
+                                <div class="input-column"><form:textarea path="messageBody" class="form-control"
+                                                                      type="text"></form:textarea></div>
+                            </div>
+                            <button class="btn btn-light submit-button" type="submit" onclick="return true">Send</button>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title">Are you sure?</h4>
+                <p id="deleteText">Do you really want to report this conversation?
+                    False reporting can carry consequences.</p>
+            </div>
+            <input type="hidden" name="elementId" id="elementId" value=""/>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="reportConversation()">Report
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

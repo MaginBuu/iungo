@@ -14,6 +14,12 @@ body {
   color: #333;
 }
 
+.creation-form-modal form.custom-form {
+  background-color: #ffffff;
+  font: bold 14px sans-serif;
+  text-align: center;
+}
+
 @media (max-width:400px) {
   .creation-form form.custom-form {
     padding: 55px 10px;
@@ -30,12 +36,33 @@ body {
   border-bottom: 2px solid #DE9D3F;
 }
 
+.creation-form-modal .custom-form h1 {
+  display: inline-block;
+  color: #4c565e;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 10px 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #DE9D3F;
+}
+
 .creation-form .custom-form .form-group {
+  margin-bottom: 25px;
+}
+
+.creation-form-modal .custom-form .form-group {
   margin-bottom: 25px;
 }
 
 .creation-form .custom-form .label-column {
   text-align: right;
+  color: #5F5F5F;
+}
+
+.creation-form-modal .custom-form .label-column {
+  text-align: center;
+  margin-top: 20px;
   color: #5F5F5F;
 }
 
@@ -61,6 +88,11 @@ body {
   text-align: left;
 }
 
+.creation-form-modal .custom-form .input-column {
+  color: #5f5f5f;
+  text-align: center;
+}
+
 .creation-form .custom-form .input-column input {
   color: #5f5f5f;
   box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
@@ -77,6 +109,14 @@ body {
   border: 1px solid #dbdbdb;
   border-radius: 2px;
   height: 250px;
+}
+
+.creation-form-modal .custom-form .input-column textarea {
+  color: #5f5f5f;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  height: 100px;
+
 }
 
 .creation-form .custom-form .input-column-Procedure textarea {
@@ -130,6 +170,17 @@ body {
   padding: 14px 22px;
   border: 0;
   margin: 30px;
+  outline: none;
+}
+
+.creation-form-modal .custom-form .submit-button {
+  border-radius: 2px;
+  background: #DE9D3F;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 14px 22px;
+  border: 0;
   outline: none;
 }
 

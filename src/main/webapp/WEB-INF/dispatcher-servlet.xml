@@ -35,4 +35,5 @@
 		and Images in resource folder -->
 
 	<mvc:resources mapping="/resource/**" location="/WEB-INF/resource/" />
+
 </beans>
