@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="/resource/css/messageStyle.css">
     <link rel="stylesheet" href="/resource/css/message.css">
     <link rel="stylesheet" href="/resource/css/creation/creationStyle.css">
-    <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -143,9 +142,7 @@
 <!--HTML-->
 <%@ include file="navbar.jsp" %>
 <input id="selected-conversation" type="hidden" value="">
-<div class="creation-form">
 <div class="container custom-div-message">
-        <h1 class="text-center">Messaging</h1>
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -157,6 +154,8 @@
                         <div class="stylish-input-group">
                             <input type="text" id="search" class="search-bar">
                             <span class="input-group-addon">
+                                <a href="/conversation/creation"><button type="button" style="padding-top: 7px; padding-left: 20px;"><i class="fa fa-plus" aria-hidden="true"></i> </button></a>
+
                 <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                 </span></div>
                     </div>
@@ -171,7 +170,7 @@
                             <div class="chat_people">
                                 <div class="chat_ib">
                                     <c:choose>
-                                        <c:when test="${conversation.reported eq true}">
+                                        <c:when test="${conversation.unread eq true}">
                                             <h5 id="icon-"+${conversation.conversationId}>${conversation.title}
                                                 <span class="chat_date"><i id="${conversation.conversationId}i"
                                                    class="fa fa-envelope" aria-hidden="true"></i>
@@ -212,7 +211,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Modal -->

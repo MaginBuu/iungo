@@ -8,7 +8,10 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "ConversationUser.findByUserAndConversation", query = "SELECT c FROM ConversationUser c WHERE c.user = :user AND c.userConversation = :conversation"),
+        @NamedQuery(name = "ConversationUser.findByConversation", query = "SELECT c FROM ConversationUser c WHERE c.userConversation.conversationId =:conversationId"),
         @NamedQuery(name = "ConversationUser.findByUser", query = "SELECT c FROM ConversationUser c WHERE c.user = :user"),
+        @NamedQuery(name = "ConversationUser.findUnread", query = "SELECT c.unread FROM ConversationUser c WHERE c.user.userId = :userId AND c.userConversation.conversationId =:conversationId"),
+
 })
 public class ConversationUser implements Serializable {
     @Id
@@ -24,7 +27,7 @@ public class ConversationUser implements Serializable {
     @Column(name = "LAST_VISIT")
     private Date lastVisit;
 
-    @Column(name = "UNREAD")
+    @Column(name = "NEW_MESSAGES")
     private boolean unread;
 
     public ConversationUser(){}
@@ -59,13 +62,14 @@ public class ConversationUser implements Serializable {
         this.lastVisit = lastVisit;
     }
 
-    public boolean isUnread() {
-        return unread;
-    }
-
     public void setUnread(boolean unread) {
         this.unread = unread;
     }
+    public boolean isUnread() { return unread; }
+
+    public void newMessage() { this.unread = true; }
+
+    public void messagesReaded() {this.unread = false; }
 
     @Override
     public boolean equals(Object o) {

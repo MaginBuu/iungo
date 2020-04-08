@@ -1,11 +1,9 @@
 package com.controller.user;
 
 import com.model.*;
-import com.model.enums.ProcedureStatus;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +23,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.service.ConversationService;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -47,15 +47,33 @@ public class UserTestController {
 
 	@Autowired
 	ProcedureService procedureService;
+	
+	@Autowired
+	MessageService messageService;
+
+	@Autowired
+	ConversationUserService conversationUserService;
+
+
 
 	@RequestMapping(value = "/user/messages")
-	public ModelAndView messages(){
+	public ModelAndView messages(HttpServletRequest request){
 		Message message = new Message();
-		message.setConversation(new Conversation());
-		//FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-		List<Conversation> conversations = conversationService.findAllConversationsByUserId("1");
+		User user = (User)request.getSession().getAttribute("user");
+		List<Conversation> conversations;
+		if(user == null)
+			conversations = conversationService.findAllConversationsByUserId("1");
+		else
+			conversations = conversationService.findAllConversationsByUserId(user.getUserId());
+
+		Collections.sort(conversations);
+
+		for(Conversation conversation : conversations){
+			conversation.setUnread(conversationUserService.findUnread(user.getUserId(), conversation.getConversationId()));
+		}
+
 		ModelAndView model = new ModelAndView("/message");
 		model.addObject("conversations", conversations);
 		model.addObject("message", message);
@@ -70,18 +88,36 @@ public class UserTestController {
 	 * @return returns the user to the main page with an url
 	 */
 	@RequestMapping(value = "/message/creation", method = RequestMethod.POST)
-	public void createTicket(@Valid @ModelAttribute(value = "message") Message message, BindingResult result, ModelMap model) {
+	public String createMessage(@Valid @ModelAttribute(value = "message") Message message,  BindingResult result, HttpServletRequest request) {
 
-		/*
-		List<ConversationUser> conversationUsersList = message.getConversation().getUserConversations();
-		for(ConversationUser cu : conversationUsersList){
-			if("1".equals(cu.getUser().getUserId())) cu.setUnread(true); //Aqui comparariem la id amb la de l'usuari
+		User user = (User)request.getSession().getAttribute("user");
+
+		if(user == null)
+			message.setSender(userService.getUserById("1"));
+		else
+			message.setSender(user);
+
+		message.setDate(new Date());
+
+		messageService.addMessage(message);
+
+		Conversation conversation = conversationService.getWithUsers(message.getConversation().getConversationId());
+		conversation.setLastMessageDate(new Date());
+		conversationService.addConversation(conversation);
+
+		List<ConversationUser> conversationUsers = conversation.getUserConversations();
+
+		for(ConversationUser cu : conversationUsers){
+			if (!cu.getUser().equals(user)){
+				cu.newMessage();
+				conversationUserService.addConversationUser(cu);
+			}
 		}
-		*/
 
-		System.out.println(message.getSubject());
-		System.out.println(message.getMessageBody());
-		System.out.println(message.getConversation().getConversationId());
+
+		String referer = request.getHeader("Referer");
+
+		return "redirect:" + referer;
 
 
 	}

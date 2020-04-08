@@ -46,6 +46,24 @@ public class ConversationUserDaoImpl implements ConversationUserDao {
         return conversationUser;
     }
 
+
+    public boolean findUnread(String userId, String conversationId){
+        Session session = sessionFactory.openSession();
+        Boolean unread = (boolean) session.getNamedQuery("ConversationUser.findUnread").setParameter("userId", userId)
+                .setParameter("conversationId", conversationId).uniqueResult();
+        session.close();
+
+        return unread;
+    }
+
+
+    public List<ConversationUser> findByConversation(String conversationId){
+        Session session = sessionFactory.openSession();
+        List<ConversationUser> conversationUsers = session.getNamedQuery("ConversationUser.findByConversation").setParameter("conversationId", conversationId).list();
+        session.close();
+        return conversationUsers;
+    }
+
     public void deleteConversationUser(ConversationUser conversationUser){
         Session session = sessionFactory.openSession();
         Transaction tx = null;

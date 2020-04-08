@@ -88,14 +88,6 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/login"
 			access="permitAll" />
-		<security:intercept-url pattern="/ticket/creation"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/cart/**"
-			access="permitAll" />
-		<security:intercept-url pattern="/get*/**"
-			access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/admin*/**"
-			access="hasRole('ROLE_ADMIN')" />
 		<security:form-login login-page="/login"
 			login-processing-url="/j_spring_security_check"
 			username-parameter="j_username"
@@ -115,7 +107,6 @@
 								authorities-by-username-query=
 										"select emailid, authorities from authorities where emailid =?  "/>
 			<security:password-encoder ref="passwordEncoder"/>
-
 		</security:authentication-provider>
 	</security:authentication-manager>
 
