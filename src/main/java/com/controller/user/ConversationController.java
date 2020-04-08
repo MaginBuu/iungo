@@ -120,6 +120,9 @@ public class ConversationController {
         }
 
         User user = (User)request.getSession().getAttribute("user");
+        if(user == null){ //this is for testing, will be deleted
+            user = userService.getUserById("1");
+        }
         ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
         conversationUserService.addConversationUser(conversationUser);
 
@@ -130,14 +133,12 @@ public class ConversationController {
     public @ResponseBody
     JSONObject conversationLoadMessages(@RequestParam("conversationId") String conversationId, HttpServletRequest request) {
 
-        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         User user = (User)request.getSession().getAttribute("user");
 
         ConversationUser conversationUser;
 
-        if(user == null)
-            conversationUser = conversationUserService.findByUserAndConversation("1",conversationId);
+        if(user == null) //this is for testing, will be deleted
+            conversationUser = conversationUserService.findByUserAndConversation("1", conversationId);
         else
             conversationUser = conversationUserService.findByUserAndConversation(user.getUserId(),conversationId);
 
