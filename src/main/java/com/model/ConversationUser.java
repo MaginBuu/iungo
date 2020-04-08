@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "ConversationUser.findByUserAndConversation", query = "SELECT c FROM ConversationUser c WHERE c.user = :user AND c.userConversation = :conversation"),
+        @NamedQuery(name = "ConversationUser.findByUser", query = "SELECT c FROM ConversationUser c WHERE c.user = :user"),
+})
 public class ConversationUser implements Serializable {
     @Id
     @ManyToOne

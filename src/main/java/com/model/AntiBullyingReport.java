@@ -7,6 +7,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "anti_bullying_reports")
+@NamedQueries({
+//     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
+//             + "LEFT JOIN Tenant te ON te.room = r.id"
+//             + "WHERE r.id = :id")
+        @NamedQuery(name = "AntiBullyingReport.findById", query = "SELECT r FROM AntiBullyingReport r  WHERE r.reportId = :id"),
+
+})
 public class AntiBullyingReport {
 
     private static final long serialVersionUID = 2681531852204068105L;

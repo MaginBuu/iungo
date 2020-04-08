@@ -19,5 +19,9 @@ public class ConversationUserServiceImpl implements ConversationUserService{
         conversationUserDao.addConversationUser(conversationUser);
     }
 
+    public ConversationUser findByUserAndConversation(String userId, String conversationId) { return conversationUserDao.findByUserAndConversation(userId, conversationId); }
+
+    public void deleteConversationUser(ConversationUser conversationUser){ conversationUserDao.deleteConversationUser(conversationUser); };
+
 
 }

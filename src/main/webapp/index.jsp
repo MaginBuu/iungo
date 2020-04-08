@@ -22,9 +22,9 @@
         </div>
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-plus icon"></i>
+                <div class="box"><i class="fa fa-life-ring icon"></i>
                     <a class="nav-link stretched-link" data-toggle="modal" data-target="#myModal">
-                        <h3 class="name">Create Element</h3></a>
+                        <h3 class="name">Anti Bullying</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -68,29 +68,15 @@
                     <!-- 16:9 aspect ratio -->
                     <div class="row justify-content-center" style="margin-bottom: 0%">
                         <div class="col item">
-                            <div class="box"><i class="fa fa-user-plus icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                                    <h3 class="name">New User</h3></a>
+                            <div class="box"><i class="fa fa-street-view icon"></i>
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/user/antibullying?observed=false">
+                                    <h3 class="name">Report Personal Issue</h3></a>
                             </div>
                         </div>
                         <div class="col item">
-                            <div class="box"><i class="fa fa-users icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                                    <h3 class="name">Messages</h3></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center" style="margin-bottom: 0%">
-                        <div class="col item">
-                            <div class="box"><i class="fa fa-book icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                                    <h3 class="name">New Subject</h3></a>
-                            </div>
-                        </div>
-                        <div class="col item">
-                            <div class="box"><i class="fa fa-building-o icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/">
-                                    <h3 class="name">New Space</h3></a>
+                            <div class="box"><i class="fa fa-eye icon"></i>
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/user/antibullying?observed=true">
+                                    <h3 class="name">Report Other Issues</h3></a>
                             </div>
                         </div>
                     </div>
