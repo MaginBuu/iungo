@@ -18,7 +18,6 @@ public abstract class RoleClass {
     @Column(name = "ROLE_ID")
     private String roleId;
 
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     private User userR;

@@ -3,9 +3,7 @@ package com.dao;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.model.Authorities;
-import com.model.Procedure;
-import com.model.Ticket;
+import com.model.*;
 import com.model.enums.Department;
 import com.model.enums.Role;
 import org.hibernate.Query;
@@ -15,7 +13,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.model.User;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -180,21 +177,6 @@ public class UserDaoImpl implements UserDao {
 		return users;
 	}
 
-	public List<User> getTeachers(){
-		Session session = sessionFactory.openSession();
-		List<User> teachers = session.getNamedQuery("Users.findTeachers").list();
-		session.close();
-		return teachers;
-	}
-
-	public List<User> getTeachersByDepartment(String department){
-		Session session = sessionFactory.openSession();
-		List<User> teachers = session.getNamedQuery("Users.findTeacherByDepartment").setParameter("department", Department.valueOf(department)).list();
-		session.close();
-		return teachers;
-	}
-
-
 	public List<User> getStudentsByGroup(String groupId){
 		Session session = sessionFactory.openSession();
 		List<User> students = session.getNamedQuery("Users.findStudentsByGroup").setParameter("groupId", groupId).list();
@@ -204,5 +186,29 @@ public class UserDaoImpl implements UserDao {
 		}
 		session.close();
 		return students;
+	}
+
+	//-------------------- TEACHER --------------------
+
+	public List<User> getTeachers(){
+		Session session = sessionFactory.openSession();
+		List<User> teachers = session.getNamedQuery("Users.findTeachers").list();
+		session.close();
+		return teachers;
+	}
+
+
+	public List<User> getTeachersByDepartment(String department){
+		Session session = sessionFactory.openSession();
+		List<User> teachers = session.getNamedQuery("Users.findTeacherByDepartment").setParameter("department", Department.valueOf(department)).list();
+		session.close();
+		return teachers;
+	}
+
+	public RoleTeacher getTeacherByIdWithTimelines(String teacherId){
+		Session session = sessionFactory.openSession();
+		RoleTeacher teacher = (RoleTeacher) session.getNamedQuery("RoleTeacher.findByIdWithSubjects").setParameter("id", teacherId).uniqueResult();
+		session.close();
+		return teacher;
 	}
 }
