@@ -43,6 +43,10 @@ public class TimeLine implements Serializable {
     @JoinColumn(name = "SPACE_ID")
     private Space spaceTimeLine;
 
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "TEACHER_ID")
+    private RoleTeacher teacher;
+
     @Transient
     private String subjectName = "";
 
@@ -146,6 +150,14 @@ public class TimeLine implements Serializable {
 
     public void setTimelineSubjectId(String timelineSubjectId) {
         this.timelineSubjectId = timelineSubjectId;
+    }
+
+    public RoleTeacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(RoleTeacher teacher) {
+        this.teacher = teacher;
     }
 
     @Override

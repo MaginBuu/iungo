@@ -175,10 +175,10 @@ public class UserTestController {
 		return model;
 	}//anonymously
 
-	@RequestMapping(value = "/user/ticket", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/teacher", method = RequestMethod.GET)
 	public ModelAndView getUsllers(){
-		User user = userService.getAllUserTickets();
-		return new ModelAndView("ticketUser", "user", user);
+		ModelAndView model = new ModelAndView("/teacherProfile");
+		return model;
 	}
 
 	@RequestMapping(value = "/user/procedure/response")

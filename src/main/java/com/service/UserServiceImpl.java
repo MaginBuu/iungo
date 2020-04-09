@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.model.Authorities;
+import com.model.RoleTeacher;
 import com.model.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,9 +61,13 @@ public class UserServiceImpl implements UserService {
 		return userDao.getAllUsersWithRole(role);
 	}
 
+	public List<User> getStudentsByGroup(String groupId){ return userDao.getStudentsByGroup(groupId); }
+
+	//TEACHER
+
 	public List<User> getTeachers() { return userDao.getTeachers(); }
 
 	public List<User> getTeachersByDepartment(String department) { return userDao.getTeachersByDepartment(department); }
 
-	public List<User> getStudentsByGroup(String groupId){ return userDao.getStudentsByGroup(groupId); }
+	public RoleTeacher getTeacherByIdWithTimelines(String teacherId) { return userDao.getTeacherByIdWithTimelines(teacherId); }
 }
