@@ -34,6 +34,11 @@ public class Procedure {
     @JoinColumn(name = "USER_ID")
     private User userP;
 
+    /*
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "USER_ID")
+    private User creator;*/
+
     //@ManyToOne
     //@JoinColumn(name = "cartId")
     //private Cart cart;

@@ -84,9 +84,6 @@
                 </div>
             </div>
         </div>
-        <div class="form-row form-group">
-
-        </div>
         <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
         </form:form>
     </div>

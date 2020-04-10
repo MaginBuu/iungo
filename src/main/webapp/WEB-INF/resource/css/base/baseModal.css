@@ -1,0 +1,62 @@
+.base-form-modal form.custom-form {
+    background-color: #ffffff;
+    font: bold 14px sans-serif;
+    text-align: center;
+}
+
+.base-form-modal .custom-form h1 {
+    display: inline-block;
+    color: #4c565e;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 10px 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #DE9D3F;
+}
+
+.base-form-modal .custom-form .form-group {
+    margin-bottom: 25px;
+}
+
+.base-form-modal .custom-form .label-column {
+    text-align: center;
+    margin-top: 20px;
+    color: #5F5F5F;
+}
+
+.base-form-modal .custom-form .label-column-row {
+    text-align: right;
+    margin-top: 20px;
+    color: #5F5F5F;
+}
+
+.base-form-modal .custom-form .input-column {
+    color: #5f5f5f;
+    text-align: center;
+}
+
+.base-form-modal .custom-form .input-column-row {
+    color: #5f5f5f;
+    text-align: left;
+    padding-top: 20px;
+}
+
+.base-form-modal .custom-form .input-column textarea {
+    color: #5f5f5f;
+    border: 1px solid #dbdbdb;
+    border-radius: 2px;
+    height: 100px;
+
+}
+
+.base-form-modal .custom-form .submit-button {
+    border-radius: 2px;
+    background: #DE9D3F;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    padding: 14px 22px;
+    border: 0;
+    outline: none;
+}
