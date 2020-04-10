@@ -60,7 +60,7 @@
                     <tr>
                         <td style="vertical-align: middle; horiz-align: center">${teacher.userR.name} ${teacher.userR.surname} ${teacher.userR.secondSurname}</td>
                         <td style="vertical-align: middle; horiz-align: center">${teacher.department}</td>
-                        <td style="vertical-align: middle; horiz-align: center"><a class="btn btn-outline-primary"><i class="fa fa-user" aria-hidden="true"></i></a></td>
+                        <td style="vertical-align: middle; horiz-align: center"><a href="/user/teacher/${teacher.userR.userId}">View profile</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
