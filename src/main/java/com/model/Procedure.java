@@ -4,6 +4,7 @@ import com.model.enums.ProcedureStatus;
 import com.service.UserService;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Objects;
@@ -59,6 +60,9 @@ public class Procedure {
     @Column(name = "LIMIT_DATE")
     @NotNull
     private Date limitDate;
+
+    @Transient
+    private String hour;
 
     public Procedure(){}
 
@@ -127,6 +131,10 @@ public class Procedure {
     public void setLimitDate(Date limitDate) {
         this.limitDate = limitDate;
     }
+
+    public String getHour() { return hour; }
+
+    public void setHour(String hour) { this.hour = hour; }
 
     @Override
     public boolean equals(Object o) {

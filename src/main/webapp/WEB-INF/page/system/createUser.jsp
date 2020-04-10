@@ -12,24 +12,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Iungo - New User</title>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css">
+
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resource/fonts/index/font-awesome.min.css">
     <link rel="stylesheet" href="/resource/css/creation/creationStyle.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
-    <script src="/resource/js/My-Date-Picker.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 
 
 </head>
@@ -42,7 +39,7 @@
         <form:form class="custom-form" method="post" action="/user/creation" commandName="user">
         <h1>Register Form</h1>
         <input type="hidden" name="usernameRelate" id="usernameRelate" value="${sessionScope.userRelate}"/>
-        <div class="form-row form-group" ;>
+        <div class="form-row form-group">
             <div class="col-sm-3 label-column"><form:label path="name"
                                                            class="col-form-label">Name </form:label></div>
             <div class="col-sm-3 input-column"><form:input path="name" class="form-control"
@@ -59,9 +56,13 @@
                                                            type="text"></form:input></div>
             <div class="col-sm-2 label-column"><form:label path="birth"
                                                            class="col-form-label">Birth Date </form:label></div>
-            <div id="datetimepicker1" class="col-sm-3 input-column date">
-                <form:input path="birth" class="form-control" type="text"></form:input>
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <div class="col-sm-3 input-column">
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-row form-group">
@@ -129,6 +130,10 @@
             }
         }
 
+        var tempDate = $('#datetimepicker1').find("input").val();
+        tempDate = tempDate.split("/").reverse().join("/");
+        $('#datetimepicker1').find("input").val(tempDate);
+
         return true;
     }
 
@@ -162,6 +167,13 @@
             document.getElementById("department-select").selectedIndex = "0";
         }
     }
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY',
+        });
+    });
+
 
 </script>
 

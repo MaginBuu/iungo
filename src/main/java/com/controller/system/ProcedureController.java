@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -38,6 +39,7 @@ public class ProcedureController {
 	public ModelAndView getProcedureCreationForm() {
 		ModelAndView model = new ModelAndView("system/createProcedure");
 		Procedure procedure = new Procedure();
+		procedure.setHour("23:59");
 		procedure.setUserP(new User());
 		model.addObject("procedure", procedure);
 		model.addObject("users", userService.getAllUsers());
@@ -54,12 +56,7 @@ public class ProcedureController {
 	@RequestMapping(value = "/procedure/creation", method = RequestMethod.POST)
 	public String createProcedure(@Valid @ModelAttribute("procedure") Procedure procedure, BindingResult result, ModelMap model) throws ParseException {
 		procedure.setStatus(ProcedureStatus.CREATED);
-		DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		procedure.setCreationDate(sdf.parse(sdf.format(date)));
-		procedure.setLimitDate(sdf.parse(sdf.format(date)));
-		procedure.setUserP(userService.getUserById(procedure.getUserP().getUserId()));
-
+		procedure.setCreationDate(new Date());
 		procedureService.addProcedure(procedure);
 		return "redirect:/";
 	}
