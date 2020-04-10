@@ -6,9 +6,7 @@ import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.service.ConversationService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -175,10 +172,10 @@ public class UserTestController {
 		return model;
 	}//anonymously
 
-	@RequestMapping(value = "/user/teacher", method = RequestMethod.GET)
-	public ModelAndView getUsllers(/*@RequestParam("userId") String userId*/){
+	@RequestMapping(value = "/user/teacher/{teacherId}", method = RequestMethod.GET)
+	public ModelAndView accessTeacherProfile(@PathVariable("teacherId") String teacherId){
 		ModelAndView model = new ModelAndView("/teacherProfile");
-		RoleTeacher teacher = userService.getTeacherById("1");
+		RoleTeacher teacher = userService.getTeacherById(teacherId);
 		model.addObject("teacher",teacher);
 		return model;
 	}
