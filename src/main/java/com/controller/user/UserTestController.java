@@ -173,7 +173,7 @@ public class UserTestController {
 	}//anonymously
 
 	@RequestMapping(value = "/user/teacher/{teacherId}", method = RequestMethod.GET)
-	public ModelAndView getUsllers(@PathVariable("teacherId") String teacherId){
+	public ModelAndView accessTeacherProfile(@PathVariable("teacherId") String teacherId){
 		ModelAndView model = new ModelAndView("/teacherProfile");
 		RoleTeacher teacher = userService.getTeacherById(teacherId);
 		model.addObject("teacher",teacher);
