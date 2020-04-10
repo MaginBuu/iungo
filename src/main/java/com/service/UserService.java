@@ -43,4 +43,6 @@ public interface UserService {
 
 	RoleTeacher getTeacherByIdWithTimelines(String teacherId);
 
+	RoleTeacher getTeacherById(String teacherId);
+
 }

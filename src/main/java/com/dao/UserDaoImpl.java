@@ -211,4 +211,11 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return teacher;
 	}
+
+	public RoleTeacher getTeacherById(String teacherId){
+		Session session = sessionFactory.openSession();
+		RoleTeacher teacher = (RoleTeacher) session.getNamedQuery("RoleTeacher.findById").setParameter("id", teacherId).uniqueResult();
+		session.close();
+		return teacher;
+	}
 }

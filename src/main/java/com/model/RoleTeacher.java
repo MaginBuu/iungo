@@ -10,8 +10,8 @@ import java.util.List;
 @Entity
 @Table(name = "role_teacher")
 @NamedQueries({
-        @NamedQuery(name = "RoleTeacher.findByIdWithSubjectds", query = "SELECT o FROM RoleTeacher o WHERE o.roleId IN(SELECT r.roleId FROM RoleClass r WHERE r.userR.userId =:id)"),
-        @NamedQuery(name = "RoleTeacher.findByIdWithSubjects", query = "SELECT o FROM RoleTeacher o LEFT JOIN FETCH o.timelines i WHERE o.roleId = :id"),
+        @NamedQuery(name = "RoleTeacher.findById", query = "SELECT o FROM RoleTeacher o WHERE o.userR.userId = :id"),
+        @NamedQuery(name = "RoleTeacher.findByIdWithSubjects", query = "SELECT o FROM RoleTeacher o LEFT JOIN FETCH o.timelines i WHERE o.userR.userId = :id"),
 })
 public class RoleTeacher extends RoleClass {
 
