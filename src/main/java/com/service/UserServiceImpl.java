@@ -70,4 +70,6 @@ public class UserServiceImpl implements UserService {
 	public List<User> getTeachersByDepartment(String department) { return userDao.getTeachersByDepartment(department); }
 
 	public RoleTeacher getTeacherByIdWithTimelines(String teacherId) { return userDao.getTeacherByIdWithTimelines(teacherId); }
+
+	public RoleTeacher getTeacherById(String teacherId) { return userDao.getTeacherById(teacherId); }
 }

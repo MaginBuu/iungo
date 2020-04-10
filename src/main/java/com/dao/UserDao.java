@@ -46,6 +46,6 @@ public interface UserDao {
 
 	RoleTeacher getTeacherByIdWithTimelines(String teacherId);
 
-
+	RoleTeacher getTeacherById(String teacherId);
 
 }
