@@ -27,11 +27,9 @@ public class TeacherController {
 
     @RequestMapping("/teacher/getTimeLines")
     public @ResponseBody
-    JSONArray loadTeacherTimetable(@RequestParam("teacherId") String teacherId, HttpServletRequest request) {
+    JSONArray loadTeacherTimetable(@RequestParam("teacherId") String id) {
 
-        //User user = (User)request.getSession().getAttribute("user");
-
-        RoleTeacher teacher = userService.getTeacherByIdWithTimelines(teacherId);
+        RoleTeacher teacher = userService.getTeacherByIdWithTimelines(id);
 
         String startHour, startMin, finishHour, finishMin;
 
