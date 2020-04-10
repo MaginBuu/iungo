@@ -25,4 +25,6 @@ public class SubjectServiceImpl implements SubjectService {
 
     public Subject getById(String id) { return subjectDao.getById(id); }
 
+    public List<Subject> getByGroup(String groupId){ return subjectDao.getByGroup(groupId);}
+
 }

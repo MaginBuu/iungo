@@ -15,4 +15,6 @@ public interface SubjectService {
     Subject getByIdWithAll(String id);
 
     Subject getById(String id);
+
+    List<Subject> getByGroup(String groupId);
 }

@@ -19,6 +19,8 @@ import java.util.Set;
 //             + "WHERE r.id = :id")
         @NamedQuery(name = "Subject.findById", query = "SELECT r FROM Subject r WHERE r.subjectId = :id"),
         @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.timeline k LEFT JOIN FETCH s.teachers t JOIN FETCH s.subjectGroup d WHERE s.subjectId = :id"),
+        @NamedQuery(name = "Subject.findByGroupId", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.teachers t WHERE s.subjectGroup.groupId = :id"),
+
 
 })
 public class Subject implements Serializable {

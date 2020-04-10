@@ -1,27 +1,29 @@
 package com.controller.user;
 
-import com.model.RoleTeacher;
-import com.model.TimeLine;
-import com.model.User;
+import com.model.*;
+import com.model.enums.Role;
+import com.service.SubjectService;
 import com.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.validation.Valid;
+import java.util.*;
 
 @Controller
 public class TeacherController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SubjectService subjectService;
 
     @RequestMapping("/teacher/getTimeLines")
     public @ResponseBody
@@ -68,4 +70,42 @@ public class TeacherController {
 
         return data;
     }
+
+    @RequestMapping(value = "/user/teachers", method = RequestMethod.GET)
+    public ModelAndView listStudentTeachers(HttpServletRequest request) {
+        ModelAndView model = new ModelAndView("/user/listStudentTeachers");
+
+        User user = (User)request.getSession().getAttribute("user");
+        if(user == null){ //this is for testing, will be deleted
+            user = userService.getUserById("1");
+        }
+
+        RoleStudent roleStudent;
+
+        try{
+            roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
+        }catch(Exception e){
+            return new ModelAndView("../../index");
+        }
+
+        ClassGroup group = roleStudent.getGroup();
+
+        List<Subject> subjects = subjectService.getByGroup(group.getGroupId());
+
+        Set<RoleTeacher> teachers = new HashSet<>();
+        for (Subject subject : subjects)
+            for (RoleTeacher teacher : subject.getTeachers())
+                teachers.add(teacher);
+
+
+        model.addObject("teachers", teachers);
+
+
+
+        return model;
+    }
+
+
+
+
 }

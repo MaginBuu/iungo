@@ -65,4 +65,11 @@ public class SubjectDaoImpl implements SubjectDao {
         session.close();
         return subject;
     }
+
+    public List<Subject> getByGroup(String groupId){
+        Session session = sessionFactory.openSession();
+        List<Subject> subject = session.getNamedQuery("Subject.findByGroupId").setParameter("id", groupId).list();
+        session.close();
+        return subject;
+    }
 }

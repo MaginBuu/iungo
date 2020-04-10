@@ -175,7 +175,7 @@ public class UserTestController {
 		return model;
 	}//anonymously
 
-	@RequestMapping(value = "/user/teacher", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/teacher/{teacherId}", method = RequestMethod.GET)
 	public ModelAndView getUsllers(){
 		ModelAndView model = new ModelAndView("/teacherProfile");
 		return model;
