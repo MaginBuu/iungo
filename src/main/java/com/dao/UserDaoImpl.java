@@ -218,4 +218,11 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return teacher;
 	}
+
+	public List<RoleTeacher> getAllTeachers(){
+		Session session = sessionFactory.openSession();
+		List<RoleTeacher> teachers = session.getNamedQuery("RoleTeacher.findAll").list();
+		session.close();
+		return teachers;
+	}
 }

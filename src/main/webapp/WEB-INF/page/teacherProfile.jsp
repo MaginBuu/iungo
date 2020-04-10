@@ -47,7 +47,7 @@
                         var timeSpace = document.getElementById(currentIn+current.day);
                         if("consultation-hours" == current.subject) {
                             timeSpace.className = "timetable-ch";
-                            timeSpace.innerHTML += 'Consultation hour <br> ' +current.space;
+                            timeSpace.innerHTML += 'Consultation hour <br> ' + current.space;
                         }else {
                             timeSpace.className = "timetable-workout";
                             timeSpace.innerHTML += current.subject + ' <br> ' + current.space;

@@ -103,7 +103,26 @@ public class TeacherController {
         return model;
     }
 
+    @RequestMapping("/teacher/getOtherTeachers")
+    public @ResponseBody
+    JSONArray loadOtherTeachers() {
 
+        List<RoleTeacher> teachers = userService.getAllTeachers();
+
+        JSONArray data = new JSONArray();
+
+        for(RoleTeacher rt : teachers){
+            JSONObject o = new JSONObject();
+            User u = rt.getUserR();
+            o.put("name", u.getName()+" "+u.getSurname()+" "+u.getSecondSurname());
+            o.put("department", rt.getDepartment());
+            o.put("teacherId", u.getUserId());
+
+            data.add(o);
+        }
+
+        return data;
+    }
 
 
 }
