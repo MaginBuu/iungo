@@ -48,4 +48,6 @@ public interface UserDao {
 
 	RoleTeacher getTeacherById(String teacherId);
 
+	List<RoleTeacher> getAllTeachers();
+
 }

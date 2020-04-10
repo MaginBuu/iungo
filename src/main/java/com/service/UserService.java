@@ -45,4 +45,6 @@ public interface UserService {
 
 	RoleTeacher getTeacherById(String teacherId);
 
+	List<RoleTeacher> getAllTeachers();
+
 }
