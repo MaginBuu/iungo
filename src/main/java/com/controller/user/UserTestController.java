@@ -174,8 +174,10 @@ public class UserTestController {
 
 	@RequestMapping(value = "/user/teacher/{teacherId}", method = RequestMethod.GET)
 	public ModelAndView accessTeacherProfile(@PathVariable("teacherId") String teacherId){
+		System.out.println(teacherId);
 		ModelAndView model = new ModelAndView("/teacherProfile");
 		RoleTeacher teacher = userService.getTeacherById(teacherId);
+		System.out.println(teacher);
 		model.addObject("teacher",teacher);
 		return model;
 	}
