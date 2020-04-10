@@ -13,12 +13,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <script type="text/javascript">
     function Validate() {
         return true;
     }
+
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+
+
+
 </script>
 
 <body>
@@ -28,6 +44,7 @@
         <br><br>
         <div class="container custom-div">
             <h1>Profiles Found</h1>
+            <a class="btn alt-submit-button" id="btn-ajax" onclick="otherTeachers()">Other teachers</a>
             <input class="form-control mb-4" id="tableSearch" type="text"
                    placeholder="Type something to search list items">
             <table class="table table-borderless table-striped">
@@ -51,30 +68,8 @@
         </div>
     </div>
 </div>
-
-
-<script type="text/javascript">
-    function Validate() {
-        return true;
-    }
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-
 </body>
 
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#tableSearch").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
 
 
 </html>

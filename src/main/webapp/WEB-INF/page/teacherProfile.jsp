@@ -19,26 +19,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 
-<body onload="loadTable(document.getElementById('userId').value)">
+<body onload="loadTable()">
 
 <script>
-    function loadTable(teacherId){
+    function loadTable(){
         $.ajax({
 
             type: "GET",
-            url: "../teacher/getTimeLines",
+            url: "/teacher/getTimeLines",
             dataType: "json",
             contentType: 'application/json',
             data: {
-                "teacherId": teacherId
-            }, //aqui es passen els parametres
+                "teacherId": document.getElementById('userId').value
+            },
             success: function (data) {
                 console.log(data);
-                /*let style, lastVisit, msgDate, i;
-                lastVisit  = new Date(data.last);
-                // Disable the booked options in both select, each one with its list
 
-*/
                 $.each(data, function (index, current) {
                     $.each(current.start, function (indexIn, currentIn) {
                         var timeSpace = document.getElementById(currentIn+current.day);
@@ -51,8 +47,6 @@
                         }
                     });
                 });
-                // Selectpicker refresh
-                //$('#select-teacher').selectpicker('refresh');
             }
         }).done(function () {
 
@@ -66,9 +60,8 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
-            <form:form method="post" action="/user/modify" modelAttribute="teacher">
             <h1>Teacher ${teacher.userR.name}</h1>
-            <form:hidden name="userId" id="userId" path="userR.userId"/>
+            <input type="hidden" name="userId" id="userId" value="${teacher.userR.userId}"/>
             <table class="table table-borderless">
                 <tbody id="myTable">
                     <tr>
@@ -89,7 +82,6 @@
                     </tr>
                 </tbody>
             </table>
-            </form:form>
         </div>
     </div>
 </div>
