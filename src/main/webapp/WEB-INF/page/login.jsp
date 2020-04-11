@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="resource/fonts/ionicons.min.css">
     <link rel="stylesheet" href="resource/css/loginStyle.css">
     <link rel="stylesheet" href="resource/css/creation/creationStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="resource/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -44,11 +46,10 @@
                 <button class="btn btn-primary btn-block" type="submit">Log In</button>
             </div>
             <a class="forgot" href="#">Forgot your email or password?</a>
+        </fieldset>
     </form>
-    </fieldset>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="resource/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

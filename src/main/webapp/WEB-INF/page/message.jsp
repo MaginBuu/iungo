@@ -7,12 +7,16 @@
 
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Iungo - Messages</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="/resource/css/messageStyle.css">
     <link rel="stylesheet" href="/resource/css/message.css">
     <link rel="stylesheet" href="/resource/css/creation/creationStyle.css">
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+    <link rel="stylesheet" href="/resource/css/base/baseModal.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -264,7 +268,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row creation-form-modal">
+                <div class="row base-form-modal">
                     <div class="col-md-10 offset-md-1">
                         <form:form class="custom-form" method="post" action="/message/creation" modelAttribute="message" commandName="message">
                             <h1>Create new message</h1>

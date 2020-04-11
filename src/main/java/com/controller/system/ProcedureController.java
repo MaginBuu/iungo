@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -45,6 +46,28 @@ public class ProcedureController {
 		model.addObject("users", userService.getAllUsers());
 
 		return model;
+	}
+
+	/**
+	 * Processes the petition to get to the procedure creation page.
+	 *
+	 * @return ModelAndView with the desired .jsp file and its required model & objects
+	 */
+	@RequestMapping(value = "/procedure/createMeetingRequest", method = RequestMethod.POST)
+	public String createMeetingRequest(@Valid @ModelAttribute("procedure") Procedure procedure, BindingResult result, HttpServletRequest request) {
+		procedure.setOnline(true);
+		procedure.setCreationDate(new Date());
+		User user = (User) request.getSession().getAttribute("user");
+		if(user == null)
+			user = userService.getUserById("1");
+
+		String title = "Meeting request from " + user.getName() + " " + user.getSurname();
+		procedure.setTitle(title);
+
+		procedure.setStatus(ProcedureStatus.CREATED);
+
+		procedureService.addProcedure(procedure);
+		return "redirect:/";
 	}
 
 	/**

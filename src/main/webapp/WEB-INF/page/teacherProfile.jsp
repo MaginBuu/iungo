@@ -11,13 +11,20 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="/resource/css/timeTableStyle.css">
 <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+<link rel="stylesheet" href="/resource/css/base/baseModal.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
 <body onload="loadTable()">
 
@@ -54,6 +61,34 @@
             console.log("Error Ajax");
         });
     }
+
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY',
+
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker3').datetimepicker({
+            format: 'HH:mm',
+            pick12HourFormat: false,
+            autoclose: false,
+
+        });
+    });
+
+    function Validate() {
+
+        var tempDate = $('#datetimepicker1').find("input").val();
+        tempDate = tempDate.split("/").reverse().join("/");
+        tempDate += " " + $('#datetimepicker3').find("input").val() + ":00"
+        $('#datetimepicker1').find("input").val(tempDate);
+
+        return true;
+    }
+
 </script>
 
 <%@ include file="navbar.jsp" %>
@@ -82,6 +117,8 @@
                     </tr>
                 </tbody>
             </table>
+            <button class="btn btn-light custom-button">Send Message</button>
+            <button class="btn btn-light custom-button" data-toggle="modal" data-target="#modalCreateReunion">Request meeting</button>
         </div>
     </div>
 </div>
@@ -278,5 +315,54 @@
         </div>
     </div>
 </div>
+
+<!-- Create meeting Modal -->
+<div class="modal fade" id="modalCreateReunion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row base-form-modal">
+                    <div class="col-md-10 offset-md-1">
+                        <form:form class="custom-form" method="post" action="/procedure/createMeetingRequest" modelAttribute="procedure" commandName="procedure">
+                            <form:hidden path="userP.userId" value="${teacher.userR.userId}"/>
+                            <h1>Request meeting</h1>
+                            <div class="form-group">
+                                <div class="label-column"><form:label path="description" class="col-form-label">Message </form:label></div>
+                                <div class="input-column"><form:textarea path="description" class="form-control"
+                                                                     type="text"></form:textarea></div>
+                            </div>
+                            <div class="form-row form-group">
+                                <div class="col-sm-2 label-column-row">
+                                    <form:label path="limitDate" class="col-form-label">Day </form:label></div>
+                                <div class="col-sm-10 input-column-row" style="position: relative">
+                                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                        <form:input path="limitDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row form-group">
+                                <div class="col-sm-2 label-column-row">
+                                    <label class="col-form-label">Hour </label></div>
+                                <div class="col-sm-10 input-column-row" style="position: relative">
+                                    <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
+                                        <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Send</button>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
