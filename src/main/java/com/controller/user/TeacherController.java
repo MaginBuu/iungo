@@ -4,20 +4,23 @@ import com.model.*;
 import com.model.enums.Role;
 import com.service.SubjectService;
 import com.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.*;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class TeacherController {
@@ -30,6 +33,12 @@ public class TeacherController {
     @Autowired
     SubjectService subjectService;
 
+    /**
+     * Looks for the timelines of a certain teacher given an id.
+     *
+     * @param id the id of the teacher we want to find the timelines
+     * @return all the hours that the teacher is busy
+     */
     @RequestMapping("/teacher/getTimeLines")
     public @ResponseBody
     JSONArray loadTeacherTimetable(@RequestParam("teacherId") String id) {
@@ -39,55 +48,70 @@ public class TeacherController {
         String startHour, startMin, finishHour, finishMin;
 
         JSONArray data = new JSONArray();
-        for(TimeLine tl : teacher.getTimelines()){
+        try {
+            for (TimeLine tl : teacher.getTimelines()) {
 
-            List<String> bookedHours = new ArrayList();
-            startHour = tl.getStartingHour().split(":")[0];
-            startMin = tl.getStartingHour().split(":")[1];
-            finishHour = tl.getFinishingHour().split(":")[0];
-            finishMin = tl.getFinishingHour().split(":")[1];
+                List<String> bookedHours = new ArrayList();
+                startHour = tl.getStartingHour().split(":")[0];
+                startMin = tl.getStartingHour().split(":")[1];
+                finishHour = tl.getFinishingHour().split(":")[0];
+                finishMin = tl.getFinishingHour().split(":")[1];
 
-            bookedHours.add(startHour+startMin);
-            // If the starting hour is an o'clock we add the half past time to both lists
-            if("00".equals(startMin)) {
-                bookedHours.add(startHour + "30");
+                bookedHours.add(startHour + startMin);
+                // If the starting hour is an o'clock we add the half past time to both lists
+                if ("00".equals(startMin)) {
+                    bookedHours.add(startHour + "30");
+                }
+                // Navigation in all in between hours
+                for (int index = Integer.parseInt(startHour) + 1; index < Integer.parseInt(finishHour); index = index + 1) {
+                    bookedHours.add(index + "00");
+                    bookedHours.add(index + "30");
+                }
+                // Same process as starting hour in reverse
+                if ("30".equals(finishMin)) {
+                    bookedHours.add(finishHour + "00");
+                }
+
+                JSONObject o = new JSONObject();
+                o.put("start", bookedHours);
+                o.put("day", tl.getWeekday().ordinal());
+                o.put("space", tl.getSpaceName());
+                o.put("subject", tl.getSubjectName());
+
+                data.add(o);
             }
-            // Navigation in all in between hours
-            for (int index = Integer.parseInt(startHour)+1; index < Integer.parseInt(finishHour); index = index + 1) {
-                bookedHours.add(index + "00");
-                bookedHours.add(index + "30");
-            }
-            // Same process as starting hour in reverse
-            if ("30".equals(finishMin)) {
-                bookedHours.add(finishHour + "00");
-            }
 
-            JSONObject o = new JSONObject();
-            o.put("start", bookedHours);
-            o.put("day", tl.getWeekday().ordinal());
-            o.put("space", tl.getSpaceName());
-            o.put("subject", tl.getSubjectName());
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Timelines successfully found and processed");
+            return data;
 
-            data.add(o);
+        } catch (Exception e) {
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  No timelines found or error processing them: " + e);
+
+            return null;
         }
-
-        return data;
     }
 
+    /**
+     * Lists all the teachers involved in a users education.
+     *
+     * @return all the teachers of the active session's user
+     */
     @RequestMapping(value = "/user/teachers", method = RequestMethod.GET)
     public ModelAndView listStudentTeachers(HttpServletRequest request) {
         ModelAndView model = new ModelAndView("/user/listStudentTeachers");
 
-        User user = (User)request.getSession().getAttribute("user");
-        if(user == null){ //this is for testing, will be deleted
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) { //this is for testing, will be deleted
             user = userService.getUserById("1");
         }
 
         RoleStudent roleStudent;
 
-        try{
+        try {
             roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new ModelAndView("../../index");
         }
 
@@ -104,10 +128,14 @@ public class TeacherController {
         model.addObject("teachers", teachers);
 
 
-
         return model;
     }
 
+    /**
+     * Lists all the teachers present in the school data base.
+     *
+     * @return a list of all the teachers in the data base
+     */
     @RequestMapping("/teacher/getOtherTeachers")
     public @ResponseBody
     JSONArray loadOtherTeachers() {
@@ -127,14 +155,16 @@ public class TeacherController {
 
                 data.add(o);
             }
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Teachers loaded successfully");
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] - Teachers loaded successfully");
             return data;
 
         } catch (Exception e) {
-            logger.error("[loadOtherTeachers()] - No teachers found: "+e);
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  No teachers found: " + e);
 
-        return null;
-    }
+            return null;
+        }
     }
 
 

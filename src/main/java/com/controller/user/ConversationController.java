@@ -21,8 +21,13 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @Controller
 public class ConversationController {
+
+    private static final Logger logger = LogManager.getLogger(ConversationController.class);
 
     @Autowired
     UserService userService;
@@ -42,62 +47,78 @@ public class ConversationController {
     @RequestMapping(value = "/conversation/creation")
     public ModelAndView getConversationCreationForm(HttpServletRequest request, Authentication authentication) {
 
-        User user = (User)request.getSession().getAttribute("user");
-        String role = authentication.getAuthorities().toArray()[0].toString();
+        try {
+            User user = (User) request.getSession().getAttribute("user");
+            String role = authentication.getAuthorities().toArray()[0].toString();
+
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Session user successfully loaded: " + user.getUserId() + " with role " + role);
+
+            List<User> teachers;
+            List<User> students = new LinkedList<>();
+            List<User> admins = new LinkedList<>();
+            List<User> secretaries = new LinkedList<>();
+            List<User> responsibles = new LinkedList<>();
 
 
-        List<User> teachers;
-        List<User> students = new LinkedList<>();
-        List<User> admins = new LinkedList<>();
-        List<User> secretaries = new LinkedList<>();
-        List<User> responsibles = new LinkedList<>();
+            if ("STUDENT".equals(role)) {
 
+                RoleStudent roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
+                teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                students = userService.getStudentsByGroup(roleStudent.getGroup().getGroupId());
+                students.remove(user);
 
-        if("STUDENT".equals(role)){
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Student list loaded successfully from group " + roleStudent.getGroup().getGroupId());
 
-            RoleStudent roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
-            teachers = userService.getAllUsersWithRole(Role.TEACHER);
-            students = userService.getStudentsByGroup(roleStudent.getGroup().getGroupId());
-            students.remove(user);
+            } else if ("RESPONSIBLE".equals(role)) {
 
-        }else if("RESPONSIBLE".equals(role)){
+                teachers = userService.getAllUsersWithRole(Role.TEACHER);
 
-            teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher list loaded successfully");
 
-        }else{
+            } else {
 
-            students = userService.getAllUsersWithRole(Role.STUDENT);
-            teachers = userService.getAllUsersWithRole(Role.TEACHER);
-            admins = userService.getAllUsersWithRole(Role.ADMIN);
-            secretaries = userService.getAllUsersWithRole(Role.SECRETARY);
-            responsibles = userService.getAllUsersWithRole(Role.RESPONSIBLE);
+                students = userService.getAllUsersWithRole(Role.STUDENT);
+                teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                admins = userService.getAllUsersWithRole(Role.ADMIN);
+                secretaries = userService.getAllUsersWithRole(Role.SECRETARY);
+                responsibles = userService.getAllUsersWithRole(Role.RESPONSIBLE);
 
-            switch (role){
-                case "ADMIN":
-                    admins.remove(user);
-                    break;
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Receiver list successfully loaded");
 
-                case "SECRETARY":
-                    secretaries.remove(user);
-                    break;
+                switch (role) {
+                    case "ADMIN":
+                        admins.remove(user);
+                        break;
 
-                default:
-                    teachers.remove(user);
-                    break;
+                    case "SECRETARY":
+                        secretaries.remove(user);
+                        break;
+
+                    default:
+                        teachers.remove(user);
+                        break;
+                }
+
             }
 
+
+            ModelAndView model = new ModelAndView("createConversation");
+            model.addObject("conversation", new Conversation());
+
+            model.addObject("responsibles", responsibles);
+            model.addObject("admins", admins);
+            model.addObject("secretaries", secretaries);
+            model.addObject("teachers", teachers);
+            model.addObject("students", students);
+
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Conversation successfully loaded ");
+
+            return model;
+        }catch (Exception e) {
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error processing the conversation load: "+e);
+
+            return null;
         }
-
-
-        ModelAndView model = new ModelAndView("createConversation");
-        model.addObject("conversation", new Conversation());
-
-        model.addObject("responsibles", responsibles);
-        model.addObject("admins", admins);
-        model.addObject("secretaries", secretaries);
-        model.addObject("teachers", teachers);
-        model.addObject("students", students);
-        return model;
     }
 
 
@@ -111,62 +132,94 @@ public class ConversationController {
     public String createConversation(@Valid @ModelAttribute("conversation") Conversation conversation, HttpServletRequest request) {
         String[] users = conversation.getUsersTemp().split(",");
         conversation.setLastMessageDate(new Date());
-        conversationService.addConversation(conversation);
+        try {
+            conversationService.addConversation(conversation);
 
-        for (String userId : users){
-            ConversationUser conversationUser = new ConversationUser(userService.getUserById(userId), conversation, new Date());
+            for (String userId : users) {
+                ConversationUser conversationUser = new ConversationUser(userService.getUserById(userId), conversation, new Date());
+                conversationUserService.addConversationUser(conversationUser);
+                conversation.addUserConversations(conversationUser);
+
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully created for user " + userId);
+            }
+
+            User user = (User) request.getSession().getAttribute("user");
+
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded: " + user.getUserId());
+
+            if (user == null) { //this is for testing, will be deleted
+                user = userService.getUserById("1");
+            }
+
+            ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
             conversationUserService.addConversationUser(conversationUser);
-            conversation.addUserConversations(conversationUser);
-        }
 
-        User user = (User)request.getSession().getAttribute("user");
-        if(user == null){ //this is for testing, will be deleted
-            user = userService.getUserById("1");
-        }
-        ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
-        conversationUserService.addConversationUser(conversationUser);
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully created for the session user");
 
-        return "redirect:/user/messages";
+            return "redirect:/user/messages";
+        }catch (Exception e) {
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error processing the conversation creation: "+e);
+
+            return null;
+        }
     }
 
     @RequestMapping("/conversation/getMessages")
     public @ResponseBody
     JSONObject conversationLoadMessages(@RequestParam("conversationId") String conversationId, HttpServletRequest request) {
 
-        User user = (User)request.getSession().getAttribute("user");
+        try {
+            User user = (User) request.getSession().getAttribute("user");
 
-        ConversationUser conversationUser;
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully created for the session user");
 
-        if(user == null) //this is for testing, will be deleted
-            conversationUser = conversationUserService.findByUserAndConversation("1", conversationId);
-        else
-            conversationUser = conversationUserService.findByUserAndConversation(user.getUserId(),conversationId);
+            ConversationUser conversationUser;
 
-        Date last = conversationUser.getLastVisit();
+            if (user == null) //this is for testing, will be deleted
+                conversationUser = conversationUserService.findByUserAndConversation("1", conversationId);
+            else
+                conversationUser = conversationUserService.findByUserAndConversation(user.getUserId(), conversationId);
 
-        conversationUser.setLastVisit(new Date());
-        conversationUser.messagesReaded();
-        conversationUserService.addConversationUser(conversationUser);
+            Date last = conversationUser.getLastVisit();
 
-        List<Message> messages;
-        messages = conversationService.getWithMessages(conversationId).getMessages();
+            conversationUser.setLastVisit(new Date());
+            conversationUser.messagesReaded();
+            conversationUserService.addConversationUser(conversationUser);
 
-        JSONArray data = new JSONArray();
-        for(Message m : messages){
-            JSONObject o = new JSONObject();
-            o.put("id", m.getMessageId());
-            o.put("date", m.getDate());
-            o.put("stringDate", m.getDate().toString());
-            o.put("subject", m.getSubject());
-            o.put("body", m.getMessageBody());
-            o.put("sender", m.getSender().getName()+" "+m.getSender().getSurname()+" "+m.getSender().getSecondSurname());
+            List<Message> messages;
+            messages = conversationService.getWithMessages(conversationId).getMessages();
+            JSONArray data = new JSONArray();
+            if(messages == null) {
+                logger.warn("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Conversation has no messages");
+            }
+            else{
+                for (Message m : messages) {
+                    JSONObject o = new JSONObject();
+                    o.put("id", m.getMessageId());
+                    o.put("date", m.getDate());
+                    o.put("stringDate", m.getDate().toString());
+                    o.put("subject", m.getSubject());
+                    o.put("body", m.getMessageBody());
+                    o.put("sender", m.getSender().getName() + " " + m.getSender().getSurname() + " " + m.getSender().getSecondSurname());
 
-            data.add(o);
+                    data.add(o);
+                }
+            }
+
+            JSONObject allMessages = new JSONObject();
+            allMessages.put("last", last);
+            allMessages.put("msg", data);
+            return allMessages;
+
+        }catch (Exception e) {
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error getting the messages: "+e);
+
+            return null;
         }
-        JSONObject pepe = new JSONObject();
-        pepe.put("last",last);
-        pepe.put("msg",data);
-        return pepe;
     }
 
     @RequestMapping(value = "/conversation/delete", method = RequestMethod.GET)
@@ -174,13 +227,22 @@ public class ConversationController {
 
         //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        ConversationUser conversationUser = conversationUserService.findByUserAndConversation("1",conversationId);
-        conversationUserService.deleteConversationUser(conversationUser);
+        try {
+            ConversationUser conversationUser = conversationUserService.findByUserAndConversation("1", conversationId);
+            conversationUserService.deleteConversationUser(conversationUser);
 
-        System.out.println("deleted");
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String referer = request.getHeader("Referer");
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Conversation "+conversationId+" successfully deleted");
 
-        return "redirect:" + referer;
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            String referer = request.getHeader("Referer");
+
+            return "redirect:" + referer;
+
+        }catch (Exception e) {
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error deleting conversation "+conversationId+": "+e);
+
+            return null;
+        }
     }
 }
