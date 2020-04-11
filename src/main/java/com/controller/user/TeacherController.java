@@ -127,10 +127,12 @@ public class TeacherController {
 
                 data.add(o);
             }
-            logger.info("Carregar altres professors: okay");
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Teachers loaded successfully");
             return data;
+
         } catch (Exception e) {
-            logger.error("Error en al carregar els professors: "+e);
+            logger.error("[loadOtherTeachers()] - No teachers found: "+e);
+
         return null;
     }
     }
