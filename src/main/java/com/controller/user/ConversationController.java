@@ -214,18 +214,18 @@ public class ConversationController {
     }
 
     @RequestMapping(value = "/conversation/delete", method = RequestMethod.GET)
-    public String deleteConversation(@RequestParam String conversationId){
-
-        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public String deleteConversation(@RequestParam String conversationId, HttpServletRequest request){
 
         try {
-            ConversationUser conversationUser = conversationUserService.findByUserAndConversation("1", conversationId);
+            User user = (User)request.getSession().getAttribute("user");
+            if(user == null)
+                user = userService.getUserById("1");
+            ConversationUser conversationUser = conversationUserService.findByUserAndConversation(user.getUserId(), conversationId);
             conversationUserService.deleteConversationUser(conversationUser);
 
             logger.info("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Conversation "+conversationId+" successfully deleted");
 
-            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             String referer = request.getHeader("Referer");
 
             return "redirect:" + referer;

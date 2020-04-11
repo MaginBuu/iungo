@@ -137,7 +137,7 @@ public class UserTestController {
 
 	@RequestMapping(value = "/user/antibullying")
 	public ModelAndView antiBullyingAccess(@RequestParam Boolean observed){
-		//FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ??
 
 		AntiBullyingReport newReport = new AntiBullyingReport();
 		newReport.setObserved(observed);
@@ -148,11 +148,12 @@ public class UserTestController {
 	}//anonymously
 
 	@RequestMapping(value = "/user/antibullying/report", method = RequestMethod.POST)
-	public String antiBullyingCreate(@Valid @ModelAttribute("report") AntiBullyingReport report) {
+	public String antiBullyingCreate(@Valid @ModelAttribute("report") AntiBullyingReport report, HttpServletRequest request) {
 
 		if(!report.isAnonymous()){
-			//FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			User user = userService.getUserById("1");
+			User user = (User)request.getSession().getAttribute("user");
+			if(user == null)
+					user = userService.getUserById("1");
 			report.setUser(user);
 		}
 		//Alertar responsable

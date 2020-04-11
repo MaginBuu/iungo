@@ -3,6 +3,8 @@ package com.controller.system;
 import com.model.*;
 import com.model.enums.Role;
 import com.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import java.util.List;
 
 @Controller
 public class SubjectController {
+
+    private static final Logger logger = LogManager.getLogger(SubjectController.class);
+
 
     @Autowired
     SubjectService subjectService;
@@ -41,10 +46,17 @@ public class SubjectController {
      * @return ModelAndView with the desired .jsp file and its required model & objects
      */
     @RequestMapping(value = "/subject/creation")
-    public ModelAndView getProcedureCreationForm() {
+    public ModelAndView getSubjectCreationForm() {
         Subject subject = new Subject();
         subject.setSubjectGroup(new ClassGroup());
-        List<ClassGroup> groups = groupService.getAllClassGroup();
+        List<ClassGroup> groups;
+        try {
+             groups = groupService.getAllClassGroup();
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  ClassGroups loaded successfully");
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  ClassGroups could not be loaded");
+            return null;
+        }
 
         ModelAndView model = new ModelAndView("system/createSubject");
         model.addObject("subject", subject);
@@ -60,9 +72,15 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/creation", method = RequestMethod.POST)
     public String createProcedure(@Valid @ModelAttribute("subject") Subject subject) {
-        System.out.println(subject.getSubjectGroup().getGroupId());
-        subjectService.addSubject(subject);
-        //return "redirect:/";
+
+        try {
+            subjectService.addSubject(subject);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject saved into the db");
+
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  subject could not be saved");
+            return null;
+        }
         return "redirect:/subject/relate/teacher?subjectId=" + subject.getSubjectId();
     }
 
@@ -74,9 +92,17 @@ public class SubjectController {
      */
     @RequestMapping(value = "/subject/modify/{subjectId}", method = RequestMethod.GET)
     public ModelAndView getSubjectModify(@PathVariable String subjectId) {
-        Subject subject = subjectService.getByIdWithAll(subjectId);
-        System.out.println(subject.getSubjectId());
-        return new ModelAndView("system/updateSubject", "subject", subject);
+
+        try {
+            Subject subject = subjectService.getByIdWithAll(subjectId);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject loaded successfully");
+            return new ModelAndView("system/updateSubject", "subject", subject);
+
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be loaded");
+            return null;
+        }
+
     }
 
     /**
@@ -88,29 +114,58 @@ public class SubjectController {
      * @return returns the user to a page depending on the users previous choice
      */
     @RequestMapping(value = "/subject/modify", method = RequestMethod.POST)
-    public ModelAndView updateSubjectModify(@Valid @ModelAttribute("subject") Subject subject, @ModelAttribute("buttonName")
-            String selection) {
-        ClassGroup group = groupService.getClassGroupById(subject.getGroupId());
-        subject.setSubjectGroup(group);
-        subjectService.addSubject(subject);
+    public ModelAndView updateSubjectModify(@Valid @ModelAttribute("subject") Subject subject, @ModelAttribute("buttonName") String selection) {
+
+        try {
+            ClassGroup group = groupService.getClassGroupById(subject.getGroupId());
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Group successfully loaded");
+            subject.setSubjectGroup(group);
+            subjectService.addSubject(subject);
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject successfully saved");
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved");
+            return null;
+        }
+
         ModelAndView model;
+
+        logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Selection value= " + selection);
         switch (selection) {
             case "add":
                 model = new ModelAndView("system/addTimeline");
-                List<Space> spaces = spaceService.getAll();
+                List<Space> spaces;
+
+                try {
+                     spaces = spaceService.getAll();
+                    logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All spaces loaded");
+
+                }catch (Exception e){
+                    logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All spaces could not be loaded");
+                    return null;
+                }
+
                 TimeLine timeline = new TimeLine();
                 timeline.setTimelineSubjectId(subject.getSubjectId());
                 model.addObject("spaces", spaces);
                 model.addObject("timeline", timeline);
                 break;
+
             case "addTeacher":
-                List<User> teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                List<User> teachers;
+                try {
+                    teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                    logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All teachers loaded");
+
+                }catch (Exception e){
+                    logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers could not be loaded");
+                    return null;
+                }
                 model = new ModelAndView("system/relateSubjectTeacher");
                 model.addObject("subject", subject);
                 model.addObject("teacher", teachers);
                 break;
+
             default:
-                subjectService.addSubject(subject);
                 model = new ModelAndView("system/updateSubject", "subject", subject);
                 break;
         }
@@ -128,12 +183,19 @@ public class SubjectController {
     @RequestMapping(value = "/subject/add/timeline", method = RequestMethod.POST)
     public String addTimeLine(@ModelAttribute("timeline") TimeLine timeLine){
 
-        System.out.println(timeLine);
-        Space space = spaceService.getById(timeLine.getTimelineSpaceId());
-        Subject subject = subjectService.getById(timeLine.getTimelineSubjectId());
-        timeLine.setSubjectTimeLine(subject);
-        timeLine.setSpaceTimeLine(space);
-        timeLineService.addTimeLine(timeLine);
+        try {
+            Space space = spaceService.getById(timeLine.getTimelineSpaceId());
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space loaded successfully");
+            Subject subject = subjectService.getById(timeLine.getTimelineSubjectId());
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject loaded successfully");
+            timeLine.setSubjectTimeLine(subject);
+            timeLine.setSpaceTimeLine(space);
+            timeLineService.addTimeLine(timeLine);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline saved successfully");
+        }
+        catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be saved");
+        }
 
         return "redirect:/subject/modify/"+timeLine.getTimelineSubjectId()+".do";
     }
