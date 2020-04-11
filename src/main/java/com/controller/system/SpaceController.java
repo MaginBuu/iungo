@@ -2,6 +2,8 @@ package com.controller.system;
 
 import com.model.Space;
 import com.service.SpaceService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +20,8 @@ import javax.validation.Valid;
 
 @Controller
 public class SpaceController {
+	private static final Logger logger = LogManager.getLogger(SpaceController.class);
+
 
 	@Autowired
 	SpaceService spaceService;
@@ -44,7 +48,12 @@ public class SpaceController {
 	@RequestMapping(value = "/space/creation", method = RequestMethod.POST)
 	public String createSpace(@Valid @ModelAttribute("space") Space space) {
 
-		spaceService.addSpace(space);
+		try{
+			spaceService.addSpace(space);
+			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space sucessfully saved ");
+		} catch (Exception e){
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to save space");
+		}
 		return "redirect:/";
 	}
 
@@ -56,7 +65,15 @@ public class SpaceController {
 	 */
 	@RequestMapping(value = "/space/modify", method = RequestMethod.GET)
 	public ModelAndView getSpaceModify(@RequestParam String spaceId) {
-		Space space = spaceService.getByIdWithTimeline(spaceId);
+
+		Space space = new Space();
+		try{
+			space = spaceService.getByIdWithTimeline(spaceId);
+			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space with id=" +spaceId + " successfully loaded: ");
+		} catch (Exception e){
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space with id=" +spaceId + " was not found ");
+		}
+
 		return new ModelAndView("system/updateSpace", "space", space);
 	}
 
@@ -68,7 +85,12 @@ public class SpaceController {
 	 */
 	@RequestMapping(value = "/space/modify", method = RequestMethod.POST)
 	public String updateSpaceModify(@Valid @ModelAttribute("space") Space space){
-		spaceService.addSpace(space);
+		try{
+			spaceService.addSpace(space);
+			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space sucessfully updated ");
+		} catch (Exception e){
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to save space");
+		}
 		return "redirect:/";
 	}
 
@@ -80,7 +102,12 @@ public class SpaceController {
 	 */
 	@RequestMapping(value = "/space/delete", method = RequestMethod.GET)
 	public String deleteSpace(@RequestParam String spaceId){
-		spaceService.deleteSpace(spaceService.getById(spaceId));
+		try{
+			spaceService.deleteSpace(spaceService.getById(spaceId));
+			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space sucessfully removed");
+		}catch (Exception e){
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to delete space");
+		}
 
 		//Getting the referer page
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

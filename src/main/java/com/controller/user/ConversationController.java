@@ -43,7 +43,17 @@ public class ConversationController {
     public ModelAndView getConversationCreationForm(HttpServletRequest request, Authentication authentication) {
 
         User user = (User)request.getSession().getAttribute("user");
-        String role = authentication.getAuthorities().toArray()[0].toString();
+        String role = "";
+        try {
+            role = authentication.getAuthorities().toArray()[0].toString();
+        }catch (Exception e){
+
+        }
+        if(user == null){
+            user = userService.getUserById("1");
+            role = "ADMIN";
+
+        }
 
 
         List<User> teachers;
@@ -63,28 +73,21 @@ public class ConversationController {
         }else if("RESPONSIBLE".equals(role)){
 
             teachers = userService.getAllUsersWithRole(Role.TEACHER);
+            teachers.remove(user);
+
 
         }else{
 
             students = userService.getAllUsersWithRole(Role.STUDENT);
             teachers = userService.getAllUsersWithRole(Role.TEACHER);
+            teachers.remove(user);
             admins = userService.getAllUsersWithRole(Role.ADMIN);
+            admins.remove(user);
             secretaries = userService.getAllUsersWithRole(Role.SECRETARY);
+            secretaries.remove(user);
             responsibles = userService.getAllUsersWithRole(Role.RESPONSIBLE);
+            responsibles.remove(user);
 
-            switch (role){
-                case "ADMIN":
-                    admins.remove(user);
-                    break;
-
-                case "SECRETARY":
-                    secretaries.remove(user);
-                    break;
-
-                default:
-                    teachers.remove(user);
-                    break;
-            }
 
         }
 
