@@ -22,6 +22,10 @@ public class ElementDaoImpl implements ElementDao{
     public String generateQuery(String element, String id, String name) {
 
         //The substring and uppercase is to match the model name
+
+        if("group".equals(element)){
+            element = "ClassGroup";
+        }
         String query = "SELECT u FROM "+element.substring(0, 1).toUpperCase() + element.substring(1)+" u ";
         //Checks if id field is empty
         if(!"".equals(id)){
