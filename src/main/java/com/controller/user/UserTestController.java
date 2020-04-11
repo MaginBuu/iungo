@@ -3,6 +3,8 @@ package com.controller.user;
 import com.model.*;
 import com.model.enums.ProcedureStatus;
 import com.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,8 @@ import java.util.List;
 @Controller
 public class UserTestController {
 
+	private static final Logger logger = LogManager.getLogger(UserTestController.class);
+
 	@Autowired
 	ConversationService conversationService;
 
@@ -63,16 +67,25 @@ public class UserTestController {
 
 		User user = (User)request.getSession().getAttribute("user");
 		List<Conversation> conversations;
-		if(user == null)
+		if(user == null) {
 			conversations = conversationService.findAllConversationsByUserId("1");
-		else
+			user = userService.getUserById("1");
+		}else
 			conversations = conversationService.findAllConversationsByUserId(user.getUserId());
 
+		logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - conversations loaded successfully");
+
 		Collections.sort(conversations);
+
+		logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - conversations sorted");
+
 
 		for(Conversation conversation : conversations){
 			conversation.setUnread(conversationUserService.findUnread(user.getUserId(), conversation.getConversationId()));
 		}
+
+		logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - conversations unread found");
+
 
 		ModelAndView model = new ModelAndView("/message");
 		model.addObject("conversations", conversations);

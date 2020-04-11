@@ -103,7 +103,7 @@ public class TeacherController {
         ModelAndView model = new ModelAndView("/user/listStudentTeachers");
 
         RoleStudent roleStudent;
-        List<Subject> subjects = new LinkedList<>();
+        List<Subject> subjects;
 
         try{
             User user = (User)request.getSession().getAttribute("user");
@@ -117,26 +117,19 @@ public class TeacherController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - user has group");
             subjects = subjectService.getByGroup(group.getGroupId());
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Group has subject");
-
-        }catch(Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - failed to get subjects - User->StudentRole->group->subjects");
-        }
-
-
-
-        Set<RoleTeacher> teachers = new HashSet<>();
-        try {
+            Set<RoleTeacher> teachers = new HashSet<>();
             for (Subject subject : subjects)
                 for (RoleTeacher teacher : subject.getTeachers())
                     teachers.add(teacher);
 
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - teachers loaded succesfully");
+
+            model.addObject("teachers", teachers);
+
         }catch(Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - failed to get teachers");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - failed to get teachers - User->StudentRole->group->subjects->teachers");
+            return null;
         }
-
-
-        model.addObject("teachers", teachers);
 
         return model;
     }

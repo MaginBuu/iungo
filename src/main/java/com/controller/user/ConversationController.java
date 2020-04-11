@@ -46,31 +46,24 @@ public class ConversationController {
      */
     @RequestMapping(value = "/conversation/creation")
     public ModelAndView getConversationCreationForm(HttpServletRequest request, Authentication authentication) {
-//D'aqui
-        try {
-            User user = (User) request.getSession().getAttribute("user");
-            String role = authentication.getAuthorities().toArray()[0].toString();
+
+        User user;
+        List<User> teachers;
+        List<User> students = new LinkedList<>();
+        List<User> admins = new LinkedList<>();
+        List<User> secretaries = new LinkedList<>();
+        List<User> responsibles = new LinkedList<>();
+        try{
+            user = (User) request.getSession().getAttribute("user");
+            String role;
+            if(user==null){
+                user = userService.getUserById("1");
+                role = "ADMIN";
+            }else
+                role = authentication.getAuthorities().toArray()[0].toString();
 
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Session user successfully loaded: " + user.getUserId() + " with role " + role);
 
-            List<User> teachers;
-            List<User> students = new LinkedList<>();
-            List<User> admins = new LinkedList<>();
-            List<User> secretaries = new LinkedList<>();
-            List<User> responsibles = new LinkedList<>();
-        User user = (User)request.getSession().getAttribute("user");
-        String role = "";
-        try {
-            role = authentication.getAuthorities().toArray()[0].toString();
-        }catch (Exception e){
-
-        }
-        if(user == null){
-            user = userService.getUserById("1");
-            role = "ADMIN";
-
-        }
-//Aqui
 
             if ("STUDENT".equals(role)) {
 
@@ -84,48 +77,23 @@ public class ConversationController {
             } else if ("RESPONSIBLE".equals(role)) {
 
                 teachers = userService.getAllUsersWithRole(Role.TEACHER);
-                //LES 3 linies seguents
+                teachers.remove(user);
                 logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher list loaded successfully");
-            teachers = userService.getAllUsersWithRole(Role.TEACHER);
-            teachers.remove(user);
 
 
             } else {
-//D'aqui
                 students = userService.getAllUsersWithRole(Role.STUDENT);
                 teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                teachers.remove(user);
                 admins = userService.getAllUsersWithRole(Role.ADMIN);
+                admins.remove(user);
                 secretaries = userService.getAllUsersWithRole(Role.SECRETARY);
+                secretaries.remove(user);
                 responsibles = userService.getAllUsersWithRole(Role.RESPONSIBLE);
+                responsibles.remove(user);
 
                 logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Receiver list successfully loaded");
-
-                switch (role) {
-                    case "ADMIN":
-                        admins.remove(user);
-                        break;
-
-                    case "SECRETARY":
-                        secretaries.remove(user);
-                        break;
-
-                    default:
-                        teachers.remove(user);
-                        break;
-                }
-
             }
-            students = userService.getAllUsersWithRole(Role.STUDENT);
-            teachers = userService.getAllUsersWithRole(Role.TEACHER);
-            teachers.remove(user);
-            admins = userService.getAllUsersWithRole(Role.ADMIN);
-            admins.remove(user);
-            secretaries = userService.getAllUsersWithRole(Role.SECRETARY);
-            secretaries.remove(user);
-            responsibles = userService.getAllUsersWithRole(Role.RESPONSIBLE);
-            responsibles.remove(user);
-
-//Aqui crec
 
             ModelAndView model = new ModelAndView("createConversation");
             model.addObject("conversation", new Conversation());
@@ -170,13 +138,11 @@ public class ConversationController {
             }
 
             User user = (User) request.getSession().getAttribute("user");
+            if(user==null)
+                user = userService.getUserById("1");
 
             logger.info("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded: " + user.getUserId());
-
-            if (user == null) { //this is for testing, will be deleted
-                user = userService.getUserById("1");
-            }
 
             ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
             conversationUserService.addConversationUser(conversationUser);
