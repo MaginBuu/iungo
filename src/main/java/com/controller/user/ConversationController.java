@@ -166,7 +166,7 @@ public class ConversationController {
             User user = (User) request.getSession().getAttribute("user");
 
             logger.info("[" + new Object() {
-            }.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully created for the session user");
+            }.getClass().getEnclosingMethod().getName() + "] -  User successfully loaded");
 
             ConversationUser conversationUser;
 
