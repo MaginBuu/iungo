@@ -16,8 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @Controller
 public class TeacherController {
+
+    private static final Logger logger = LogManager.getLogger(TeacherController.class);
 
     @Autowired
     UserService userService;
@@ -111,17 +116,23 @@ public class TeacherController {
 
         JSONArray data = new JSONArray();
 
-        for(RoleTeacher rt : teachers){
-            JSONObject o = new JSONObject();
-            User u = rt.getUserR();
-            o.put("name", u.getName()+" "+u.getSurname()+" "+u.getSecondSurname());
-            o.put("department", rt.getDepartment());
-            o.put("teacherId", u.getUserId());
+        try {
 
-            data.add(o);
-        }
+            for (RoleTeacher rt : teachers) {
+                JSONObject o = new JSONObject();
+                User u = rt.getUserR();
+                o.put("name", u.getName() + " " + u.getSurname() + " " + u.getSecondSurname());
+                o.put("department", rt.getDepartment());
+                o.put("teacherId", u.getUserId());
 
-        return data;
+                data.add(o);
+            }
+            logger.info("Carregar altres professors: okay");
+            return data;
+        } catch (Exception e) {
+            logger.error("Error en al carregar els professors: "+e);
+        return null;
+    }
     }
 
 
