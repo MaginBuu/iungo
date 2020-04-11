@@ -102,31 +102,41 @@ public class TeacherController {
     public ModelAndView listStudentTeachers(HttpServletRequest request) {
         ModelAndView model = new ModelAndView("/user/listStudentTeachers");
 
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) { //this is for testing, will be deleted
-            user = userService.getUserById("1");
-        }
-
         RoleStudent roleStudent;
+        List<Subject> subjects = new LinkedList<>();
 
-        try {
+        try{
+            User user = (User)request.getSession().getAttribute("user");
+            if(user == null){ //this is for testing, will be deleted
+                user = userService.getUserById("1");
+            }
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Session user successfully loaded: " + user.getUserId());
             roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
-        } catch (Exception e) {
-            return new ModelAndView("../../index");
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - User is an student");
+            ClassGroup group = roleStudent.getGroup();
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - user has group");
+            subjects = subjectService.getByGroup(group.getGroupId());
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Group has subject");
+
+        }catch(Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - failed to get subjects - User->StudentRole->group->subjects");
         }
 
-        ClassGroup group = roleStudent.getGroup();
 
-        List<Subject> subjects = subjectService.getByGroup(group.getGroupId());
 
         Set<RoleTeacher> teachers = new HashSet<>();
-        for (Subject subject : subjects)
-            for (RoleTeacher teacher : subject.getTeachers())
-                teachers.add(teacher);
+        try {
+            for (Subject subject : subjects)
+                for (RoleTeacher teacher : subject.getTeachers())
+                    teachers.add(teacher);
+
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - teachers loaded succesfully");
+        }catch(Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - failed to get teachers");
+        }
 
 
         model.addObject("teachers", teachers);
-
 
         return model;
     }
