@@ -32,11 +32,16 @@ public class SpaceController {
 	 * @return ModelAndView with the desired .jsp file and its required model & objects
 	 */
 	@RequestMapping(value = "/space/creation")
-	public ModelAndView getProcedureCreationForm() {
-		ModelAndView model = new ModelAndView("system/createSpace");
-		Space space = new Space();
-		model.addObject("space", space);
-		return model;
+	public ModelAndView procedureCreationFormAccess() {
+		try {
+			ModelAndView model = new ModelAndView("system/createSpace");
+			Space space = new Space();
+			model.addObject("space", space);
+			return model;
+		}catch (Exception e) {
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error accessing the procedure form creation: "+e);
+			return null;
+		}
 	}
 
 	/**
@@ -49,10 +54,13 @@ public class SpaceController {
 	public String createSpace(@Valid @ModelAttribute("space") Space space) {
 
 		try{
+			if(space.getName() == null) logger.warn("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space has no attribute 'NAME'");
+			if(space.getCapacity() == 0) logger.warn("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space has the attribute 'CAPACITY' value set to zero");
+			if(space.getTypology() == null) logger.warn("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space has no attribute 'TYPOLOGY'");
 			spaceService.addSpace(space);
-			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space sucessfully saved ");
+			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space successfully created");
 		} catch (Exception e){
-			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to save space");
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error creating a new space: "+e);
 		}
 		return "redirect:/";
 	}

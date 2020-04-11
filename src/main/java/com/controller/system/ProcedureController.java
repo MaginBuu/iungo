@@ -14,17 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 @Controller
 public class ProcedureController {
+
+	private static final Logger logger = LogManager.getLogger(GroupController.class);
 
 	@Autowired
 	ProcedureService procedureService;
@@ -37,15 +39,22 @@ public class ProcedureController {
 	 * @return ModelAndView with the desired .jsp file and its required model & objects
 	 */
 	@RequestMapping(value = "/procedure/creation")
-	public ModelAndView getProcedureCreationForm() {
-		ModelAndView model = new ModelAndView("system/createProcedure");
-		Procedure procedure = new Procedure();
-		procedure.setHour("23:59");
-		procedure.setUserP(new User());
-		model.addObject("procedure", procedure);
-		model.addObject("users", userService.getAllUsers());
+	public ModelAndView procedureCreationAccess() {
+		try {
+			ModelAndView model = new ModelAndView("system/createProcedure");
+			Procedure procedure = new Procedure();
+			procedure.setHour("23:59");
+			procedure.setUserP(new User());
+			model.addObject("procedure", procedure);
+			model.addObject("users", userService.getAllUsers());
 
-		return model;
+			return model;
+		}catch (Exception e) {
+			logger.error("[" + new Object() {
+			}.getClass().getEnclosingMethod().getName() + "] -  Error accessing the procedure creation page: " + e);
+
+			return null;
+		}
 	}
 
 	/**
@@ -55,19 +64,34 @@ public class ProcedureController {
 	 */
 	@RequestMapping(value = "/procedure/createMeetingRequest", method = RequestMethod.POST)
 	public String createMeetingRequest(@Valid @ModelAttribute("procedure") Procedure procedure, BindingResult result, HttpServletRequest request) {
-		procedure.setOnline(true);
-		procedure.setCreationDate(new Date());
-		User user = (User) request.getSession().getAttribute("user");
-		if(user == null)
-			user = userService.getUserById("1");
 
-		String title = "Meeting request from " + user.getName() + " " + user.getSurname();
-		procedure.setTitle(title);
+		try {
+			procedure.setOnline(true);
+			procedure.setCreationDate(new Date());
+			User user = (User) request.getSession().getAttribute("user");
 
-		procedure.setStatus(ProcedureStatus.CREATED);
+			logger.info("[" + new Object() {
+			}.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
 
-		procedureService.addProcedure(procedure);
-		return "redirect:/";
+			if (user == null)
+				user = userService.getUserById("1");
+
+			String title = "Meeting request from " + user.getName() + " " + user.getSurname();
+			procedure.setTitle(title);
+
+			procedure.setStatus(ProcedureStatus.CREATED);
+
+			procedureService.addProcedure(procedure);
+			logger.info("[" + new Object() {
+			}.getClass().getEnclosingMethod().getName() + "] -  Meeting request (procedure) successfully created");
+
+			return "redirect:/";
+		}catch (Exception e) {
+			logger.error("[" + new Object() {
+			}.getClass().getEnclosingMethod().getName() + "] -  Error creating a meeting request (procedure): " + e);
+
+			return null;
+		}
 	}
 
 	/**
@@ -78,9 +102,19 @@ public class ProcedureController {
 	 */
 	@RequestMapping(value = "/procedure/creation", method = RequestMethod.POST)
 	public String createProcedure(@Valid @ModelAttribute("procedure") Procedure procedure, BindingResult result, ModelMap model) throws ParseException {
-		procedure.setStatus(ProcedureStatus.CREATED);
-		procedure.setCreationDate(new Date());
-		procedureService.addProcedure(procedure);
-		return "redirect:/";
+		try {
+			procedure.setStatus(ProcedureStatus.CREATED);
+			procedure.setCreationDate(new Date());
+			procedureService.addProcedure(procedure);
+			logger.info("[" + new Object() {
+			}.getClass().getEnclosingMethod().getName() + "] -  Meeting request (procedure) successfully created");
+
+			return "redirect:/";
+		}catch (Exception e) {
+			logger.error("[" + new Object() {
+			}.getClass().getEnclosingMethod().getName() + "] -  Error creating a procedure: " + e);
+
+			return null;
+		}
 	}
 }
