@@ -1,6 +1,7 @@
 package com.controller.system;
 
 
+import com.controller.user.UserTestController;
 import com.model.*;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 @Controller
 public class ElementController {
+
+    private static final Logger logger = LogManager.getLogger(ElementController.class);
 
     @Autowired
     ElementService elementService;
@@ -44,6 +50,7 @@ public class ElementController {
         model.addObject("elementKind", elementKind); //The kind of the element(s) to look for
         model.addObject("idNumber", idNumber); //The name or strings contained in the name of the element(s) to look for
         model.addObject("name", name); //If known, the id of the element to look for
+
         return model;
     }
 
@@ -66,24 +73,36 @@ public class ElementController {
             case "group":
                 model = new ModelAndView("system/listGroupSearch");
                 List<ClassGroup> groups = groupService.getQueryResults(query);
+
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Groups loaded successfully");
+
                 model.addObject("groups", groups); //List of all groups found
                 break;
 
             case "space":
                 model = new ModelAndView("system/listSpaceSearch");
                 List<Space> spaces = spaceService.getQueryResults(query);
+
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Spaces loaded successfully");
+
                 model.addObject("spaces", spaces); //List of all spaces found
                 break;
 
             case "subject":
                 model = new ModelAndView("system/listSubjectSearch");
                 List<Subject> subjects = subjectService.getQueryResults(query);
+
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Subjects loaded successfully");
+
                 model.addObject("subjects", subjects); //Similar here...
                 break;
 
             default: //User
                 model = new ModelAndView("system/listProfileSearch");
                 List<User> profiles = userService.getQueryResults(query);
+
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Profiles loaded successfully");
+
                 model.addObject("profiles", profiles); //And here...
                 break;
         }

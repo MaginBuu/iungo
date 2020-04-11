@@ -110,11 +110,11 @@ public class TeacherController {
             if(user == null){ //this is for testing, will be deleted
                 user = userService.getUserById("1");
             }
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Session user successfully loaded: " + user.getUserId());
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Session user successfully loaded: " + user.getUserId());
             roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - User is an student");
             ClassGroup group = roleStudent.getGroup();
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - user has group");
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - User has group");
             subjects = subjectService.getByGroup(group.getGroupId());
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Group has subject");
             Set<RoleTeacher> teachers = new HashSet<>();
@@ -122,12 +122,12 @@ public class TeacherController {
                 for (RoleTeacher teacher : subject.getTeachers())
                     teachers.add(teacher);
 
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - teachers loaded succesfully");
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Teachers loaded successfully");
 
             model.addObject("teachers", teachers);
 
         }catch(Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - failed to get teachers - User->StudentRole->group->subjects->teachers");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Failed to get teachers - User->StudentRole->Group->Subjects->Teachers");
             return null;
         }
 
