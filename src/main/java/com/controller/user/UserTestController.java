@@ -171,7 +171,7 @@ public class UserTestController {
      * @return returns the user to the main page with an url
      */
     @RequestMapping(value = "/user/antibullying/report", method = RequestMethod.POST)
-    public String antiBullyingCreate(@Valid @ModelAttribute("report") AntiBullyingReport report) {
+    public String antiBullyingCreate(@Valid @ModelAttribute("report") AntiBullyingReport report, HttpServletRequest request) {
 
         try {
 

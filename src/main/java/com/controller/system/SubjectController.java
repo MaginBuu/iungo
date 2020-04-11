@@ -210,7 +210,18 @@ public class SubjectController {
     @RequestMapping("/subject/requestHours")
     public @ResponseBody
     JSONObject showAddTimeLine(@RequestParam("id") String id, @RequestParam("weekday") String weekday) {
-        Space selectedSpace = spaceService.getByIdWithTimeline(id);
+
+        Space selectedSpace;
+
+        try {
+            selectedSpace = spaceService.getByIdWithTimeline(id);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space loaded successfully");
+
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space could not be loaded");
+            return null;
+        }
+
         List<String> bookedHours = new ArrayList(); // Start and meantime booked hours
         List<String> endHours = new ArrayList(); // Meantime and finish booked hours
 
@@ -263,12 +274,17 @@ public class SubjectController {
      * @return returns the user to the previous page with an url
      */
     @RequestMapping(value = "/subject/delete/timeline", method = RequestMethod.GET)
-    public String deleteTimeline(@RequestParam String timeLineId){
+    public String deleteTimeline(@RequestParam String timeLineId, HttpServletRequest request){
 
-        timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
+        try {
+            timeLineService.deleteTimeLine(timeLineService.getById(timeLineId));
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline was removed successfully");
 
-        System.out.println("deleted");
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be removed");
+            return null;
+        }
+
         String referer = request.getHeader("Referer");
 
         return "redirect:" + referer;
@@ -281,15 +297,23 @@ public class SubjectController {
      * @return returns the user to the previous page with an url
      */
     @RequestMapping(value = "/subject/delete/teacher", method = RequestMethod.GET)
-    public String deleteTeacher(@RequestParam String teacherId, String subjectId){
+    public String deleteTeacher(@RequestParam String teacherId, String subjectId, HttpServletRequest request){
 
-        Subject subject = subjectService.getByIdWithAll(subjectId);
-        User teacher = userService.getUserById(teacherId);
-        subject.deleteTeacher((RoleTeacher) teacher.getRoleClass(Role.TEACHER));
+        try {
+            Subject subject = subjectService.getByIdWithAll(subjectId);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject loaded successfully");
+            User teacher = userService.getUserById(teacherId);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher loaded successfully");
+            subject.deleteTeacher((RoleTeacher) teacher.getRoleClass(Role.TEACHER));
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher removed from subject successfully");
+            subjectService.addSubject(subject);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be saved");
 
-        subjectService.addSubject(subject);
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher could not be removed of subject");
+            return null;
+        }
 
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String referer = request.getHeader("Referer");
 
         return "redirect:" + referer;
@@ -302,11 +326,17 @@ public class SubjectController {
      * @return returns the user to the previous page with an url
      */
     @RequestMapping(value = "/subject/delete", method = RequestMethod.GET)
-    public String deleteSubject(@RequestParam String subjectId){
+    public String deleteSubject(@RequestParam String subjectId, HttpServletRequest request){
 
-        subjectService.deleteSubject(subjectService.getById(subjectId));
+        try {
+            subjectService.deleteSubject(subjectService.getById(subjectId));
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject was removed successfully");
 
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be removed");
+            return null;
+        }
+
         String referer = request.getHeader("Referer");
 
         return "redirect:" + referer;
@@ -315,18 +345,29 @@ public class SubjectController {
     @RequestMapping(value = "/subject/relate/setTeacher")
     public String setTeacherSubjectRelationship(@RequestParam String subjectId, @RequestParam String teachersId){
 
-        System.out.println(subjectId);
-        System.out.println(teachersId);
         //get responsibles
         String teachersSplitted[] = teachersId.split(",");
 
-        Subject subject = subjectService.getByIdWithAll(subjectId);
+        Subject subject;
 
+        try {
+            subject = subjectService.getByIdWithAll(subjectId);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject loaded successfully");
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be loaded");
+            return null;
+        }
         for (String id : teachersSplitted){
             subject.addTeacher((RoleTeacher) userService.getUserById(id).getRoleClass(Role.TEACHER));
         }
 
-        subjectService.addSubject(subject); // addUser = add or update
+        try {
+            subjectService.addSubject(subject); // addUser = add or update
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject was saved successfully");
+
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved");
+        }
         return "redirect:/";
     }
 
@@ -334,8 +375,19 @@ public class SubjectController {
     @RequestMapping(value = "/subject/relate/teacher", method = RequestMethod.GET)
     public ModelAndView relateSubjectTeacher(@RequestParam String subjectId){
 
-        Subject subject = subjectService.getById(subjectId);
-        List<User> teachers = userService.getAllUsersWithRole(Role.TEACHER);
+        Subject subject;
+        List<User> teachers;
+
+        try{
+            subject = subjectService.getById(subjectId);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject was loaded successfully");
+            teachers = userService.getAllUsersWithRole(Role.TEACHER);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers were loaded successfully");
+
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject or Teachers could not be loaded");
+            return null;
+        }
 
         ModelAndView model = new ModelAndView("system/relateSubjectTeacher");
 
@@ -350,8 +402,20 @@ public class SubjectController {
     public @ResponseBody
     JSONArray showAddTimeLine(@RequestParam("department") String dept) {
         List<User> teachers;
-        if(dept != null) teachers = userService.getTeachersByDepartment(dept);
-        else teachers = userService.getTeachers();
+        try{
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  department= " + dept);
+            if(dept != null) {
+                teachers = userService.getTeachersByDepartment(dept);
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers loaded by department successfully");
+            }else{
+                teachers = userService.getTeachers();
+                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All teachers loaded successfully");
+            }
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers could not be loaded");
+            return null;
+        }
+
 
         JSONArray data = new JSONArray();
         for(User t : teachers){

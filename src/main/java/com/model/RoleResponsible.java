@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "role_responsible")
 public class RoleResponsible extends RoleClass {
 
-    @ManyToMany(mappedBy="responsibles" , fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="responsibles" , fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<RoleStudent> child = new LinkedList<>();
 

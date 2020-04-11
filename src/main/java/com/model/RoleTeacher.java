@@ -16,7 +16,7 @@ import java.util.List;
 })
 public class RoleTeacher extends RoleClass {
 
-    @ManyToMany(mappedBy="teachers", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="teachers", fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Subject> subjects = new LinkedList<>();
 
     @Column(name = "DEPARTMENT")
