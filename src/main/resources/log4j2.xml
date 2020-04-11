@@ -18,7 +18,7 @@
 
         <Async name="Async">
             <!-- reference to other appenders -->
-            <AppenderRef ref="LogToFile"/>g
+            <AppenderRef ref="LogToFile"/>
             <AppenderRef ref="LogToConsole"/>
         </Async>
 
@@ -26,6 +26,9 @@
     <Loggers>
         <!-- avoid duplicated logs with additivity=false -->
         <Logger name="com.controller.user" level="debug" additivity="false">
+            <AppenderRef ref="Async"/>
+        </Logger>
+        <Logger name="com.controller.system" level="debug" additivity="false">
             <AppenderRef ref="Async"/>
         </Logger>
         <Root level="error">
