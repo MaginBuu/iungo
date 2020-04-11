@@ -25,7 +25,6 @@
 <%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <c:url value="/element/find" var="url"></c:url>
         <br><br>
         <form class="custom-form" action="/element/find" method="get">
             <h1>Find Element</h1>
