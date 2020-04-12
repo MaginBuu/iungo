@@ -7,6 +7,8 @@ import com.model.*;
 import com.model.enums.Role;
 import com.service.GroupService;
 import com.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import java.util.Set;
 @Controller
 public class UserController {
 
+	private static final Logger logger = LogManager.getLogger(UserController.class);
+
 	@Autowired
 	private UserService userService;
 
@@ -36,6 +40,7 @@ public class UserController {
 	@RequestMapping(value = "/user/tickets", method = RequestMethod.GET)
 	public ModelAndView getUsers(){
 		User user = userService.getAllUserTickets();
+		logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Users loaded");
 		return new ModelAndView("ticketUser", "user", user);
 	}
 
@@ -80,6 +85,7 @@ public class UserController {
 		username = username.toLowerCase();
 
 		//search all similar usernames
+
 		List<String> usernames = userService.getAllUsernames(username);
 
 		//if username exist, add a number at the end to difference between users

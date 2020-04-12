@@ -75,10 +75,10 @@ public class SubjectController {
 
         try {
             subjectService.addSubject(subject);
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject saved into the db");
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  New subject successfully created");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  subject could not be saved");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved");
             return null;
         }
         return "redirect:/subject/relate/teacher?subjectId=" + subject.getSubjectId();

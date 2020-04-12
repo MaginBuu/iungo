@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
 @Controller
 public class ProcedureController {
 
-	private static final Logger logger = LogManager.getLogger(GroupController.class);
+	private static final Logger logger = LogManager.getLogger(ProcedureController.class);
 
 	@Autowired
 	ProcedureService procedureService;
