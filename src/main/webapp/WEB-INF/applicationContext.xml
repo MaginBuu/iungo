@@ -65,6 +65,7 @@
 				<value>com.model.RoleAdmin</value>
 				<value>com.model.RoleClass</value>
 				<value>com.model.ConversationUser</value>
+				<value>com.model.Notification</value>
 			</list>
 		</property>
 

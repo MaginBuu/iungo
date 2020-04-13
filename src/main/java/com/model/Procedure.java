@@ -34,14 +34,11 @@ public class Procedure {
     @JoinColumn(name = "USER_ID")
     private User userP;
 
-    /*
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "USER_ID")
-    private User creator;*/
 
-    //@ManyToOne
-    //@JoinColumn(name = "cartId")
-    //private Cart cart;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CREATOR_ID")
+    private User creator;
+
 
     @Column(name = "TITLE")
     @NotNull
@@ -57,6 +54,10 @@ public class Procedure {
     @Column(name = "ONLINE")
     @NotNull
     private boolean online;
+
+    @Column(name = "NOTIFY")
+    @NotNull
+    private boolean notify;
 
     @Column(name = "CREATION_DATE")
     @NotNull
@@ -81,65 +82,47 @@ public class Procedure {
         this.limitDate = limitDate;
     }
 
-    public String getProcedureId() {
-        return procedureId;
-    }
+    public String getProcedureId() { return procedureId; }
 
-    public User getUserP() {
-        return userP;
-    }
+    public User getUserP() { return userP; }
 
     public void setUserP(User user) { this.userP = user;}
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() { return title; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public void setTitle(String title) { this.title = title; }
 
-    public ProcedureStatus getStatus() {
-        return status;
-    }
+    public ProcedureStatus getStatus() { return status; }
 
     public void setStatus(ProcedureStatus status) { this.status = status; }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public void setDescription(String description) { this.description = description; }
 
-    public boolean isOnline() {
-        return online;
-    }
+    public boolean isOnline() { return online; }
 
-    public void setOnline(boolean online) {
-        this.online = online;
-    }
+    public void setOnline(boolean online) { this.online = online; }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+    public Date getCreationDate() { return creationDate; }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+    public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
 
-    public Date getLimitDate() {
-        return limitDate;
-    }
+    public Date getLimitDate() { return limitDate; }
 
-    public void setLimitDate(Date limitDate) {
-        this.limitDate = limitDate;
-    }
+    public void setLimitDate(Date limitDate) { this.limitDate = limitDate; }
 
     public String getHour() { return hour; }
 
     public void setHour(String hour) { this.hour = hour; }
+
+    public User getCreator() { return creator; }
+
+    public void setCreator(User creator) { this.creator = creator; }
+
+    public boolean isNotify() { return notify; }
+
+    public void setNotify(boolean notify) { this.notify = notify; }
 
     @Override
     public boolean equals(Object o) {
