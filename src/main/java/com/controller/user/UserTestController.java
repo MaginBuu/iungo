@@ -5,6 +5,8 @@ import com.model.enums.ProcedureStatus;
 import com.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -294,6 +296,48 @@ public class UserTestController {
         } catch (Exception e) {
             logger.error("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Error finding the procedure with id " + id + ": " + e);
+
+            return null;
+        }
+    }
+
+    @RequestMapping("/user/getNotifications")
+    public @ResponseBody
+    JSONArray loadNotifications(HttpServletRequest request) {
+
+        try {
+            User activeUser = (User) request.getSession().getAttribute("user");
+
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+            User user;
+
+            if (activeUser == null) //this is for testing, will be deleted
+                user = userService.getAllUserNotifications("1");
+            else
+                user = userService.getAllUserNotifications(activeUser.getUserId());
+
+            List<Notification> notificationList = user.getNotifications();
+            Collections.sort(notificationList,Notification::compareTo);
+
+            JSONArray data = new JSONArray();
+            for (Notification n : notificationList) {
+                JSONObject o = new JSONObject();
+                o.put("title", n.getTitle());
+                o.put("body", n.getDescription());
+                o.put("pending",n.isPending());
+                o.put("id", n.getNotificationId());
+
+                n.setPending(false);
+                userService.addNotification(n);
+
+                data.add(o);
+            }
+            return data;
+
+        }catch (Exception e) {
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error getting the messages: "+e);
 
             return null;
         }

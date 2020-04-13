@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.model.Authorities;
+import com.model.Notification;
 import com.model.RoleTeacher;
 import com.model.User;
 import com.model.enums.Role;
@@ -15,13 +16,17 @@ public interface UserService {
 
 	void addUser(User user);
 
-	public void addAuthorities(Authorities authorities);
+	void addAuthorities(Authorities authorities);
 
 	User getUserById(String userId);
 
 	User getUserByUsername(String username);
 
 	User getAllUserTickets();
+
+	User getAllUserNotifications(String id);
+
+	void addNotification(Notification notification);
 
 	User getAllUserProcedures();
 

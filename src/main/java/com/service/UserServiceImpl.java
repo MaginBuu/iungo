@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.model.Authorities;
+import com.model.Notification;
 import com.model.RoleTeacher;
 import com.model.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,10 @@ public class UserServiceImpl implements UserService {
 	public User getAllUserTickets() {
 		return userDao.getAllUserTickets();
 	}
+
+	public User getAllUserNotifications(String id){ return  userDao.getAllUserNotifications(id); }
+
+	public void addNotification(Notification notification) { userDao.addNotification(notification); }
 
 	public User getAllUserProcedures() { return userDao.getAllUserProcedures(); }
 
