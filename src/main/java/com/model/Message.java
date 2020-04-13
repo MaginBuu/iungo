@@ -42,6 +42,9 @@ public class Message {
     @JoinColumn(name = "USER_ID")
     private User sender;
 
+    @Transient
+    private String receiver;
+
 
     //FITXERS ADJUNTS
 
@@ -99,6 +102,10 @@ public class Message {
     public Conversation getConversation() { return conversation; }
 
     public void setConversation(Conversation conversation) { this.conversation = conversation; }
+
+    public String getReceiver() { return receiver; }
+
+    public void setReceiver(String receiver) { this.receiver = receiver; }
 
     @Override
     public boolean equals(Object o) {

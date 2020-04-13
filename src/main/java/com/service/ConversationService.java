@@ -17,6 +17,8 @@ public interface ConversationService {
 
     Conversation findById(String id);
 
+    Conversation findBy2Id(String id1, String id2);
+
     List<Conversation> findAllConversationsByUserId(String userId);
 
 }
