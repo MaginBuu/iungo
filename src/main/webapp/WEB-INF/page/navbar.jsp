@@ -35,8 +35,31 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" style="color: #ffffff;" href="#">
                             <i class="fa fa-wpexplorer"></i>&nbsp;Explore</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
-                            class="fa fa-star-o"></i>&nbsp;Features</a></li>
+                    <li class="nav-item dropdown" role="presentation">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" style="color: #ffffff;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="badge badge-danger ml-2">4</span>
+                            <i class="fa fa-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5" style="width: 300px">
+                            <div class="container waves-effect waves-light" style="border-bottom: 1px solid;">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <a><strong>Action1</strong></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a style="padding-bottom: 2px;font-size: 10px">Lorem ipsum me cagon
+                                                cristum</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>t
+                        </div>
+                    </li>
 
                     <c:choose>
                         <c:when test="${pageContext.request.userPrincipal.name == null}">

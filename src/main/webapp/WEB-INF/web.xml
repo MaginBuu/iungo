@@ -43,9 +43,9 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<error-page>
+	<!--<error-page>
 		<error-code></error-code>
 		<location>/index.jsp</location>
-	</error-page>
+	</error-page>-->
 
 </web-app>
