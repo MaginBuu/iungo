@@ -169,27 +169,6 @@ public class UserController {
 	}
 
 
-	/**
-	 *
-	 * After log in springSecurity redirects to this path,
-	 * 		used to save full information of the user as a session variable
-	 * @param request
-	 * @return it redirects to the path "/" (index)
-	 */
-	@RequestMapping(value = "/postlogin", method = RequestMethod.GET)
-	public String postLogin(HttpServletRequest request) {
-		System.out.println("postlogin");
-		System.out.println(request.getUserPrincipal().getName());
-		User user = userService.getUserByEmail(request.getUserPrincipal().getName());
-		request.getSession().setAttribute("name", user.getName());
-		request.getSession().setAttribute("user", user);
-		System.out.println(user);
-
-		//customerService.addCustomer(customer);
-		return "redirect:/";
-	}
-
-
 	@RequestMapping(value = "/test/admin")
 	public ModelAndView searchTest() {
 		List<User> users = userService.getAllUsers();

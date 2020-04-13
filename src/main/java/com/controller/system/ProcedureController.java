@@ -65,32 +65,35 @@ public class ProcedureController {
 	@RequestMapping(value = "/procedure/createMeetingRequest", method = RequestMethod.POST)
 	public String createMeetingRequest(@Valid @ModelAttribute("procedure") Procedure procedure, BindingResult result, HttpServletRequest request) {
 
-		try {
-			procedure.setOnline(true);
-			procedure.setCreationDate(new Date());
-			User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 
-			logger.info("[" + new Object() {
-			}.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+		logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
 
-			if (user == null)
-				user = userService.getUserById("1");
+		if (user == null)		// this will be deleted soon
+			user = userService.getUserById("1");
 
-			String title = "Meeting request from " + user.getName() + " " + user.getSurname();
-			procedure.setTitle(title);
+		String title = "Meeting request from " + user.getName() + " " + user.getSurname();
 
-			procedure.setStatus(ProcedureStatus.CREATED);
+		procedure.setTitle(title);
+		procedure.setStatus(ProcedureStatus.CREATED);
+		procedure.setOnline(true);
+		procedure.setCreationDate(new Date());
+		procedure.setNotify(true);
+		procedure.setCreator(user);
 
+		try{
 			procedureService.addProcedure(procedure);
 			logger.info("[" + new Object() {
 			}.getClass().getEnclosingMethod().getName() + "] -  Meeting request (procedure) successfully created");
 
-			return "redirect:/";
+			String referer = request.getHeader("Referer");
+
+			return "redirect:" + referer;
 		}catch (Exception e) {
 			logger.error("[" + new Object() {
 			}.getClass().getEnclosingMethod().getName() + "] -  Error creating a meeting request (procedure): " + e);
 
-			return null;
+			return "redirect: /";
 		}
 	}
 
