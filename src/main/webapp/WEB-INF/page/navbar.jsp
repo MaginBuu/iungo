@@ -17,7 +17,48 @@
 
 </head>
 
-<body style="height: 1200px;">
+<script>
+
+    function  hideNotifications() {
+        document.getElementById("notf-num").style.display = "none";
+    }
+    function loadNotifications(elem) {
+
+        var table = document.getElementById("tbody");
+        table.innerHTML = "";
+        $.ajax({
+
+            type: "GET",
+            url: "/user/getNotifications",
+            dataType: "json",
+            contentType: 'application/json',
+            data: {
+            }, //aqui es passen els parametres
+            success: function (data) {
+                let notfs, lastVisit, msgDate, i;
+                // Disable the booked options in both select, each one with its list
+                notfs = 0;
+                $.each(data, function (index, current) {
+                    notfs = notfs+1;
+                    table.innerHTML += '<tr id="'+current.id+'"> <td> <div class="form-row form-group"><div class="col float-left">'+
+                    '<a><strong>'+current.title+'</strong> </a> </div> <div class="col float-right"> <a class="fa fa-trash"></a>'+
+                    '</div> </div> <div class="form-row form-group" <a style="font-size: 10px">'+current.body+
+                    '</a> </div> </td> </tr>';
+                    if(current.pending == true){
+                        document.getElementById(current.id).style.backgroundColor = "hsla(39.17, 97.65%, 57.42%, 0.08)";
+                    }
+                });
+                document.getElementById("notf-num").innerHTML = notfs;
+            }
+        }).done(function () {
+
+        }).fail(function () {
+            console.log("Error Ajax");
+        });
+    }
+</script>
+
+<body style="height: 1200px;" onload="loadNotifications()">
 <div>
     <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button"
          style="height: 65px;background-color: #de9d3f;color: #ffffff;">
@@ -35,8 +76,19 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" style="color: #ffffff;" href="#">
                             <i class="fa fa-wpexplorer"></i>&nbsp;Explore</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="#"><i
-                            class="fa fa-star-o"></i>&nbsp;Features</a></li>
+                    <li class="nav-item dropdown" role="presentation">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" style="color: #ffffff;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" onclick="hideNotifications()">
+                            <span id="notf-num" class="badge badge-danger ml-2"></span>
+                            <i class="fa fa-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5" style="width: 300px">
+
+                                <table class="table table-bordered">
+                                    <tbody id="tbody">
+                                    </tbody>
+                                </table>
+                        </div>
+                    </li>
 
                     <c:choose>
                         <c:when test="${pageContext.request.userPrincipal.name == null}">

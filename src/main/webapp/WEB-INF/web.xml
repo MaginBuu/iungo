@@ -42,8 +42,8 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-<!--
-	<error-page>
+
+	<!--<error-page>
 		<error-code></error-code>
 		<location>/index.jsp</location>
 	</error-page>-->

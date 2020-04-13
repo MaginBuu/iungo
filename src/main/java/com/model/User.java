@@ -16,8 +16,9 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 @NamedQueries({
 		@NamedQuery(name = "Users.findAll", query = "SELECT c FROM User c"),
-		@NamedQuery(name = "Users.findAllWithTickets", query ="SELECT o FROM User o JOIN FETCH o.tickets i WHERE o.userId =:id"),
-		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o JOIN FETCH o.procedures i WHERE o.userId =:id AND i.status = 0"),
+		@NamedQuery(name = "Users.findAllWithTickets", query ="SELECT o FROM User o LEFT JOIN FETCH o.tickets i WHERE o.userId =:id"),
+		@NamedQuery(name = "Users.findAllWithNotifications", query ="SELECT o FROM User o LEFT JOIN FETCH o.notifications i WHERE o.userId =:id"),
+		@NamedQuery(name = "Users.findAllWithProcedures", query ="SELECT o FROM User o LEFT JOIN FETCH o.procedures i WHERE o.userId =:id AND i.status = 0"),
 		@NamedQuery(name = "Users.findAllWithRoles", query ="SELECT o FROM User o JOIN FETCH o.roles i WHERE o.userId =:id"),
 		@NamedQuery(name = "Users.findAllWithRole", query ="SELECT o FROM User o WHERE o.userId IN (SELECT i.userR FROM RoleClass i WHERE i.roleKey =:role)"),
 		@NamedQuery(name = "Users.findAllByUsername", query ="SELECT o.username FROM User o WHERE o.username LIKE :username ORDER BY o.username ASC"),
@@ -116,6 +117,9 @@ public class User implements Serializable {
 
 	@OneToMany(mappedBy = "user", targetEntity = ConversationUser.class)
 	private List<ConversationUser> userConversations;
+
+	@OneToMany(mappedBy = "user", targetEntity = Notification.class)
+	private List<Notification> notifications;
 
 	public User() { }
 
@@ -247,6 +251,18 @@ public class User implements Serializable {
 
 	public void setUserConversations(List<ConversationUser> userConversations) {
 		this.userConversations = userConversations;
+	}
+
+	public boolean isNotificiationsEnabled() {
+		return notificiationsEnabled;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 
 	public Map<Role, RoleClass> getRoles() { return roles; }

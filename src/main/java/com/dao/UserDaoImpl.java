@@ -71,6 +71,15 @@ public class UserDaoImpl implements UserDao {
 		return userWithRoles;
 	}
 
+	public User getAllUserNotifications(String id) {
+		Session session = sessionFactory.openSession();
+		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		//User user = (User)request.getSession().getAttribute("user");
+		User userWithRoles = (User) session.getNamedQuery("Users.findAllWithNotifications").setParameter("id", id).uniqueResult(); //user.getUserId()
+		session.close();
+		return userWithRoles;
+	}
+
 	public void deleteUser(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
@@ -92,6 +101,22 @@ public class UserDaoImpl implements UserDao {
 		try{
 			tx = session.beginTransaction();
 			session.save(authorities);
+			tx.commit();
+		}catch(Exception e){
+			if(tx != null) tx.rollback();
+			throw e;
+		}finally {
+			session.close();
+		}
+
+	}
+
+	public void addNotification(Notification notification){
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			session.saveOrUpdate(notification);
 			tx.commit();
 		}catch(Exception e){
 			if(tx != null) tx.rollback();
