@@ -79,7 +79,7 @@ public class SpaceController {
 			space = spaceService.getByIdWithTimeline(spaceId);
 			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space with id=" +spaceId + " successfully loaded: ");
 		} catch (Exception e){
-			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space with id=" +spaceId + " was not found ");
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space with id=" +spaceId + " was not found :" + e);
 		}
 
 		return new ModelAndView("system/updateSpace", "space", space);
@@ -97,7 +97,7 @@ public class SpaceController {
 			spaceService.addSpace(space);
 			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space sucessfully updated ");
 		} catch (Exception e){
-			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to save space");
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to save space: " + e);
 		}
 		return "redirect:/";
 	}
@@ -114,7 +114,7 @@ public class SpaceController {
 			spaceService.deleteSpace(spaceService.getById(spaceId));
 			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space sucessfully removed");
 		}catch (Exception e){
-			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to delete space");
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to delete space: " + e);
 		}
 
 		//Getting the referer page

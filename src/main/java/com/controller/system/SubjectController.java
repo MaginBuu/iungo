@@ -54,7 +54,7 @@ public class SubjectController {
              groups = groupService.getAllClassGroup();
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  ClassGroups loaded successfully");
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  ClassGroups could not be loaded");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  ClassGroups could not be loaded: " + e);
             return null;
         }
 
@@ -78,7 +78,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  New subject successfully created");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved: " + e);
             return null;
         }
         return "redirect:/subject/relate/teacher?subjectId=" + subject.getSubjectId();
@@ -99,7 +99,7 @@ public class SubjectController {
             return new ModelAndView("system/updateSubject", "subject", subject);
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be loaded");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be loaded: " + e);
             return null;
         }
 
@@ -121,9 +121,9 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Group successfully loaded");
             subject.setSubjectGroup(group);
             subjectService.addSubject(subject);
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject successfully saved");
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject successfully saved");
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved: " + e);
             return null;
         }
 
@@ -140,7 +140,7 @@ public class SubjectController {
                     logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All spaces loaded");
 
                 }catch (Exception e){
-                    logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All spaces could not be loaded");
+                    logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All spaces could not be loaded: " + e);
                     return null;
                 }
 
@@ -157,7 +157,7 @@ public class SubjectController {
                     logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All teachers loaded");
 
                 }catch (Exception e){
-                    logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers could not be loaded");
+                    logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers could not be loaded: " + e);
                     return null;
                 }
                 model = new ModelAndView("system/relateSubjectTeacher");
@@ -194,7 +194,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline saved successfully");
         }
         catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be saved");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be saved: " + e);
         }
 
         return "redirect:/subject/modify/"+timeLine.getTimelineSubjectId()+".do";
@@ -218,7 +218,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space loaded successfully");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space could not be loaded");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space could not be loaded: " + e);
             return null;
         }
 
@@ -281,7 +281,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline was removed successfully");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be removed");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be removed: " + e);
             return null;
         }
 
@@ -310,7 +310,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Timeline could not be saved");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher could not be removed of subject");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher could not be removed of subject: " + e);
             return null;
         }
 
@@ -333,7 +333,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject was removed successfully");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be removed");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be removed: " + e);
             return null;
         }
 
@@ -354,7 +354,7 @@ public class SubjectController {
             subject = subjectService.getByIdWithAll(subjectId);
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject loaded successfully");
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be loaded");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be loaded: " + e);
             return null;
         }
         for (String id : teachersSplitted){
@@ -366,7 +366,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject was saved successfully");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved: "+ e );
         }
         return "redirect:/";
     }
@@ -385,7 +385,7 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers were loaded successfully");
 
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject or Teachers could not be loaded");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject or Teachers could not be loaded: " + e);
             return null;
         }
 
@@ -412,7 +412,7 @@ public class SubjectController {
                 logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All teachers loaded successfully");
             }
         }catch (Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers could not be loaded");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers could not be loaded: " + e);
             return null;
         }
 

@@ -31,8 +31,13 @@ public class ConversationServiceImpl implements ConversationService{
     @Override
     public Conversation getWithUsers(String id){ return conversationDao.getWithUsers(id);}
 
+    @Override
     public Conversation findById(String id) { return conversationDao.findById(id); }
 
+    @Override
+    public Conversation findBy2Id(String id1, String id2) { return conversationDao.findBy2Id(id1, id2); }
+
+    @Override
     public List<Conversation> findAllConversationsByUserId(String userId) { return conversationDao.findAllConversationsByUserId(userId); }
 
 }

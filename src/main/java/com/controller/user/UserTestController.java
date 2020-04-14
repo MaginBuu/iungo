@@ -140,13 +140,87 @@ public class UserTestController {
     }
 
     /**
+     * Processes the creation of a new ticket by using all parameters from the "New Ticket" form.
+     *
+     * @param message the message with all its elements
+     * @return returns the user to the main page with an url
+     */
+    @RequestMapping(value = "/message/creation/directMessage", method = RequestMethod.POST)
+    public String createDirectMessage(@Valid @ModelAttribute(value = "message") Message message, BindingResult result, HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null)
+            user = userService.getUserById("1"); // will be deleted soon
+
+        logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+        message.setSender(user);
+        message.setDate(new Date());
+
+        Conversation conversation = conversationService.findBy2Id(user.getUserId(), message.getReceiver());
+
+        if(conversation == null){
+            User userReceiver = userService.getUserById(message.getReceiver());
+            try {
+                conversation = new Conversation();
+                conversation.setTitle("Conversation " + user.getName() + " - " + userReceiver.getName());
+                conversation.setDescription("This conversation is between " + user.getName() + " " + user.getSurname() + " " + user.getSecondSurname() + "" +
+                        "& " + userReceiver.getName() + " " + userReceiver.getSurname() + " " + userReceiver.getSecondSurname());
+                conversation.setLastMessageDate(new Date());
+                logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully created but not saved into the db yet");
+                conversationService.addConversation(conversation);
+                logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully saved");
+            }catch (Exception e){
+                logger.error("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation could not be created: " + e);
+                return null;
+            }
+
+
+            ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
+            conversationUserService.addConversationUser(conversationUser);
+            conversation.addUserConversations(conversationUser);
+            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation user of loaded user created");
+
+
+            conversationUser = new ConversationUser(userReceiver, conversation, new Date());
+            conversationUserService.addConversationUser(conversationUser);
+            conversation.addUserConversations(conversationUser);
+            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation user of receiver user created");
+
+        }
+
+        message.setConversation(conversation);
+
+        try {
+            System.out.println();
+            messageService.addMessage(message);
+            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  message saved: ");
+
+            ConversationUser cu = conversationUserService.findByUserAndConversation(message.getReceiver(), conversation.getConversationId());
+            conversationUserService.addConversationUser(cu);
+            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation user of receiver new message = true saved");
+
+
+            String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
+        } catch (Exception e) {
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Error creating the message: " + e);
+
+            return null;
+        }
+
+    }
+
+    /**
      * Processes the petition to get to the anti-bullying report creation page.
      *
      * @return ModelAndView with the desired .jsp file and its required model & objects
      */
     @RequestMapping(value = "/user/antibullying")
     public ModelAndView antiBullyingAccess(@RequestParam Boolean observed) {
-        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ??
+
         try {
 
             logger.info("[" + new Object() {
@@ -263,6 +337,7 @@ public class UserTestController {
             procedure.setUserP(new User());
             model.addObject("teacher", teacher);
             model.addObject("procedure", procedure);
+            model.addObject("message", new Message());
             return model;
         } catch (Exception e) {
             logger.error("[" + new Object() {

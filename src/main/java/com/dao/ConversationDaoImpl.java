@@ -70,6 +70,15 @@ public class ConversationDaoImpl implements ConversationDao {
         return conversation;
     }
 
+    @Override
+    public Conversation findBy2Id(String id1, String id2) {
+        Session session = sessionFactory.openSession();
+        Conversation conversation =  (Conversation) session.getNamedQuery("Conversation.getBy2Users").setParameter("id1", id1).setParameter("id2", id2).uniqueResult();
+        session.close();
+        return conversation;
+    }
+
+    @Override
     public List<Conversation> findAllConversationsByUserId(String userId){
         Session session = sessionFactory.openSession();
         User user = new User();

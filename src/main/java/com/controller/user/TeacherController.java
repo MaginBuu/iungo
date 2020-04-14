@@ -127,7 +127,7 @@ public class TeacherController {
             model.addObject("teachers", teachers);
 
         }catch(Exception e){
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Failed to get teachers - User->StudentRole->Group->Subjects->Teachers");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Failed to get teachers - User->StudentRole->Group->Subjects->Teachers: " + e);
             return null;
         }
 

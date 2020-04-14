@@ -14,6 +14,10 @@ import java.util.Objects;
         @NamedQuery(name = "Conversation.findAll", query = "SELECT c FROM Conversation c"),
         @NamedQuery(name = "Conversation.getWithUsers", query = "SELECT c FROM Conversation c LEFT JOIN FETCH c.userConversations u WHERE c.conversationId =:id"),
         @NamedQuery(name = "Conversation.findById", query = "SELECT c FROM Conversation c WHERE c.conversationId =:id"),
+        @NamedQuery(name = "Conversation.getBy2Users", query = "SELECT c FROM Conversation c WHERE EXISTS (SELECT u FROM ConversationUser u WHERE u.user.userId =:id1 AND u.userConversation = c) " +
+                                                                "AND EXISTS (SELECT v FROM ConversationUser v WHERE v.user.userId =:id2 AND v.userConversation = c)" +
+                                                                "AND (SELECT COUNT(z) from ConversationUser z where z.userConversation = c) = 2"),
+
 })
 public class Conversation implements Comparable<Conversation>{
     private static final long serialVersionUID = 2681531852204068105L;
@@ -101,9 +105,7 @@ public class Conversation implements Comparable<Conversation>{
 
     public void addUserConversations(ConversationUser conversationUser){ this.userConversations.add(conversationUser); }
 
-    public List<ConversationUser> getUserConversations() {
-        return userConversations;
-    }
+    public List<ConversationUser> getUserConversations() { return userConversations; }
 
     public void setUserConversations(List<ConversationUser> userConversations) { this.userConversations = userConversations; }
 
