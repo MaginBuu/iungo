@@ -56,9 +56,6 @@ public class UserServiceImpl implements UserService {
 		return userDao.getAllUserTickets();
 	}
 
-	public User getAllUserNotifications(String id){ return  userDao.getAllUserNotifications(id); }
-
-	public void addNotification(Notification notification) { userDao.addNotification(notification); }
 
 	public User getAllUserProcedures() { return userDao.getAllUserProcedures(); }
 
@@ -67,6 +64,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public List<User> getStudentsByGroup(String groupId){ return userDao.getStudentsByGroup(groupId); }
+
+	//NOTIFICATIONS
+
+	public void eraseNotifications(String id) { userDao.eraseNotifications(id); }
+
+	public User getAllUserNotifications(String id){ return  userDao.getAllUserNotifications(id); }
+
+	public void addNotification(Notification notification) { userDao.addNotification(notification); }
 
 	//TEACHER
 

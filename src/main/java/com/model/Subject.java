@@ -56,6 +56,9 @@ public class Subject implements Serializable {
     @JoinTable(name = "teacher_subjects")
     private Set<RoleTeacher> teachers;
 
+    @OneToMany(mappedBy="subject", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Task> tasks;
+
     public Subject() { }
 
     public Subject(String name) {

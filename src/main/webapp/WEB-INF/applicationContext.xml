@@ -44,28 +44,29 @@
 			<list>
 				<value>com.model.AntiBullyingReport</value>
 				<value>com.model.Authorities</value>
+				<value>com.model.ClassGroup</value>
 				<value>com.model.Conversation</value>
 				<value>com.model.ConversationUser</value>
 				<value>com.model.Course</value>
 				<value>com.model.Event</value>
-				<value>com.model.ClassGroup</value>
 				<value>com.model.Message</value>
+				<value>com.model.Notification</value>
 				<value>com.model.Procedure</value>
 				<value>com.model.Reminder</value>
-				<value>com.model.Space</value>
-				<value>com.model.Subject</value>
-				<value>com.model.Ticket</value>
-				<value>com.model.TimeLine</value>
-				<value>com.model.User</value>
-				<value>com.model.UserCredentials</value>
 				<value>com.model.RoleResponsible</value>
 				<value>com.model.RoleStudent</value>
 				<value>com.model.RoleTeacher</value>
 				<value>com.model.RoleSecretary</value>
 				<value>com.model.RoleAdmin</value>
 				<value>com.model.RoleClass</value>
-				<value>com.model.ConversationUser</value>
-				<value>com.model.Notification</value>
+				<value>com.model.Space</value>
+				<value>com.model.Subject</value>
+				<value>com.model.Task</value>
+				<value>com.model.Ticket</value>
+				<value>com.model.TimeLine</value>
+				<value>com.model.User</value>
+				<value>com.model.UserCredentials</value>
+				<value>com.model.UserTask</value>
 			</list>
 		</property>
 

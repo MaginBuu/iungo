@@ -39,16 +39,38 @@
                 // Disable the booked options in both select, each one with its list
                 notfs = 0;
                 $.each(data, function (index, current) {
-                    notfs = notfs+1;
-                    table.innerHTML += '<tr id="'+current.id+'"> <td> <div class="form-row form-group"><div class="col float-left">'+
-                    '<a><strong>'+current.title+'</strong> </a> </div> <div class="col float-right"> <a class="fa fa-trash"></a>'+
-                    '</div> </div> <div class="form-row form-group" <a style="font-size: 10px">'+current.body+
+                    table.innerHTML += '<tr id="'+current.id+'"> <td> <div class="form-row form-group">'+
+                    '<a><strong>'+current.title+'</strong> '+
+                    '</div> <div class="form-row form-group" style="max-width: 100%"> <a style="font-size: 10px">'+current.body+
                     '</a> </div> </td> </tr>';
                     if(current.pending == true){
+                        notfs = notfs+1;
                         document.getElementById(current.id).style.backgroundColor = "hsla(39.17, 97.65%, 57.42%, 0.08)";
                     }
                 });
-                document.getElementById("notf-num").innerHTML = notfs;
+                if(notfs != 0) document.getElementById("notf-num").innerHTML = notfs;
+            }
+        }).done(function () {
+
+        }).fail(function () {
+            console.log("Error Ajax");
+        });
+
+    }
+    function eraseNotifications(){
+        var table = document.getElementById("tbody");
+
+        $.ajax({
+
+            type: "GET",
+            url: "/user/eraseNotifications",
+            dataType: "json",
+            contentType: 'application/json',
+            data: {
+            }, //aqui es passen els parametres
+            success: function (data) {
+                console.log(data);
+                table.innerHTML = "";
             }
         }).done(function () {
 
@@ -81,10 +103,10 @@
                             <span id="notf-num" class="badge badge-danger ml-2"></span>
                             <i class="fa fa-bell"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5" style="width: 300px">
-
-                                <table class="table table-bordered">
-                                    <tbody id="tbody">
+                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5" style="width:350px;overflow-y:auto;max-height: 300px">
+                            <h6 class="dropdown-header float-right"><a type="button" id="btn-reply"> <i class="fa fa-trash" aria-hidden="true" onclick="eraseNotifications()"></i> </a></h6>
+                                <table class="table table-bordered" style="max-width: 100%">
+                                    <tbody id="tbody" style="max-width: 100%">
                                     </tbody>
                                 </table>
                         </div>

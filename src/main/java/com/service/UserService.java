@@ -24,10 +24,6 @@ public interface UserService {
 
 	User getAllUserTickets();
 
-	User getAllUserNotifications(String id);
-
-	void addNotification(Notification notification);
-
 	User getAllUserProcedures();
 
 	List<User> getAllUsersWithRole(Role role);
@@ -39,6 +35,14 @@ public interface UserService {
 	List<User> getQueryResults(String query);
 
 	List<User> getStudentsByGroup(String groupId);
+
+	//NOTIFICATIONS
+
+	User getAllUserNotifications(String id);
+
+	void addNotification(Notification notification);
+
+	void eraseNotifications(String id);
 
 	//TEACHER
 

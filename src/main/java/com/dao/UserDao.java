@@ -27,10 +27,6 @@ public interface UserDao {
 
 	User getAllUserTickets();
 
-	User getAllUserNotifications(String id);
-
-	void addNotification(Notification notification);
-
 	User getAllUserProcedures();
 
 	User getAllUserRoles(String id);
@@ -42,6 +38,14 @@ public interface UserDao {
 	List<User> getQueryResults(String query);
 
 	List<User> getStudentsByGroup(String groupId);
+
+	//NOTIFICATIONS
+
+	void eraseNotifications(String id);
+
+	User getAllUserNotifications(String id);
+
+	void addNotification(Notification notification);
 
 	//TEACHER
 

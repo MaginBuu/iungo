@@ -8,6 +8,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "notifications")
+@NamedQueries({
+        @NamedQuery(name = "Notifications.deleteFromUser", query = "DELETE FROM Notification WHERE user.userId =:id"),
+})
 public class Notification implements Comparable<Notification> {
 
     @Id
@@ -15,7 +18,6 @@ public class Notification implements Comparable<Notification> {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "NOTIFICATION_ID")
     private String notificationId;
-
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")

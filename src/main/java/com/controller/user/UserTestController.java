@@ -337,9 +337,37 @@ public class UserTestController {
             return data;
 
         }catch (Exception e) {
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error getting the messages: "+e);
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error getting the notifications: "+e);
 
             return null;
         }
+    }
+
+    @RequestMapping("/user/eraseNotifications")
+    public @ResponseBody
+    JSONObject eraseNotifications(HttpServletRequest request) {
+        JSONObject o = new JSONObject();
+        try {
+            User activeUser = (User) request.getSession().getAttribute("user");
+
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+            User user;
+
+            if (activeUser == null) //this is for testing, will be deleted
+                userService.eraseNotifications("1");
+            else
+                userService.eraseNotifications(activeUser.getUserId());
+
+            o.put("result", "success");
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Notifications successfully deleted");
+
+        }catch (Exception e) {
+            o.put("result", "fail");
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error deleting the notifications: "+e);
+        }
+        return o;
     }
 }
