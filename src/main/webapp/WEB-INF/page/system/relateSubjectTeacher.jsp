@@ -70,7 +70,7 @@
         if (teacherId == "") {
             alert("Select a teacher");
         } else {
-            window.location.href = '/subject/relate/setTeacher?subjectId=' + subjectId + '&teachersId=' + teacherId;
+            window.location.href = '/subject/setTeacher?subjectId=' + subjectId + '&teachersId=' + teacherId;
         }
     }
 

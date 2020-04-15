@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -81,7 +82,7 @@ public class SubjectController {
             logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved: " + e);
             return null;
         }
-        return "redirect:/subject/relate/teacher?subjectId=" + subject.getSubjectId();
+        return "redirect:/subject/relateTeacher?subjectId=" + subject.getSubjectId();
     }
 
     /**
@@ -120,8 +121,13 @@ public class SubjectController {
             ClassGroup group = groupService.getClassGroupById(subject.getGroupId());
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Group successfully loaded");
             subject.setSubjectGroup(group);
+
+            subject.setTeachers(subjectService.getTeachersBySubjectId(subject.getSubjectId()));
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teachers successfully loaded");
+
             subjectService.addSubject(subject);
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject successfully saved");
+
         }catch (Exception e){
             logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved: " + e);
             return null;
@@ -152,8 +158,12 @@ public class SubjectController {
 
             case "addTeacher":
                 List<User> teachers;
+                Set<RoleTeacher> SubjectTeachers = subject.getTeachers();
                 try {
                     teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                    for (RoleTeacher teacher : SubjectTeachers){
+                        teachers.remove(teacher.getUserR());
+                    }
                     logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  All teachers loaded");
 
                 }catch (Exception e){
@@ -162,7 +172,7 @@ public class SubjectController {
                 }
                 model = new ModelAndView("system/relateSubjectTeacher");
                 model.addObject("subject", subject);
-                model.addObject("teacher", teachers);
+                model.addObject("teachers", teachers);
                 break;
 
             default:
@@ -342,8 +352,8 @@ public class SubjectController {
         return "redirect:" + referer;
     }
 
-    @RequestMapping(value = "/subject/relate/setTeacher")
-    public String setTeacherSubjectRelationship(@RequestParam String subjectId, @RequestParam String teachersId){
+    @RequestMapping(value = "/subject/setTeacher")
+    public String setTeacherSubjectRelationship(@RequestParam String subjectId, @RequestParam String teachersId, HttpServletRequest request){
 
         //get responsibles
         String teachersSplitted[] = teachersId.split(",");
@@ -357,6 +367,7 @@ public class SubjectController {
             logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be loaded: " + e);
             return null;
         }
+
         for (String id : teachersSplitted){
             subject.addTeacher((RoleTeacher) userService.getUserById(id).getRoleClass(Role.TEACHER));
         }
@@ -368,11 +379,28 @@ public class SubjectController {
         }catch (Exception e){
             logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved: "+ e );
         }
+
+        String referer = request.getHeader("Referer");
+
+        try{
+            referer = referer.substring(referer.length()-15);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  referer: "+ referer);
+
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Could not cut substring of referer "+ e );
+            return "redirect:/";
+        }
+
+        if("/subject/modify".equals(referer))
+            return "redirect:/subject/modify/" + subjectId;
+
+        logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  referer: "+ referer);
+
         return "redirect:/";
     }
 
 
-    @RequestMapping(value = "/subject/relate/teacher", method = RequestMethod.GET)
+    @RequestMapping(value = "/subject/relateTeacher", method = RequestMethod.GET)
     public ModelAndView relateSubjectTeacher(@RequestParam String subjectId){
 
         Subject subject;
@@ -398,7 +426,7 @@ public class SubjectController {
         return model;
     }
 
-    @RequestMapping("/subject/relate/requestTeachers")
+    @RequestMapping("/subject/requestTeachers")
     public @ResponseBody
     JSONArray showAddTimeLine(@RequestParam("department") String dept) {
         List<User> teachers;
