@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.model.RoleTeacher;
 import com.model.Space;
 import com.model.Subject;
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class SubjectDaoImpl implements SubjectDao {
@@ -64,6 +66,13 @@ public class SubjectDaoImpl implements SubjectDao {
         Subject subject = (Subject) session.getNamedQuery("Subject.findById").setParameter("id", id).uniqueResult();
         session.close();
         return subject;
+    }
+
+    public Set<RoleTeacher> getTeachersBySubjectId(String id){
+        Session session = sessionFactory.openSession();
+        Subject subject = (Subject) session.getNamedQuery("Subject.findTeachersBySubjectId").setParameter("id", id).uniqueResult();
+        session.close();
+        return subject.getTeachers();
     }
 
     public List<Subject> getByGroup(String groupId){

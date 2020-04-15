@@ -70,6 +70,9 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <button class="btn btn-light submit-button" type="submit" value="addTeacher" name="buttonName"
+                    id="addTeacher" onclick="return Validate()">Add Teacher
+            </button>
             <table class="table table-borderless table-striped">
                 <thead>
                 <tr>
