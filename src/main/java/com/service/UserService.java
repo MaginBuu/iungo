@@ -52,6 +52,8 @@ public interface UserService {
 
 	RoleTeacher getTeacherByIdWithTimelines(String teacherId);
 
+	RoleTeacher getTeacherByIdWithSubjects(String teacherId);
+
 	RoleTeacher getTeacherById(String teacherId);
 
 	List<RoleTeacher> getAllTeachers();

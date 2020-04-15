@@ -246,6 +246,13 @@ public class UserDaoImpl implements UserDao {
 
 	public RoleTeacher getTeacherByIdWithTimelines(String teacherId){
 		Session session = sessionFactory.openSession();
+		RoleTeacher teacher = (RoleTeacher) session.getNamedQuery("RoleTeacher.findByIdWithTimelines").setParameter("id", teacherId).uniqueResult();
+		session.close();
+		return teacher;
+	}
+
+	public RoleTeacher getTeacherByIdWithSubjects(String teacherId){
+		Session session = sessionFactory.openSession();
 		RoleTeacher teacher = (RoleTeacher) session.getNamedQuery("RoleTeacher.findByIdWithSubjects").setParameter("id", teacherId).uniqueResult();
 		session.close();
 		return teacher;

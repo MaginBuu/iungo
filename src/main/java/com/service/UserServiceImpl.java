@@ -81,6 +81,8 @@ public class UserServiceImpl implements UserService {
 
 	public RoleTeacher getTeacherByIdWithTimelines(String teacherId) { return userDao.getTeacherByIdWithTimelines(teacherId); }
 
+	public RoleTeacher getTeacherByIdWithSubjects(String teacherId) { return userDao.getTeacherByIdWithSubjects(teacherId); }
+
 	public RoleTeacher getTeacherById(String teacherId) { return userDao.getTeacherById(teacherId); }
 
 	public List<RoleTeacher> getAllTeachers() { return userDao.getAllTeachers(); }

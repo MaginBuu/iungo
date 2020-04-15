@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "role_teacher")
 @NamedQueries({
         @NamedQuery(name = "RoleTeacher.findById", query = "SELECT o FROM RoleTeacher o WHERE o.userR.userId = :id"),
-        @NamedQuery(name = "RoleTeacher.findByIdWithSubjects", query = "SELECT o FROM RoleTeacher o LEFT JOIN FETCH o.timelines i WHERE o.userR.userId = :id"),
+        @NamedQuery(name = "RoleTeacher.findByIdWithTimelines", query = "SELECT o FROM RoleTeacher o LEFT JOIN FETCH o.timelines i WHERE o.userR.userId = :id"),
+        @NamedQuery(name = "RoleTeacher.findByIdWithSubjects", query = "SELECT o FROM RoleTeacher o LEFT JOIN FETCH o.subjects i WHERE o.userR.userId = :id AND i.name <> 'consultation_hours'"),
         @NamedQuery(name = "RoleTeacher.findAll", query = "SELECT o FROM RoleTeacher o"),
 })
 public class RoleTeacher extends RoleClass {
@@ -41,5 +42,13 @@ public class RoleTeacher extends RoleClass {
 
     public void setTimelines(List<TimeLine> timelines) {
         this.timelines = timelines;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

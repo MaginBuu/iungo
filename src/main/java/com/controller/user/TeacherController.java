@@ -4,6 +4,7 @@ import com.model.*;
 import com.model.enums.Role;
 import com.service.SubjectService;
 import com.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -17,10 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class TeacherController {
@@ -170,5 +168,41 @@ public class TeacherController {
         }
     }
 
+    @RequestMapping(value = "/teacher/subjects")
+    public ModelAndView teacherSubjectsAccess() {
+
+        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        try {
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+            RoleTeacher teacher = userService.getTeacherByIdWithSubjects("1");
+            List<Subject> subjects = new ArrayList<>();
+
+            if (teacher != null && teacher.getSubjects() != null) {
+                subjects = teacher.getSubjects();
+
+            } else {
+                logger.warn("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] -  Teacher has no subjects");
+            }
+            ModelAndView model = new ModelAndView("/subject");
+            model.addObject("subjects", subjects);
+
+            return model;
+        } catch (Exception e) {
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Error accessing the procedures: " + e);
+
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/teacher/getSubjectInformation")
+    public ModelAndView dddddd() {
+        ModelAndView model = new ModelAndView("/subjectInfo");
+        model.addObject("teacher", "pepe");
+        return model;
+    }
 
 }
