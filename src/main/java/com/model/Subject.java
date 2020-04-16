@@ -18,7 +18,8 @@ import java.util.Set;
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
         @NamedQuery(name = "Subject.findById", query = "SELECT r FROM Subject r WHERE r.subjectId = :id"),
-        @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.timeline k LEFT JOIN FETCH s.teachers t JOIN FETCH s.subjectGroup d WHERE s.subjectId = :id"),
+        @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.timeline k LEFT JOIN FETCH s.teachers t WHERE s.subjectId = :id"),
+        @NamedQuery(name = "Subject.findByIdWithChapters", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.chapters c WHERE s.subjectId = :id"),
         @NamedQuery(name = "Subject.findByGroupId", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.teachers t WHERE s.subjectGroup.groupId = :id"),
         @NamedQuery(name = "Subject.findTeachersBySubjectId", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.teachers t WHERE s.subjectId = :id"),
 
@@ -59,7 +60,7 @@ public class Subject implements Serializable {
     private Set<RoleTeacher> teachers;
 
     @OneToMany(mappedBy="subject", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Task> tasks;
+    private List<Chapter> chapters;
 
     public Subject() { }
 

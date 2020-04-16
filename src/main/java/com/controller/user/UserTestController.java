@@ -319,35 +319,6 @@ public class UserTestController {
     }
 
     /**
-     * Processes the petition to get to the group creation page.
-     *
-     * @param teacherId the id of the teacher we want to access the profile of
-     * @return ModelAndView with the desired .jsp file and its required model & objects
-     */
-    @RequestMapping(value = "/user/teacher/{teacherId}", method = RequestMethod.GET)
-    public ModelAndView accessTeacherProfile(@PathVariable("teacherId") String teacherId) {
-        try {
-            ModelAndView model = new ModelAndView("/teacherProfile");
-            RoleTeacher teacher = userService.getTeacherById(teacherId);
-
-            logger.info("[" + new Object() {
-            }.getClass().getEnclosingMethod().getName() + "] -  Teacher with id " + teacherId + " successfully found");
-
-            Procedure procedure = new Procedure();
-            procedure.setUserP(new User());
-            model.addObject("teacher", teacher);
-            model.addObject("procedure", procedure);
-            model.addObject("message", new Message());
-            return model;
-        } catch (Exception e) {
-            logger.error("[" + new Object() {
-            }.getClass().getEnclosingMethod().getName() + "] -  Error finding the teacher with id " + teacherId + ": " + e);
-
-            return null;
-        }
-    }
-
-    /**
      * Processes the response of a procedure.
      *
      * @param id       the id of the procedure we want to response to
