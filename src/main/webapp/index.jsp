@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" href="resource/fonts/index/font-awesome.min.css">
-    <link rel="stylesheet" href="resource/css/index/indexStyle.css">
+    <link rel="stylesheet" href="/resource/css/index/indexStyle.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
 </head>
 
@@ -61,7 +61,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -69,13 +70,15 @@
                     <div class="row justify-content-center" style="margin-bottom: 0%">
                         <div class="col item">
                             <div class="box"><i class="fa fa-street-view icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/user/antibullying?observed=false">
+                                <a class="nav-link stretched-link" style="color:#000000;"
+                                   href="/user/antibullying?observed=false">
                                     <h3 class="name">Report Personal Issue</h3></a>
                             </div>
                         </div>
                         <div class="col item">
                             <div class="box"><i class="fa fa-eye icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;" href="/user/antibullying?observed=true">
+                                <a class="nav-link stretched-link" style="color:#000000;"
+                                   href="/user/antibullying?observed=true">
                                     <h3 class="name">Report Other Issues</h3></a>
                             </div>
                         </div>
@@ -85,10 +88,7 @@
             </div>
         </div>
     </div>
-
-
 </div>
-<div></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="resource/bootstrap/js/bootstrap.min.js"></script>
 </body>
