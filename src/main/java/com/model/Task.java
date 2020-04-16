@@ -14,7 +14,7 @@ import java.util.*;
 @NamedQueries({
         @NamedQuery(name = "Task.findById", query = "SELECT r FROM Task r WHERE r.taskId = :id"),
 })
-public class Task implements Serializable {
+public class Task implements Serializable, Comparable<Task> {
 
     private static final long serialVersionUID = 2681531852204068105L;
     @Id
@@ -39,11 +39,14 @@ public class Task implements Serializable {
     private TaskType taskType;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "SUBJECT_ID")
-    private Subject subject;
+    @JoinColumn(name = "CHAPTER_ID")
+    private Chapter chapter;
 
     @OneToMany(mappedBy = "task", targetEntity = UserTask.class)
     private List<UserTask> userTasks = new LinkedList<>();
+
+    @Column(name = "DATE")
+    private Date creationDate;
 
     public Task() { }
 
@@ -107,13 +110,9 @@ public class Task implements Serializable {
         this.taskType = taskType;
     }
 
-    public Subject getSubject() {
-        return subject;
-    }
+    public Chapter getChapter() { return chapter; }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
+    public void setChapter(Chapter chapter) { this.chapter = chapter; }
 
     public List<UserTask> getUserTasks() {
         return userTasks;
@@ -122,6 +121,10 @@ public class Task implements Serializable {
     public void setUserTasks(List<UserTask> userTasks) {
         this.userTasks = userTasks;
     }
+
+    public Date getCreationDate() { return creationDate; }
+
+    public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
 
     @Override
     public boolean equals(Object o) {
@@ -135,5 +138,10 @@ public class Task implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(taskId, title);
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return o.getCreationDate().compareTo(this.creationDate);
     }
 }

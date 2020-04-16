@@ -59,7 +59,7 @@ public class Subject implements Serializable {
     private Set<RoleTeacher> teachers;
 
     @OneToMany(mappedBy="subject", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Task> tasks;
+    private List<Chapter> chapters;
 
     public Subject() { }
 
