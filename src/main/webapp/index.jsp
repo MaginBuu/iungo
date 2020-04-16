@@ -17,7 +17,7 @@
 <div class="features-boxed">
     <div class="container">
         <div class="intro">
-            <h2 class="text-center">System Administrator </h2>
+            <h2 class="text-center">Student </h2>
             <p class="text-center">${pageContext.request.userPrincipal}</p>
         </div>
         <div class="row justify-content-center features">
@@ -34,9 +34,9 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-list-alt icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/conversation/creation">
-                        <h3 class="name">Ticket list</h3></a>
+                <div class="box"><i class="fa fa-book icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/subject/1">
+                        <h3 class="name">Subject</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
