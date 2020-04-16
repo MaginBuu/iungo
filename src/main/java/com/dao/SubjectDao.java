@@ -16,6 +16,8 @@ public interface SubjectDao {
 
     Subject getByIdWithAll(String id);
 
+    Subject getByIdWithChapters(String id);
+
     Subject getById(String id);
 
     Set<RoleTeacher> getTeachersBySubjectId(String id);

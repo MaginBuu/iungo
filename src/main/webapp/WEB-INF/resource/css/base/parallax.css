@@ -1,0 +1,21 @@
+.container{
+    max-width: 960px;
+    margin: 0 auto;
+    background: #f9f9f9;
+    font-size: 24px;
+    padding: 25px;
+}
+
+.parallax{
+    background-size: cover;
+    padding: 200px 200px;
+    background: url('../../img/img.jpg') no-repeat fixed center top;
+}
+
+.INFO{
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    color: #fff;
+}

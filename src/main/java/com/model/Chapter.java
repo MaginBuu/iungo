@@ -19,7 +19,7 @@ public class Chapter {
     @Column(name = "TITLE")
     private String title;
 
-    @OneToMany(mappedBy="chapter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="chapter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> tasks;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

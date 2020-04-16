@@ -54,6 +54,13 @@ public class SubjectDaoImpl implements SubjectDao {
         return subjects;
     }
 
+    public Subject getByIdWithChapters(String id){
+        Session session = sessionFactory.openSession();
+        Subject subject = (Subject) session.getNamedQuery("Subject.findByIdWithChapters").setParameter("id", id).uniqueResult();
+        session.close();
+        return subject;
+    }
+
     public Subject getByIdWithAll(String id){
         Session session = sessionFactory.openSession();
         Subject subject = (Subject) session.getNamedQuery("Subject.findByIdWithAll").setParameter("id", id).uniqueResult();

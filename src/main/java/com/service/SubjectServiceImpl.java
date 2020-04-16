@@ -25,6 +25,8 @@ public class SubjectServiceImpl implements SubjectService {
 
     public Subject getByIdWithAll(String id) { return subjectDao.getByIdWithAll(id); }
 
+    public Subject getByIdWithChapters(String id) { return subjectDao.getByIdWithChapters(id); }
+
     public Subject getById(String id) { return subjectDao.getById(id); }
 
     public Set<RoleTeacher> getTeachersBySubjectId(String id) { return subjectDao.getTeachersBySubjectId(id); }
