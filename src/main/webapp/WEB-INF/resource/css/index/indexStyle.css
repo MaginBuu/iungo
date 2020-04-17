@@ -1,7 +1,7 @@
 
 .features-boxed {
   color: #313437;
-  background-color: #f5f5f5;
+//background-color: #f5f5f5;
 }
 
 .features-boxed p {
@@ -39,6 +39,7 @@
 
 .features-boxed .item {
   text-align: center;
+  padding-top: 5px;
 }
 
 .features-boxed .item .box {
@@ -46,6 +47,14 @@
   padding: 30px;
   background-color: #fff;
   margin-bottom: 30px;
+}
+
+.features-boxed .item .box2 {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #de9d3f;
 }
 
 .features-boxed .item .icon {
@@ -63,9 +72,17 @@
   color: inherit;
 }
 
+.features-boxed .item .subject {
+  font-size: 30px;
+  margin-bottom: 0px;
+  margin-top: 0;
+  color: inherit;
+}
+
 .features-boxed .item .description {
   font-size: 15px;
   margin-top: 15px;
   margin-bottom: 20px;
 }
+
 

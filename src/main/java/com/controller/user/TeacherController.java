@@ -195,6 +195,14 @@ public class TeacherController {
         }
     }
 
+    @RequestMapping(value = "/teacher/subjects/{subjectId}")
+    public ModelAndView getSubjectInfo(@PathVariable("subjectId") String subjectId) {
+        Subject subject = subjectService.getByIdWithChapters(subjectId);
+        ModelAndView model = new ModelAndView("/subjectInfo");
+        model.addObject("subject", subject);
+        return model;
+    }
+    
     /**
      * Processes the petition to get to the group creation page.
      *
@@ -224,10 +232,13 @@ public class TeacherController {
         }
     }
 
-    @RequestMapping(value = "/teacher/getSubjectInformation")
-    public ModelAndView dddddd() {
-        ModelAndView model = new ModelAndView("/subjectInfo");
-        model.addObject("teacher", "pepe");
+
+    /*/teacher/subjects/task/create*/
+
+    @RequestMapping(value = "/teacher/subjects/modify")
+    public ModelAndView addTask() {
+        ModelAndView model = new ModelAndView("/addTask");
+        model.addObject("task", new Task());
         return model;
     }
 
