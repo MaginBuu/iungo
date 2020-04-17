@@ -26,32 +26,29 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
-            <form:form method="post" action="/teacher/subjects/modify" modelAttribute="subject">
+            <form method="post" action="/teacher/subjects/modify">
             <h1>Modify Subject</h1>
-            <form:hidden name="subjectId" id="subjectId" path="subjectId"/>
-            <form:hidden path="groupId"/>
-            <table class="table table-borderless">
-                <tbody id="myTable">
-                <tr>
-                    <td style="vertical-align: middle; text-align: right"><strong>Name:</strong></td>
-                    <td><form:input path="name" data-width="30%" class="form-control" type="text"></form:input></td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: middle; text-align: right"><strong>Subject ID:</strong></td>
-                    <td style="vertical-align: middle; text-align: left">${subject.subjectId}</td>
-                </tr>
-                <tr>
-                    <td style="horiz-align: right; text-align: right"><strong>Group:</strong></td>
-
-                    <td style="vertical-align: middle; text-align: left">${subject.subjectGroup.stage} ${subject.subjectGroup.level} ${subject.subjectGroup.group}</td>
-
-                </tr>
-                </tbody>
-            </table>
+            <input type="hidden" value="${subject.subjectId}"/>
+            <input type="hidden" value="${subject.groupId}"/>
+            <div class="container">
+                <div class="row">
+                    <div align="right" class="col"><strong>Name:</strong></div>
+                    <div align="left" class="col">${subject.name}</div>
+                </div>
+                <div class="row justify-content-center">
+                    <div align="right" class="col"><strong>Subject ID:</strong></div>
+                    <div align="left" class="col">${subject.subjectId}</div>
+                </div>
+                <div class="row justify-content-center">
+                    <div align="right" class="col"><strong>Group:</strong></div>
+                    <div align="left" class="col">${subject.subjectGroup.stage} ${subject.subjectGroup.level} ${subject.subjectGroup.group}</div>
+                </div>
+            </div><br><br>
             <table class="table table-borderless table-striped">
                 <thead>
                 <tr>
                     <th><strong>Task name</strong></th>
+                    <th><strong>Chapter</strong></th>
                     <th><strong>Deadline</strong></th>
                     <th><strong>Type</strong></th>
                     <th><strong>Value</strong></th>
@@ -59,54 +56,26 @@
                 </tr>
                 </thead>
                 <tbody id="teachers">
-                <c:forEach items="${subject.teachers}" var="teacher">
-                    <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${teacher.userR.name} ${teacher.userR.surname} ${teacher.userR.secondSurname}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${teacher.department}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                  data-toggle="modal"
-                                                                                  data-target="#myModal"
-                                                                                  onclick="deleteClicked('${teacher.userR.userId}', 'teacher')"><i
-                                class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                    </tr>
+                <c:forEach items="${subject.chapters}" var="chapter">
+                    <c:forEach items="${chapter.tasks}" var="task">
+                        <tr>
+                            <td style="vertical-align: middle; horiz-align: center">${task.title}</td>
+                            <td style="vertical-align: middle; horiz-align: center">${task.chapter.title}</td>
+                            <td style="vertical-align: middle; horiz-align: center">${task.deadline}</td>
+                            <td style="vertical-align: middle; horiz-align: center">${task.taskType}</td>
+                            <td style="vertical-align: middle; horiz-align: center">${task.value}%</td>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
+                                                                                      data-toggle="modal"
+                                                                                      data-target="#myModal"
+                                                                                      onclick="deleteClicked('${subject.subjectId}', '${subject.name}')"><i
+                                    class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                        </tr>
+                    </c:forEach>
                 </c:forEach>
                 </tbody>
             </table>
             <button class="btn btn-light submit-button" type="submit" value="addTeacher" name="buttonName"
-                    id="addTeacher" onclick="return Validate()">Add Teacher
-            </button>
-            <table class="table table-borderless table-striped">
-                <thead>
-                <tr>
-                    <th><strong>Starting hour</strong></th>
-                    <th><strong>Finishing hour</strong></th>
-                    <th><strong>Week Day</strong></th>
-                    <th><strong>Space</strong></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="timelines">
-                <c:forEach items="${subject.timeline}" var="timelines">
-                    <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${timelines.startingHour}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${timelines.finishingHour}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${timelines.weekday}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${timelines.spaceName}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                  data-toggle="modal"
-                                                                                  data-target="#myModal"
-                                                                                  onclick="deleteClicked('${timelines.timeLineId}', 'timeLine')"><i
-                                class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            <button class="btn btn-light submit-button" type="submit" value="add" name="buttonName"
-                    id="add" onclick="return Validate()">Add timeline
-            </button>
-
-            <button class="btn btn-light submit-button" type="submit" value="update" name="buttonName" id="update"
-                    onclick="return Validate()">Update
+                    id="addTeacher" onclick="return Validate()">Add Task
             </button>
         </div>
     </div>
@@ -124,7 +93,7 @@
             </div>
             <div class="modal-body">
                 <h4 class="modal-title">Are you sure?</h4>
-                <p id="deleteText">Do you really want to delete this time line?
+                <p id="deleteText">Do you really want to delete this task?
                     This process cannot be undone.</p>
             </div>
             <input type="hidden" name="elementType" id="elementType" value=""/>
@@ -139,7 +108,7 @@
 </div>
 
 
-</form:form>
+</form>
 
 <script type="text/javascript">
     function Validate() {
@@ -148,21 +117,21 @@
 
     function deleteClicked(elementId, elementType) {
         var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType= jQuery('#elementType');
+        var hiddenInputType = jQuery('#elementType');
         hiddenInputId.val(elementId);
         hiddenInputType.val(elementType);
     }
 
     function deleteElement() {
         var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType= jQuery('#elementType');
+        var hiddenInputType = jQuery('#elementType');
         var type = hiddenInputType.val()
-        if(type === 'timeLine'){
-            window.location.href = '/subject/delete/' + type.toLowerCase()+ '?' + type + 'Id=' + hiddenInputId.val();
+        if (type === 'timeLine') {
+            window.location.href = '/subject/delete/' + type.toLowerCase() + '?' + type + 'Id=' + hiddenInputId.val();
 
-        }else if(type === 'teacher'){
+        } else if (type === 'teacher') {
             var subjectId = jQuery('#subjectId').val();
-            window.location.href = '/subject/delete/' + type+ '?' + type + 'Id=' + hiddenInputId.val() + '&subjectId=' + subjectId;
+            window.location.href = '/subject/delete/' + type + '?' + type + 'Id=' + hiddenInputId.val() + '&subjectId=' + subjectId;
         }
     }
 
