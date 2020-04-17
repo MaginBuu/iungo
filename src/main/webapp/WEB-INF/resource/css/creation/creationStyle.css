@@ -139,6 +139,21 @@ body {
   outline: none;
 }
 
+.creation-form .parallax{
+  background-size: cover;
+  padding: 100px 200px;
+  background: url('../../img/img.jpg') no-repeat fixed center top;
+}
+
+.creation-form .parallax-text{
+  position: relative;
+  text-align: center;
+  margin: auto;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: bold;
+}
+
 form-check-input{
 
   font: bold 14px sans-serif;

@@ -8,6 +8,8 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         /*@NamedQuery(name = "Task.findByUserAndTask", query = "SELECT c FROM Task c WHERE c.user = :user AND c.task = :conversation"),*/
+        @NamedQuery(name = "Task.findByUserAndSubject", query = "SELECT c FROM UserTask c WHERE c.user.userId =: id AND c.task.chapter.subject.subjectId =: subjectId"),
+
 
 })
 public class UserTask implements Serializable {

@@ -110,13 +110,10 @@ public class Subject implements Serializable {
 
     public void setDepartment(Department department) { this.department = department; }
 
-    public List<Chapter> getChapters() {
-        return chapters;
-    }
 
-    public void setChapters(List<Chapter> chapters) {
-        this.chapters = chapters;
-    }
+    public List<Chapter> getChapters() { return chapters; }
+
+    public void setChapters(List<Chapter> chapters) { this.chapters = chapters; }
 
     public String getGroupId() {
         String group = groupId;
