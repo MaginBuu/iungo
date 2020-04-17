@@ -27,8 +27,22 @@ public class SubjectControllerUser {
         Subject subject = subjectService.getByIdWithChapters(subjectId);
         System.out.println();
 
+        ModelAndView model = new ModelAndView("/user/showSubject");
+        model.addObject("subject", subject);
 
-        return new ModelAndView("/user/showSubject");
+        return model;
+    }
+
+    @RequestMapping(value = "/user/subject/Qualification/{subjectId}", method = RequestMethod.GET)
+    public ModelAndView getQualificationSubject(@PathVariable("subjectId") String subjectId) {
+
+        Subject subject = subjectService.getByIdWithChapters(subjectId);
+        System.out.println();
+
+        ModelAndView model = new ModelAndView("/user/showSubject");
+        model.addObject("subject", subject);
+
+        return model;
     }
 
 }
