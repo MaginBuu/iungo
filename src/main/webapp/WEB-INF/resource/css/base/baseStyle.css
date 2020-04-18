@@ -73,8 +73,17 @@
 
 .creation-form .custom-div-top a {
   text-align: left;
-  color: #5F5F5F;
+  color: #A2511D;
   margin-left: 20px;
+  font: bold 16px sans-serif;
+
+}
+
+.creation-form .custom-div-top p.description {
+  text-align: left;
+  color: #5F5F5F;
+  margin-left: 30px;
+  font: 14px sans-serif;
 
 }
 

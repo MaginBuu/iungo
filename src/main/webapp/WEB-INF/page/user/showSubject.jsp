@@ -28,7 +28,25 @@
                 <h2>${chapter.title}</h2>
                 <br>
                 <c:forEach items="${chapter.tasks}" var="task">
+                    <c:choose>
+                        <c:when test="${task.taskType == 'OPEN_QUESTION'}">
+                            <a><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+                        </c:when>
+                        <c:when test="${task.taskType == 'TEST'}">
+                            <a><i class="fa fa-file-o" aria-hidden="true"></i></a>
+                        </c:when>
+                        <c:when test="${task.taskType == 'SURVEY'}">
+                            <a><i class="fa fa-dot-circle-o" aria-hidden="true"></i></a>
+                        </c:when>
+                        <c:when test="${task.taskType == 'DELIVERABLE'}">
+                            <a><i class="fa fa-folder-open-o" aria-hidden="true"></i></a>
+                        </c:when>
+                    </c:choose>
                     <a href="/user/task/${task.taskId}">${task.title}</a>
+                    <br><br>
+                    <c:if test="${!empty task.description}">
+                        <p class="description">${task.description}</p>
+                    </c:if>
                     <br><br>
                 </c:forEach>
             </c:forEach>
