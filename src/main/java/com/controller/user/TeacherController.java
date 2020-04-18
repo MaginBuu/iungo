@@ -243,7 +243,7 @@ public class TeacherController {
         ModelAndView model = new ModelAndView("/addTask");
         model.addObject("task", new Task());
         model.addObject("subjectId", subjectId);
-        model.addObject("chapters", subjectService.getByIdWithChapters("subjectId").getChapters());
+        model.addObject("chapters", subjectService.getByIdWithChapters(subjectId).getChapters());
         return model;
     }
 
