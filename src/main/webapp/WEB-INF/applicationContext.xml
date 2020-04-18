@@ -68,6 +68,7 @@
 				<value>com.model.UserCredentials</value>
 				<value>com.model.UserTask</value>
 				<value>com.model.Chapter</value>
+				<value>com.model.Resource</value>
 			</list>
 		</property>
 
