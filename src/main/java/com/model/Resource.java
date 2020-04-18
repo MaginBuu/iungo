@@ -21,6 +21,11 @@ public class Resource {
     private String path;
 
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CHAPTER_ID")
+    private Chapter chapter;
+
+
     public Resource() { }
 
     public String getResourceId() { return resourceId; }
@@ -34,4 +39,8 @@ public class Resource {
     public String getPath() { return path; }
 
     public void setPath(String path) { this.path = path; }
+
+    public Chapter getChapter() { return chapter; }
+
+    public void setChapter(Chapter chapter) { this.chapter = chapter; }
 }

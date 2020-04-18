@@ -1,5 +1,7 @@
 package com.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,7 +22,12 @@ public class Chapter {
     private String title;
 
     @OneToMany(mappedBy="chapter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Task> tasks;
+
+    @OneToMany(mappedBy="chapter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Resource> resources;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "SUBJECT_ID")
@@ -46,5 +53,10 @@ public class Chapter {
     public Subject getSubject() { return subject; }
 
     public void setSubject(Subject subject) { this.subject = subject; }
+
+    public List<Resource> getResources() { return resources; }
+
+    public void setResources(List<Resource> resources) { this.resources = resources; }
+
 
 }
