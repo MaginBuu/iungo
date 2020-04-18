@@ -2,12 +2,14 @@ package com.controller.user;
 
 import com.model.*;
 import com.model.enums.Role;
+import com.service.GroupService;
 import com.service.SubjectService;
 import com.service.TaskService;
 import com.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.cfg.beanvalidation.GroupsPerOperation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class TeacherController {
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    GroupService groupService;
 
     /**
      * Looks for the timelines of a certain teacher given an id.
@@ -257,11 +262,20 @@ public class TeacherController {
 
 
     @RequestMapping(value = "/teacher/subjects/task/create", method= RequestMethod.POST)
-    public String saveTask(@Valid @ModelAttribute("task") Task task,  BindingResult bindingResult) {
+    public String saveTask(@Valid @ModelAttribute("task") Task task, @ModelAttribute("subjectId") String subjectId, BindingResult bindingResult) {
 
         try {
 
-            Task tasky = task;
+            task.setCreationDate(new Date());
+            taskService.addTask(task);
+            ClassGroup cg = groupService.getGroupBySubjectId(subjectId);
+            for (RoleStudent s : cg.getStudents()){
+                UserTask ut = new UserTask();
+                ut.setStudent(s);
+                ut.setTask(task);
+                taskService.addUserTask(ut);
+            }
+
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             String referer = request.getHeader("Referer");
 

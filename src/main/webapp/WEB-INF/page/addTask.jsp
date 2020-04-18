@@ -64,6 +64,7 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" method="post" action="/teacher/subjects/task/create" modelAttribute="task">
+            <input type="hidden" name="subjectId" id="subjectId" value="${subjectId}"/>
             <h1>Add Task</h1>
             <!-- Title -->
             <div class="form-row form-group">
