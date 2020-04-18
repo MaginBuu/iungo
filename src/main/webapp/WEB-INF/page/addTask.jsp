@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Iungo - New Space</title>
+    <title>Iungo - Add Task</title>
 
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/creation/creationStyle.css">
@@ -74,14 +74,27 @@
             </div>
             <!-- Deadline -->
             <div class="form-row form-group">
-                <div class="col-sm-2 label-column-row">
+                <div class="col-sm-3 label-column">
                     <form:label path="deadline" class="col-form-label">Day </form:label></div>
-                <div class="col-sm-10 input-column-row" style="position: relative">
+                <div class="col-sm-8 input-column
+" style="position: relative">
                     <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                         <form:input path="deadline" type="text" class="form-control datetimepicker-input"
                                     data-target="#datetimepicker1"/>
                         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column">
+                    <label class="col-form-label">Hour </label></div>
+                <div class="col-sm-8 input-column" style="position: relative">
+                    <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
+                        <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                         </div>
                     </div>
                 </div>
@@ -96,7 +109,7 @@
             <!-- Value -->
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="value"
-                                                               class="col-form-label">Capacity </form:label></div>
+                                                               class="col-form-label">Value </form:label></div>
                 <div class="col-sm-8 input-column"><form:input path="value" class="form-control"
                                                                type="number"></form:input></div>
             </div>
@@ -115,7 +128,18 @@
                 </div>
             </div>
             <!-- Chapter -->
-
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column">
+                    <form:label path="taskType" class="col-form-label">Chapter </form:label></div>
+                <div class="col-sm-8 input-column">
+                    <form:select class="selectpicker" data-width="100%" path="chapter">
+                        <form:option disabled="disabled" selected="selected" value="">Select a chapter</form:option>
+                        <c:forEach items="${chapters}" var="chapter">
+                            <form:option value="${chapter.title}"></form:option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+            </div>
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
         </form:form>
     </div>
