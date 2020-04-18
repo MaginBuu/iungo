@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         /*@NamedQuery(name = "Task.findByUserAndTask", query = "SELECT c FROM Task c WHERE c.user = :user AND c.task = :conversation"),*/
-        @NamedQuery(name = "Task.findByUserAndSubject", query = "SELECT c FROM UserTask c WHERE c.user.userId =: id AND c.task.chapter.subject.subjectId =: subjectId"),
+        @NamedQuery(name = "UserTask.findByUserAndSubject", query = "SELECT c FROM UserTask c where c.task.chapter.subject.subjectId =: subjectId"),
 
 
 })
@@ -16,7 +16,7 @@ public class UserTask implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn
-    private User user;
+    private RoleStudent student;
 
     @Id
     @ManyToOne
@@ -32,18 +32,9 @@ public class UserTask implements Serializable {
 
     public UserTask(){}
 
-    public UserTask(User user, Task task, Date lastVisit) {
-        this.user = user;
-        this.task = task;
-    }
+    public RoleStudent getStudent() { return student; }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public void setStudent(RoleStudent student) { this.student = student; }
 
     public Task getTask() {
         return task;
@@ -75,13 +66,13 @@ public class UserTask implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         UserTask that = (UserTask) o;
         return Float.compare(that.grade, grade) == 0 &&
-                Objects.equals(user, that.user) &&
+                Objects.equals(student, that.student) &&
                 Objects.equals(task, that.task) &&
                 Objects.equals(observations, that.observations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, task, grade, observations);
+        return Objects.hash(student, task, grade, observations);
     }
 }

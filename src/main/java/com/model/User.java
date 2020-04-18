@@ -118,9 +118,6 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", targetEntity = ConversationUser.class)
 	private List<ConversationUser> userConversations;
 
-	@OneToMany(mappedBy = "user", targetEntity = UserTask.class)
-	private List<UserTask> userTasks;
-
 	@OneToMany(mappedBy = "user", targetEntity = Notification.class)
 	private List<Notification> notifications;
 
@@ -385,14 +382,6 @@ public class User implements Serializable {
 
 	public void setProcedures(List<Procedure> procedures) {
 		this.procedures = procedures;
-	}
-
-	public List<UserTask> getUserTasks() {
-		return userTasks;
-	}
-
-	public void setUserTasks(List<UserTask> userTasks) {
-		this.userTasks = userTasks;
 	}
 
 	@Override

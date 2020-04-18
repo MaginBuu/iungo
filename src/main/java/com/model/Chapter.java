@@ -14,7 +14,7 @@ public class Chapter {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "CHAPTER_ID")
-    private String groupId;
+    private String chapterId;
 
     @Column(name = "TITLE")
     private String title;
@@ -31,9 +31,9 @@ public class Chapter {
 
     public Chapter() { }
 
-    public String getGroupId() { return groupId; }
+    public String getChapterId() { return chapterId; }
 
-    public void setGroupId(String groupId) { this.groupId = groupId; }
+    public void setChapterId(String chapterId) { this.chapterId = chapterId; }
 
     public String getTitle() { return title; }
 
