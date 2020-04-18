@@ -12,9 +12,12 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -235,12 +238,36 @@ public class TeacherController {
 
     /*/teacher/subjects/task/create*/
 
-    @RequestMapping(value = "/teacher/subjects/modify")
-    public ModelAndView addTask() {
+    @RequestMapping(value = "/teacher/subjects/modify/{id}")
+    public ModelAndView addTask(@PathVariable("id") String subjectId) {
         ModelAndView model = new ModelAndView("/addTask");
         model.addObject("task", new Task());
-        model.addObject("chapters", subjectService.getByIdWithChapters("1").getChapters());
+        model.addObject("subjectId", subjectId);
+        model.addObject("chapters", subjectService.getByIdWithChapters("subjectId").getChapters());
         return model;
     }
+
+
+
+    @RequestMapping(value = "/teacher/subjects/task/create/{id}")
+    public String saveTask(@Valid @ModelAttribute("task") Task task, @PathVariable("id") String subjectId) {
+
+        try {
+
+            Task tasky = task;
+            String id = subjectId;
+
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            String referer = request.getHeader("Referer");
+
+            return "redirect:" + referer;
+        } catch (Exception e) {
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Error finding the procedure with id: " + e);
+
+            return null;
+        }
+    }
+
 
 }

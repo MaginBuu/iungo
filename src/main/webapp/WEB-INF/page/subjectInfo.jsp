@@ -26,7 +26,7 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
-            <form method="post" action="/teacher/subjects/modify">
+            <form method="post" action="/teacher/subjects/modify/${subject.subjectId}">
             <h1>Modify Subject</h1>
             <input type="hidden" value="${subject.subjectId}"/>
             <input type="hidden" value="${subject.groupId}"/>

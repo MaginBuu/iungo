@@ -63,7 +63,7 @@
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <form:form class="custom-form" method="post" action="/teacher/subjects/task/create" modelAttribute="task">
+        <form:form class="custom-form" method="post" action="/teacher/subjects/task/create/${subjectId}" modelAttribute="task">
             <h1>Add Task</h1>
             <!-- Title -->
             <div class="form-row form-group">
@@ -76,8 +76,7 @@
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <form:label path="deadline" class="col-form-label">Day </form:label></div>
-                <div class="col-sm-8 input-column
-" style="position: relative">
+                <div class="col-sm-8 input-column" style="position: relative">
                     <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                         <form:input path="deadline" type="text" class="form-control datetimepicker-input"
                                     data-target="#datetimepicker1"/>
