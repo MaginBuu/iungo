@@ -12,7 +12,7 @@ import java.util.*;
 @Entity
 @Table(name = "task")
 @NamedQueries({
-        @NamedQuery(name = "Task.findById", query = "SELECT r FROM Task r WHERE r.taskId = :id"),
+        //@NamedQuery(name = "Task.findById", query = "SELECT r FROM Task r WHERE r.taskId = :id"),
 })
 public class Task implements Serializable, Comparable<Task> {
 
