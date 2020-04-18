@@ -13,4 +13,6 @@ public interface GroupService {
     List<ClassGroup> getAllClassGroup();
 
     ClassGroup getClassGroupById(String id);
+
+    ClassGroup getGroupBySubjectId(String id);
 }

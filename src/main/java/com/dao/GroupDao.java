@@ -13,4 +13,6 @@ public interface GroupDao {
     List<ClassGroup> getAllClassGroup();
 
     ClassGroup getClassGroupById(String id);
+
+    ClassGroup getGroupBySubjectId(String id);
 }

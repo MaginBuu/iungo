@@ -14,6 +14,7 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "ClassGroup.findAll", query = "SELECT g FROM ClassGroup g"),
         @NamedQuery(name = "ClassGroup.findById", query = "SELECT g FROM ClassGroup g WHERE g.groupId = :id"),
+        @NamedQuery(name = "ClassGroup.findByIdWithStudents", query = "SELECT g FROM ClassGroup g LEFT JOIN FETCH g.students s WHERE g.groupId = :id"),
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
 
@@ -49,6 +50,9 @@ public class ClassGroup implements Serializable {
 
     @OneToMany(mappedBy="subjectGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Subject> timeline;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RoleStudent> students;
 
     public ClassGroup() { }
 
@@ -100,6 +104,14 @@ public class ClassGroup implements Serializable {
     public Course getCourse() { return course; }
 
     public void setCourse(Course course) { this.course = course; }
+
+    public List<RoleStudent> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<RoleStudent> students) {
+        this.students = students;
+    }
 
     @Override
     public boolean equals(Object o) {

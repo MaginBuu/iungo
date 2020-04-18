@@ -2,15 +2,19 @@ package com.controller.user;
 
 import com.model.*;
 import com.model.enums.Role;
+import com.service.GroupService;
 import com.service.SubjectService;
+import com.service.TaskService;
 import com.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.cfg.beanvalidation.GroupsPerOperation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -30,6 +34,12 @@ public class TeacherController {
 
     @Autowired
     SubjectService subjectService;
+
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    GroupService groupService;
 
     /**
      * Looks for the timelines of a certain teacher given an id.
@@ -241,7 +251,9 @@ public class TeacherController {
     @RequestMapping(value = "/teacher/subjects/modify/{id}")
     public ModelAndView addTask(@PathVariable("id") String subjectId) {
         ModelAndView model = new ModelAndView("/addTask");
-        model.addObject("task", new Task());
+        Task task = new Task();
+        task.setChapter(new Chapter());
+        model.addObject("task", task);
         model.addObject("subjectId", subjectId);
         model.addObject("chapters", subjectService.getByIdWithChapters(subjectId).getChapters());
         return model;
@@ -249,13 +261,20 @@ public class TeacherController {
 
 
 
-    @RequestMapping(value = "/teacher/subjects/task/create/{id}")
-    public String saveTask(@Valid @ModelAttribute("task") Task task, @PathVariable("id") String subjectId) {
+    @RequestMapping(value = "/teacher/subjects/task/create", method= RequestMethod.POST)
+    public String saveTask(@Valid @ModelAttribute("task") Task task, @ModelAttribute("subjectId") String subjectId, BindingResult bindingResult) {
 
         try {
 
-            Task tasky = task;
-            String id = subjectId;
+            task.setCreationDate(new Date());
+            taskService.addTask(task);
+            ClassGroup cg = groupService.getGroupBySubjectId(subjectId);
+            for (RoleStudent s : cg.getStudents()){
+                UserTask ut = new UserTask();
+                ut.setStudent(s);
+                ut.setTask(task);
+                taskService.addUserTask(ut);
+            }
 
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             String referer = request.getHeader("Referer");

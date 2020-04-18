@@ -22,5 +22,7 @@ public class GroupServiceImpl implements GroupService {
 
     public List<ClassGroup> getAllClassGroup(){ return groupDao.getAllClassGroup(); }
 
-    public ClassGroup getClassGroupById(String id) { return groupDao.getClassGroupById(id); }
+    public ClassGroup getClassGroupById(String id){ return groupDao.getClassGroupById(id); }
+
+    public ClassGroup getGroupBySubjectId(String id){ return  groupDao.getClassGroupById(id); }
 }

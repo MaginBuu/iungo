@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.model.ClassGroup;
+import com.model.Subject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -51,5 +52,13 @@ public class GroupDaoImpl implements GroupDao {
        ClassGroup group = (ClassGroup) session.getNamedQuery("ClassGroup.findById").setParameter("id", id).uniqueResult();
        session.close();
        return group;
+    }
+
+    public ClassGroup getGroupBySubjectId(String id) {
+        Session session = sessionFactory.openSession();
+        Subject subject = (Subject) session.getNamedQuery("Subject.findById").setParameter("id", id).uniqueResult();
+        ClassGroup cg = (ClassGroup) session.getNamedQuery("ClassGroup.findByIdWithStudents").setParameter("id",subject.getSubjectGroup().getGroupId()).uniqueResult();
+        session.close();
+        return cg;
     }
 }
