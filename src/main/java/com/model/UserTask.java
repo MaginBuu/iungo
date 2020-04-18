@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         /*@NamedQuery(name = "Task.findByUserAndTask", query = "SELECT c FROM Task c WHERE c.user = :user AND c.task = :conversation"),*/
-        @NamedQuery(name = "UserTask.findByUserAndSubject", query = "SELECT c FROM UserTask c where c.task.chapter.subject.subjectId =: subjectId"),
+        @NamedQuery(name = "UserTask.findByUserAndSubject", query = "SELECT c FROM UserTask c"),
 
 
 })
