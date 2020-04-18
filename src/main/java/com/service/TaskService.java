@@ -1,13 +1,17 @@
 package com.service;
 
-import com.model.Ticket;
+
+import com.model.Task;
+import com.model.UserTask;
 
 import java.util.List;
 
 public interface TaskService {
 
-    void addTicket(Ticket ticket);
-    void updateTicket(Ticket ticket);
-    List<Ticket> getOngoingCreatedTickets();
-    Ticket getTicketById(String id);
+    void addUserTask(UserTask userTask);
+
+    void addTask(Task task);
+
+    List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId);
+
 }
