@@ -63,7 +63,7 @@
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
-        <form:form class="custom-form" method="post" action="/teacher/subjects/task/create/${subjectId}" modelAttribute="task">
+        <form:form class="custom-form" method="post" action="/teacher/subjects/task/create" modelAttribute="task">
             <h1>Add Task</h1>
             <!-- Title -->
             <div class="form-row form-group">
@@ -129,12 +129,12 @@
             <!-- Chapter -->
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
-                    <form:label path="taskType" class="col-form-label">Chapter </form:label></div>
+                    <form:label path="chapter.chapterId" class="col-form-label">Chapter </form:label></div>
                 <div class="col-sm-8 input-column">
-                    <form:select class="selectpicker" data-width="100%" path="chapter">
+                    <form:select class="selectpicker" data-width="100%" path="chapter.chapterId">
                         <form:option disabled="disabled" selected="selected" value="">Select a chapter</form:option>
                         <c:forEach items="${chapters}" var="chapter">
-                            <form:option value="${chapter.title}"></form:option>
+                            <form:option value="${chapter.chapterId}">${chapter.title}</form:option>
                         </c:forEach>
                     </form:select>
                 </div>
