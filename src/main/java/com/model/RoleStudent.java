@@ -19,6 +19,9 @@ public class RoleStudent extends RoleClass {
     @JoinTable(name = "families")
     private List<RoleResponsible> responsibles = new LinkedList<>();
 
+    @OneToMany(mappedBy = "student")
+    private List<UserTask> userTasks;
+
     public RoleStudent() { }
 
     public ClassGroup getGroup() { return group; }

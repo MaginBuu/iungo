@@ -1,7 +1,8 @@
 package com.dao;
 
-import com.model.Authorities;
+import com.model.Task;
 import com.model.Ticket;
+import com.model.UserTask;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,18 +13,18 @@ import java.util.List;
 
 
 @Repository
-public class TicketDaoImpl implements TicketDao {
+public class TaskDaoImpl implements TaskDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addTicket(Ticket ticket){
+    public void addTask(Task task){
         System.out.println("ticketCreation");
         Session session = sessionFactory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(ticket);
+            session.saveOrUpdate(task);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();
@@ -33,13 +34,20 @@ public class TicketDaoImpl implements TicketDao {
         }
     }
 
-    public void updateTicket(Ticket ticket){
+    public List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId) {
+        Session session = sessionFactory.openSession();
+        List<UserTask> userTasks = session.getNamedQuery("UserTask.findByUserAndSubject").list();
+        session.close();
+        return userTasks;
+    }
+
+    public void addUserTask(UserTask userTask){
         System.out.println("ticketUpdate");
         Session session = sessionFactory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.update(ticket);
+            session.saveOrUpdate(userTask);
             tx.commit();
         }catch(Exception e){
             if(tx != null) tx.rollback();
@@ -49,17 +57,4 @@ public class TicketDaoImpl implements TicketDao {
         }
     }
 
-    public List<Ticket> getOngoingCreatedTickets(){
-        Session session = sessionFactory.openSession();
-        List<Ticket> tickets = session.getNamedQuery("Ticket.findAllCreatedOngoing").list();
-        session.close();
-        return tickets;
-    }
-
-    public Ticket getTicketById(String id){
-        Session session = sessionFactory.openSession();
-        Ticket tickets = (Ticket) session.getNamedQuery("Ticket.findById").setParameter("id", id).uniqueResult();
-        session.close();
-        return tickets;
-    };
 }
