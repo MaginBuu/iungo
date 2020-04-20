@@ -28,9 +28,33 @@
                 <h2>${chapter.title}</h2>
                 <br>
                 <c:forEach items="${chapter.tasks}" var="task">
-                    <a href="/user/task/${task.taskId}">${task.title}</a>
+                    <c:choose>
+                        <c:when test="${task.taskType == 'OPEN_QUESTION'}">
+                            <a href="/user/task/${task.taskId}"><i class="fa fa-file-text-o" aria-hidden="true"></i>   ${task.title}</a>
+                        </c:when>
+                        <c:when test="${task.taskType == 'TEST'}">
+                            <a href="/user/task/${task.taskId}"><i class="fa fa-file-o" aria-hidden="true"></i>   ${task.title}</a>
+                        </c:when>
+                        <c:when test="${task.taskType == 'SURVEY'}">
+                            <a href="/user/task/${task.taskId}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>   ${task.title}</a>
+                        </c:when>
+                        <c:when test="${task.taskType == 'DELIVERABLE'}">
+                            <a href="/user/task/${task.taskId}"><i class="fa fa-folder-open-o" aria-hidden="true"></i>   ${task.title}</a>
+                        </c:when>
+                    </c:choose>
+                    <br><br>
+                    <c:if test="${!empty task.description}">
+                        <p class="description">${task.description}</p>
+                    </c:if>
                     <br><br>
                 </c:forEach>
+
+                <c:forEach items="${chapter.resources}" var="resource">
+                    <a href="/user/resource/${resource.resourceId}"><i class="fa fa-book" aria-hidden="true"></i>   ${resource.title}</a>
+                    <br><br>
+                    <br><br>
+                </c:forEach>
+
             </c:forEach>
         </div>
     </div>
