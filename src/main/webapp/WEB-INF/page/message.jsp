@@ -12,11 +12,15 @@
     <title>Iungo - Messages</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"/>
+
     <link rel="stylesheet" href="/resource/css/messageStyle.css">
     <link rel="stylesheet" href="/resource/css/message.css">
     <link rel="stylesheet" href="/resource/css/creation/creationStyle.css">
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
     <link rel="stylesheet" href="/resource/css/base/baseModal.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
@@ -125,8 +129,7 @@
 
     function deleteElement(elem) {
         var hiddenSelected = document.getElementById('selected-conversation');
-        var valueHidden =
-        window.location.href = '../conversation/delete?conversationId=' + hiddenSelected.value;
+        var valueHidden = window.location.href = '../conversation/delete?conversationId=' + hiddenSelected.value;
     }
 
     function setConversationToForm(){
@@ -196,7 +199,7 @@
                     </div>
                     <div class="srch_bar">
                        <span class="input-group-addon">
-                           <button type="button" id="btn-reply" style="display:none"> <i class="fa fa-reply" aria-hidden="true" onclick="setConversationToForm()" data-toggle="modal" data-target="#modalCreateMessage"></i> </button>
+                           <button type="button" id="btn-reply" style="display:none" onclick="setConversationToForm()"> <i class="fa fa-reply" aria-hidden="true" data-toggle="modal" data-target="#modalCreateMessage"></i> </button>
                            <button type="button" id="btn-report" style="display:none"> <i class="fa fa-exclamation-circle" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> </button>
                            <button type="button" id="btn-refresh" style="display:none" onclick="selectConversation(document.getElementById('selected-conversation').value)"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
                            <button type="button" id="btn-delete" style="display:none"> <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" aria-hidden="true"></i></button></span>
