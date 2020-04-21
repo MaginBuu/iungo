@@ -3,6 +3,7 @@ package com.dao;
 import com.model.RoleTeacher;
 import com.model.Space;
 import com.model.Subject;
+import com.model.UserSubject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -87,5 +88,12 @@ public class SubjectDaoImpl implements SubjectDao {
         List<Subject> subject = session.getNamedQuery("Subject.findByGroupId").setParameter("id", groupId).list();
         session.close();
         return subject;
+    }
+
+    public UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId){
+        Session session = sessionFactory.openSession();
+        UserSubject userSubject = (UserSubject) session.getNamedQuery("UserSubject.findByUserAndSubject").setParameter("subjectId", subjectId).setParameter("userId", userId).uniqueResult();
+        session.close();
+        return userSubject;
     }
 }

@@ -3,6 +3,7 @@ package com.service;
 import com.dao.SubjectDao;
 import com.model.RoleTeacher;
 import com.model.Subject;
+import com.model.UserSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,7 @@ public class SubjectServiceImpl implements SubjectService {
     public Set<RoleTeacher> getTeachersBySubjectId(String id) { return subjectDao.getTeachersBySubjectId(id); }
 
     public List<Subject> getByGroup(String groupId){ return subjectDao.getByGroup(groupId);}
+
+    public UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId) { return subjectDao.getUserSubjectByUserAndSubject(userId, subjectId); }
 
 }

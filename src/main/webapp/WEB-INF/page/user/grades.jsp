@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: maginbuu
@@ -29,6 +30,7 @@
                 <thead>
                 <tr>
                     <th><strong>Task</strong></th>
+                    <th><strong>value</strong></th>
                     <th><strong>Observations</strong></th>
                     <th>Grade</th>
                 </tr>
@@ -37,12 +39,22 @@
                 <c:forEach items="${userTasks}" var="userTasks">
                     <tr>
                         <td style="vertical-align: middle; horiz-align: center">${userTasks.task.title}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${userTasks.task.value}</td>
                         <td style="vertical-align: middle; horiz-align: center">${userTasks.observations}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${userTasks.grade}</td
+                        <td style="vertical-align: middle; horiz-align: center">${userTasks.grade}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
+            <c:if test="${userSubject.grade eq null}">
+                <label class="label-column">Final grade: not evaluated yet</label>
+            </c:if>
+
+            <c:if test="${userSubject.grade ne null}">
+                <label class="label-column">Final grade: ${userSubject.grade}</label>
+            </c:if>
+            <br>
+            <a class="btn btn-light submit-button" href="/user/subject/${subjectId}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to subject</a>
         </div>
     </div>
 </div>

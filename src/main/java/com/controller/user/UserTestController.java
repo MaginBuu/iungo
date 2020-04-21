@@ -50,6 +50,9 @@ public class UserTestController {
     @Autowired
     TaskService taskService;
 
+    @Autowired
+    SubjectService subjectService;
+
     /**
      * Processes the petition to get to the conversation page.
      *
@@ -451,8 +454,16 @@ public class UserTestController {
 
         User user = (User) request.getSession().getAttribute("user");
         if(user == null) user = userService.getUserById("1");
+
         List<UserTask> userTasks = taskService.getUserTaskByUserAndSubject(user.getUserId(), subjectId);
-        return new ModelAndView("/user/grades", "userTasks", userTasks);
+        UserSubject userSubject = subjectService.getUserSubjectByUserAndSubject(user.getUserId(), subjectId);
+
+        ModelAndView model = new ModelAndView("/user/grades");
+        model.addObject("userTasks", userTasks);
+        model.addObject("userSubject", userSubject);
+        model.addObject("subjectId", subjectId);
+
+        return model;
 
     }
 
