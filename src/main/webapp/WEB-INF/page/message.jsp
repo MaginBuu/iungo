@@ -58,7 +58,7 @@
         }
         var missatgeria = document.getElementById("div-messages");
         missatgeria.innerHTML = "";
-        document.getElementById("btn-reply").style.display="block";
+        document.getElementById("btn-reply-msg").style.display="block";
         document.getElementById("btn-delete").style.display="block";
         document.getElementById("btn-refresh").style.display="block";
         document.getElementById("btn-report").style.display="block";
@@ -199,7 +199,7 @@
                     </div>
                     <div class="srch_bar">
                        <span class="input-group-addon">
-                           <button type="button" id="btn-reply" style="display:none" onclick="setConversationToForm()"> <i class="fa fa-reply" aria-hidden="true" data-toggle="modal" data-target="#modalCreateMessage"></i> </button>
+                           <button type="button" id="btn-reply-msg" style="display:none" onclick="setConversationToForm()"> <i class="fa fa-reply" aria-hidden="true" data-toggle="modal" data-target="#modalCreateMessage"></i> </button>
                            <button type="button" id="btn-report" style="display:none"> <i class="fa fa-exclamation-circle" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> </button>
                            <button type="button" id="btn-refresh" style="display:none" onclick="selectConversation(document.getElementById('selected-conversation').value)"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
                            <button type="button" id="btn-delete" style="display:none"> <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" aria-hidden="true"></i></button></span>
