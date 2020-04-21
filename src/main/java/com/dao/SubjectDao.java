@@ -2,6 +2,7 @@ package com.dao;
 
 import com.model.RoleTeacher;
 import com.model.Subject;
+import com.model.UserSubject;
 
 import java.util.List;
 import java.util.Set;
@@ -23,5 +24,7 @@ public interface SubjectDao {
     Set<RoleTeacher> getTeachersBySubjectId(String id);
 
     List<Subject> getByGroup(String groupId);
+
+    UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId);
 
 }
