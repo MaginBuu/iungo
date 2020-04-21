@@ -13,5 +13,7 @@ public interface TaskDao {
 
     List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId);
 
+    List<UserTask> getUserTaskByTaskId(String taskId);
+
 
 }

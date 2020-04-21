@@ -1,6 +1,7 @@
 package com.controller.user;
 
 import com.model.*;
+import com.model.encapsulators.UserTaskEncapsulator;
 import com.model.enums.Role;
 import com.service.GroupService;
 import com.service.SubjectService;
@@ -305,6 +306,39 @@ public class TeacherController {
             ModelAndView model = new ModelAndView("/selectGroup");
 
             return model;
+
+    }
+
+
+
+    @RequestMapping(value = "/teacher/subjects/evaluateTask/{taskId}")
+    public ModelAndView testTask(@PathVariable("taskId") String taskId) {
+
+        ModelAndView model = new ModelAndView("/evaluateTask");
+        UserTaskEncapsulator ute = new UserTaskEncapsulator();
+        ute.setTasks(taskService.getUserTaskByTaskId(taskId));
+        model.addObject("taskList", ute);
+        model.addObject("taskInfo", ute.getTasks().get(0).getTask());
+        model.addObject("subjectId", ute.getTasks().get(0).getTask().getChapter().getSubject().getSubjectId());
+
+        return model;
+
+    }
+
+    @RequestMapping(value = "/teacher/task/evaluate/{subjectId}/{taskId}")
+    public String evaluateTask(@ModelAttribute("taskList") UserTaskEncapsulator ute, @PathVariable("subjectId") String subjectId, @PathVariable("taskId") String taskId) {
+
+        Task t = new Task();
+        RoleStudent rs = new RoleStudent();
+        for(UserTask ut : ute.getTasks()){
+            t.setTaskId(taskId);
+            rs.setRoleId(ut.getStudent().getRoleId());
+            ut.setTask(t);
+            ut.setStudent(rs);
+            taskService.addUserTask(ut);
+        }
+
+        return "redirect:/teacher/subjects/"+subjectId+".do";
 
     }
 }

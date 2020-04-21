@@ -14,4 +14,6 @@ public interface TaskService {
 
     List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId);
 
+    List<UserTask> getUserTaskByTaskId(String taskId);
+
 }
