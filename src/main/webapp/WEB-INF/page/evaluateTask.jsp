@@ -42,7 +42,7 @@
 
 <body>
 <%@ include file="navbar.jsp" %>
-<form:form method="post" action="/teacher/task/evaluate/${subjectId}/${taskInfo.taskId}" modelAttribute="taskList">
+<form:form method="post" action="/teacher/task/saveEvaluation/${subjectId}/${taskInfo.taskId}" modelAttribute="taskList">
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <br><br>
