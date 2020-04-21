@@ -24,6 +24,13 @@
             <div class="parallax">
                 <p class="parallax-text">${subject.name}</p>
             </div>
+
+            <h2>info</h2>
+            <br>
+            <a href="/user/grades?subjectId=${subject.subjectId}"><i class="fa fa-graduation-cap" aria-hidden="true"></i>   Grades</a>
+            <br><br>
+            <br><br>
+
             <c:forEach items="${subject.chapters}" var="chapter">
                 <h2>${chapter.title}</h2>
                 <br>

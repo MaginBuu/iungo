@@ -22,6 +22,9 @@ public class RoleStudent extends RoleClass {
     @OneToMany(mappedBy = "student")
     private List<UserTask> userTasks;
 
+    @OneToMany(mappedBy = "student")
+    private List<UserSubject> userSubjects;
+
     public RoleStudent() { }
 
     public ClassGroup getGroup() { return group; }
@@ -33,4 +36,12 @@ public class RoleStudent extends RoleClass {
     public void setResponsibles(List<RoleResponsible> responsibles) { this.responsibles = responsibles; }
 
     public void addResponsible(RoleResponsible responsible){ this.responsibles.add(responsible); }
+
+    public List<UserTask> getUserTasks() { return userTasks; }
+
+    public void setUserTasks(List<UserTask> userTasks) { this.userTasks = userTasks; }
+
+    public List<UserSubject> getUserSubjects() { return userSubjects; }
+
+    public void setUserSubjects(List<UserSubject> userSubjects) { this.userSubjects = userSubjects; }
 }

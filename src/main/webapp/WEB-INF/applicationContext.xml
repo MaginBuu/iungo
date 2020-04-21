@@ -69,6 +69,7 @@
 				<value>com.model.UserTask</value>
 				<value>com.model.Chapter</value>
 				<value>com.model.Resource</value>
+				<value>com.model.UserSubject</value>
 			</list>
 		</property>
 

@@ -18,6 +18,7 @@ public class TaskDaoImpl implements TaskDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Override
     public void addTask(Task task){
         System.out.println("ticketCreation");
         Session session = sessionFactory.openSession();
@@ -34,6 +35,7 @@ public class TaskDaoImpl implements TaskDao {
         }
     }
 
+    @Override
     public List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId) {
         Session session = sessionFactory.openSession();
         List<UserTask> userTasks = session.getNamedQuery("UserTask.findByUserAndSubject").setParameter("subjectId", subjectId).setParameter("userId", userId).list();
@@ -41,6 +43,23 @@ public class TaskDaoImpl implements TaskDao {
         return userTasks;
     }
 
+    @Override
+    public List<UserTask> getUserTaskByUser(String userId) {
+        Session session = sessionFactory.openSession();
+        List<UserTask> userTasks = session.getNamedQuery("UserTask.findByUser").setParameter("userId", userId).list();
+        session.close();
+        return userTasks;
+    }
+
+    @Override
+    public List<UserTask> getUserTaskByStudent(String studentId) {
+        Session session = sessionFactory.openSession();
+        List<UserTask> userTasks = session.getNamedQuery("UserTask.findByUserAndSubject").setParameter("userId", studentId).list();
+        session.close();
+        return userTasks;
+    }
+
+    @Override
     public void addUserTask(UserTask userTask){
         System.out.println("ticketUpdate");
         Session session = sessionFactory.openSession();

@@ -38,6 +38,14 @@ public class Notification implements Comparable<Notification> {
 
     public Notification() { }
 
+    public Notification(User user, String title, String description, boolean pending, Date creationDate) {
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.pending = pending;
+        this.creationDate = creationDate;
+    }
+
     public String getNotificationId() { return notificationId; }
 
     public void setNotificationId(String notificationId) { this.notificationId = notificationId; }

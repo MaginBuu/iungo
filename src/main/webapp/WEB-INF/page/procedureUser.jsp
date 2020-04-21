@@ -17,6 +17,24 @@
 </head>
 
 <body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    function decision(id, decision){
+        window.location.href = "/user/procedure/response?id="+id+"&decision="+decision;
+    }
+
+</script>
+
+
 <%@ include file="navbar.jsp" %>
 
 <div style="justify-content: center;text-align: center; padding-top: 40px">
@@ -47,8 +65,8 @@
                                 <p class="card-text sub-text-color">${procedure.description}</p>
                                 <c:if test="${procedure.online eq true}">
                                     <div class="row float-right" style="align-content: end">
-                                        <button class="btn btn-light submit-button" style="margin-right: 10px" onclick="decision(${procedure.procedureId},true)">Accept</button>
-                                        <button class="btn btn-light submit-button" style="margin-right: 20px" onclick="decision(${procedure.procedureId},false)">Deny</button>
+                                        <button class="btn btn-light submit-button" style="margin-right: 10px" onclick="decision('${procedure.procedureId}',true)">Accept</button>
+                                        <button class="btn btn-light submit-button" style="margin-right: 20px" onclick="decision('${procedure.procedureId}',false)">Deny</button>
                                     </div>
                                 </c:if>
                             </div>
@@ -84,24 +102,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
 </body>
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#tableSearch").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-    function decision(id, decision){
-            window.location.href = "/user/procedure/response?id="+id+"&decision="+decision;
-    }
-
-</script>
-
 
 </html>
 

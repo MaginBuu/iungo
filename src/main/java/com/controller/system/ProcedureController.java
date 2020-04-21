@@ -72,7 +72,7 @@ public class ProcedureController {
 		if (user == null)		// this will be deleted soon
 			user = userService.getUserById("1");
 
-		String title = "Meeting request from " + user.getName() + " " + user.getSurname();
+		String title = "Meeting request from " + user.getFullName() + "at " + procedure.getLimitDate().toString();
 
 		procedure.setTitle(title);
 		procedure.setStatus(ProcedureStatus.CREATED);

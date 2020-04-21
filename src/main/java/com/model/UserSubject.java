@@ -2,18 +2,15 @@ package com.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @NamedQueries({
         /*@NamedQuery(name = "Task.findByUserAndTask", query = "SELECT c FROM Task c WHERE c.user = :user AND c.task = :conversation"),*/
-        @NamedQuery(name = "UserTask.findByUserAndSubject", query = "SELECT c FROM UserTask c where c.task.chapter.subject.subjectId =:subjectId and c.student.userR.userId =:userId"),
-        @NamedQuery(name = "UserTask.findByUser", query = "SELECT c FROM UserTask c WHERE c.student.userR.userId =:userId"),
-        @NamedQuery(name = "UserTask.findByStudent", query = "SELECT c FROM UserTask c where c.student.roleId =:studentId"),
+
 
 })
-public class UserTask implements Serializable {
+public class UserSubject implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn
@@ -22,7 +19,7 @@ public class UserTask implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn
-    private Task task;
+    private Subject subject;
 
     @Column(name = "GRADE")
     private float grade;
@@ -31,19 +28,15 @@ public class UserTask implements Serializable {
     private String observations;
 
 
-    public UserTask(){}
+    public UserSubject(){}
 
     public RoleStudent getStudent() { return student; }
 
     public void setStudent(RoleStudent student) { this.student = student; }
 
-    public Task getTask() {
-        return task;
-    }
+    public Subject getSubject() { return subject; }
 
-    public void setTask(Task task) {
-        this.task = task;
-    }
+    public void setSubject(Subject subject) { this.subject = subject; }
 
     public float getGrade() {
         return grade;
@@ -65,15 +58,15 @@ public class UserTask implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserTask that = (UserTask) o;
+        UserSubject that = (UserSubject) o;
         return Float.compare(that.grade, grade) == 0 &&
                 Objects.equals(student, that.student) &&
-                Objects.equals(task, that.task) &&
+                Objects.equals(subject, that.subject) &&
                 Objects.equals(observations, that.observations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(student, task, grade, observations);
+        return Objects.hash(student, subject, grade, observations);
     }
 }
