@@ -53,6 +53,7 @@
                     <th><strong>Type</strong></th>
                     <th><strong>Value</strong></th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="teachers">
@@ -64,10 +65,12 @@
                             <td style="vertical-align: middle; horiz-align: center">${task.deadline}</td>
                             <td style="vertical-align: middle; horiz-align: center">${task.taskType}</td>
                             <td style="vertical-align: middle; horiz-align: center">${task.value}%</td>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-info" href="/teacher/subjects/evaluateTask/${task.taskId}"><i
+                                    class="fa fa-tasks" aria-hidden="true"></i></a></td>
                             <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
                                                                                       data-toggle="modal"
                                                                                       data-target="#myModal"
-                                                                                      onclick="deleteClicked('${subject.subjectId}', '${subject.name}')"><i
+                                                                                      onclick="deleteClicked('${task.taskId}')"><i
                                     class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                         </tr>
                     </c:forEach>

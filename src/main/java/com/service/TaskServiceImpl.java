@@ -25,6 +25,8 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId) { return taskDao.getUserTaskByUserAndSubject(userId, subjectId); }
 
+    public List<UserTask> getUserTaskByTaskId(String taskId) { return  taskDao.getUserTaskByTaskId(taskId); }
+    
     @Override
     public List<UserTask> getUserTaskByUser(String userId) { return taskDao.getUserTaskByUser(userId); }
 
