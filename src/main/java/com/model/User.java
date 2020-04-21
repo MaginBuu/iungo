@@ -396,4 +396,9 @@ public class User implements Serializable {
 	public int hashCode() {
 		return Objects.hash(userId);
 	}
+
+	public String getFullName(){
+		String name = this.secondSurname != null ? "" + this.name + " " + this.surname + " " + this.secondSurname : "" + this.name + " " + this.surname;
+		return name;
+	}
 }

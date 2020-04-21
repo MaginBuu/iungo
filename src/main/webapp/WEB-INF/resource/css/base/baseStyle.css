@@ -60,7 +60,18 @@
   border-bottom: 2px solid #DE9D3F;
 }
 
-.creation-form h2 {
+.creation-form .custom-div-top h2 {
+  display: inline-block;
+  color: #4c565e;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 10px 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #DE9D3F;
+}
+
+.creation-form .custom-div h2 {
   display: inline-block;
   color: #4c565e;
   font-size: 20px;

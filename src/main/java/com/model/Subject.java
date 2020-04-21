@@ -62,6 +62,10 @@ public class Subject implements Serializable {
     @OneToMany(mappedBy="subject", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Chapter> chapters;
 
+    @OneToMany(mappedBy = "subject")
+    private List<UserSubject> UserSubject = new LinkedList<>();
+
+
     public Subject() { }
 
     public Subject(String name) {
@@ -110,10 +114,13 @@ public class Subject implements Serializable {
 
     public void setDepartment(Department department) { this.department = department; }
 
-
     public List<Chapter> getChapters() { return chapters; }
 
     public void setChapters(List<Chapter> chapters) { this.chapters = chapters; }
+
+    public List<com.model.UserSubject> getUserSubject() { return UserSubject; }
+
+    public void setUserSubject(List<com.model.UserSubject> userSubject) { UserSubject = userSubject; }
 
     public String getGroupId() {
         String group = groupId;

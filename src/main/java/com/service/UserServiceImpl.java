@@ -56,8 +56,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.getAllUserTickets();
 	}
 
-
-	public User getAllUserProcedures() { return userDao.getAllUserProcedures(); }
+	public User getAllUserProcedures(String userId) { return userDao.getAllUserProcedures(userId); }
 
 	public List<User> getAllUsersWithRole(Role role) {
 		return userDao.getAllUsersWithRole(role);

@@ -2,6 +2,7 @@ package com.controller.user;
 
 import com.model.*;
 import com.model.enums.ProcedureStatus;
+import com.model.enums.Role;
 import com.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -44,6 +46,9 @@ public class UserTestController {
 
     @Autowired
     ConversationUserService conversationUserService;
+
+    @Autowired
+    TaskService taskService;
 
     /**
      * Processes the petition to get to the conversation page.
@@ -152,14 +157,15 @@ public class UserTestController {
         if (user == null)
             user = userService.getUserById("1"); // will be deleted soon
 
-        logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+        logger.info("[" + new Object() {
+        }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
 
         message.setSender(user);
         message.setDate(new Date());
 
         Conversation conversation = conversationService.findBy2Id(user.getUserId(), message.getReceiver());
 
-        if(conversation == null){
+        if (conversation == null) {
             User userReceiver = userService.getUserById(message.getReceiver());
             try {
                 conversation = new Conversation();
@@ -167,11 +173,14 @@ public class UserTestController {
                 conversation.setDescription("This conversation is between " + user.getName() + " " + user.getSurname() + " " + user.getSecondSurname() + "" +
                         "& " + userReceiver.getName() + " " + userReceiver.getSurname() + " " + userReceiver.getSecondSurname());
                 conversation.setLastMessageDate(new Date());
-                logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully created but not saved into the db yet");
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully created but not saved into the db yet");
                 conversationService.addConversation(conversation);
-                logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully saved");
-            }catch (Exception e){
-                logger.error("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation could not be created: " + e);
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] -  Conversation successfully saved");
+            } catch (Exception e) {
+                logger.error("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] -  Conversation could not be created: " + e);
                 return null;
             }
 
@@ -179,13 +188,15 @@ public class UserTestController {
             ConversationUser conversationUser = new ConversationUser(user, conversation, new Date());
             conversationUserService.addConversationUser(conversationUser);
             conversation.addUserConversations(conversationUser);
-            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation user of loaded user created");
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Conversation user of loaded user created");
 
 
             conversationUser = new ConversationUser(userReceiver, conversation, new Date());
             conversationUserService.addConversationUser(conversationUser);
             conversation.addUserConversations(conversationUser);
-            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation user of receiver user created");
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Conversation user of receiver user created");
 
         }
 
@@ -194,16 +205,18 @@ public class UserTestController {
         try {
             System.out.println();
             messageService.addMessage(message);
-            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  message saved: ");
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  message saved: ");
 
             ConversationUser cu = conversationUserService.findByUserAndConversation(message.getReceiver(), conversation.getConversationId());
             conversationUserService.addConversationUser(cu);
-            logger.info("[" + new Object() {}.getClass().getEnclosingMethod().getName() + "] -  Conversation user of receiver new message = true saved");
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Conversation user of receiver new message = true saved");
 
 
             String referer = request.getHeader("Referer");
 
-        return "redirect:" + referer;
+            return "redirect:" + referer;
         } catch (Exception e) {
             logger.error("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Error creating the message: " + e);
@@ -252,9 +265,9 @@ public class UserTestController {
         try {
 
             if (!report.isAnonymous()) {
-                User user = (User)request.getSession().getAttribute("user");
-                if(user == null)
-					user = userService.getUserById("1");
+                User user = (User) request.getSession().getAttribute("user");
+                if (user == null)
+                    user = userService.getUserById("1");
 
                 logger.info("[" + new Object() {
                 }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
@@ -279,14 +292,14 @@ public class UserTestController {
      * @return ModelAndView with the desired .jsp file and its required model & objects
      */
     @RequestMapping(value = "/user/procedures")
-    public ModelAndView proceduresAccess() {
-
-        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public ModelAndView proceduresAccess(HttpServletRequest request) {
         try {
+            User userP = (User) request.getSession().getAttribute("user");
+            if (userP == null) userP = userService.getUserById("1");
             logger.info("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
 
-            User user = userService.getAllUserProcedures();
+            User user = userService.getAllUserProcedures(userP.getUserId());
             List<Procedure> procedures;
             List<Procedure> validProcedures = new ArrayList<>();
 
@@ -327,11 +340,19 @@ public class UserTestController {
      */
     @RequestMapping(value = "/user/procedure/response")
     public String procedureCreate(@Valid @ModelAttribute("id") String id, @ModelAttribute("decision") boolean decision) {
-
         try {
             Procedure procedure = procedureService.findById(id);
             if (decision == true) procedure.setStatus(ProcedureStatus.ACCEPTED);
             else procedure.setStatus(ProcedureStatus.DENIED);
+
+            if (procedure.isNotify() && procedure.getCreator() != null) {
+                User userP = procedure.getUserP();
+                String title = decision == true ? userP.getFullName() + "has accepted your request" : userP.getFullName() + "has denied your request";
+                Notification notification = new Notification(procedure.getCreator(), title, "this is the response of the procedure: " + procedure.getTitle(), true, new Date());
+                userService.addNotification(notification);
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] - Notification has been created ");
+            }
 
             procedureService.addProcedure(procedure);
 
@@ -365,14 +386,14 @@ public class UserTestController {
                 user = userService.getAllUserNotifications(activeUser.getUserId());
 
             List<Notification> notificationList = user.getNotifications();
-            Collections.sort(notificationList,Notification::compareTo);
+            Collections.sort(notificationList, Notification::compareTo);
 
             JSONArray data = new JSONArray();
             for (Notification n : notificationList) {
                 JSONObject o = new JSONObject();
                 o.put("title", n.getTitle());
                 o.put("body", n.getDescription());
-                o.put("pending",n.isPending());
+                o.put("pending", n.isPending());
                 o.put("id", n.getNotificationId());
 
                 n.setPending(false);
@@ -382,8 +403,9 @@ public class UserTestController {
             }
             return data;
 
-        }catch (Exception e) {
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error getting the notifications: "+e);
+        } catch (Exception e) {
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Error getting the notifications: " + e);
 
             return null;
         }
@@ -410,10 +432,28 @@ public class UserTestController {
             logger.info("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Notifications successfully deleted");
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             o.put("result", "fail");
-            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Error deleting the notifications: "+e);
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  Error deleting the notifications: " + e);
         }
         return o;
     }
+
+
+    /**
+     * Processes the petition to get to the procedure creation page.
+     *
+     * @return ModelAndView with the desired .jsp file and its required model & objects
+     */
+    @RequestMapping(value = "/user/grades")
+    public ModelAndView getGrades(@RequestParam String subjectId, HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
+        if(user == null) user = userService.getUserById("1");
+        List<UserTask> userTasks = taskService.getUserTaskByUserAndSubject(user.getUserId(), subjectId);
+        return new ModelAndView("/user/grades", "userTasks", userTasks);
+
+    }
+
 }
