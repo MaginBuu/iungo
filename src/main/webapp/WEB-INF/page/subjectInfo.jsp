@@ -65,7 +65,7 @@
                             <td style="vertical-align: middle; horiz-align: center">${task.deadline}</td>
                             <td style="vertical-align: middle; horiz-align: center">${task.taskType}</td>
                             <td style="vertical-align: middle; horiz-align: center">${task.value}%</td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-info" href="/teacher/subjects/evaluateTask/${task.taskId}"><i
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-info" href="/teacher/task/evaluate/${task.taskId}"><i
                                     class="fa fa-tasks" aria-hidden="true"></i></a></td>
                             <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
                                                                                       data-toggle="modal"

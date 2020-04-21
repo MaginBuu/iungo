@@ -311,7 +311,7 @@ public class TeacherController {
 
 
 
-    @RequestMapping(value = "/teacher/subjects/evaluateTask/{taskId}")
+    @RequestMapping(value = "/teacher/task/evaluate/{taskId}")
     public ModelAndView testTask(@PathVariable("taskId") String taskId) {
 
         ModelAndView model = new ModelAndView("/evaluateTask");
@@ -325,7 +325,7 @@ public class TeacherController {
 
     }
 
-    @RequestMapping(value = "/teacher/task/evaluate/{subjectId}/{taskId}")
+    @RequestMapping(value = "/teacher/task/saveEvaluation/{subjectId}/{taskId}")
     public String evaluateTask(@ModelAttribute("taskList") UserTaskEncapsulator ute, @PathVariable("subjectId") String subjectId, @PathVariable("taskId") String taskId) {
 
         Task t = new Task();
