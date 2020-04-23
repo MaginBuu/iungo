@@ -23,8 +23,6 @@ import java.util.Set;
         @NamedQuery(name = "Subject.findByGroupId", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.teachers t WHERE s.subjectGroup.groupId = :id"),
         @NamedQuery(name = "Subject.findTeachersBySubjectId", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.teachers t WHERE s.subjectId = :id"),
 
-
-
 })
 public class Subject implements Serializable {
 

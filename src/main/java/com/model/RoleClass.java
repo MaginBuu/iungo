@@ -9,6 +9,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "role_user")
 @Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({
+        @NamedQuery(name = "RoleClass.findAllWithRole", query ="SELECT o.userR FROM RoleClass o WHERE o.roleKey =:role"),
+
+})
 public abstract class RoleClass {
 
     private static final long serialVersionUID = 2681531852204068105L;

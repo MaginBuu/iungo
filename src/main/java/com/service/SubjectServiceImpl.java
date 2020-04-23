@@ -1,6 +1,7 @@
 package com.service;
 
 import com.dao.SubjectDao;
+import com.model.ClassGroup;
 import com.model.RoleTeacher;
 import com.model.Subject;
 import com.model.UserSubject;
@@ -35,5 +36,6 @@ public class SubjectServiceImpl implements SubjectService {
     public List<Subject> getByGroup(String groupId){ return subjectDao.getByGroup(groupId);}
 
     public UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId) { return subjectDao.getUserSubjectByUserAndSubject(userId, subjectId); }
+
 
 }

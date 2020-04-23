@@ -2,10 +2,7 @@ package com.service;
 
 import java.util.List;
 
-import com.model.Authorities;
-import com.model.Notification;
-import com.model.RoleTeacher;
-import com.model.User;
+import com.model.*;
 import com.model.enums.Role;
 
 public interface UserService {
@@ -59,5 +56,11 @@ public interface UserService {
 	RoleTeacher getTeacherById(String teacherId);
 
 	List<RoleTeacher> getAllTeachers();
+
+
+	//RESPONSIBLES
+
+	List<RoleResponsible> getStudentsResponsibles(List<RoleStudent> students);
+
 
 }

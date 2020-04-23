@@ -9,6 +9,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "role_student")
+@NamedQueries({
+        @NamedQuery(name = "RoleStudent.getResponsibles", query ="SELECT o.responsibles FROM RoleStudent o WHERE o.roleId = '22' "),
+        @NamedQuery(name = "RoleStudent.getAll", query ="SELECT o.userR FROM RoleStudent o"),
+
+})
+
 public class RoleStudent extends RoleClass {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -44,4 +50,6 @@ public class RoleStudent extends RoleClass {
     public List<UserSubject> getUserSubjects() { return userSubjects; }
 
     public void setUserSubjects(List<UserSubject> userSubjects) { this.userSubjects = userSubjects; }
+
+
 }

@@ -2,9 +2,7 @@ package com.controller.user;
 
 import com.model.*;
 import com.model.enums.Role;
-import com.service.ConversationService;
-import com.service.ConversationUserService;
-import com.service.UserService;
+import com.service.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.rmi.CORBA.StubDelegate;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.security.acl.Group;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.awt.image.ImageWatched;
 
 @Controller
 public class ConversationController {
@@ -36,6 +37,9 @@ public class ConversationController {
     @Autowired
     ConversationUserService conversationUserService;
 
+    @Autowired
+    SubjectService subjectService;
+
 
     /**
      * Processes the petition to get to the conversation creation page.
@@ -46,7 +50,7 @@ public class ConversationController {
     public ModelAndView getConversationCreationForm(HttpServletRequest request, Authentication authentication) {
 
         User user;
-        List<User> teachers;
+        List<User> teachers = new LinkedList<>();
         List<User> students = new LinkedList<>();
         List<User> admins = new LinkedList<>();
         List<User> secretaries = new LinkedList<>();
@@ -56,7 +60,7 @@ public class ConversationController {
             String role;
             if(user==null){
                 user = userService.getUserById("1");
-                role = "ADMIN";
+                role = "TEACHER";
             }else
                 role = authentication.getAuthorities().toArray()[0].toString();
 
@@ -76,7 +80,33 @@ public class ConversationController {
 
                 teachers = userService.getAllUsersWithRole(Role.TEACHER);
                 teachers.remove(user);
-                logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Teacher list loaded successfully");
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] -  Teacher list loaded successfully");
+
+
+            }else if("TEACHER".equals(role)){
+                RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
+                //Set<ClassGroup> groups = new HashSet<>();
+                List<ClassGroup> groups = teacher.getSubjects().stream().map(subject -> subject.getSubjectGroup()).collect(Collectors.toList());
+                System.out.println();
+
+                for(ClassGroup group : groups){
+                   students.addAll(userService.getStudentsByGroup(group.getGroupId()));
+                }
+
+
+                List<RoleStudent> roleStudents = students.stream().map(student -> (RoleStudent) student.getRoles().get(Role.STUDENT)).collect(Collectors.toList());
+
+                Set<User> setResponsibles = new HashSet(userService.getStudentsResponsibles(roleStudents));
+                responsibles = new LinkedList<>(setResponsibles);
+
+
+                teachers = userService.getAllUsersWithRole(Role.TEACHER);
+                teachers.remove(user);
+                admins = userService.getAllUsersWithRole(Role.ADMIN);
+                admins.remove(user);
+                secretaries = userService.getAllUsersWithRole(Role.SECRETARY);
+                secretaries.remove(user);
 
 
             } else {

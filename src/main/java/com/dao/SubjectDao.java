@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.model.ClassGroup;
 import com.model.RoleTeacher;
 import com.model.Subject;
 import com.model.UserSubject;

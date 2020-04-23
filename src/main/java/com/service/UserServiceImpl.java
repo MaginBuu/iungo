@@ -2,16 +2,13 @@ package com.service;
 
 import java.util.List;
 
-import com.model.Authorities;
-import com.model.Notification;
-import com.model.RoleTeacher;
+import com.model.*;
 import com.model.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.UserDao;
-import com.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -87,4 +84,10 @@ public class UserServiceImpl implements UserService {
 	public RoleTeacher getTeacherById(String teacherId) { return userDao.getTeacherById(teacherId); }
 
 	public List<RoleTeacher> getAllTeachers() { return userDao.getAllTeachers(); }
+
+
+	//RESPONSIBLES
+
+	public List<RoleResponsible> getStudentsResponsibles(List<RoleStudent> students) { return userDao.getStudentsResponsibles(students); }
+
 }

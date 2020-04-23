@@ -1,9 +1,6 @@
 package com.dao;
 
-import com.model.RoleTeacher;
-import com.model.Space;
-import com.model.Subject;
-import com.model.UserSubject;
+import com.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -96,4 +93,5 @@ public class SubjectDaoImpl implements SubjectDao {
         session.close();
         return userSubject;
     }
+
 }
