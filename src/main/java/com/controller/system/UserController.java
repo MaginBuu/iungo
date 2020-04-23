@@ -9,7 +9,13 @@ import com.service.GroupService;
 import com.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +25,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -255,4 +263,59 @@ public class UserController {
 		userService.addUser(student); // addUser = add or update
 		return "redirect:/";
 	}
+
+
+	@RequestMapping(value = "/user/roles", method = RequestMethod.GET)
+	public @ResponseBody
+	JSONArray getRoles(HttpServletRequest request, Authentication authentication) {
+		System.out.println();
+		User activeUser = (User) request.getSession().getAttribute("user");
+		if(activeUser == null) activeUser = userService.getUserById("1");
+
+		logger.info("[" + new Object() {
+		}.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+		Set<Role> roles = new HashSet<>(activeUser.getRoles().keySet());
+		System.out.println();
+
+		try {
+			String role = authentication.getAuthorities().toArray()[0].toString();
+			roles.remove(Role.valueOf(role));
+
+		}catch (Exception e){
+			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Users authorities could not be loaded: " + e);
+
+		}
+
+		JSONArray data = new JSONArray();
+
+		for(Role role : roles)
+			data.add(role.toString());
+
+
+
+		return data;
+	}
+
+	// FOR TESTING, WILL BE DELETED SOON
+	@RequestMapping(value = "/user/role")
+	public String setRole(@RequestParam String role){
+
+
+		logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Role received: " + role);
+
+		List<SimpleGrantedAuthority> updatedAuthorities = new LinkedList<>();
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
+		updatedAuthorities.add(authority);
+
+		SecurityContextHolder.getContext().setAuthentication(
+				new UsernamePasswordAuthenticationToken(
+						SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+						SecurityContextHolder.getContext().getAuthentication().getCredentials(),
+						updatedAuthorities)
+		);
+
+		return "redirect:/role";
+	}
+
 }

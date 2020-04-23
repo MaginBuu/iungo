@@ -113,3 +113,6 @@ body {
   background: #66d7d7;
 }
 
+.bootstrap-select .btn:focus {
+  outline: none !important;
+}

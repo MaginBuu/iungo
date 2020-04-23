@@ -35,6 +35,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public void addAuthorities(Authorities authorities){ userDao.addAuthorities(authorities);  }
+
+	public Authorities getAuthoritiesByEmail(String email){ return userDao.getAuthoritiesByEmail(email); }
 	
 	public User getUserById(String userId) {
 		return userDao.getUserById(userId);

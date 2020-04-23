@@ -20,6 +20,8 @@ public interface UserDao {
 	void addUser(User user);
 
 	void addAuthorities(Authorities authorities);
+
+	Authorities getAuthoritiesByEmail(String email);
 	
 	User getUserById(String userId);
 

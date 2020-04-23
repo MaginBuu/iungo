@@ -18,6 +18,8 @@ public interface UserService {
 
 	void addAuthorities(Authorities authorities);
 
+	Authorities getAuthoritiesByEmail(String email);
+
 	User getUserById(String userId);
 
 	User getUserByUsername(String username);

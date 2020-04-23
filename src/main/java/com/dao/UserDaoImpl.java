@@ -100,6 +100,13 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	public Authorities getAuthoritiesByEmail(String email) {
+		Session session = sessionFactory.openSession();
+		Authorities auth = (Authorities) session.getNamedQuery("Authorities.getByEmail").setParameter("emailId", email ).uniqueResult();
+		session.close();
+		return auth;
+	}
+
 	public void addUser(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
