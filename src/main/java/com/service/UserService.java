@@ -57,10 +57,14 @@ public interface UserService {
 
 	List<RoleTeacher> getAllTeachers();
 
-
 	//RESPONSIBLES
 
 	List<RoleResponsible> getStudentsResponsibles(List<RoleStudent> students);
 
+	List<RoleResponsible> getAllResponsibles();
+
+	//STUDENTS
+
+	RoleStudent getStudentWithResponsibles(String userId);
 
 }

@@ -156,7 +156,7 @@ public class UserController {
 		}
 
 		if(roles[0].equals("STUDENT")){
-			request.getSession().setAttribute("userRelate", username);
+			request.getSession().setAttribute("userRelate", user.getUserId());
 			request.getSession().setAttribute("userRelateName", user.getName() + " " + user.getSurname() + " " +user.getSecondSurname());
 			return "redirect:/user/creation/relateResponsible";}
 
@@ -185,10 +185,17 @@ public class UserController {
 
 
 	@RequestMapping(value = "/user/creation/relateResponsible", method = RequestMethod.GET)
-	public ModelAndView relateUsers(){
+	public ModelAndView relateUsers(HttpServletRequest request){
+		String userId = (String)request.getSession().getAttribute("userRelate");
 		ModelAndView model = new ModelAndView("system/selectResponsible");
-		model.addObject("users", userService.getAllUsersWithRole(Role.RESPONSIBLE));
+		RoleStudent roleStudent = userService.getStudentWithResponsibles("22");
+		model.addObject("responsibles", roleStudent.getResponsibles());
+		return model;
+	}
 
+	@RequestMapping(value = "/user/searchResponsible", method = RequestMethod.GET)
+	public ModelAndView searchResponsible(HttpServletRequest request){
+		ModelAndView model = new ModelAndView("system/searchResponsible");
 		return model;
 	}
 
@@ -221,7 +228,7 @@ public class UserController {
 		//get child and delete session var
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		String childUsername = (String)request.getSession().getAttribute("userRelate");
-		User userChild = userService.getUserByUsername(childUsername);
+		User userChild = userService.getUserById(childUsername);
 
 
 		//get responsibles
@@ -251,12 +258,12 @@ public class UserController {
 
 		//get child and delete session var
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		String username = (String)request.getSession().getAttribute("userRelate");
+		String userId = (String)request.getSession().getAttribute("userRelate");
 		request.getSession().removeAttribute("userRelate");
 		request.getSession().removeAttribute("userRelateName");
 
 
-		User student = userService.getUserByUsername(username);
+		User student = userService.getUserById(userId);
 
 		student.setGroup(groupService.getClassGroupById(groupId));
 

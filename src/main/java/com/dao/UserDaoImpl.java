@@ -66,12 +66,6 @@ public class UserDaoImpl implements UserDao {
 		return users;
 	}
 
-	public List<RoleResponsible> getAllResponsibles() {
-		Session session = sessionFactory.openSession();
-		List<RoleResponsible> responsibles =  session.getNamedQuery("RoleResponsible.getAllRoleResponsible").list();
-		session.close();
-		return responsibles;
-	}
 
 	public User getAllUserTickets() {
 		Session session = sessionFactory.openSession();
@@ -318,4 +312,21 @@ public class UserDaoImpl implements UserDao {
 		return responsibles;
 	}
 
+	public List<RoleResponsible> getAllResponsibles() {
+		Session session = sessionFactory.openSession();
+		List<RoleResponsible> responsibles =  session.getNamedQuery("RoleResponsible.getAllRoleResponsible").list();
+		session.close();
+		return responsibles;
+	}
+
+
+	//-------------------- STUDENTS --------------------
+
+
+	public RoleStudent getStudentWithResponsibles(String userId) {
+		Session session = sessionFactory.openSession();
+		RoleStudent student =  (RoleStudent) session.getNamedQuery("RoleStudent.getWithParents").setParameter("userId", userId).uniqueResult();
+		session.close();
+		return student;
+	}
 }

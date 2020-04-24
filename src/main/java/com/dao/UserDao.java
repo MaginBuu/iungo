@@ -60,10 +60,15 @@ public interface UserDao {
 
 	List<RoleTeacher> getAllTeachers();
 
-
 	//RESPONSIBLES
 
 	List<RoleResponsible> getStudentsResponsibles(List<RoleStudent> students);
+
+	List<RoleResponsible> getAllResponsibles();
+
+	//STUDENT
+
+	RoleStudent getStudentWithResponsibles(String userId);
 
 
 }

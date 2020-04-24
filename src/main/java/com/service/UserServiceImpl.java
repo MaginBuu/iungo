@@ -85,9 +85,14 @@ public class UserServiceImpl implements UserService {
 
 	public List<RoleTeacher> getAllTeachers() { return userDao.getAllTeachers(); }
 
-
 	//RESPONSIBLES
 
 	public List<RoleResponsible> getStudentsResponsibles(List<RoleStudent> students) { return userDao.getStudentsResponsibles(students); }
+
+	public List<RoleResponsible> getAllResponsibles() { return userDao.getAllResponsibles(); }
+
+	//STUDENTS
+
+	public RoleStudent getStudentWithResponsibles(String userId) { return userDao.getStudentWithResponsibles(userId); }
 
 }
