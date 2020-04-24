@@ -1,10 +1,13 @@
 package com.model;
 
+import com.model.enums.Term;
 import com.model.enums.WeekDay;
 import com.model.utilities.Hour;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,17 +29,25 @@ public class Evaluation implements Serializable {
 
     @Column(name = "TERM")
     //@NotNull
-    private String term;
+    private Term term;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "SUBJECT_ID")
-    private Subject subjectEvaluation;
+    @Column(name = "VISIBILITY_DATE")
+    //@NotNull
+    private Date visibilityDate;
 
-    public Evaluation() {
+    @OneToMany(mappedBy="evaluation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserSubject> userSubjects;
+
+    public void setTerm(Term term) {
+        this.term = term;
     }
 
-    public Evaluation(String term) {
-        this.term = term;
+    public List<UserSubject> getUserSubjects() {
+        return userSubjects;
+    }
+
+    public void setUserSubjects(List<UserSubject> userSubjects) {
+        this.userSubjects = userSubjects;
     }
 
     public String getEvaluationId() {
@@ -47,11 +58,12 @@ public class Evaluation implements Serializable {
         this.evaluationId = evaluationId;
     }
 
-    public String getTerm() {
-        return term;
+    public Date getVisibilityDate() {
+        return visibilityDate;
     }
 
-    public void setTerm(String name) {
-        this.term = name;
+    public void setVisibilityDate(Date visibilityDate) {
+        this.visibilityDate = visibilityDate;
     }
+
 }

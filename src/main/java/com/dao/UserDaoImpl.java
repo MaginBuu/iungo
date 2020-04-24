@@ -329,4 +329,12 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return student;
 	}
+
+	public ClassGroup getGroupByTutor(String tutorId){
+		Session session = sessionFactory.openSession();
+		RoleTutor tutor = (RoleTutor) session.getNamedQuery("RoleTutor.findByIdWithGroup").setParameter("tutorId", tutorId).uniqueResult();
+		ClassGroup group =  (ClassGroup) session.getNamedQuery("ClassGroup.findByIdWithStudents").setParameter("id", tutor.getGroup().getGroupId()).uniqueResult();
+		session.close();
+		return group;
+	}
 }

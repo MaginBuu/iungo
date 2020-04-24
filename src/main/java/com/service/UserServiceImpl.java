@@ -95,4 +95,6 @@ public class UserServiceImpl implements UserService {
 
 	public RoleStudent getStudentWithResponsibles(String userId) { return userDao.getStudentWithResponsibles(userId); }
 
+	public ClassGroup getGroupByTutor(String tutorId) { return userDao.getGroupByTutor(tutorId); }
+
 }

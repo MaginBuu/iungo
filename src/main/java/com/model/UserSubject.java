@@ -19,14 +19,18 @@ public class UserSubject implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "SUBJECT_ID")
     private Subject subject;
 
-    @Column(name = "GRADE")
+    @Column(name = "FINAL_GRADE")
     private float grade;
 
     @Column(name = "OBSERVATIONS")
     private String observations;
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "EVALUATION_ID")
+    private Evaluation evaluation;
 
 
     public UserSubject(){}

@@ -67,4 +67,6 @@ public interface UserService {
 
 	RoleStudent getStudentWithResponsibles(String userId);
 
+	ClassGroup getGroupByTutor(String tutorId);
+
 }
