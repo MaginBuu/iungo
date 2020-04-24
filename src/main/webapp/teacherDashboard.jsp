@@ -41,7 +41,7 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-university icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/class">
                         <h3 class="name">Class</h3></a>
                 </div>
             </div>

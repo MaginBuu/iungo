@@ -5,7 +5,10 @@ import com.model.User;
 import com.model.enums.Role;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.Authenticator;
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 public class SystemController {
@@ -54,7 +59,18 @@ public class SystemController {
         try {
             role = authentication.getAuthorities().toArray()[0].toString();
         }catch (Exception e){
-            return "redirect:/student";
+
+            List<SimpleGrantedAuthority> updatedAuthorities = new LinkedList<>();
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Role.TEACHER.toString());
+            updatedAuthorities.add(authority);
+
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(
+                            SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+                            SecurityContextHolder.getContext().getAuthentication().getCredentials(),
+                            updatedAuthorities)
+            );
+            return "redirect:/teacher";
         }
 
         if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString()) || role.equals(Role.TEACHER.toString()))
