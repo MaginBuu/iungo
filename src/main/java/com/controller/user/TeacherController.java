@@ -179,6 +179,18 @@ public class TeacherController {
         }
     }
 
+    //-------------------------------------------------- INICI DE POSAR FALTES SECRETARIA
+
+    @RequestMapping(value = "/teacher/select/group")
+    public ModelAndView groupSelectAccess() {
+
+        ModelAndView model = new ModelAndView("/selectGroup");
+
+        return model;
+
+    }
+
+    //-------------------------------------------------- INICI DE MODIFICAR ASSIGNATURA PROFE PER CREAR TASCA
     @RequestMapping(value = "/teacher/subjects")
     public ModelAndView teacherSubjectsAccess() {
 
@@ -300,17 +312,6 @@ public class TeacherController {
         }
     }
 
-    @RequestMapping(value = "/teacher/select/group")
-    public ModelAndView groupSelectAccess() {
-
-            ModelAndView model = new ModelAndView("/selectGroup");
-
-            return model;
-
-    }
-
-
-
     @RequestMapping(value = "/teacher/task/evaluate/{taskId}")
     public ModelAndView testTask(@PathVariable("taskId") String taskId) {
 
@@ -339,6 +340,8 @@ public class TeacherController {
         }
 
         return "redirect:/teacher/subjects/"+subjectId+".do";
-
     }
+
+    //-------------------------------------------------- INICI D'AVALUAR ALUMNE
+
 }

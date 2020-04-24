@@ -3,6 +3,8 @@ package com.model.enums;
 public enum Typology {
     PHYSICS_LABORATORY,
     CHEMICAL_LABORATORY,
+REGULAR_CLASSROOM,
+SPECIAL_SPACE,
     MUSIC_CLASSROOM,
     COMPUTER_CLASSROOM;
 }

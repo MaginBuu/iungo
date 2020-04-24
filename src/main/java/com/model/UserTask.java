@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Table(name = "user_task")
 @NamedQueries({
         @NamedQuery(name = "UserTask.findUserTaskByTaskId", query = "SELECT c FROM UserTask c WHERE c.task.taskId = :taskId"),
         @NamedQuery(name = "UserTask.findByUserAndSubject", query = "SELECT c FROM UserTask c where c.task.chapter.subject.subjectId =:subjectId and c.student.userR.userId =:userId"),

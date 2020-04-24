@@ -30,7 +30,7 @@
 				<!-- hibernate mapping to database automatically -->
 				<!-- when we use create-drop instead of update the table is created automatically
 					when the server runs after that it will drop when server stops -->
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 
 				<!-- whether the query wants to show the data in console -->
 				<prop key="hibernate.show_sql">true</prop>
@@ -56,6 +56,7 @@
 				<value>com.model.RoleResponsible</value>
 				<value>com.model.RoleStudent</value>
 				<value>com.model.RoleTeacher</value>
+				<value>com.model.RoleTutor</value>
 				<value>com.model.RoleSecretary</value>
 				<value>com.model.RoleAdmin</value>
 				<value>com.model.RoleClass</value>

@@ -21,25 +21,6 @@
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
-<script type="text/javascript">
-    function Validate() {
-        return true;
-    }
-
-    //triggered when modal is about to be shown
-    function deleteClicked(subjectId, subjectName) {
-        var hiddenInput = jQuery('#elementId');
-        var deleteText = jQuery('#deleteText');
-        deleteText.html("Do you really want to delete the subject <\strong>" + subjectName + "</strong>? This process cannot be undone.")
-        hiddenInput.val(subjectId);
-    }
-
-    function deleteElement() {
-        var hiddenInput = jQuery('#elementId');
-        window.location.href = '/subject/delete?subjectId=' + hiddenInput.val();
-    }
-</script>
-
 <body>
 <%@ include file="navbar.jsp" %>
 <form:form method="post" action="/teacher/task/saveEvaluation/${subjectId}/${taskInfo.taskId}" modelAttribute="taskList">

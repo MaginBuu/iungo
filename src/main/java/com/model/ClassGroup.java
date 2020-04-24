@@ -54,6 +54,10 @@ public class ClassGroup implements Serializable {
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RoleStudent> students;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TUTOR_ID")
+    private RoleTutor tutor;
+
     public ClassGroup() { }
 
     public ClassGroup(String name, Stage stage, int level, String group) {
@@ -111,6 +115,14 @@ public class ClassGroup implements Serializable {
 
     public void setStudents(List<RoleStudent> students) {
         this.students = students;
+    }
+
+    public RoleTutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(RoleTutor tutor) {
+        this.tutor = tutor;
     }
 
     @Override

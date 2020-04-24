@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "user_subject")
 @NamedQueries({
         @NamedQuery(name = "UserSubject.findByUserAndSubject", query = "SELECT c FROM UserSubject c where c.subject.subjectId =:subjectId and c.student.userR.userId =:userId"),
 

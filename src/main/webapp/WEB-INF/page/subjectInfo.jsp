@@ -80,6 +80,7 @@
             <button class="btn btn-light submit-button" type="submit" value="addTeacher" name="buttonName"
                     id="addTeacher" onclick="return Validate()">Add Task
             </button>
+            </form>
         </div>
     </div>
 </div>
