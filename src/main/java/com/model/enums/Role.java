@@ -1,6 +1,6 @@
 package com.model.enums;
 
-public enum gRole {
+public enum Role {
     STUDENT,
     TEACHER,
     SECRETARY,

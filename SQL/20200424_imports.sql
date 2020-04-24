@@ -7385,3 +7385,60 @@ INSERT INTO public.timelines (timeline_id, finishing_hour, starting_hour, weekda
 INSERT INTO public.notifications (notification_id, date, description, pending, title, user_id) VALUES ('1', '04/12/2020', 'Dades actualitzades correctament', true, 'Actualització', '1');
 INSERT INTO public.notifications (notification_id, date, description, pending, title, user_id) VALUES ('2', '04/05/2020', 'Sortida al Castell de Miravet pels alumnes de 4 de la ESO', false, 'Recordatori excursió', '1');
 
+--
+-- TASK
+--
+
+INSERT INTO public.task (task_id, date, deadline, description, task_type, title, value, chapter_id) VALUES ('1', '2020-04-24 10:26:38.129', '2020-06-16 10:00:00', 'Inclou:
+-Diacrítics
+-Tirant Lo Blanc', 0, 'Test del Tema 1', 15, '1');
+INSERT INTO public.task (task_id, date, deadline, description, task_type, title, value, chapter_id) VALUES ('2', '2020-04-24 10:38:59.631', '2020-06-16 11:00:00', 'Inclou:
+-Diacrítics
+-Tirant Lo Blanc', 0, 'Test del Tema 1', 15, '7');
+
+--
+-- USER TASK
+--
+
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (10, 'Excel·lent examen Mònica!', '1', '0');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (9.5, 'Molt bé Isona, segueix així', '1', '541');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (4, 'Justin no has estudiat gaire, has de repassar més', '1', '542');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (5, 'Segueix millorant, ànims', '1', '543');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (7, 'Molt bé', '1', '544');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (6, 'Selene, hauries de parlar menys a classe i treuries millors notes', '1', '545');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (9, 'Molt bé Guillem', '1', '546');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (8, 'Molt bé Glòria', '1', '547');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (5, 'Més constància!', '1', '548');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (7, 'Marina, bon resum del llibre!', '1', '549');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (6.5, 'Hem de millorar!', '1', '550');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (8.5, 'Alexandra, com sempre, molt bé', '1', '551');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (7, 'Molt be Eugene', '1', '552');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (10, 'Res a dir, molt bé Gemma', '1', '553');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (7.5, 'Molt bé Aniol', '1', '554');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (8, 'Antònia vigila les faltes!', '1', '555');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (3, 'Hem de parlar', '1', '556');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (6, 'Hana, vigila amb l''accentuació', '1', '557');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (7, 'Força bé', '1', '558');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (8.5, 'Molt bé Alex!', '1', '559');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (5, 'Gilbert, roçant el límit...', '1', '560');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '561');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '562');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '563');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '564');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '565');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '566');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '567');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '568');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '569');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '570');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '571');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '572');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '573');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '574');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '575');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '576');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '577');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '578');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '579');
+INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '580');
+
