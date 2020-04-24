@@ -1,7 +1,9 @@
 package com.dao;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.model.*;
 import com.model.enums.Department;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import sun.awt.image.ImageWatched;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +26,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.openSession();
 		List<User> users =  session.getNamedQuery("Users.findAll").list();
@@ -36,13 +39,33 @@ public class UserDaoImpl implements UserDao {
 
 	public List<User> getAllUsersWithRole(Role role) {
 		Session session = sessionFactory.openSession();
-		List<User> users =  session.getNamedQuery("Users.findAllWithRole").setParameter("role", role).list();
-		for(User u : users){
-			System.out.println(u.getName());
+		List<User> users;
+		//List<User> users =  session.getNamedQuery("RoleClass.findAllWithRole").setParameter("role", role).list();
+		switch (role){
+			case RESPONSIBLE:
+				users =  session.getNamedQuery("RoleResponsible.getAll").list();
+				break;
+			case STUDENT:
+				users =  session.getNamedQuery("RoleStudent.getAll").list();
+				break;
+			case TEACHER:
+				users =  session.getNamedQuery("RoleTeacher.getAll").list();
+				break;
+			case ADMIN:
+				users =  session.getNamedQuery("RoleAdmin.getAll").list();
+				break;
+			case SECRETARY:
+				users =  session.getNamedQuery("RoleSecretary.getAll").list();
+				break;
+			default:
+				users =  session.getNamedQuery("RoleClass.findAllWithRole").setParameter("role", role).list();
+				break;
+
 		}
 		session.close();
 		return users;
 	}
+
 
 	public User getAllUserTickets() {
 		Session session = sessionFactory.openSession();
@@ -62,8 +85,6 @@ public class UserDaoImpl implements UserDao {
 
 	public User getAllUserRoles(String id) {
 		Session session = sessionFactory.openSession();
-		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		//User user = (User)request.getSession().getAttribute("user");
 		User userWithRoles = (User) session.getNamedQuery("Users.findAllWithRoles").setParameter("id", id).uniqueResult(); //user.getUserId()
 		session.close();
 		return userWithRoles;
@@ -98,6 +119,13 @@ public class UserDaoImpl implements UserDao {
 			session.close();
 		}
 
+	}
+
+	public Authorities getAuthoritiesByEmail(String email) {
+		Session session = sessionFactory.openSession();
+		Authorities auth = (Authorities) session.getNamedQuery("Authorities.getByEmail").setParameter("emailId", email ).uniqueResult();
+		session.close();
+		return auth;
 	}
 
 	public void addUser(User user) {
@@ -268,5 +296,37 @@ public class UserDaoImpl implements UserDao {
 		List<RoleTeacher> teachers = session.getNamedQuery("RoleTeacher.findAll").list();
 		session.close();
 		return teachers;
+	}
+
+
+
+
+
+	//-------------------- RESPONSIBLES --------------------
+
+
+	public List<RoleResponsible> getStudentsResponsibles(List<RoleStudent> students){
+		Session session = sessionFactory.openSession();
+		List<RoleResponsible> responsibles = (List<RoleResponsible>) session.getNamedQuery("RoleResponsible.getResponsibles").uniqueResult();
+		session.close();
+		return responsibles;
+	}
+
+	public List<RoleResponsible> getAllResponsibles() {
+		Session session = sessionFactory.openSession();
+		List<RoleResponsible> responsibles =  session.getNamedQuery("RoleResponsible.getAllRoleResponsible").list();
+		session.close();
+		return responsibles;
+	}
+
+
+	//-------------------- STUDENTS --------------------
+
+
+	public RoleStudent getStudentWithResponsibles(String userId) {
+		Session session = sessionFactory.openSession();
+		RoleStudent student =  (RoleStudent) session.getNamedQuery("RoleStudent.getWithParents").setParameter("userId", userId).uniqueResult();
+		session.close();
+		return student;
 	}
 }

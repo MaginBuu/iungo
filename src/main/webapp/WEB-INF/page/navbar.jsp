@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,11 @@
 
     <link rel="stylesheet" href="/resource/fonts/index/font-awesome.min.css">
     <link rel="stylesheet" href="/resource/css/index/navigationStyle.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
 
 </head>
 
@@ -78,9 +84,38 @@
             console.log("Error Ajax");
         });
     }
+
+    function loadRoles(){
+        console.log("roles loaded");
+        $.ajax({
+            type: "GET",
+            url: "/user/roles",
+            dataType: "json",
+            contentType: 'application/json',
+            data: {
+            }, //aqui es passen els parametres
+            success: function (data) {
+                $.each(data, function (index, current) {
+                    console.log(current);
+                    $("#dropdown-menu").append('<a class="dropdown-item" href="#" onclick="roleChanged(\'' + current + '\')">' + current.substring(0, 1) + current.substring(1, current.length).toLowerCase() + '</a>');
+                });
+            }
+        }).done(function () {
+
+        }).fail(function () {
+            console.log("Error Ajax");
+        });
+    }
+
+    function roleChanged(role){
+        console.log("rolechanged");
+        window.location.href = "/user/role?role=" + role;
+    }
+
+
 </script>
 
-<body style="height: 1200px;" onload="loadNotifications()">
+<body style="height: 1200px;" onload="loadNotifications(), loadRoles()">
 <div>
     <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button"
          style="height: 65px;background-color: #de9d3f;color: #ffffff;">
@@ -95,9 +130,15 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" style="color:#ffffff;" href="#">
                             Home</a></li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" style="color: #ffffff;" href="#">
-                            <i class="fa fa-wpexplorer"></i>&nbsp;Explore</a></li>
+                    <c:set var = "authority" value = "${pageContext.request.userPrincipal.authorities}"/>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="roles" style="color: #ffffff;" data-toggle="dropdown" >
+                            ${fn:toUpperCase(fn:substring(authority.toString(),1,2))}${fn:toLowerCase(fn:substring(authority.toString(),2,fn:length(authority.toString()) - 1))}
+                           </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu">
+                        </div>
+                    </li>
                     <li class="nav-item dropdown" role="presentation">
                         <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" style="color: #ffffff;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" onclick="hideNotifications()">
                             <span id="notf-num" class="badge badge-danger ml-2"></span>

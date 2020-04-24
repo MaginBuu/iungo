@@ -1,5 +1,6 @@
 package com.service;
 
+import com.model.ClassGroup;
 import com.model.RoleTeacher;
 import com.model.Subject;
 import com.model.UserSubject;
@@ -26,4 +27,5 @@ public interface SubjectService {
     List<Subject> getByGroup(String groupId);
 
     UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId);
+
 }

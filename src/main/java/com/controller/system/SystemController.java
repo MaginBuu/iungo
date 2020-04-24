@@ -1,8 +1,11 @@
 package com.controller.system;
 
+import com.model.RoleAdmin;
 import com.model.User;
+import com.model.enums.Role;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.Authenticator;
 
 @Controller
 public class SystemController {
@@ -33,6 +37,25 @@ public class SystemController {
     public ModelAndView getAdminPage(){
         return new ModelAndView("../../paginainicialadmin");
     }
+
+
+    //@RequestMapping("/student")
+    //public ModelAndView getStudentPage(){ return new ModelAndView("../../paginainicialadmin"); }
+
+    @RequestMapping("/student")
+    public String getStudentPage(){ return "redirect:/"; }
+
+    @RequestMapping("/role")
+    public String getRolePage(Authentication authentication){
+        String role = authentication.getAuthorities().toArray()[0].toString();
+
+        if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString()))
+            return "redirect:/" + role.toLowerCase();
+
+        return "redirect:/";
+    }
+
+
 
 
     /**

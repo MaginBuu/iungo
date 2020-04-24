@@ -130,11 +130,7 @@ public class ClassGroup implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClassGroup group1 = (ClassGroup) o;
-        return Objects.equals(groupId, group1.groupId) &&
-                Objects.equals(name, group1.name) &&
-                stage == group1.stage &&
-                Objects.equals(level, group1.level) &&
-                Objects.equals(group, group1.group);
+        return Objects.equals(groupId, group1.groupId);
     }
 
     @Override

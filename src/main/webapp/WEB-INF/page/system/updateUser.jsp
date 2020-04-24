@@ -23,8 +23,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
+
 
 
 
@@ -51,9 +57,15 @@
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Second surname:</strong></td>
                     <td><form:input path="secondSurname" data-width="30%" class="form-control" type="text"></form:input></td>
-                    <td style="vertical-align: middle; text-align: right"><strong>Second surname:</strong></td>
-                    <td><form:input path="birth" class="form-control" type="text"></form:input>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></td>
+                    <td style="vertical-align: middle; text-align: right"><strong>Birth:</strong></td>
+                    <td>
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>email:</strong></td>
@@ -185,6 +197,13 @@
             window.location.href = '/subject/delete/' + type+ '?' + type + 'Id=' + hiddenInputId.val() + '&subjectId=' + subjectId;
         }
     }
+
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY',
+        });
+    });
 
 
 </script>
