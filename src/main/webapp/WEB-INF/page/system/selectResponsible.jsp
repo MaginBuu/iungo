@@ -16,10 +16,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-
 
 </head>
 
@@ -30,27 +26,29 @@
         <form class="custom-form" action="/user/creation/selectChild" method="post">
             <h1>Select Responsible for ${sessionScope.userRelateName}</h1>
             <div class="form-row form-group">
-
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th><strong>ID</strong></th>
-                        <th><strong>Name</strong></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody id="myTable">
-                    <c:forEach items="${responsibles}" var="responsible">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 label-column">
+                    <table class="table table-bordered table-striped">
+                        <thead>
                         <tr>
-                            <td style="vertical-align: middle; horiz-align: center">${responsible.userR.userId}</td>
-                            <td style="vertical-align: middle; horiz-align: center">${responsible.userR.name} ${responsible.userR.surname} ${responsible.userR.secondSurname}</td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
-                                                                                      onclick="deleteClicked('${responsible.userR.userId}')"><i
-                                    class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                            <th><strong>ID</strong></th>
+                            <th><strong>Name</strong></th>
+                            <th></th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="myTable">
+                        <c:forEach items="${responsibles}" var="responsible">
+                            <tr>
+                                <td style="vertical-align: middle; horiz-align: center">${responsible.userR.userId}</td>
+                                <td style="vertical-align: middle; horiz-align: center">${responsible.userR.name} ${responsible.userR.surname} ${responsible.userR.secondSurname}</td>
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
+                                                                                          onclick="deleteClicked('${responsible.userR.userId}')"><i
+                                        class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <a class="btn btn-light submit-button" href="/user/searchResponsible">Add new Responsible to the student</a>
             <a class="btn btn-light submit-button" href="/user/creation">Add new Responsible into database</a>
@@ -89,13 +87,7 @@
 
 <script type="text/javascript">
     function relate() {
-        var select = jQuery("#responsible");
-        var responsibles = select.val().toString();
-        if (responsibles == "") {
-            alert("Select a responsible");
-        } else {
-            window.location.href = '/user/creation/setParentalRelationship?responsibles=' + responsibles;
-        }
+        window.location.href = '/creation/relateGroup';
     }
 
     function addResponsible() {
@@ -114,7 +106,6 @@
             window.location.href = '/subject/delete/' + type.toLowerCase()+ '?' + type + 'Id=' + hiddenInputId.val();
 
         }else if(type === 'teacher'){
-            var subjectId = jQuery('#subjectId').val();
             window.location.href = '/ResponsibleRelation/delete/' + type+ '?' + type + 'Id=' + hiddenInputId.val();
         }
     }

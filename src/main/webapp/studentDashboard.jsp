@@ -17,14 +17,14 @@
 <div class="features-boxed">
     <div class="container">
         <div class="intro">
-            <h2 class="text-center">Teacher </h2>
+            <h2 class="text-center">Student </h2>
             <p class="text-center">${pageContext.request.userPrincipal}</p>
         </div>
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-book icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/teacher/subjects">
-                        <h3 class="name">My Subjects</h3></a>
+                <div class="box"><i class="fa fa-life-ring icon"></i>
+                    <a class="nav-link stretched-link" data-toggle="modal" data-target="#myModal">
+                        <h3 class="name">Anti Bullying</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -34,27 +34,27 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
+                <div class="box"><i class="fa fa-book icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/subject/1">
+                        <h3 class="name">Subject</h3></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-lg-4 item">
+                <div class="box"><i class="fa fa-graduation-cap icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/teachers">
+                        <h3 class="name">Teachers </h3></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-bell-o icon"></i>
                     <a class="nav-link stretched-link" style="color:#000000;" href="/user/procedures">
                         <h3 class="name">Procedures </h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-university icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/class">
-                        <h3 class="name">Class</h3></a>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-gavel icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/teacher/evaluate">
-                        <h3 class="name">Evaluation </h3></a>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-bomb icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="">
-                        <h3 class="name">XXX </h3></a>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/teacher/subjects">
+                        <h3 class="name">Teacher </h3></a>
                 </div>
             </div>
         </div>

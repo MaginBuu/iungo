@@ -14,6 +14,7 @@ import org.hibernate.cfg.beanvalidation.GroupsPerOperation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.acl.Group;
 import java.util.*;
 
 @Controller
@@ -190,16 +192,46 @@ public class TeacherController {
 
     }
 
+    @RequestMapping(value = "/class")
+    public ModelAndView getClassObjects(HttpServletRequest request, Authentication authentication) {
+
+        String role = authentication.getAuthorities().toArray()[0].toString();
+        ModelAndView model = new ModelAndView("/class");
+
+        User user = (User)request.getSession().getAttribute("user");
+        if(user==null) user = userService.getUserById("1");
+
+        if(Role.TEACHER.equals(role) || Role.TUTOR.equals(role) || Role.COORDINATOR.equals(role)){
+
+            RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
+            model.addObject("subjects", teacher.getSubjects());
+
+        }else if(Role.SECRETARY.equals(role)){
+            List<ClassGroup> groups = groupService.getAllClassGroup();
+            model.addObject("groups", groups);
+        }else
+            return null;
+
+
+
+        return model;
+
+    }
+
+
+
     //-------------------------------------------------- INICI DE MODIFICAR ASSIGNATURA PROFE PER CREAR TASCA
     @RequestMapping(value = "/teacher/subjects")
-    public ModelAndView teacherSubjectsAccess() {
+    public ModelAndView teacherSubjectsAccess(HttpServletRequest request) {
 
         //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         try {
+            User user = (User)request.getSession().getAttribute("user");
+            if(user==null) user = userService.getUserById("1");
             logger.info("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
 
-            RoleTeacher teacher = userService.getTeacherByIdWithSubjects("1");
+            RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
             List<Subject> subjects = new ArrayList<>();
 
             if (teacher != null && teacher.getSubjects() != null) {
