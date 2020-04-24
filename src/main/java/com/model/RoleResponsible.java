@@ -29,5 +29,8 @@ public class RoleResponsible extends RoleClass {
 
     public void setChild(List<RoleStudent> child) { this.child = child; }
 
-    public void addChild(RoleStudent child){ this.child.add(child); }
+    public void addChild(RoleStudent child){
+        this.child.remove(child);
+        this.child.add(child);
+    }
 }

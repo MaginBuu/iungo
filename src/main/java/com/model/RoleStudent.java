@@ -42,7 +42,10 @@ public class RoleStudent extends RoleClass {
 
     public void setResponsibles(List<RoleResponsible> responsibles) { this.responsibles = responsibles; }
 
-    public void addResponsible(RoleResponsible responsible){ this.responsibles.add(responsible); }
+    public void addResponsible(RoleResponsible responsible){
+        this.responsibles.remove(responsible);
+        this.responsibles.add(responsible);
+    }
 
     public List<UserTask> getUserTasks() { return userTasks; }
 

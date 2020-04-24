@@ -188,7 +188,7 @@ public class UserController {
 	public ModelAndView relateUsers(HttpServletRequest request){
 		String userId = (String)request.getSession().getAttribute("userRelate");
 		ModelAndView model = new ModelAndView("system/selectResponsible");
-		RoleStudent roleStudent = userService.getStudentWithResponsibles("22");
+		RoleStudent roleStudent = userService.getStudentWithResponsibles(userId);
 		model.addObject("responsibles", roleStudent.getResponsibles());
 		return model;
 	}
@@ -241,7 +241,7 @@ public class UserController {
 		}
 
 		userService.addUser(userChild); // addUser = add or update
-		return "redirect:/user/creation/relateGroup";
+		return "redirect:/user/creation/relateResponsible";
 	}
 
 	@RequestMapping(value = "/user/creation/relateGroup", method = RequestMethod.GET)
@@ -324,5 +324,53 @@ public class UserController {
 
 		return "redirect:/role";
 	}
+
+
+	@RequestMapping("/user/requestResponsibles")
+	public @ResponseBody
+	JSONArray requestResponsibles(@RequestParam("name") String name, @RequestParam("surname") String surrname, @RequestParam("secondSurname") String seconsSurname) {
+		String query = generateQueryResponsible(name, surrname, seconsSurname);
+
+		List<User> responsibles = userService.getQueryResults(query);
+
+		for (User user : responsibles){
+			System.out.println(user);
+		}
+
+
+		JSONArray data = new JSONArray();
+		for(User t : responsibles){
+			JSONObject o = new JSONObject();
+			o.put("id", t.getUserId());
+			o.put("name", t.getName());
+			o.put("surname", t.getSurname());
+			o.put("secondSurname", t.getSecondSurname());
+
+			data.add(o);
+		}
+		return data;
+	}
+
+
+	public String generateQueryResponsible(String name, String surname, String secondSurname) {
+
+		//The substring and uppercase is to match the model name
+
+		String query = "SELECT u.userR FROM RoleResponsible u ";
+		//Checks if name field is empty
+		if(!"".equals(name)) {
+			query += "WHERE LOWER(u.userR.name) LIKE '%" + name.toLowerCase() + "%' ";
+		}if(!"".equals(surname)) {
+			if (!"".equals(name)) query += "AND LOWER(u.userR.surname) LIKE '%" + surname.toLowerCase() + "%' ";
+			else query += "WHERE LOWER(u.userR.surname) LIKE '%" + surname.toLowerCase() + "%' ";
+		}if(!"".equals(secondSurname)) {
+			if (!"".equals(name) || !"".equals(surname)) query += "AND LOWER(u.userR.secondSurname) LIKE '%" + secondSurname.toLowerCase() + "%' ";
+			else query += "WHERE LOWER(u.userR.surname) LIKE '%" + secondSurname.toLowerCase() + "%' ";
+		}
+		query += " ORDER BY u.userR.name, u.userR.surname, u.userR.secondSurname";
+
+		return query;
+	}
+
 
 }
