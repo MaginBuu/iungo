@@ -35,29 +35,32 @@ public class SystemController {
 
     @RequestMapping("/admin")
     public ModelAndView getAdminPage(){
-        return new ModelAndView("../../paginainicialadmin");
+        return new ModelAndView("../../adminDashboard");
     }
 
 
-    //@RequestMapping("/student")
-    //public ModelAndView getStudentPage(){ return new ModelAndView("../../paginainicialadmin"); }
+    @RequestMapping("/student")
+    public ModelAndView getStudentPage(){ return new ModelAndView("../../studentDashboard"); }
 
     @RequestMapping("/teacher")
     public ModelAndView getTeacherPage(){
         return new ModelAndView("../../teacherDashboard");
     }
 
-    @RequestMapping("/student")
-    public String getStudentPage(){ return "redirect:/"; }
 
     @RequestMapping("/role")
     public String getRolePage(Authentication authentication){
-        String role = authentication.getAuthorities().toArray()[0].toString();
+        String role;
+        try {
+            role = authentication.getAuthorities().toArray()[0].toString();
+        }catch (Exception e){
+            return "redirect:/student";
+        }
 
-        if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString()))
+        if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString()) || role.equals(Role.TEACHER.toString()))
             return "redirect:/" + role.toLowerCase();
 
-        return "redirect:/";
+        return "redirect:/student";
     }
 
 
