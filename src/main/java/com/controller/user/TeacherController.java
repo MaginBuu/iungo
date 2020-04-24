@@ -289,21 +289,7 @@ public class TeacherController {
                 taskService.addUserTask(ut);
             }
 
-            /*switch (task.getTaskType().ordinal()){
-                case 0: //Open question
-                case 1: //Test
-
-                    break;
-                case 2: //Survey
-                    break;
-                default:
-                    break;
-            }*/
-
-            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            String referer = request.getHeader("Referer");
-
-            return "redirect:" + referer;
+            return "redirect:/teacher/subjects/"+subjectId+".do";
         } catch (Exception e) {
             logger.error("[" + new Object() {
             }.getClass().getEnclosingMethod().getName() + "] -  Error finding the procedure with id: " + e);
@@ -343,5 +329,11 @@ public class TeacherController {
     }
 
     //-------------------------------------------------- INICI D'AVALUAR ALUMNE
+    @RequestMapping(value = "/teacher/evaluate")
+    public String evaluateGroup() {
+
+
+        return "redirect:";
+    }
 
 }

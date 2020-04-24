@@ -42,6 +42,11 @@ public class SystemController {
     //@RequestMapping("/student")
     //public ModelAndView getStudentPage(){ return new ModelAndView("../../paginainicialadmin"); }
 
+    @RequestMapping("/teacher")
+    public ModelAndView getTeacherPage(){
+        return new ModelAndView("../../teacherDashboard");
+    }
+
     @RequestMapping("/student")
     public String getStudentPage(){ return "redirect:/"; }
 
