@@ -369,11 +369,11 @@ public class TeacherController {
         User user = (User) request.getSession().getAttribute("user");
         ClassGroup group = new ClassGroup();
         if(user == null){ //this is for testing, will be deleted
-             group = userService.getGroupByTutor("t1");
+             group = userService.getGroupByTutor("1");
         }
-        List<RoleStudent> ls = group.getStudents();
+        List<RoleStudent> listStudents = group.getStudents();
 
-        model.addObject("listStudents", ls);
+        model.addObject("listStudents", listStudents);
 
         return model;
     }

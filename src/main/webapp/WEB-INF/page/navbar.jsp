@@ -121,8 +121,7 @@
          style="height: 65px;background-color: #de9d3f;color: #ffffff;">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <i class="fa fa-globe"></i>
-                &nbsp;iUNGO</a>
+                <img src="/resource/img/logo_s_fondo.png" style="width:90px;height:50px;"></a>
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">

@@ -1,5 +1,7 @@
 package com.model;
 
+import com.model.Evaluation;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -31,7 +33,6 @@ public class UserSubject implements Serializable {
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "EVALUATION_ID")
     private Evaluation evaluation;
-
 
     public UserSubject(){}
 

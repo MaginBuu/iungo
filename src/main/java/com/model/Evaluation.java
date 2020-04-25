@@ -18,7 +18,7 @@ import java.util.Objects;
 //             + "WHERE r.id = :id")
 
 })
-public class Term implements Serializable {
+public class Evaluation implements Serializable {
 
     private static final long serialVersionUID = 2681531852204068105L;
     @Id

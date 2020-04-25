@@ -41,11 +41,11 @@
                 <tbody id="myTable">
                 <c:forEach items="${listStudents}" var="student">
                     <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${student.name}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${student.surname}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${student.secondSurname}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/subject/modify/${subject.subjectId}"><i
-                                class="fa fa-gavel" aria-hidden="true"></i> Evaluate</a></td>
+                        <td style="vertical-align: middle; horiz-align: center">${student.userR.name}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${student.userR.surname}</td>
+                        <td style="vertical-align: middle; horiz-align: center">${student.userR.secondSurname}</td>
+                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-info" href="">
+                            <i class="fa fa-gavel" aria-hidden="true"></i> Evaluate</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
