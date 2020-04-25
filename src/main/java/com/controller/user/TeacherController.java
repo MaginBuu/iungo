@@ -409,11 +409,21 @@ public class TeacherController {
     }
 
     //-------------------------------------------------- INICI D'AVALUAR ALUMNE
+
     @RequestMapping(value = "/teacher/evaluate")
-    public String evaluateGroup() {
+    public ModelAndView evaluateGroup(HttpServletRequest request) {
 
+        ModelAndView model = new ModelAndView("/evaluate");
+        User user = (User) request.getSession().getAttribute("user");
+        ClassGroup group = new ClassGroup();
+        if(user == null){ //this is for testing, will be deleted
+             group = userService.getGroupByTutor("1");
+        }
+        List<RoleStudent> listStudents = group.getStudents();
 
-        return "redirect:";
+        model.addObject("listStudents", listStudents);
+
+        return model;
     }
 
 }

@@ -71,6 +71,7 @@
 				<value>com.model.Chapter</value>
 				<value>com.model.Resource</value>
 				<value>com.model.UserSubject</value>
+				<value>com.model.Evaluation</value>
 			</list>
 		</property>
 
