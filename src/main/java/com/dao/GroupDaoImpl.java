@@ -2,13 +2,17 @@ package com.dao;
 
 import com.model.ClassGroup;
 import com.model.Subject;
+import com.model.enums.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 @Repository
@@ -61,4 +65,29 @@ public class GroupDaoImpl implements GroupDao {
         session.close();
         return cg;
     }
+
+    public List<Integer> getLevelsByStage(Stage stage) {
+        Session session = sessionFactory.openSession();
+        Set<Integer> levelsSet = new HashSet<>(session.getNamedQuery("ClassGroup.findLevelsByStage").setParameter("stage", stage).list());
+        List<Integer> levels = new LinkedList<>(levelsSet);
+        session.close();
+        return levels;
+    }
+
+    public List<String> getGroupsByStageAndLevel(Stage stage, int level) {
+        Session session = sessionFactory.openSession();
+        List<String> groups = session.getNamedQuery("ClassGroup.findGroupsByStageAndLevel").setParameter("stage", stage).setParameter("level", level).list();
+        session.close();
+        return groups;
+    }
+
+    public ClassGroup getGroupsByStageAndLevelAndGroupAndCourse(ClassGroup groupTmp) {
+        Session session = sessionFactory.openSession();
+        ClassGroup group = (ClassGroup) session.getNamedQuery("ClassGroup.findGroupByStageAndLevelAndGroupAndCourse").setParameter("stage", groupTmp.getStage()).setParameter("level", groupTmp.getLevel())
+                            .setParameter("group", groupTmp.getGroup()).setParameter("course", groupTmp.getCourse()).uniqueResult();
+        session.close();
+        return group;
+    }
+
+
 }

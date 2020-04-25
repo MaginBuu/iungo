@@ -15,6 +15,12 @@ import java.util.Objects;
         @NamedQuery(name = "ClassGroup.findAll", query = "SELECT g FROM ClassGroup g"),
         @NamedQuery(name = "ClassGroup.findById", query = "SELECT g FROM ClassGroup g WHERE g.groupId = :id"),
         @NamedQuery(name = "ClassGroup.findByIdWithStudents", query = "SELECT g FROM ClassGroup g LEFT JOIN FETCH g.students s WHERE g.groupId = :id"),
+        @NamedQuery(name = "ClassGroup.findLevelsByStage", query = "SELECT g.level FROM ClassGroup g WHERE g.stage =:stage"),
+        @NamedQuery(name = "ClassGroup.findGroupsByStageAndLevel", query = "SELECT g.group FROM ClassGroup g WHERE g.stage =:stage AND g.level =:level"),
+        @NamedQuery(name = "ClassGroup.findGroupByStageAndLevelAndGroupAndCourse", query = "SELECT g FROM ClassGroup g WHERE g.stage =:stage AND g.level =:level AND g.group =:group AND g.course =:course"),
+
+
+
 //             + "LEFT JOIN Tenant te ON te.room = r.id"
 //             + "WHERE r.id = :id")
 

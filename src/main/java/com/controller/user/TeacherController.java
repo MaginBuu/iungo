@@ -3,10 +3,8 @@ package com.controller.user;
 import com.model.*;
 import com.model.encapsulators.UserTaskEncapsulator;
 import com.model.enums.Role;
-import com.service.GroupService;
-import com.service.SubjectService;
-import com.service.TaskService;
-import com.service.UserService;
+import com.model.enums.Stage;
+import com.service.*;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,6 +41,9 @@ public class TeacherController {
 
     @Autowired
     GroupService groupService;
+
+    @Autowired
+    CourseService courseService;
 
     /**
      * Looks for the timelines of a certain teacher given an id.
@@ -186,13 +187,26 @@ public class TeacherController {
     @RequestMapping(value = "/teacher/select/group")
     public ModelAndView groupSelectAccess() {
 
-        ModelAndView model = new ModelAndView("/selectGroup");
+        ModelAndView model = new ModelAndView("/selectGroup", "group", new ClassGroup());
 
         return model;
 
     }
 
-    @RequestMapping(value = "/class")
+
+    @RequestMapping(value = "/teacher/getStudentsGroup", method = RequestMethod.GET)
+    public ModelAndView getStudentsGroup(@Valid @ModelAttribute(value = "group") ClassGroup group) {
+
+        Course course = courseService.findByDate(Calendar.getInstance().get(Calendar.YEAR) - 1);
+        group.setCourse(course);
+        group = groupService.getGroupsByStageAndLevelAndGroupAndCourse(group);
+        List<User> studentsGroup = userService.getStudentsByGroup(group.getGroupId());
+
+        return new ModelAndView("/putStudentIncidences", "students", studentsGroup);
+
+    }
+
+    @RequestMapping(value = "/teacher/class")
     public ModelAndView getClassObjects(HttpServletRequest request, Authentication authentication) {
 
         String role = authentication.getAuthorities().toArray()[0].toString();
@@ -201,21 +215,55 @@ public class TeacherController {
         User user = (User)request.getSession().getAttribute("user");
         if(user==null) user = userService.getUserById("1");
 
-        if(Role.TEACHER.equals(role) || Role.TUTOR.equals(role) || Role.COORDINATOR.equals(role)){
+        if(Role.TEACHER.toString().equals(role) || Role.TUTOR.toString().equals(role) || Role.COORDINATOR.toString().equals(role)){
 
             RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
             model.addObject("subjects", teacher.getSubjects());
 
-        }else if(Role.SECRETARY.equals(role)){
+        }else if(Role.SECRETARY.toString().equals(role)){
             List<ClassGroup> groups = groupService.getAllClassGroup();
             model.addObject("groups", groups);
         }else
             return null;
 
-
-
         return model;
 
+    }
+
+    @RequestMapping(value = "/getLevelsByStage", method = RequestMethod.GET)
+    public @ResponseBody
+    JSONArray getLevels(@RequestParam("stage") Stage stage) {
+
+        logger.info("[" + new Object() {
+        }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+        List<Integer> levels = groupService.getLevelsByStage(stage);
+
+        JSONArray data = new JSONArray();
+
+        for(Integer level : levels)
+            data.add(level);
+
+
+        return data;
+    }
+
+    @RequestMapping(value = "/getGroupsByStageAndLevel", method = RequestMethod.GET)
+    public @ResponseBody
+    JSONArray getGroups(@RequestParam("stage") Stage stage, @RequestParam("level") int level) {
+
+        logger.info("[" + new Object() {
+        }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+        List<String> groups = groupService.getGroupsByStageAndLevel(stage, level);
+
+        JSONArray data = new JSONArray();
+
+        for(String group : groups)
+            data.add(group);
+
+
+        return data;
     }
 
 
