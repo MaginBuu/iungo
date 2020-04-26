@@ -312,6 +312,13 @@ public class UserDaoImpl implements UserDao {
 		return responsibles;
 	}
 
+	public List<RoleResponsible> getStudentResponsibles(String userId){
+		Session session = sessionFactory.openSession();
+		List<RoleResponsible> responsibles = session.getNamedQuery("RoleStudent.getResponsibles").setParameter("userId", userId).list();
+		session.close();
+		return responsibles;
+	}
+
 	public List<RoleResponsible> getAllResponsibles() {
 		Session session = sessionFactory.openSession();
 		List<RoleResponsible> responsibles =  session.getNamedQuery("RoleResponsible.getAllRoleResponsible").list();

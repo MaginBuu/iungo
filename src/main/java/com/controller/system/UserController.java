@@ -304,7 +304,6 @@ public class UserController {
 		return data;
 	}
 
-	// FOR TESTING, WILL BE DELETED SOON
 	@RequestMapping(value = "/user/role")
 	public String setRole(@RequestParam String role){
 

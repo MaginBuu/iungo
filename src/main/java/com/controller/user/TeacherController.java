@@ -1,6 +1,7 @@
 package com.controller.user;
 
 import com.model.*;
+import com.model.encapsulators.Incidence;
 import com.model.encapsulators.UserTaskEncapsulator;
 import com.model.enums.Role;
 import com.model.enums.Stage;
@@ -20,6 +21,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.acl.Group;
@@ -44,6 +46,9 @@ public class TeacherController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    ProcedureService procedureService;
 
     /**
      * Looks for the timelines of a certain teacher given an id.
@@ -265,6 +270,47 @@ public class TeacherController {
 
         return data;
     }
+
+
+    @RequestMapping(value = "/teacher/incidence", method = RequestMethod.GET)
+    public ModelAndView getIncidenceForm(@RequestParam String userId){
+
+        User user = userService.getUserById(userId);
+
+        Incidence incidence = new Incidence();
+        incidence.setUser(user);
+
+        return new ModelAndView("createIncidence", "incidence", incidence);
+
+    }
+
+
+    @RequestMapping(value = "/incidence/creation", method = RequestMethod.POST)
+    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence, BindingResult result){
+
+        User user = userService.getUserById(incidence.getUser().getUserId());
+
+        String title = user.getFullName() + " - " + incidence.getFaultType().toString().toLowerCase() + " fault";
+        String description = incidence.getDescription() + "\nthis fault has been commited at " + new Date();
+
+        List<RoleResponsible> responsibles = userService.getStudentResponsibles(user.getUserId());
+
+        Procedure procedure = new Procedure(title, description, true, new Date(2099, 1, 1));
+
+        for(RoleResponsible responsible : responsibles){
+            procedure.setUserP(responsible.getUserR());
+            procedureService.addProcedure(procedure);
+
+            procedure = procedure.clone();
+
+        }
+
+
+
+        return "redirect:/";
+
+    }
+
 
 
 

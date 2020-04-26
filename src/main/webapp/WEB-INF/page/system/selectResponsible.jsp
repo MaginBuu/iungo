@@ -87,7 +87,7 @@
 
 <script type="text/javascript">
     function relate() {
-        window.location.href = '/creation/relateGroup';
+        window.location.href = '/user/creation/relateGroup';
     }
 
     function addResponsible() {

@@ -37,7 +37,7 @@
                         <c:forEach items="${students}" var="student">
                             <tr>
                                 <td style="vertical-align: middle; horiz-align: center">${student.name} ${student.surname} ${student.secondSurname}</td>
-                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${student.userId}')">
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/teacher/incidence?userId=${student.userId}">
                                                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Set incidence</a></td>
                             </tr>
                         </c:forEach>
