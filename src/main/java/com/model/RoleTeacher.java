@@ -13,7 +13,7 @@ import java.util.List;
         @NamedQuery(name = "RoleTeacher.findById", query = "SELECT o FROM RoleTeacher o WHERE o.userR.userId = :id"),
         @NamedQuery(name = "RoleTeacher.findByIdWithTimelines", query = "SELECT o FROM RoleTeacher o LEFT JOIN FETCH o.timelines i WHERE o.userR.userId = :id"),
         @NamedQuery(name = "RoleTeacher.findByIdWithSubjects", query = "SELECT o FROM RoleTeacher o LEFT JOIN FETCH o.subjects i WHERE o.userR.userId = :id AND i.name <> 'consultation_hours'"),
-        @NamedQuery(name = "RoleTeacher.getAll", query ="SELECT o.userR FROM RoleTeacher o"),
+        @NamedQuery(name = "RoleTeacher.getAll", query ="SELECT o.userR FROM RoleTeacher o ORDER BY o.userR.name, o.userR.surname, o.userR.secondSurname"),
         @NamedQuery(name = "RoleTeacher.findAll", query = "SELECT o FROM RoleTeacher o"),
 })
 public class RoleTeacher extends RoleClass {

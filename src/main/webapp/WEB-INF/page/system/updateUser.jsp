@@ -98,7 +98,9 @@
                 </tr>
                 </tbody>
             </table>
-
+            <c:if test="${user.role eq 'STUDENT'}">
+                <a class="btn btn-light submit-button" href="/user/update/relateResponsible?userId=${user.userId}">Manage Responsibles</a>
+            </c:if>
             <button class="btn btn-light submit-button" type="submit" value="update" name="buttonName" id="update"
                     onclick="return Validate()">Update
             </button>
@@ -178,25 +180,6 @@
         select.selectpicker('refresh');
     }
 
-    function deleteClicked(elementId, elementType) {
-        var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType= jQuery('#elementType');
-        hiddenInputId.val(elementId);
-        hiddenInputType.val(elementType);
-    }
-
-    function deleteElement() {
-        var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType= jQuery('#elementType');
-        var type = hiddenInputType.val()
-        if(type === 'timeLine'){
-            window.location.href = '/subject/delete/' + type.toLowerCase()+ '?' + type + 'Id=' + hiddenInputId.val();
-
-        }else if(type === 'teacher'){
-            var subjectId = jQuery('#subjectId').val();
-            window.location.href = '/subject/delete/' + type+ '?' + type + 'Id=' + hiddenInputId.val() + '&subjectId=' + subjectId;
-        }
-    }
 
 
     $(function () {

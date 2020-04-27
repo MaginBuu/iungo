@@ -3,13 +3,12 @@ package com.controller.user;
 import com.model.*;
 import com.model.encapsulators.Incidence;
 import com.model.encapsulators.UserTaskEncapsulator;
+import com.model.enums.FaultType;
 import com.model.enums.Role;
 import com.model.enums.Stage;
 import com.service.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.cfg.beanvalidation.GroupsPerOperation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.acl.Group;
 import java.util.*;
 
 @Controller
@@ -211,30 +206,6 @@ public class TeacherController {
 
     }
 
-    @RequestMapping(value = "/teacher/class")
-    public ModelAndView getClassObjects(HttpServletRequest request, Authentication authentication) {
-
-        String role = authentication.getAuthorities().toArray()[0].toString();
-        ModelAndView model = new ModelAndView("/class");
-
-        User user = (User)request.getSession().getAttribute("user");
-        if(user==null) user = userService.getUserById("1");
-
-        if(Role.TEACHER.toString().equals(role) || Role.TUTOR.toString().equals(role) || Role.COORDINATOR.toString().equals(role)){
-
-            RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
-            model.addObject("subjects", teacher.getSubjects());
-
-        }else if(Role.SECRETARY.toString().equals(role)){
-            List<ClassGroup> groups = groupService.getAllClassGroup();
-            model.addObject("groups", groups);
-        }else
-            return null;
-
-        return model;
-
-    }
-
     @RequestMapping(value = "/getLevelsByStage", method = RequestMethod.GET)
     public @ResponseBody
     JSONArray getLevels(@RequestParam("stage") Stage stage) {
@@ -291,11 +262,19 @@ public class TeacherController {
         User user = userService.getUserById(incidence.getUser().getUserId());
 
         String title = user.getFullName() + " - " + incidence.getFaultType().toString().toLowerCase() + " fault";
-        String description = incidence.getDescription() + "\nthis fault has been commited at " + new Date();
+        String description = incidence.getDescription();
+
 
         List<RoleResponsible> responsibles = userService.getStudentResponsibles(user.getUserId());
 
-        Procedure procedure = new Procedure(title, description, true, new Date(2099, 1, 1));
+        Calendar c = Calendar.getInstance(); // starts with today's date and time
+        c.add(Calendar.DAY_OF_YEAR, 2);  // advances day by 2
+        Date date = c.getTime(); // gets modified time
+
+
+        Boolean online = incidence.getFaultType().equals(FaultType.ATTENDANCE) ? true : false;
+
+        Procedure procedure = new Procedure(title, description, online, date);
 
         for(RoleResponsible responsible : responsibles){
             procedure.setUserP(responsible.getUserR());
@@ -305,9 +284,11 @@ public class TeacherController {
 
         }
 
+        ClassGroup group = ((RoleStudent) user.getRoles().get(Role.STUDENT)).getGroup();
 
 
-        return "redirect:/";
+
+        return "redirect:/teacher/getStudentsGroup?stage=" + group.getStage() + "&level=" + group.getLevel() + "&group=" + group.getGroup();
 
     }
 

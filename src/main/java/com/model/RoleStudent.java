@@ -13,6 +13,8 @@ import java.util.List;
         @NamedQuery(name = "RoleStudent.getResponsibles", query ="SELECT o.responsibles FROM RoleStudent o WHERE o.userR.userId =:userId "),
         @NamedQuery(name = "RoleStudent.getAll", query ="SELECT o.userR FROM RoleStudent o"),
         @NamedQuery(name = "RoleStudent.getWithParents", query ="SELECT o FROM RoleStudent o LEFT JOIN FETCH o.responsibles WHERE o.userR.userId =:userId"),
+        @NamedQuery(name = "RoleStudents.findStudentsByGroup", query = "SELECT u.userR FROM RoleStudent u WHERE u.group.groupId =:groupId ORDER BY u.userR.name, u.userR.surname, u.userR.secondSurname"),
+
 
 })
 

@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "role_responsible")
 @NamedQueries({
-        @NamedQuery(name = "RoleResponsible.getResponsibles", query ="SELECT o FROM RoleResponsible o JOIN o.child c WHERE c.roleId IN ('21', '22', '23') AND o.child.size > 0 "),
+        @NamedQuery(name = "RoleResponsible.getResponsibles", query ="SELECT o FROM RoleResponsible o JOIN o.child c WHERE c.roleId IN (:students) AND o.child.size > 0 ORDER BY o.userR.name, o.userR.surname, o.userR.secondSurname"),
         @NamedQuery(name = "RoleResponsible.getAll", query ="SELECT o.userR FROM RoleResponsible o"),
         @NamedQuery(name = "RoleResponsible.getAllRoleResponsible", query ="SELECT o FROM RoleResponsible o"),
 
