@@ -72,5 +72,11 @@ public interface UserDao {
 
 	ClassGroup getGroupByTutor(String tutorId);
 
+	RoleStudent getStudentByUserId(String userId);
+
+	//TUOTOR
+
+	List<Evaluation> getEvaluations();
+
 
 }

@@ -37,5 +37,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     public UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId) { return subjectDao.getUserSubjectByUserAndSubject(userId, subjectId); }
 
+    public List<Subject> getByGroupNoTeachers(String groupId) { return subjectDao.getByGroupNoTeachers(groupId); }
+
 
 }

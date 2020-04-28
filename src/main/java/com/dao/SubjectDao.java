@@ -28,4 +28,6 @@ public interface SubjectDao {
 
     UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId);
 
+    List<Subject> getByGroupNoTeachers(String groupId);
+
 }

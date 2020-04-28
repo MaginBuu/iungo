@@ -21,6 +21,7 @@ import java.util.Set;
         @NamedQuery(name = "Subject.findByIdWithAll", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.timeline k LEFT JOIN FETCH s.teachers t WHERE s.subjectId = :id"),
         @NamedQuery(name = "Subject.findByIdWithChapters", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.chapters c WHERE s.subjectId = :id"),
         @NamedQuery(name = "Subject.findByGroupId", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.teachers t WHERE s.subjectGroup.groupId = :id"),
+        @NamedQuery(name = "Subject.findByGroupIdNoTeachers", query ="SELECT s FROM Subject s WHERE s.subjectGroup.groupId = :id"),
         @NamedQuery(name = "Subject.findTeachersBySubjectId", query ="SELECT s FROM Subject s LEFT JOIN FETCH s.teachers t WHERE s.subjectId = :id"),
 
 })

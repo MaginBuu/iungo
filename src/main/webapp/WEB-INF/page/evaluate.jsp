@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/ticket/cards.css">
+    <link rel="stylesheet" href="/resource/css/profile/profileStyle.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
@@ -19,48 +20,86 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </head>
 
 
 <body>
+
+<script type="text/javascript">
+    function Validate() {
+        return true;
+    }
+
+    function evaluateClicked(student) {
+        console.log(student)
+        var hiddenInput = jQuery('#studentId');
+        hiddenInput.val(student);
+    }
+
+    function evaluateStudent() {
+        var hiddenInput = jQuery('#studentId');
+        window.location.href = '/teacher/evaluate/' + hiddenInput.val();
+    }
+</script>
+
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <br><br>
         <div class="container custom-div">
             <h1>Evaluation</h1>
-            <table class="table table-borderless table-striped">
-                <thead>
-                <tr>
-                    <th><strong>Name</strong></th>
-                    <th><strong>Surname</strong></th>
-                    <th><strong>Second Surname</strong></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="myTable">
-                <c:forEach items="${listStudents}" var="student">
-                    <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${student.userR.name}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${student.userR.surname}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${student.userR.secondSurname}</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-info" href="">
-                            <i class="fa fa-gavel" aria-hidden="true"></i> Evaluate</a></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <div class="row justify-content-center features">
+            <c:forEach items="${listStudents}" var="student">
+                <div class="col-sm-6 col-md-5 col-lg-4 item">
+                    <div class="profile_card">
+                        <div class="profile_box">
+                            <div class="img">
+                                <img src="/resource/img/placeholder-profile.jpg">
+                            </div>
+                            <h2>${student.userR.name} ${student.userR.surname} ${student.userR.secondSurname}<br>
+                            </h2>
+                            <a style="margin-top:10px" class="btn btn-light submit-button" href="/" data-toggle="modal" data-target="#myModal"
+                               onclick="evaluateClicked('${student.userR.userId}')">Evaluate</a>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+            </div>
+        </div>
+    </div>
+</div>
+
+!-- Modal HTML -->
+<div id="myModal" name="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title">Select an evaluation</h4>
+                <p id="deleteText">Select an existing evaluation from the list below.</p>
+                <div class="row" style="justify-content: center">
+                    <select class="selectpicker" style="vertical-align: middle;background-color:#ffffff" id="evaluation-pick" name="evaluation-pick">
+                        <c:forEach items="${evaluationList}" var="eval">
+                            <option value="${eval.evaluationId}"><a style="text-transform: lowercase; text-transform: capitalize">${eval.term}</a> term evaluation (${eval.course.startDate}-${eval.course.endDate})</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="studentId" id="studentId" value=""/>
+            <div class="modal-footer">
+                <button type="button" style="vertical-align: middle;" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button style="vertical-align: middle;background-color:#DE9D3F" class="btn btn-light submit-button" data-dismiss="modal" onclick="evaluateStudent()">Evaluate</button>
+            </div>
         </div>
     </div>
 </div>
 
 
-
-<script type="text/javascript">
-    function Validate() {
-        return true;
-    }
-</script>
 </body>
 
 

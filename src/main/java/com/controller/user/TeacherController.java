@@ -372,9 +372,19 @@ public class TeacherController {
              group = userService.getGroupByTutor("1");
         }
         List<RoleStudent> listStudents = group.getStudents();
-
+        List<Evaluation> evaluations = userService.getEvaluations();
         model.addObject("listStudents", listStudents);
+        model.addObject("evaluationList", evaluations);
+        return model;
+    }
 
+    @RequestMapping(value= "/teacher/evaluate/{studentId}")
+    public ModelAndView evaluateStudent(@PathVariable("studentId") String studentId){
+        ModelAndView model = new ModelAndView("/evaluateStudent");
+        RoleStudent rs = userService.getStudentByUserId(studentId);
+        List<Subject> subjectList = subjectService.getByGroupNoTeachers(rs.getGroup().getGroupId());
+        model.addObject("student", rs);
+        model.addObject("subjects", subjectList);
         return model;
     }
 

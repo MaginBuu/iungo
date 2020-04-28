@@ -13,9 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "evaluations")
 @NamedQueries({
-//     @NamedQuery(name = "Room.findById", query = "SELECT r,te.email FROM Room r  "
-//             + "LEFT JOIN Tenant te ON te.room = r.id"
-//             + "WHERE r.id = :id")
+        @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e"),
 
 })
 public class Evaluation implements Serializable {
@@ -37,6 +35,10 @@ public class Evaluation implements Serializable {
 
     @OneToMany(mappedBy="evaluation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserSubject> userSubjects;
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "COURSE_ID")
+    private Course course;
 
     public void setTerm(Term term) {
         this.term = term;
@@ -66,4 +68,15 @@ public class Evaluation implements Serializable {
         this.visibilityDate = visibilityDate;
     }
 
+    public Term getTerm() {
+        return term;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }

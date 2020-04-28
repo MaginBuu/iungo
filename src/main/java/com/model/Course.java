@@ -30,6 +30,9 @@ public class Course {
     @Column(name = "END_DATE")
     private int endDate;
 
+    @OneToMany(mappedBy="course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Evaluation> evaluations;
+
     public Course(int startDate, int endDate) {
         this.startDate = startDate;
         this.endDate = endDate;

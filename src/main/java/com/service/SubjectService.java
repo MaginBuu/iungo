@@ -28,4 +28,6 @@ public interface SubjectService {
 
     UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId);
 
+    List<Subject> getByGroupNoTeachers(String groupId);
+
 }

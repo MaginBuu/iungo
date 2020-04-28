@@ -2,7 +2,10 @@ package com.controller.system;
 
 import com.model.Course;
 import com.model.ClassGroup;
+import com.model.Evaluation;
+import com.model.enums.Term;
 import com.service.CourseService;
+import com.service.EvaluationService;
 import com.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Calendar;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +33,9 @@ public class GroupController {
 	@Autowired
 	CourseService courseService;
 
+	@Autowired
+	EvaluationService evaluationService;
+
 	/**
 	 * Processes the petition to get to the group creation page.
 	 *
@@ -44,6 +51,12 @@ public class GroupController {
 				for (int i = 0; i < 4; i++) {
 					Course course = new Course(year - 1, year);
 					courses.add(course);
+					for(int u = 0; i<4; u++){
+						Evaluation e = new Evaluation();
+						e.setTerm(Term.values()[u]);
+						e.setVisibilityDate(new Date());
+					}
+					evaluationService.addEvaluation(new Evaluation());
 					courseService.addCourse(course);
 					year += 1;
 				}

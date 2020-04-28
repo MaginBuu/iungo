@@ -69,4 +69,10 @@ public interface UserService {
 
 	ClassGroup getGroupByTutor(String tutorId);
 
+	RoleStudent getStudentByUserId(String userId);
+
+	//TUTOR
+
+	List<Evaluation> getEvaluations();
+
 }

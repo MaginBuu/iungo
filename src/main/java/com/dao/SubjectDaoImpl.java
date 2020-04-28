@@ -87,6 +87,13 @@ public class SubjectDaoImpl implements SubjectDao {
         return subject;
     }
 
+    public List<Subject> getByGroupNoTeachers(String groupId){
+        Session session = sessionFactory.openSession();
+        List<Subject> subject = session.getNamedQuery("Subject.findByGroupIdNoTeachers").setParameter("id", groupId).list();
+        session.close();
+        return subject;
+    }
+
     public UserSubject getUserSubjectByUserAndSubject(String userId, String subjectId){
         Session session = sessionFactory.openSession();
         UserSubject userSubject = (UserSubject) session.getNamedQuery("UserSubject.findByUserAndSubject").setParameter("subjectId", subjectId).setParameter("userId", userId).uniqueResult();

@@ -337,4 +337,20 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return group;
 	}
+
+	public RoleStudent getStudentByUserId(String userId) {
+		Session session = sessionFactory.openSession();
+		RoleStudent student =  (RoleStudent) session.getNamedQuery("RoleStudent.getById").setParameter("id", userId).uniqueResult();
+		session.close();
+		return student;
+	}
+
+	//-------------------- TUTOR --------------------
+
+	public List<Evaluation> getEvaluations(){
+		Session session = sessionFactory.openSession();
+		List<Evaluation> evaluations =  session.getNamedQuery("Evaluation.findAll").list();
+		session.close();
+		return evaluations;
+	}
 }
