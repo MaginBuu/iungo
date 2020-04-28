@@ -77,4 +77,6 @@ public interface UserService {
 
 	List<Evaluation> getEvaluations();
 
+	void addUserSubject(UserSubject userSubject);
+
 }

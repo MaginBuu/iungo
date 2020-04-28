@@ -40,9 +40,19 @@
     }
 
     function evaluateStudent() {
-        var hiddenInput = jQuery('#studentId');
-        window.location.href = '/teacher/evaluate/' + hiddenInput.val();
+        var student = jQuery('#studentId');
+        var evaluation = jQuery('#evaluationId');
+        window.location.href = '/teacher/evaluate/' + student.val() + '?evaluationId=' + evaluation.val();
     }
+
+    function selectedEvaluation(){
+        var e = document.getElementById("evaluation-pick");
+        var result = e.options[e.selectedIndex].value;
+        var hiddenInput = jQuery('#evaluationId');
+        hiddenInput.val(result);
+        document.getElementById("continue-btn").disabled = false;
+    }
+
 </script>
 
 <%@ include file="navbar.jsp" %>
@@ -83,17 +93,21 @@
                 <h4 class="modal-title">Select an evaluation</h4>
                 <p id="deleteText">Select an existing evaluation from the list below.</p>
                 <div class="row" style="justify-content: center">
-                    <select class="selectpicker" style="vertical-align: middle;background-color:#ffffff" id="evaluation-pick" name="evaluation-pick">
+                    <select class="selectpicker" data-width="100%" style="vertical-align: middle;" id="evaluation-pick" name="evaluation-pick" onchange="selectedEvaluation()">
+                        <option disabled="disabled" selected="selected" value="">Select an evaluation</option>
                         <c:forEach items="${evaluationList}" var="eval">
-                            <option value="${eval.evaluationId}"><a style="text-transform: lowercase; text-transform: capitalize">${eval.term}</a> term evaluation (${eval.course.startDate}-${eval.course.endDate})</option>
+                            <option value="${eval.evaluationId}" style="color:#000000">
+                                    ${fn:substring(eval.term.toString(),0,1)}${fn:toLowerCase(fn:substring(eval.term.toString(),1,(fn:length(eval.term.toString()))))}
+                                        term evaluation (${eval.course.startDate}-${eval.course.endDate})</option>
                         </c:forEach>
                     </select>
                 </div>
             </div>
             <input type="hidden" name="studentId" id="studentId" value=""/>
+            <input type="hidden" name="evaluationId" id="evaluationId" value=""/>
             <div class="modal-footer">
                 <button type="button" style="vertical-align: middle;" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button style="vertical-align: middle;background-color:#DE9D3F" class="btn btn-light submit-button" data-dismiss="modal" onclick="evaluateStudent()">Evaluate</button>
+                <button id="continue-btn" style="vertical-align: middle;" class="btn btn-light submit-button" disabled="true" data-dismiss="modal" onclick="evaluateStudent()">Evaluate</button>
             </div>
         </div>
     </div>

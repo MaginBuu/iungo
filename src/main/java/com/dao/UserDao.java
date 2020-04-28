@@ -76,9 +76,10 @@ public interface UserDao {
 
 	RoleStudent getStudentByUserId(String userId);
 
-	//TUOTOR
+	//TUTOR
 
 	List<Evaluation> getEvaluations();
 
+	void addUserSubject(UserSubject userSubject);
 
 }

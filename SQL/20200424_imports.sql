@@ -7442,3 +7442,12 @@ INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id
 INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '579');
 INSERT INTO public.user_task (grade, observations, task_task_id, student_role_id) VALUES (0, NULL, '2', '580');
 
+--
+-- EVALUATIONS
+--
+
+INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id) VALUES ('1', 0, '2019-09-29 00:00:00', '1');
+INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id) VALUES ('2', 1, '2019-09-29 00:00:00', '1');
+INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id) VALUES ('3', 2, '2019-09-29 00:00:00', '1');
+INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id) VALUES ('4', 3, '2019-09-29 00:00:00', '1');
+

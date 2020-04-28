@@ -40,6 +40,13 @@ public class Evaluation implements Serializable {
     @JoinColumn(name = "COURSE_ID")
     private Course course;
 
+    public Evaluation() {
+    }
+
+    public Evaluation(String id) {
+        this.evaluationId = id;
+    }
+
     public void setTerm(Term term) {
         this.term = term;
     }
@@ -79,4 +86,5 @@ public class Evaluation implements Serializable {
     public void setCourse(Course course) {
         this.course = course;
     }
+
 }

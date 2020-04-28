@@ -2,6 +2,7 @@ package com.controller.user;
 
 import com.model.*;
 import com.model.encapsulators.Incidence;
+import com.model.encapsulators.UserSubjectEncapsulator;
 import com.model.encapsulators.UserTaskEncapsulator;
 import com.model.enums.FaultType;
 import com.model.enums.Role;
@@ -391,9 +392,9 @@ public class TeacherController {
             ClassGroup cg = groupService.getGroupBySubjectId(subjectId);
             for (RoleStudent s : cg.getStudents()){
                 UserTask ut = new UserTask();
-                ut.setStudent(s);
-                ut.setTask(task);
-                taskService.addUserTask(ut);
+                    ut.setStudent(s);
+                    ut.setTask(task);
+                    taskService.addUserTask(ut);
             }
 
             return "redirect:/teacher/subjects/"+subjectId+".do";
@@ -454,13 +455,42 @@ public class TeacherController {
     }
 
     @RequestMapping(value= "/teacher/evaluate/{studentId}")
-    public ModelAndView evaluateStudent(@PathVariable("studentId") String studentId){
+    public ModelAndView evaluateStudent(@PathVariable("studentId") String studentId, @RequestParam String evaluationId) throws CloneNotSupportedException {
         ModelAndView model = new ModelAndView("/evaluateStudent");
         RoleStudent rs = userService.getStudentByUserId(studentId);
         List<Subject> subjectList = subjectService.getByGroupNoTeachers(rs.getGroup().getGroupId());
+        UserSubject us = new UserSubject();
+        List<UserSubject> userSubjectList = new ArrayList<>();
+        UserSubject usAux = new UserSubject();
+        for(Subject s : subjectList){
+            usAux = subjectService.getUserSubjectByUserAndSubjectAndEvaluation(studentId, s.getSubjectId(), evaluationId);
+            if(usAux == null) {
+                usAux = (UserSubject) us.clone();
+                usAux.setSubject(s);
+            }
+            userSubjectList.add(usAux);
+        }
+        UserSubjectEncapsulator userSubjectEncapsulator = new UserSubjectEncapsulator();
+        userSubjectEncapsulator.setUserSubjects(userSubjectList);
         model.addObject("student", rs);
-        model.addObject("subjects", subjectList);
+        model.addObject("evaluation", evaluationId);
+        model.addObject("subjects", userSubjectEncapsulator);
         return model;
     }
 
+    @RequestMapping(value= "/teacher/evaluate/{studentId}/save/{evaluationId}")
+    public String saveStudentEvaluation(@ModelAttribute("subjects") UserSubjectEncapsulator use, @PathVariable("studentId") String studentId
+            , @PathVariable("evaluationId") String evaluationId) {
+        RoleStudent rs = new RoleStudent();
+        rs.setRoleId(studentId);
+        Evaluation e = new Evaluation(evaluationId);
+        for(UserSubject us : use.getUserSubjects()){
+            if(us.getGrade() != 0.0) {
+                us.setStudent(rs);
+                us.setEvaluation(e);
+                userService.addUserSubject(us);
+            }
+        }
+        return "redirect:/teacher/evaluate.do";
+    }
 }

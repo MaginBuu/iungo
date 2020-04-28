@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
@@ -7,84 +6,70 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Iungo - Modify Subject</title>
+    <title>Iungo - Task Evaluation</title>
 
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
+    <link rel="stylesheet" href="/resource/css/ticket/cards.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
 </head>
 
 <body>
 <%@ include file="navbar.jsp" %>
-<div class="row creation-form">
-    <div class="col-md-8 offset-md-2">
-        <div class="container custom-div">
-            <form method="post" action="/teacher/subjects/modify/${subject.subjectId}">
-            <h1>Modify Subject</h1>
-            <input type="hidden" value="${student.subjectId}"/>
-            <input type="hidden" value="${student.groupId}"/>
-            <div class="container">
+<form:form method="post" action="/teacher/evaluate/${student.userR.userId}/save/${evaluation}"
+           modelAttribute="subjects">
+    <div class="row creation-form">
+        <div class="col-md-8 offset-md-2">
+            <br><br>
+            <div class="container custom-div">
+                <h1>Evaluation</h1>
                 <div class="row">
-                    <div align="right" class="col"><strong>Name:</strong></div>
-                    <div align="left" class="col">${student.name} ${student.surname} ${student.secondSurname}</div>
+                    <div class="col-md-12">
+                        <div class="container">
+                            <c:forEach items="${subjects.userSubjects}" var="userSubject" varStatus="status">
+                                <div class="row" style="border-bottom: 1px solid #ccc;margin-bottom: 15px">
+                                    <div class="container">
+                                        <input type="hidden" name="userSubjects[${status.index}].subject.subjectId" value="${userSubject.subject.subjectId}"/>
+                                        <div class="row">
+
+                                            <div class="col-md-8" style="margin-left:0px"><h5 class="pull-left"><strong>${userSubject.subject.name}</strong></h5></div>
+                                            <div class="col-md-4">
+                                            <p class="pull-right"><small>Check tasks <a><i class="fa fa-eye"
+                                                                                          style="color:#DE9D3F"
+                                                                                          aria-hidden="true"></i></a></small>
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row" style="margin-bottom:10px">
+                                            <div class="col-md-8">
+                                                <div class="row"><h6>Observations:</h6></div>
+                                                <div class="row"><textarea class="text-area-observation" name="userSubjects[${status.index}].observations" value="${userSubject.observations}">${userSubject.observations}</textarea></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                            <div class="row"><h6>Final grade:</h6></div>
+                                                <div class="row"><input type="number" class="text-area-grade" name="userSubjects[${status.index}].grade" value="${userSubject.grade}"></div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div align="right" class="col"><strong>Subject ID:</strong></div>
-                    <div align="left" class="col">${subject.subjectId}</div>
-                </div>
-                <div class="row justify-content-center">
-                    <div align="right" class="col"><strong>Group:</strong></div>
-                    <div align="left" class="col">${subject.subjectGroup.stage} ${subject.subjectGroup.level} ${subject.subjectGroup.group}</div>
-                </div>
-            </div><br><br>
-            <table class="table table-borderless table-striped">
-                <thead>
-                <tr>
-                    <th><strong>Task name</strong></th>
-                    <th><strong>Chapter</strong></th>
-                    <th><strong>Deadline</strong></th>
-                    <th><strong>Type</strong></th>
-                    <th><strong>Value</strong></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="teachers">
-                <c:forEach items="${subject.chapters}" var="chapter">
-                    <c:forEach items="${chapter.tasks}" var="task">
-                        <tr>
-                            <td style="vertical-align: middle; horiz-align: center">${task.title}</td>
-                            <td style="vertical-align: middle; horiz-align: center">${task.chapter.title}</td>
-                            <td style="vertical-align: middle; horiz-align: center">${task.deadline}</td>
-                            <td style="vertical-align: middle; horiz-align: center">${task.taskType}</td>
-                            <td style="vertical-align: middle; horiz-align: center">${task.value}%</td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-info" href="/teacher/task/evaluate/${task.taskId}"><i
-                                    class="fa fa-tasks" aria-hidden="true"></i></a></td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
-                                                                                      data-toggle="modal"
-                                                                                      data-target="#myModal"
-                                                                                      onclick="deleteClicked('${task.taskId}')"><i
-                                    class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                        </tr>
-                    </c:forEach>
-                </c:forEach>
-                </tbody>
-            </table>
-            <button class="btn btn-light submit-button" type="submit" value="addTeacher" name="buttonName"
-                    id="addTeacher" onclick="return Validate()">Add Task
-            </button>
-            </form>
+                <input class="btn btn-light submit-button" type="submit" value="Save"/>
+            </div>
         </div>
     </div>
-</div>
-
+</form:form>
 <!-- Modal HTML -->
 <div id="myModal" name="myModal" class="modal fade">
     <div class="modal-dialog modal-confirm">
@@ -97,10 +82,9 @@
             </div>
             <div class="modal-body">
                 <h4 class="modal-title">Are you sure?</h4>
-                <p id="deleteText">Do you really want to delete this task?
+                <p id="deleteText">Do you really want to delete this space?
                     This process cannot be undone.</p>
             </div>
-            <input type="hidden" name="elementType" id="elementType" value=""/>
             <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
@@ -112,37 +96,25 @@
 </div>
 
 
-</form>
-
 <script type="text/javascript">
     function Validate() {
         return true;
     }
+</script>
+</body>
 
-    function deleteClicked(elementId, elementType) {
-        var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType = jQuery('#elementType');
-        hiddenInputId.val(elementId);
-        hiddenInputType.val(elementType);
-    }
 
-    function deleteElement() {
-        var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType = jQuery('#elementType');
-        var type = hiddenInputType.val()
-        if (type === 'timeLine') {
-            window.location.href = '/subject/delete/' + type.toLowerCase() + '?' + type + 'Id=' + hiddenInputId.val();
-
-        } else if (type === 'teacher') {
-            var subjectId = jQuery('#subjectId').val();
-            window.location.href = '/subject/delete/' + type + '?' + type + 'Id=' + hiddenInputId.val() + '&subjectId=' + subjectId;
-        }
-    }
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 
 </script>
 
-
-</body>
-
 </html>
+

@@ -358,4 +358,20 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return evaluations;
 	}
+
+	public void addUserSubject(UserSubject userSubject){
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			session.saveOrUpdate(userSubject);
+			tx.commit();
+		}catch(Exception e){
+			if(tx != null) tx.rollback();
+			throw e;
+		}finally {
+			session.close();
+		}
+
+	}
 }

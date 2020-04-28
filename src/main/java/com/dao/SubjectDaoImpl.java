@@ -101,4 +101,11 @@ public class SubjectDaoImpl implements SubjectDao {
         return userSubject;
     }
 
+    public UserSubject getUserSubjectByUserAndSubjectAndEvaluation(String userId, String subjectId, String evaluationId){
+        Session session = sessionFactory.openSession();
+        UserSubject userSubject = (UserSubject) session.getNamedQuery("UserSubject.findByUserAndSubjectAndEvaluation").setParameter("evaluationId", evaluationId).setParameter("subjectId", subjectId).setParameter("userId", userId).uniqueResult();
+        session.close();
+        return userSubject;
+    }
+
 }

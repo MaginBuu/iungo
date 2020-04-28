@@ -10,10 +10,11 @@ import java.util.Objects;
 @Table(name = "user_subject")
 @NamedQueries({
         @NamedQuery(name = "UserSubject.findByUserAndSubject", query = "SELECT c FROM UserSubject c where c.subject.subjectId =:subjectId and c.student.userR.userId =:userId"),
+        @NamedQuery(name = "UserSubject.findByUserAndSubjectAndEvaluation", query = "SELECT c FROM UserSubject c where c.subject.subjectId =:subjectId and c.student.userR.userId =:userId and c.evaluation.evaluationId =:evaluationId"),
 
 
 })
-public class UserSubject implements Serializable {
+public class UserSubject implements Serializable, Cloneable {
     @Id
     @ManyToOne
     @JoinColumn
@@ -30,6 +31,7 @@ public class UserSubject implements Serializable {
     @Column(name = "OBSERVATIONS")
     private String observations;
 
+    @Id
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "EVALUATION_ID")
     private Evaluation evaluation;
@@ -60,6 +62,14 @@ public class UserSubject implements Serializable {
         this.observations = observations;
     }
 
+    public Evaluation getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(Evaluation evaluation) {
+        this.evaluation = evaluation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,5 +84,11 @@ public class UserSubject implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(student, subject, grade, observations);
+    }
+
+    public Object clone() throws
+            CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

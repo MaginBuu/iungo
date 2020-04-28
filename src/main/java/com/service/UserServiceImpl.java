@@ -104,4 +104,6 @@ public class UserServiceImpl implements UserService {
 	//TUTOR
 
 	public List<Evaluation> getEvaluations(){ return userDao.getEvaluations(); }
+
+	public void addUserSubject(UserSubject userSubject){ userDao.addUserSubject(userSubject); }
 }
