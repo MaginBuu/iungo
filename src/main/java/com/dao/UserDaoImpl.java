@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -205,11 +206,8 @@ public class UserDaoImpl implements UserDao {
 
 	public List<User> getStudentsByGroup(String groupId){
 		Session session = sessionFactory.openSession();
-		List<User> students = session.getNamedQuery("Users.findStudentsByGroup").setParameter("groupId", groupId).list();
+		List<User> students = session.getNamedQuery("RoleStudents.findStudentsByGroup").setParameter("groupId", groupId).list();
 		System.out.println("groupId" + groupId);
-		for (User user : students){
-			System.out.println(user);
-		}
 		session.close();
 		return students;
 	}
@@ -305,9 +303,16 @@ public class UserDaoImpl implements UserDao {
 	//-------------------- RESPONSIBLES --------------------
 
 
-	public List<RoleResponsible> getStudentsResponsibles(List<RoleStudent> students){
+	public List<RoleResponsible> getStudentsResponsibles(List<String> students){
 		Session session = sessionFactory.openSession();
-		List<RoleResponsible> responsibles = (List<RoleResponsible>) session.getNamedQuery("RoleResponsible.getResponsibles").uniqueResult();
+		List<RoleResponsible> responsibles = session.getNamedQuery("RoleResponsible.getResponsibles").setParameterList("students", students).list();
+		session.close();
+		return responsibles;
+	}
+
+	public List<RoleResponsible> getStudentResponsibles(String userId){
+		Session session = sessionFactory.openSession();
+		List<RoleResponsible> responsibles = session.getNamedQuery("RoleStudent.getResponsibles").setParameter("userId", userId).list();
 		session.close();
 		return responsibles;
 	}

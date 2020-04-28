@@ -58,11 +58,10 @@ public class ConversationController {
         try{
             user = (User) request.getSession().getAttribute("user");
             String role;
-            if(user==null){
+            role = authentication.getAuthorities().toArray()[0].toString();
+            if(user==null)
                 user = userService.getUserById("1");
-                role = "TEACHER";
-            }else
-                role = authentication.getAuthorities().toArray()[0].toString();
+
 
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Session user successfully loaded: " + user.getUserId() + " with role " + role);
 
@@ -85,8 +84,9 @@ public class ConversationController {
 
 
             }else if("TEACHER".equals(role)){
+
                 RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
-                //Set<ClassGroup> groups = new HashSet<>();
+
                 List<ClassGroup> groups = teacher.getSubjects().stream().map(subject -> subject.getSubjectGroup()).collect(Collectors.toList());
                 System.out.println();
 
@@ -95,10 +95,10 @@ public class ConversationController {
                 }
 
 
-                List<RoleStudent> roleStudents = students.stream().map(student -> (RoleStudent) student.getRoles().get(Role.STUDENT)).collect(Collectors.toList());
+                List<String> roleStudents = students.stream().map(student -> student.getRoles().get(Role.STUDENT).getRoleId()).collect(Collectors.toList());
 
-                Set<User> setResponsibles = new HashSet(userService.getStudentsResponsibles(roleStudents));
-                responsibles = new LinkedList<>(setResponsibles);
+                Set<RoleResponsible> setResponsibles = new HashSet(userService.getStudentsResponsibles(roleStudents));
+                responsibles = setResponsibles.stream().map(RoleResponsible::getUserR).collect(Collectors.toList());
 
 
                 teachers = userService.getAllUsersWithRole(Role.TEACHER);

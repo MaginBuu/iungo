@@ -7,6 +7,7 @@ import com.model.*;
 import com.model.enums.Role;
 import com.service.GroupService;
 import com.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -183,6 +184,15 @@ public class UserController {
 		return new ModelAndView("system/ticketAdmin", "users", users);
 	}
 
+	@RequestMapping(value = "/user/update/relateResponsible", method = RequestMethod.GET)
+	public String relateResponsibleTmp(@RequestParam String userId, HttpServletRequest request){
+		User user = userService.getUserById(userId);
+		request.getSession().setAttribute("userRelate", userId);
+		request.getSession().setAttribute("userRelateName", user.getFullName());
+		request.getSession().setAttribute("update", true);
+		return "redirect:/user/creation/relateResponsible";
+	}
+
 
 	@RequestMapping(value = "/user/creation/relateResponsible", method = RequestMethod.GET)
 	public ModelAndView relateUsers(HttpServletRequest request){
@@ -244,6 +254,29 @@ public class UserController {
 		return "redirect:/user/creation/relateResponsible";
 	}
 
+
+	@RequestMapping(value = "/user/creation/finishRelateResponsible", method = RequestMethod.GET)
+	public String finishRelateResponsibles(HttpServletRequest request){
+
+		Boolean update = false;
+
+		try {
+			update = (boolean)request.getSession().getAttribute("update");
+			request.getSession().removeAttribute("update");
+		}catch (Exception e){
+			logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  update attribute does not exist " + e);
+		}
+
+		if(update){
+			String userId = (String) request.getSession().getAttribute("userRelate");
+			request.getSession().removeAttribute("userRelate");
+			request.getSession().removeAttribute("userRelateName");
+			return "redirect:/user/modify?userId=" + userId;
+		}
+		return "redirect:/user/creation/relateGroup";
+	}
+
+
 	@RequestMapping(value = "/user/creation/relateGroup", method = RequestMethod.GET)
 	public ModelAndView relateGroup(){
 		ModelAndView model = new ModelAndView("system/relateGroupWithStudent");
@@ -304,7 +337,6 @@ public class UserController {
 		return data;
 	}
 
-	// FOR TESTING, WILL BE DELETED SOON
 	@RequestMapping(value = "/user/role")
 	public String setRole(@RequestParam String role){
 

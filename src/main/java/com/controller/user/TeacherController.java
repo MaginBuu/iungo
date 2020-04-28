@@ -1,16 +1,14 @@
 package com.controller.user;
 
 import com.model.*;
+import com.model.encapsulators.Incidence;
 import com.model.encapsulators.UserTaskEncapsulator;
+import com.model.enums.FaultType;
 import com.model.enums.Role;
-import com.service.GroupService;
-import com.service.SubjectService;
-import com.service.TaskService;
-import com.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.model.enums.Stage;
+import com.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.cfg.beanvalidation.GroupsPerOperation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.acl.Group;
 import java.util.*;
 
 @Controller
@@ -43,6 +38,12 @@ public class TeacherController {
 
     @Autowired
     GroupService groupService;
+
+    @Autowired
+    CourseService courseService;
+
+    @Autowired
+    ProcedureService procedureService;
 
     /**
      * Looks for the timelines of a certain teacher given an id.
@@ -186,37 +187,111 @@ public class TeacherController {
     @RequestMapping(value = "/teacher/select/group")
     public ModelAndView groupSelectAccess() {
 
-        ModelAndView model = new ModelAndView("/selectGroup");
+        ModelAndView model = new ModelAndView("/selectGroup", "group", new ClassGroup());
 
         return model;
 
     }
 
-    @RequestMapping(value = "/class")
-    public ModelAndView getClassObjects(HttpServletRequest request, Authentication authentication) {
 
-        String role = authentication.getAuthorities().toArray()[0].toString();
-        ModelAndView model = new ModelAndView("/class");
+    @RequestMapping(value = "/teacher/getStudentsGroup", method = RequestMethod.GET)
+    public ModelAndView getStudentsGroup(@Valid @ModelAttribute(value = "group") ClassGroup group) {
 
-        User user = (User)request.getSession().getAttribute("user");
-        if(user==null) user = userService.getUserById("1");
+        Course course = courseService.findByDate(Calendar.getInstance().get(Calendar.YEAR) - 1);
+        group.setCourse(course);
+        group = groupService.getGroupsByStageAndLevelAndGroupAndCourse(group);
+        List<User> studentsGroup = userService.getStudentsByGroup(group.getGroupId());
 
-        if(Role.TEACHER.equals(role) || Role.TUTOR.equals(role) || Role.COORDINATOR.equals(role)){
-
-            RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
-            model.addObject("subjects", teacher.getSubjects());
-
-        }else if(Role.SECRETARY.equals(role)){
-            List<ClassGroup> groups = groupService.getAllClassGroup();
-            model.addObject("groups", groups);
-        }else
-            return null;
-
-
-
-        return model;
+        return new ModelAndView("/putStudentIncidences", "students", studentsGroup);
 
     }
+
+    @RequestMapping(value = "/getLevelsByStage", method = RequestMethod.GET)
+    public @ResponseBody
+    JSONArray getLevels(@RequestParam("stage") Stage stage) {
+
+        logger.info("[" + new Object() {
+        }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+        List<Integer> levels = groupService.getLevelsByStage(stage);
+
+        JSONArray data = new JSONArray();
+
+        for(Integer level : levels)
+            data.add(level);
+
+
+        return data;
+    }
+
+    @RequestMapping(value = "/getGroupsByStageAndLevel", method = RequestMethod.GET)
+    public @ResponseBody
+    JSONArray getGroups(@RequestParam("stage") Stage stage, @RequestParam("level") int level) {
+
+        logger.info("[" + new Object() {
+        }.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
+
+        List<String> groups = groupService.getGroupsByStageAndLevel(stage, level);
+
+        JSONArray data = new JSONArray();
+
+        for(String group : groups)
+            data.add(group);
+
+
+        return data;
+    }
+
+
+    @RequestMapping(value = "/teacher/incidence", method = RequestMethod.GET)
+    public ModelAndView getIncidenceForm(@RequestParam String userId){
+
+        User user = userService.getUserById(userId);
+
+        Incidence incidence = new Incidence();
+        incidence.setUser(user);
+
+        return new ModelAndView("createIncidence", "incidence", incidence);
+
+    }
+
+
+    @RequestMapping(value = "/incidence/creation", method = RequestMethod.POST)
+    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence, BindingResult result){
+
+        User user = userService.getUserById(incidence.getUser().getUserId());
+
+        String title = user.getFullName() + " - " + incidence.getFaultType().toString().toLowerCase() + " fault";
+        String description = incidence.getDescription();
+
+
+        List<RoleResponsible> responsibles = userService.getStudentResponsibles(user.getUserId());
+
+        Calendar c = Calendar.getInstance(); // starts with today's date and time
+        c.add(Calendar.DAY_OF_YEAR, 2);  // advances day by 2
+        Date date = c.getTime(); // gets modified time
+
+
+        Boolean online = incidence.getFaultType().equals(FaultType.ATTENDANCE) ? true : false;
+
+        Procedure procedure = new Procedure(title, description, online, date);
+
+        for(RoleResponsible responsible : responsibles){
+            procedure.setUserP(responsible.getUserR());
+            procedureService.addProcedure(procedure);
+
+            procedure = procedure.clone();
+
+        }
+
+        ClassGroup group = ((RoleStudent) user.getRoles().get(Role.STUDENT)).getGroup();
+
+
+
+        return "redirect:/teacher/getStudentsGroup?stage=" + group.getStage() + "&level=" + group.getLevel() + "&group=" + group.getGroup();
+
+    }
+
 
 
 

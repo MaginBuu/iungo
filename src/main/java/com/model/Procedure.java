@@ -80,6 +80,7 @@ public class Procedure {
         //AGAFAR EL TIMESTAMP per la data de creacio
         this.online = online;
         this.limitDate = limitDate;
+        this.creationDate = new Date();
     }
 
     public String getProcedureId() { return procedureId; }
@@ -141,5 +142,9 @@ public class Procedure {
     @Override
     public int hashCode() {
         return Objects.hash(procedureId, userP, title, description, online, creationDate, limitDate);
+    }
+
+    public Procedure clone(){
+        return new Procedure(this.title, this.description, this.online, this.limitDate);
     }
 }

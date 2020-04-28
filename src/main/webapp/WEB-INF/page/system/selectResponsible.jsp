@@ -31,7 +31,6 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th><strong>ID</strong></th>
                             <th><strong>Name</strong></th>
                             <th></th>
                         </tr>
@@ -39,7 +38,6 @@
                         <tbody id="myTable">
                         <c:forEach items="${responsibles}" var="responsible">
                             <tr>
-                                <td style="vertical-align: middle; horiz-align: center">${responsible.userR.userId}</td>
                                 <td style="vertical-align: middle; horiz-align: center">${responsible.userR.name} ${responsible.userR.surname} ${responsible.userR.secondSurname}</td>
                                 <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
                                                                                           onclick="deleteClicked('${responsible.userR.userId}')"><i
@@ -87,7 +85,7 @@
 
 <script type="text/javascript">
     function relate() {
-        window.location.href = '/creation/relateGroup';
+        window.location.href = '/user/creation/finishRelateResponsible';
     }
 
     function addResponsible() {
