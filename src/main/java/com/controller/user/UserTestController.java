@@ -2,6 +2,7 @@ package com.controller.user;
 
 import com.model.*;
 import com.model.encapsulators.GradesEncapsulator;
+import com.model.enums.FaultType;
 import com.model.enums.ProcedureStatus;
 import com.model.enums.Role;
 import com.service.*;
@@ -49,6 +50,9 @@ public class UserTestController {
 
     @Autowired
     SubjectService subjectService;
+
+    @Autowired
+    IncidenceService incidenceService;
 
     /**
      * Processes the petition to get to the conversation page.
@@ -355,6 +359,20 @@ public class UserTestController {
             }
 
             procedureService.addProcedure(procedure);
+
+
+            Incidence incidence = incidenceService.getIncidenceByProcedureId(procedure.getProcedureId());
+
+            if(incidence != null){
+                if(incidence.getFaultType().equals(FaultType.ATTENDANCE)){
+                    incidence.setJustified(decision);
+
+                    incidenceService.addIncidence(incidence);
+                }
+            }
+
+
+
 
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             String referer = request.getHeader("Referer");

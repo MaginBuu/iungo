@@ -1953,7 +1953,7 @@ INSERT INTO public.users (user_id, birth_date, email, gender, language, name, ni
 -- COURSES
 --
 
-INSERT INTO public.courses (course_id, end_date, start_date) VALUES ('1', 2019, 2020);
+INSERT INTO public.courses (course_id, end_date, start_date) VALUES ('1', 2020, 2019);
 
 --
 -- CONVERSATIONS

@@ -1,7 +1,7 @@
 package com.controller.user;
 
 import com.model.*;
-import com.model.encapsulators.Incidence;
+import com.model.Incidence;
 import com.model.encapsulators.UserSubjectEncapsulator;
 import com.model.encapsulators.UserTaskEncapsulator;
 import com.model.enums.FaultType;
@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.Authenticator;
 import java.util.*;
 
 @Controller
@@ -46,6 +45,9 @@ public class TeacherController {
 
     @Autowired
     ProcedureService procedureService;
+
+    @Autowired
+    IncidenceService incidenceService;
 
     /**
      * Looks for the timelines of a certain teacher given an id.
@@ -192,7 +194,7 @@ public class TeacherController {
         String role = authentication.getAuthorities().toArray()[0].toString();
 
         ModelAndView model;
-        if("SECRETARY".equals(role))
+        if(!"TEACHER".equals(role))
             model = new ModelAndView("/selectGroup", "group", new ClassGroup());
 
         else{
@@ -215,9 +217,23 @@ public class TeacherController {
     @RequestMapping(value = "/teacher/getStudentsSubject", method = RequestMethod.GET)
     public ModelAndView getStudentsSubject(@RequestParam String subjectId) {
 
+        List<User> students;
         Subject subject = subjectService.getById(subjectId);
-        List<User> students = userService.getStudentsByGroup(subject.getSubjectGroup().getGroupId());
 
+        logger.info("[" + new Object() {
+        }.getClass().getEnclosingMethod().getName() + "] - subject loaded successfully");
+
+        try {
+             students = userService.getStudentsByGroup(subject.getSubjectGroup().getGroupId());
+
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] - students loaded successfully");
+        }catch (Exception e){
+
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  students could not be leaded " + e);
+            return null;
+        }
 
         return new ModelAndView("/putStudentIncidences", "students", students);
 
@@ -229,9 +245,21 @@ public class TeacherController {
 
         Course course = courseService.findByDate(Calendar.getInstance().get(Calendar.YEAR) - 1);
         group.setCourse(course);
-        group = groupService.getGroupsByStageAndLevelAndGroupAndCourse(group);
-        List<User> studentsGroup = userService.getStudentsByGroup(group.getGroupId());
+        List<User> studentsGroup;
 
+        try {
+            group = groupService.getGroupsByStageAndLevelAndGroupAndCourse(group);
+            studentsGroup = userService.getStudentsByGroup(group.getGroupId());
+
+            logger.info("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] - students loaded successfully");
+
+        }catch (Exception e){
+
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  students could not be leaded " + e);
+            return null;
+        }
         return new ModelAndView("/putStudentIncidences", "students", studentsGroup);
 
     }
@@ -305,17 +333,28 @@ public class TeacherController {
         Boolean online = incidence.getFaultType().equals(FaultType.ATTENDANCE) ? true : false;
 
         Procedure procedure = new Procedure(title, description, online, date);
+        procedure.setUserP(responsibles.get(1).getUserR());
+        procedureService.addProcedure(procedure);
+        incidence.setProcedure(procedure);
 
+
+
+        /*
         for(RoleResponsible responsible : responsibles){
             procedure.setUserP(responsible.getUserR());
             procedureService.addProcedure(procedure);
 
+            if (responsible.equals(responsibles.get(1)))
+                incidence.setProcedure(procedure);
+
             procedure = procedure.clone();
 
-        }
+        }*/
+
+        incidence.setCreationDate(new Date());
+        incidenceService.addIncidence(incidence);
 
         ClassGroup group = ((RoleStudent) user.getRoles().get(Role.STUDENT)).getGroup();
-
 
 
         return "redirect:/teacher/getStudentsGroup?stage=" + group.getStage() + "&level=" + group.getLevel() + "&group=" + group.getGroup();
