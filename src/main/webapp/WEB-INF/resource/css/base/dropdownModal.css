@@ -60,10 +60,9 @@
     display: inline-block;
     margin-top: 13px;
 }
-.modal-confirm .btn {
+.modal-confirm .btn-modal {
     color: #fff;
     border-radius: 4px;
-    background: #DE9D3F;
     text-decoration: none;
     transition: all 0.4s;
     line-height: normal;
@@ -72,6 +71,15 @@
     min-height: 40px;
     border-radius: 3px;
     margin: 0 5px;
+    outline: none !important;
+}
+.modal-confirm .btn-modal-access {
+    color: #DE9D3F;
+}
+
+.modal-confirm .btn-modal {
+
+    border: none;
     outline: none !important;
 }
 

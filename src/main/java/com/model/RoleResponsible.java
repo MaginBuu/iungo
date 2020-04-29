@@ -14,6 +14,7 @@ import java.util.List;
         @NamedQuery(name = "RoleResponsible.getResponsibles", query ="SELECT o FROM RoleResponsible o JOIN o.child c WHERE c.roleId IN (:students) AND o.child.size > 0 ORDER BY o.userR.name, o.userR.surname, o.userR.secondSurname"),
         @NamedQuery(name = "RoleResponsible.getAll", query ="SELECT o.userR FROM RoleResponsible o"),
         @NamedQuery(name = "RoleResponsible.getAllRoleResponsible", query ="SELECT o FROM RoleResponsible o"),
+        @NamedQuery(name = "RoleResponsible.getChildren", query ="SELECT o FROM RoleResponsible o LEFT JOIN FETCH o.child WHERE o.userR.userId =:id"),
 
 
 })

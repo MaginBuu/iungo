@@ -324,6 +324,14 @@ public class UserDaoImpl implements UserDao {
 		return responsibles;
 	}
 
+	public List<RoleStudent> getResponsibleChildList(String responsibleId){
+		Session session = sessionFactory.openSession();
+		RoleResponsible responsible = (RoleResponsible) session.getNamedQuery("RoleResponsible.getChildren").setParameter("id", responsibleId).uniqueResult();
+		List<RoleStudent> children =  responsible.getChild();
+		session.close();
+		return children;
+	}
+
 
 	//-------------------- STUDENTS --------------------
 

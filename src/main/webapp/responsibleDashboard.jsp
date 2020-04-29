@@ -10,9 +10,38 @@
     <link rel="stylesheet" href="resource/fonts/index/font-awesome.min.css">
     <link rel="stylesheet" href="/resource/css/index/indexStyle.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/resource/css/base/dropdownModal.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="resource/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </head>
 
 <body style="height: 1200px;">
+
+<script>
+
+    function navigateChild() {
+        var student = jQuery('#studentId');
+        window.location.href = '/responsible/' + student.val() + '/subjects';
+    }
+
+    function selectedChild(){
+        var e = document.getElementById("student-pick");
+        var result = e.options[e.selectedIndex].value;
+        var hiddenInput = jQuery('#studentId');
+        hiddenInput.val(result);
+        document.getElementById("continue-btn").disabled = false;
+    }
+
+</script>
+
 <%@ include file="WEB-INF/page/navbar.jsp" %>
 <div class="features-boxed">
     <div class="container">
@@ -60,37 +89,35 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <!-- Modal HTML -->
+    <div id="myModal" name="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
                 <div class="modal-body">
-                    <!-- 16:9 aspect ratio -->
-                    <div class="row justify-content-center" style="margin-bottom: 0%">
-                        <div class="col item">
-                            <div class="box"><i class="fa fa-street-view icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;"
-                                   href="/user/antibullying?observed=false">
-                                    <h3 class="name">Report Personal Issue</h3></a>
-                            </div>
-                        </div>
-                        <div class="col item">
-                            <div class="box"><i class="fa fa-eye icon"></i>
-                                <a class="nav-link stretched-link" style="color:#000000;"
-                                   href="/user/antibullying?observed=true">
-                                    <h3 class="name">Report Other Issues</h3></a>
-                            </div>
-                        </div>
+                    <h4 class="modal-title">Select a child</h4>
+                    <p id="deleteText">Select a child in order to navigate through the subjects.</p>
+                    <div class="row" style="justify-content: center">
+                        <select class="selectpicker" data-width="100%" style="vertical-align: middle;" id="student-pick" name="student-pick" onchange="selectedChild()">
+                            <option disabled="disabled" selected="selected" value="">Select a child</option>
+                            <c:forEach items="${children}" var="child">
+                                <option value="${child.userR.userId}" style="color:#000000">${child.userR.name} ${child.userR.surname} ${child.userR.secondSurname}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
-
+                <input type="hidden" name="studentId" id="studentId" value=""/>
+                <div class="modal-footer">
+                    <button type="button" style="vertical-align: middle;" class="btn-modal btn-info" data-dismiss="modal">Cancel</button>
+                    <button id="continue-btn" style="vertical-align: middle;" class="btn-modal btn-modal-access btn-light submit-button" disabled="true" data-dismiss="modal" onclick="navigateChild()">Access subjects</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="resource/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

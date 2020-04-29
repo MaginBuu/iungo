@@ -1,6 +1,7 @@
 package com.controller.system;
 
 import com.model.RoleAdmin;
+import com.model.RoleStudent;
 import com.model.User;
 import com.model.enums.Role;
 import com.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +54,17 @@ public class SystemController {
         return new ModelAndView("../../teacherDashboard");
     }
 
+    @RequestMapping("/responsible")
+    public ModelAndView getResponsiblePage(HttpServletRequest request){
+
+        User user = (User) request.getSession().getAttribute("user");
+        if(user == null) user = userService.getUserById("1");
+        List<RoleStudent> children = userService.getResponsibleChildList(user.getUserId());
+        ModelAndView model = new ModelAndView("../../responsibleDashboard");
+        model.addObject("children", children);
+        return model;
+    }
+
 
     @RequestMapping("/role")
     public String getRolePage(Authentication authentication){
@@ -73,7 +86,8 @@ public class SystemController {
             return "redirect:/teacher";
         }
 
-        if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString()) || role.equals(Role.TEACHER.toString()))
+        if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString())
+                || role.equals(Role.TEACHER.toString()) || role.equals(Role.RESPONSIBLE.toString()))
             return "redirect:/" + role.toLowerCase();
 
         return "redirect:/student";

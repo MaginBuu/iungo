@@ -28,13 +28,13 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-pencil-square-o icon"></i>
+                <div class="box"><i class="fa fa-paper-plane-o icon"></i>
                     <a class="nav-link stretched-link" style="color:#000000;" href="/user/messages">
                         <h3 class="name">Messages</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-bell-o icon"></i>
+                <div class="box"><i class="fa fa-briefcase icon"></i>
                     <a class="nav-link stretched-link" style="color:#000000;" href="/user/procedures">
                         <h3 class="name">Procedures </h3></a>
                 </div>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-gavel icon"></i>
+                <div class="box"><i class="fa fa-pie-chart icon"></i>
                     <a class="nav-link stretched-link" style="color:#000000;" href="/teacher/evaluate">
                         <h3 class="name">Evaluation </h3></a>
                 </div>

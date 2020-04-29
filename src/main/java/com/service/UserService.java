@@ -65,6 +65,8 @@ public interface UserService {
 
 	List<RoleResponsible> getAllResponsibles();
 
+	List<RoleStudent> getResponsibleChildList(String responsibleId);
+
 	//STUDENTS
 
 	RoleStudent getStudentWithResponsibles(String userId);

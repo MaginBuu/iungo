@@ -230,8 +230,8 @@
             </div>
             <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="reportConversation()">Report
+                <button type="button" class="btn-modal btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-modal btn-danger" data-dismiss="modal" onclick="reportConversation()">Report
                 </button>
             </div>
 

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/resource/css/profile/profileStyle.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+    <link rel="stylesheet" href="/resource/css/base/dropdownModal.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-!-- Modal HTML -->
+<!-- Modal HTML -->
 <div id="myModal" name="myModal" class="modal fade">
     <div class="modal-dialog modal-confirm">
         <div class="modal-content">
@@ -106,8 +106,8 @@
             <input type="hidden" name="studentId" id="studentId" value=""/>
             <input type="hidden" name="evaluationId" id="evaluationId" value=""/>
             <div class="modal-footer">
-                <button type="button" style="vertical-align: middle;" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                <button id="continue-btn" style="vertical-align: middle;" class="btn btn-light submit-button" disabled="true" data-dismiss="modal" onclick="evaluateStudent()">Evaluate</button>
+                <button type="button" style="vertical-align: middle;" class="btn-modal btn-info" data-dismiss="modal">Cancel</button>
+                <button id="continue-btn" style="vertical-align: middle;" class="btn-modal btn-modal-access btn-light submit-button" disabled="true" data-dismiss="modal" onclick="evaluateStudent()">Evaluate</button>
             </div>
         </div>
     </div>

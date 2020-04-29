@@ -3702,7 +3702,7 @@ INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r2548', 5, 'r
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r1549', 5, 'r1549');
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r2549', 5, 'r2549');
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r1550', 5, 'r1550');
-INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r2550', 5, 'r2550');
+INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r2550', 5, '1'); -- r2550
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r1551', 5, 'r1551');
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r2551', 5, 'r2551');
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r1552', 5, 'r1552');

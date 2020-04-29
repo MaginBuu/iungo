@@ -68,6 +68,8 @@ public interface UserDao {
 
 	List<RoleResponsible> getAllResponsibles();
 
+	List<RoleStudent> getResponsibleChildList(String responsibleId);
+
 	//STUDENT
 
 	RoleStudent getStudentWithResponsibles(String userId);
