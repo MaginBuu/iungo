@@ -109,10 +109,7 @@
                 </c:forEach>
             </div>
 
-            <button id="cmd" onclick="printDiv()">generate PDF</button>
-
-
-
+            <a class="btn btn-light submit-button" onclick="printDiv()">generate PDF</a>
         </div>
     </div>
 </div>

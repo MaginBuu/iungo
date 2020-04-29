@@ -44,15 +44,19 @@
 			<list>
 				<value>com.model.AntiBullyingReport</value>
 				<value>com.model.Authorities</value>
+				<value>com.model.Chapter</value>
 				<value>com.model.ClassGroup</value>
 				<value>com.model.Conversation</value>
 				<value>com.model.ConversationUser</value>
 				<value>com.model.Course</value>
+				<value>com.model.Evaluation</value>
 				<value>com.model.Event</value>
+				<value>com.model.Incidence</value>
 				<value>com.model.Message</value>
 				<value>com.model.Notification</value>
 				<value>com.model.Procedure</value>
 				<value>com.model.Reminder</value>
+				<value>com.model.Resource</value>
 				<value>com.model.RoleResponsible</value>
 				<value>com.model.RoleStudent</value>
 				<value>com.model.RoleTeacher</value>
@@ -67,11 +71,8 @@
 				<value>com.model.TimeLine</value>
 				<value>com.model.User</value>
 				<value>com.model.UserCredentials</value>
-				<value>com.model.UserTask</value>
-				<value>com.model.Chapter</value>
-				<value>com.model.Resource</value>
 				<value>com.model.UserSubject</value>
-				<value>com.model.Evaluation</value>
+				<value>com.model.UserTask</value>
 			</list>
 		</property>
 
