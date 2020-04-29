@@ -1,6 +1,7 @@
 package com.controller.user;
 
 import com.model.*;
+import com.model.encapsulators.GradesEncapsulator;
 import com.model.enums.ProcedureStatus;
 import com.model.enums.Role;
 import com.service.*;
@@ -16,13 +17,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class UserTestController {
@@ -466,5 +463,37 @@ public class UserTestController {
         return model;
 
     }
+
+    /**
+     * Processes the petition to get to the procedure creation page.
+     *
+     * @return ModelAndView with the desired .jsp file and its required model & objects
+     */
+    @RequestMapping(value = "/user/allGrades")
+    public ModelAndView getAllGrades(HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
+        if(user == null) user = userService.getUserById("1");
+
+        List<Subject> subjects = subjectService.getByGroup(((RoleStudent) user.getRoles().get(Role.STUDENT)).getGroup().getGroupId());
+        List<GradesEncapsulator> grades = new LinkedList<>();
+
+        for (Subject subject : subjects){
+
+            List<UserTask> userTasks = taskService.getUserTaskByUserAndSubject(user.getUserId(), subject.getSubjectId());
+            UserSubject userSubject = subjectService.getUserSubjectByUserAndSubject(user.getUserId(), subject.getSubjectId());
+            GradesEncapsulator gradesEncapsulator = new GradesEncapsulator(userTasks, userSubject, subject);
+
+            grades.add(gradesEncapsulator);
+        }
+
+
+        ModelAndView model = new ModelAndView("/user/gradesReport");
+        model.addObject("grades", grades);
+
+        return model;
+
+    }
+
 
 }
