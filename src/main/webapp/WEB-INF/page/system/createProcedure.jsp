@@ -32,58 +32,78 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" method="post" action="/procedure/creation" modelAttribute="procedure" commandName="procedure">
-        <h1>Create Procedure</h1>
-        <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><form:label path="title"
-                                                           class="col-form-label">Title </form:label></div>
-            <div class="col-sm-8 input-column"><form:input path="title" class="form-control"
-                                                           type="text" id="title"></form:input></div>
-        </div>
+            <h1>Create Procedure</h1>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><form:label path="title"
+                                                               class="col-form-label">Title </form:label></div>
+                <div class="col-sm-8 input-column"><form:input path="title" class="form-control"
+                                                               type="text" id="title"></form:input></div>
+            </div>
 
-        <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><form:label path="description"
-                                                           class="col-form-label">Description </form:label></div>
-            <div class="col-sm-8 input-column-Procedure"><form:textarea path="description" class="form-control"
-                                                                        type="text"></form:textarea></div>
-        </div>
-        <div class="form-row form-group">
-            <div class="col-sm-3 label-column">
-                <form:label path="userP" class="col-form-label">Users </form:label></div>
-            <div class="col-sm-3 input-column">
-                <form:select class="selectpicker" data-live-search="true" path="userP.userId" id="userP">
-                <form:option disabled="disabled" selected="selected" value="">Select a user</form:option>
-                <c:forEach items="${users}" var="user">
-                <form:option
-                        value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</form:option>
-                </c:forEach>
-                </form:select></div>
-            <div class="col-sm-2 label-column">
-                <form:label path="online" class="col-form-label">Online </form:label></div>
-            <div class="col-sm-2 checkbox-column">
-                <form:checkbox path="online"></form:checkbox></div>
-        </div>
-        <div class="form-row form-group">
-            <div class="col-sm-3 label-column">
-                <form:label path="limitDate" class="col-form-label">Limit date </form:label></div>
-            <div class="col-sm-3 form-group" style="position: relative">
-                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <form:input path="limitDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><form:label path="description"
+                                                               class="col-form-label">Description </form:label></div>
+                <div class="col-sm-8 input-column-Procedure"><form:textarea path="description" class="form-control"
+                                                                            type="text"></form:textarea></div>
+            </div>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column">
+                    <form:label path="limitDate" class="col-form-label">Limit date </form:label></div>
+                <div class="col-sm-3 form-group" style="position: relative">
+                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                        <form:input path="limitDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 label-column">
+                    <label class="col-form-label">Hour </label></div>
+                <div class="col-sm-3 form-group" style="position: relative">
+                    <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
+                        <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2 label-column">
-                <label class="col-form-label">Hour </label></div>
-            <div class="col-sm-3 form-group" style="position: relative">
-                <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
-                    <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                    </div>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column">
+                    <form:label path="online" class="col-form-label">Online </form:label></div>
+                <div class="col-sm-2 checkbox-column">
+                    <form:checkbox path="online"></form:checkbox></div>
+            </div>
+
+            <h2>User</h2>
+
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><label class="col-form-label">Name </label></div>
+                <div class="col-sm-3 input-column"><input id="name" name="name" class="form-control"
+                                                          type="text"></div>
+                <div class="col-sm-2 label-column"><label class="col-form-label">Surname </label></div>
+                <div class="col-sm-3 input-column"><input id="surname" name="name" class="form-control"
+                                                          type="text"></div>
+            </div>
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><label class="col-form-label">Surname2 </label></div>
+                <div class="col-sm-3 input-column"><input id="secondSurname" name="name" class="form-control"
+                                                          type="text"></div>
+                <div class="col-sm-2 label-column"></div>
+                <div class="col-sm-2"><a class="btn btn-light" id="btn-ajax">search</a></div>
+            </div>
+
+            <div class="form-row form-group">
+                <div class="col-sm-3 label-column"><label path="name" class="col-form-label">Responsible </label></div>
+                <div class="col-sm-7 input-column">
+                    <form:select class="selectpicker" data-live-search="true" data-width="100%" multiple="false" id="select-user" name="select-user" path="userP.userId">
+                    </form:select>
                 </div>
             </div>
-        </div>
+            
+            
+            
+            
         <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
         </form:form>
     </div>
@@ -121,6 +141,48 @@
 
             });
         });
+
+
+
+        $("#btn-ajax").click(function () {
+            $.ajax({
+
+                type: "GET",
+                url: "/user/requestUsers",
+                dataType: "json",
+                contentType: 'application/json',
+                data: {
+                    "name": $("#name").val(),
+                    "surname": $("#surname").val(),
+                    "secondSurname": $("#secondSurname").val()
+                }, //aqui es passen els parametres
+                success: function (data) {
+                    let options, select, selectFinish, i;
+
+                    // Get the raw DOM object for the select box
+                    select = document.getElementById('select-user');
+
+                    // Clear the old options
+                    select.options.length = 0;
+
+                    // Disable the booked options in both select, each one with its list
+                    $.each(data, function (index, current) {
+                        select.options.add(new Option(current.name + " " + current.surname + " " + current.secondSurname, current.id));
+                    });
+
+                    // Selectpicker refresh
+                    $('#select-user').selectpicker('refresh');
+
+
+                }
+            }).done(function () {
+
+            }).fail(function () {
+                console.log("Error Ajax");
+            });
+        });
+
+        
     </script>
 </body>
 

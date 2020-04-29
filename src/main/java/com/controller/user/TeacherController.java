@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.Authenticator;
 import java.util.*;
 
 @Controller
@@ -186,11 +187,39 @@ public class TeacherController {
     //-------------------------------------------------- INICI DE POSAR FALTES SECRETARIA
 
     @RequestMapping(value = "/teacher/select/group")
-    public ModelAndView groupSelectAccess() {
+    public ModelAndView groupSelectAccess(HttpServletRequest request, Authentication authentication) {
 
-        ModelAndView model = new ModelAndView("/selectGroup", "group", new ClassGroup());
+        String role = authentication.getAuthorities().toArray()[0].toString();
+
+        ModelAndView model;
+        if("SECRETARY".equals(role))
+            model = new ModelAndView("/selectGroup", "group", new ClassGroup());
+
+        else{
+            User user = (User) request.getSession().getAttribute("user");
+            if(user == null) user = userService.getUserById("1");
+            RoleTeacher teacher = userService.getTeacherByIdWithSubjects(user.getUserId());
+
+            List<Subject> subjects = teacher.getSubjects();
+
+            model = new ModelAndView("/subject", "subjects", subjects);
+            model.addObject("path", "/teacher/getStudentsSubject?subjectId=");
+
+
+        }
 
         return model;
+
+    }
+
+    @RequestMapping(value = "/teacher/getStudentsSubject", method = RequestMethod.GET)
+    public ModelAndView getStudentsSubject(@RequestParam String subjectId) {
+
+        Subject subject = subjectService.getById(subjectId);
+        List<User> students = userService.getStudentsByGroup(subject.getSubjectGroup().getGroupId());
+
+
+        return new ModelAndView("/putStudentIncidences", "students", students);
 
     }
 
@@ -300,7 +329,6 @@ public class TeacherController {
     @RequestMapping(value = "/teacher/subjects")
     public ModelAndView teacherSubjectsAccess(HttpServletRequest request) {
 
-        //FALTA AGAFAR L'USUARI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         try {
             User user = (User)request.getSession().getAttribute("user");
             if(user==null) user = userService.getUserById("1");
@@ -319,6 +347,7 @@ public class TeacherController {
             }
             ModelAndView model = new ModelAndView("/subject");
             model.addObject("subjects", subjects);
+            model.addObject("path", "/teacher/subjects/");
 
             return model;
         } catch (Exception e) {

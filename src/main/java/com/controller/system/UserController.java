@@ -384,6 +384,28 @@ public class UserController {
 	}
 
 
+	@RequestMapping("/user/requestUsers")
+	public @ResponseBody
+	JSONArray requestUsers(@RequestParam("name") String name, @RequestParam("surname") String surrname, @RequestParam("secondSurname") String seconsSurname) {
+		String query = generateQueryUser(name, surrname, seconsSurname);
+
+		List<User> users = userService.getQueryResults(query);
+
+
+		JSONArray data = new JSONArray();
+		for(User t : users){
+			JSONObject o = new JSONObject();
+			o.put("id", t.getUserId());
+			o.put("name", t.getName());
+			o.put("surname", t.getSurname());
+			o.put("secondSurname", t.getSecondSurname());
+
+			data.add(o);
+		}
+		return data;
+	}
+
+
 	public String generateQueryResponsible(String name, String surname, String secondSurname) {
 
 		//The substring and uppercase is to match the model name
@@ -400,6 +422,27 @@ public class UserController {
 			else query += "WHERE LOWER(u.userR.surname) LIKE '%" + secondSurname.toLowerCase() + "%' ";
 		}
 		query += " ORDER BY u.userR.name, u.userR.surname, u.userR.secondSurname";
+
+		return query;
+	}
+
+
+	public String generateQueryUser(String name, String surname, String secondSurname) {
+
+		//The substring and uppercase is to match the model name
+
+		String query = "SELECT u FROM User u ";
+		//Checks if name field is empty
+		if(!"".equals(name)) {
+			query += "WHERE LOWER(u.name) LIKE '%" + name.toLowerCase() + "%' ";
+		}if(!"".equals(surname)) {
+			if (!"".equals(name)) query += "AND LOWER(u.surname) LIKE '%" + surname.toLowerCase() + "%' ";
+			else query += "WHERE LOWER(u.surname) LIKE '%" + surname.toLowerCase() + "%' ";
+		}if(!"".equals(secondSurname)) {
+			if (!"".equals(name) || !"".equals(surname)) query += "AND LOWER(u.secondSurname) LIKE '%" + secondSurname.toLowerCase() + "%' ";
+			else query += "WHERE LOWER(u.surname) LIKE '%" + secondSurname.toLowerCase() + "%' ";
+		}
+		query += " ORDER BY u.name, u.surname, u.secondSurname";
 
 		return query;
 	}

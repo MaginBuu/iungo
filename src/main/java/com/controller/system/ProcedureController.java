@@ -46,7 +46,6 @@ public class ProcedureController {
 			procedure.setHour("23:59");
 			procedure.setUserP(new User());
 			model.addObject("procedure", procedure);
-			model.addObject("users", userService.getAllUsers());
 
 			return model;
 		}catch (Exception e) {

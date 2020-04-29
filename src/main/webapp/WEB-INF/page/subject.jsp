@@ -37,7 +37,7 @@
                     <div class="row justify-content-center" >
                         <div class="col item" style="max-height: 100%;">
                             <div class="box2" style="max-height: 100%; width:100%;margin: 0 auto;">
-                                <a class="nav-link stretched-link" href="/teacher/subjects/${subject.subjectId}"><a class="subject"><strong>${subject.name}</strong> -
+                                <a class="nav-link stretched-link" href="${path}${subject.subjectId}"><a class="subject"><strong>${subject.name}</strong> -
                                         ${subject.subjectGroup.level} ${subject.subjectGroup.stage} ${subject.subjectGroup.group}
                                         "${subject.subjectGroup.name}"
                                 </a></a>
