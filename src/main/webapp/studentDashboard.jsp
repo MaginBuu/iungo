@@ -47,7 +47,7 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-file-text icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/allGrades">
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/allGrades?userId=-1">
                         <h3 class="name">Grades Report </h3></a>
                 </div>
             </div>

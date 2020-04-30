@@ -1,3 +1,6 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+
 <%--
   Created by IntelliJ IDEA.
   User: maginbuu
@@ -107,6 +110,39 @@
                     </c:if>
 
                 </c:forEach>
+
+                <br><br>
+                <h2>Incidences</h2>
+
+                <table class="table table-borderless table-striped">
+                    <thead>
+                    <tr>
+                        <th><strong>Incidence type</strong></th>
+                        <th><strong>Day</strong></th>
+                        <th><strong>Commentary</strong></th>
+                        <th>Justified</th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    <c:forEach items="${incidences}" var="incidence">
+                        <tr>
+                            <td style="vertical-align: middle; horiz-align: center">${incidence.faultType}</td>
+                            <td style="vertical-align: middle; horiz-align: center">   <fmt:formatDate type="date" value="${incidence.creationDate}" pattern="dd-MM-yyyy HH:mm" /></td>
+                            <td style="vertical-align: middle; horiz-align: center">${incidence.description}</td>
+                            <td style="vertical-align: middle; horiz-align: center"> <c:if test="${incidence.faultType eq 'ATTENDANCE'}">
+                                                <c:if test="${incidence.justified eq true}">
+                                                    ${incidence.justified}
+                                                </c:if>
+                                            <c:if test="${incidence.justified ne true}">
+                                                false
+                                            </c:if>
+                                        </c:if>
+                                    <c:if test="${incidence.faultType ne 'ATTENDANCE'}"> - </c:if></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+
             </div>
 
             <a class="btn btn-light submit-button" onclick="printDiv()">generate PDF</a>

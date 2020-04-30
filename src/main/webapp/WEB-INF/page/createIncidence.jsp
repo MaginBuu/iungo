@@ -24,7 +24,7 @@
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" method="post" action="/incidence/creation" modelAttribute="incidence">
-            <form:hidden path="user.userId"/>
+            <form:hidden path="student.userR.userId"/>
             <h1>Create Incidence</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label class="col-form-label">Fault type </label></div>

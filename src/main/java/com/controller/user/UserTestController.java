@@ -488,10 +488,16 @@ public class UserTestController {
      * @return ModelAndView with the desired .jsp file and its required model & objects
      */
     @RequestMapping(value = "/user/allGrades")
-    public ModelAndView getAllGrades(HttpServletRequest request) {
+    public ModelAndView getAllGrades(@RequestParam String userId, HttpServletRequest request) {
 
-        User user = (User) request.getSession().getAttribute("user");
-        if(user == null) user = userService.getUserById("1");
+        System.out.printf("");
+        User user;
+        if("-1".equals(userId)) {
+            user = (User) request.getSession().getAttribute("user");
+            if(user == null)
+                user = userService.getUserById("1");
+        }else
+            user = userService.getUserById(userId);
 
         List<Subject> subjects = subjectService.getByGroup(((RoleStudent) user.getRoles().get(Role.STUDENT)).getGroup().getGroupId());
         List<GradesEncapsulator> grades = new LinkedList<>();
@@ -505,9 +511,12 @@ public class UserTestController {
             grades.add(gradesEncapsulator);
         }
 
+        List<Incidence> incidences = incidenceService.getIncidenceByStudentId(user.getRoles().get(Role.STUDENT).getRoleId());
+
 
         ModelAndView model = new ModelAndView("/user/gradesReport");
         model.addObject("grades", grades);
+        model.addObject("incidences", incidences);
 
         return model;
 

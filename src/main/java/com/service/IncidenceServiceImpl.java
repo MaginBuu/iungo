@@ -5,6 +5,8 @@ import com.model.Incidence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class IncidenceServiceImpl implements IncidenceService {
@@ -17,4 +19,6 @@ public class IncidenceServiceImpl implements IncidenceService {
     public Incidence getIncidenceById(String id) { return incidenceDao.getIncidenceById(id); }
 
     public Incidence getIncidenceByProcedureId(String id) { return incidenceDao.getIncidenceByProcedureId(id); }
+
+    public List<Incidence> getIncidenceByStudentId(String id) { return incidenceDao.getIncidenceByStudentId(id); }
 }

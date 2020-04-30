@@ -307,7 +307,7 @@ public class TeacherController {
         User user = userService.getUserById(userId);
 
         Incidence incidence = new Incidence();
-        incidence.setUser(user);
+        incidence.setStudent((RoleStudent) user.getRoles().get(Role.STUDENT));
 
         return new ModelAndView("createIncidence", "incidence", incidence);
 
@@ -315,9 +315,10 @@ public class TeacherController {
 
 
     @RequestMapping(value = "/incidence/creation", method = RequestMethod.POST)
-    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence, BindingResult result){
+    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence, BindingResult result, HttpServletRequest request){
 
-        User user = userService.getUserById(incidence.getUser().getUserId());
+        User user = userService.getUserById(incidence.getStudent().getUserR().getUserId());
+        incidence.setStudent((RoleStudent) user.getRoles().get(Role.STUDENT));
 
         String title = user.getFullName() + " - " + incidence.getFaultType().toString().toLowerCase() + " fault";
         String description = incidence.getDescription();
@@ -333,7 +334,7 @@ public class TeacherController {
         Boolean online = incidence.getFaultType().equals(FaultType.ATTENDANCE) ? true : false;
 
         Procedure procedure = new Procedure(title, description, online, date);
-        procedure.setUserP(responsibles.get(1).getUserR());
+        procedure.setUserP(responsibles.get(responsibles.size() - 1).getUserR());
         procedureService.addProcedure(procedure);
         incidence.setProcedure(procedure);
 
@@ -356,8 +357,10 @@ public class TeacherController {
 
         ClassGroup group = ((RoleStudent) user.getRoles().get(Role.STUDENT)).getGroup();
 
+        String referer = request.getHeader("Referer");
 
-        return "redirect:/teacher/getStudentsGroup?stage=" + group.getStage() + "&level=" + group.getLevel() + "&group=" + group.getGroup();
+        //return "redirect:/teacher/getStudentsGroup?stage=" + group.getStage() + "&level=" + group.getLevel() + "&group=" + group.getGroup();
+        return "redirect:" + referer;
 
     }
 

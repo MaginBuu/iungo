@@ -13,6 +13,8 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = "Incidence.findById", query = "SELECT i FROM Incidence i WHERE i.incidenceId =:id"),
         @NamedQuery(name = "Incidence.findByProcedureId", query = "SELECT i FROM Incidence i WHERE i.procedure.procedureId =:id"),
+        @NamedQuery(name = "Incidence.findByStudent", query = "SELECT i FROM Incidence i WHERE i.student.roleId =:id ORDER BY i.faultType, i.creationDate"),
+
 })
 public class Incidence {
 
@@ -29,7 +31,7 @@ public class Incidence {
     private String description;
 
     @OneToOne
-    private User user;
+    private RoleStudent student;
 
     @Column(name = "CREATION_DATE")
     private Date creationDate;
@@ -48,9 +50,9 @@ public class Incidence {
 
     public void setDescription(String description) { this.description = description; }
 
-    public User getUser() { return user; }
+    public RoleStudent getStudent() { return student; }
 
-    public void setUser(User user) { this.user = user; }
+    public void setStudent(RoleStudent student) { this.student = student; }
 
     public String getIncidenceId() { return incidenceId; }
 

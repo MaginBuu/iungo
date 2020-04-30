@@ -46,4 +46,11 @@ public class IncidenceDaoImpl implements IncidenceDao {
         session.close();
         return incidences;
     }
+
+    public List<Incidence> getIncidenceByStudentId(String id){
+        Session session = sessionFactory.openSession();
+        List<Incidence> incidences = session.getNamedQuery("Incidence.findByStudent").setParameter("id", id).list();
+        session.close();
+        return incidences;
+    }
 }
