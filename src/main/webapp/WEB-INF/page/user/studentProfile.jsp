@@ -71,8 +71,8 @@
                 <a class="btn btn-light submit-button" value="comment" name="buttonName" id="comment" style="background-color: #4C4C47"
                         href="/teacher/comment?userId=${user.userId}">Write a comment
                 </a>
-                <a class="btn btn-danger submit-button" value="incidence" name="buttonName" id="incidence" style="background-color: #B3001B"
-                        href="/teacher/incidence?userId=${user.userId}">Set incidence
+                <a class="btn btn-danger submit-button" name="btn-incidence" value="incidenceFromProfile" id="incidenceFromProfile" style="background-color: #B3001B"
+                        href="/teacher/incidence?userId=${user.userId}&origin=profile">Set incidence
                 </a>
             </c:if>
         </div>

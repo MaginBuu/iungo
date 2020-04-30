@@ -302,19 +302,23 @@ public class TeacherController {
 
 
     @RequestMapping(value = "/teacher/incidence", method = RequestMethod.GET)
-    public ModelAndView getIncidenceForm(@RequestParam String userId){
+    public ModelAndView getIncidenceForm(@RequestParam("userId") String userId, @RequestParam("origin") String selection){
 
         User user = userService.getUserById(userId);
 
         Incidence incidence = new Incidence();
         incidence.setStudent((RoleStudent) user.getRoles().get(Role.STUDENT));
 
-        return new ModelAndView("createIncidence", "incidence", incidence);
+        ModelAndView model = new ModelAndView("createIncidence");
+        model.addObject("incidence", incidence);
+        model.addObject("origin", selection);
+        return model;
 
     }
 
     @RequestMapping(value = "/incidence/creation", method = RequestMethod.POST)
-    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence, BindingResult result, HttpServletRequest request){
+    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence
+            , BindingResult result, HttpServletRequest request){
 
         User user = userService.getUserById(incidence.getStudent().getUserR().getUserId());
         incidence.setStudent((RoleStudent) user.getRoles().get(Role.STUDENT));
@@ -358,8 +362,8 @@ public class TeacherController {
 
         String referer = request.getHeader("Referer");
 
-        //return "redirect:/teacher/getStudentsGroup?stage=" + group.getStage() + "&level=" + group.getLevel() + "&group=" + group.getGroup();
-        return "redirect:" + referer;
+        if(referer.contains("origin=profile")) return "redirect:/teacher/"+user.getUserId()+"/profile.do";
+        else return "redirect:/teacher/getStudentsGroup?stage="+group.getStage()+"&level="+group.getLevel()+"&group="+group.getGroup();
 
     }
 
