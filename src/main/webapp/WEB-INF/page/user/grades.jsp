@@ -54,7 +54,7 @@
                 <label class="label-column">Final grade: ${userSubject.grade}</label>
             </c:if>
             <br>
-            <a class="btn btn-light submit-button" href="/user/subject/${subjectId}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to subject</a>
+            <a class="btn btn-light submit-button" href="/subject/${subjectId}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to subject</a>
         </div>
     </div>
 </div>

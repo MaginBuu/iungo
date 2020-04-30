@@ -53,6 +53,7 @@
 				<value>com.model.Evaluation</value>
 				<value>com.model.Event</value>
 				<value>com.model.Incidence</value>
+				<value>com.model.KeyRole</value>
 				<value>com.model.Message</value>
 				<value>com.model.Notification</value>
 				<value>com.model.Procedure</value>

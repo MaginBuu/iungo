@@ -113,35 +113,39 @@
 
                 <br><br>
                 <h2>Incidences</h2>
-
-                <table class="table table-borderless table-striped">
-                    <thead>
-                    <tr>
-                        <th><strong>Incidence type</strong></th>
-                        <th><strong>Day</strong></th>
-                        <th><strong>Commentary</strong></th>
-                        <th>Justified</th>
-                    </tr>
-                    </thead>
-                    <tbody id="myTable">
-                    <c:forEach items="${incidences}" var="incidence">
+                <c:if test="${incidences.size() gt 0}">
+                    <table class="table table-borderless table-striped">
+                        <thead>
                         <tr>
-                            <td style="vertical-align: middle; horiz-align: center">${incidence.faultType}</td>
-                            <td style="vertical-align: middle; horiz-align: center">   <fmt:formatDate type="date" value="${incidence.creationDate}" pattern="dd-MM-yyyy HH:mm" /></td>
-                            <td style="vertical-align: middle; horiz-align: center">${incidence.description}</td>
-                            <td style="vertical-align: middle; horiz-align: center"> <c:if test="${incidence.faultType eq 'ATTENDANCE'}">
-                                                <c:if test="${incidence.justified eq true}">
-                                                    ${incidence.justified}
-                                                </c:if>
-                                            <c:if test="${incidence.justified ne true}">
-                                                false
-                                            </c:if>
-                                        </c:if>
-                                    <c:if test="${incidence.faultType ne 'ATTENDANCE'}"> - </c:if></td>
+                            <th><strong>Incidence type</strong></th>
+                            <th><strong>Day</strong></th>
+                            <th><strong>Commentary</strong></th>
+                            <th>Justified</th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="myTable">
+                        <c:forEach items="${incidences}" var="incidence">
+                            <tr>
+                                <td style="vertical-align: middle; horiz-align: center">${incidence.faultType}</td>
+                                <td style="vertical-align: middle; horiz-align: center">   <fmt:formatDate type="date" value="${incidence.creationDate}" pattern="dd-MM-yyyy HH:mm" /></td>
+                                <td style="vertical-align: middle; horiz-align: center">${incidence.description}</td>
+                                <td style="vertical-align: middle; horiz-align: center"> <c:if test="${incidence.faultType eq 'ATTENDANCE'}">
+                                                    <c:if test="${incidence.justified eq true}">
+                                                        ${incidence.justified}
+                                                    </c:if>
+                                                <c:if test="${incidence.justified ne true}">
+                                                    false
+                                                </c:if>
+                                            </c:if>
+                                        <c:if test="${incidence.faultType ne 'ATTENDANCE'}"> - </c:if></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
+                <c:if test="${incidences.size() eq 0}">
+                    <br><p>This student dont have any incidences</p><br>
+                </c:if>
 
             </div>
 

@@ -21,7 +21,7 @@ public class SubjectControllerUser {
     @Autowired
     SubjectService subjectService;
 
-    @RequestMapping(value = "/user/subject/{subjectId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/subject/{subjectId}", method = RequestMethod.GET)
     public ModelAndView accessTeacherProfile(@PathVariable("subjectId") String subjectId) {
 
         Subject subject = subjectService.getByIdWithChapters(subjectId);
@@ -33,7 +33,7 @@ public class SubjectControllerUser {
         return model;
     }
 
-    @RequestMapping(value = "/user/subject/Qualification/{subjectId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/subject/Qualification/{subjectId}", method = RequestMethod.GET)
     public ModelAndView getQualificationSubject(@PathVariable("subjectId") String subjectId) {
 
         Subject subject = subjectService.getByIdWithChapters(subjectId);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -26,12 +27,20 @@ public class ResponsibleController {
     SubjectService subjectService;
 
     @RequestMapping(value = "/responsible/{childId}/subjects", method = RequestMethod.GET)
-    public ModelAndView accessChildSubjectList(@PathVariable("childId") String childId) {
+    public ModelAndView accessChildSubjectList(@PathVariable("childId") String childId, HttpServletRequest request) {
+
         ModelAndView model = new ModelAndView("/userSubjects");
         RoleStudent rs = userService.getStudentByUserId(childId);
+
+        try{
+            request.getSession().removeAttribute("child");
+        }catch (Exception e){
+            System.out.printf(e.toString());
+        }
+        request.getSession().setAttribute("child", rs.getUserR());
+
         List<Subject> subjectList = subjectService.getByGroupNoTeachers(rs.getGroup().getGroupId());
         model.addObject("subjects", subjectList);
-        model.addObject("childId", childId);
         return model;
     }
 

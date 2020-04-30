@@ -37,7 +37,7 @@
                         <div class="col item" style="max-height: 100%;">
                             <div class="box2" style="max-height: 100%; width:100%;margin: 0 auto;">
 
-                                <a class="nav-link stretched-link" href="/responsible/${childId}/subjects/${subject.subjectId}"><a class="subject"><strong>${subject.name}</strong> -
+                                <a class="nav-link stretched-link" href="/subject/${subject.subjectId}"><a class="subject"><strong>${subject.name}</strong> -
                                         ${subject.subjectGroup.level} ${fn:substring(subject.subjectGroup.stage.toString(),0,1)}${fn:toLowerCase(fn:substring(subject.subjectGroup.stage.toString(),1,(fn:length(subject.subjectGroup.stage.toString()))))} ${subject.subjectGroup.group}
                                 </a></a><br>
                                 <small>${fn:substring(subject.department.toString(),0,1)}${fn:toLowerCase(fn:substring(subject.department.toString(),1,(fn:length(subject.department.toString()))))}</small>
