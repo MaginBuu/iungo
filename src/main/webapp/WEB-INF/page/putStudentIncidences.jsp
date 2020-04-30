@@ -26,17 +26,20 @@
             <div class="form-row form-group">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8 label-column">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-borderless table-striped">
                         <thead>
                         <tr>
-                            <th><strong>Name</strong></th>
                             <th></th>
+                            <th width="25%"></th>
+                            <th width="25%"></th>
                         </tr>
                         </thead>
                         <tbody id="myTable">
                         <c:forEach items="${students}" var="student">
                             <tr>
                                 <td style="vertical-align: middle; horiz-align: center">${student.name} ${student.surname} ${student.secondSurname}</td>
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/teacher/${student.userId}/profile">
+                                    View profile</a></td>
                                 <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/teacher/incidence?userId=${student.userId}">
                                                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Set incidence</a></td>
                             </tr>

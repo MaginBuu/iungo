@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.model.Comment;
 import com.model.Incidence;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,4 +47,31 @@ public class IncidenceDaoImpl implements IncidenceDao {
         session.close();
         return incidences;
     }
+    
+    //COMMENT
+
+    public void addComment(Comment comment){
+        System.out.println("commentCreation");
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.saveOrUpdate(comment);
+            tx.commit();
+        }catch(Exception e){
+            if(tx != null) tx.rollback();
+            throw e;
+        }finally {
+            session.close();
+        }
+    }
+
+
+    public Comment getCommentById(String id){
+        Session session = sessionFactory.openSession();
+        Comment comments = (Comment) session.getNamedQuery("Comment.findById").setParameter("id", id).uniqueResult();
+        session.close();
+        return comments;
+    }
+    
 }
