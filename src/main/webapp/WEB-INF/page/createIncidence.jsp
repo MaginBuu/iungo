@@ -21,15 +21,6 @@
 
 <body>
 
-<script>
-
-    function initBtn() {
-        var origin = document.getElementById("origin");
-        var btn = document.getElementById("create-btn");
-        btn.val(origin.val());
-    }
-
-</script>
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
@@ -55,7 +46,8 @@
                 <div class="col-sm-7 input-column-Procedure"><form:textarea path="description" class="form-control"
                                                                             type="text"></form:textarea></div>
             </div>
-            <button class="btn btn-light submit-button" id="create-btn" type="submit" value="" onclick="return Validate()">Create</button>
+            <button class="btn btn-light submit-button" id="btn-origin" type="submit" value="${origin}" onclick="return Validate()">Create</button>
+            <p>${origin}</p>
         </form:form>
     </div>
 </div>

@@ -317,7 +317,7 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/incidence/creation", method = RequestMethod.POST)
-    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence, @ModelAttribute("origin") String selection
+    public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence
             , BindingResult result, HttpServletRequest request){
 
         User user = userService.getUserById(incidence.getStudent().getUserR().getUserId());
@@ -362,10 +362,8 @@ public class TeacherController {
 
         String referer = request.getHeader("Referer");
 
-        if(selection == "incidenceFromProfile") return "redirect:/teacher/"+user.getUserId()+"/profile.do";
-        else return "redirect:" + referer;
-        //return "redirect:/teacher/getStudentsGroup?stage=" + group.getStage() + "&level=" + group.getLevel() + "&group=" + group.getGroup();
-
+        if(referer.contains("origin=profile")) return "redirect:/teacher/"+user.getUserId()+"/profile.do";
+        else return "redirect:/teacher/getStudentsGroup?stage="+group.getStage()+"&level="+group.getLevel()+"&group="+group.getGroup();
 
     }
 
