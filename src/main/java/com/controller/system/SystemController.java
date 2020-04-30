@@ -65,6 +65,10 @@ public class SystemController {
         return model;
     }
 
+    @RequestMapping("/secretary")
+    public ModelAndView getSecretaryPage(){
+        return new ModelAndView("../../teacherDashboard");
+    }
 
     @RequestMapping("/role")
     public String getRolePage(Authentication authentication){
@@ -87,7 +91,8 @@ public class SystemController {
         }
 
         if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString())
-                || role.equals(Role.TEACHER.toString()) || role.equals(Role.RESPONSIBLE.toString()))
+                || role.equals(Role.TEACHER.toString()) || role.equals(Role.RESPONSIBLE.toString())
+                || role.equals(Role.SECRETARY))
             return "redirect:/" + role.toLowerCase();
 
         return "redirect:/student";

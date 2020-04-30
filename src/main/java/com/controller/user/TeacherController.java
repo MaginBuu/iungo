@@ -402,9 +402,11 @@ public class TeacherController {
     public ModelAndView accessStudentProfileTeacher(@PathVariable("userId") String userId){
 
         User user = userService.getUserById(userId);
+        List<RoleResponsible> roleResponsibles = userService.getStudentResponsibles(userId);
 
-        return new ModelAndView("/user/studentProfile", "user", user);
-
+        ModelAndView model = new ModelAndView("/user/studentProfile", "user", user);
+        model.addObject("responsibles", roleResponsibles);
+        return model;
     }
 
 

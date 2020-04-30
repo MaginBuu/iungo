@@ -63,6 +63,25 @@
                     <td style="vertical-align: middle; text-align: left">${user.username}</td>
                 </tr>
                 </tbody>
+                </table>
+                <p><strong>Responsibles:</strong></p>
+            <table class="table table-borderless">
+                <tbody id="responsibles">
+                <c:forEach items="${responsibles}" var="responsible">
+                    <tr>
+                        <td style="vertical-align: middle;">${responsible.userR.name} ${responsible.userR.surname} ${responsible.userR.secondSurname}</td>
+                        <td style="vertical-align: middle; text-align: right">
+                            <a class="btn btn-light" value="comment" name="buttonName" id="resp-message"
+                               href="/teacher/comment?userId=${user.userId}">Send message
+                            </a>
+                        </td><td>
+                            <a class="btn btn-danger" name="btn-incidence" value="incidenceFromProfile" id="resp-profile" style="background-color: #DE9D3F;border-color:#DE9D3F"
+                               href="/teacher/incidence?userId=${user.userId}&origin=profile">View profile
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
             </table>
             <button class="btn btn-light submit-button" value="update" name="buttonName" id="generateReport"
                     onclick="return Validate()">Generate user's report
@@ -72,7 +91,7 @@
                 <a class="btn btn-light submit-button" value="comment" name="buttonName" id="comment" style="background-color: #4C4C47"
                         href="/teacher/comment?userId=${user.userId}">Write a comment
                 </a>
-                <a class="btn btn-danger submit-button" name="btn-incidence" value="incidenceFromProfile" id="incidenceFromProfile" style="background-color: #B3001B"
+                <a class="btn btn-danger submit-button" name="btn-incidence" value="incidenceFromProfile" id="incidenceFromProfile" style="background-color: #B3001B "
                         href="/teacher/incidence?userId=${user.userId}&origin=profile">Set incidence
                 </a>
             </c:if>

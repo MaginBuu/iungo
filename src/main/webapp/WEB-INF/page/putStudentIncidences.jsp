@@ -25,7 +25,7 @@
             <h1>Incidences</h1>
             <div class="form-row form-group">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-8 label-column">
+                <div class="col-sm-12 label-column">
                     <table class="table table-borderless table-striped">
                         <thead>
                         <tr>
