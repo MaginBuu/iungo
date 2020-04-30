@@ -20,12 +20,23 @@
 </head>
 
 <body>
+
+<script>
+
+    function initBtn() {
+        var origin = document.getElementById("origin");
+        var btn = document.getElementById("create-btn");
+        btn.val(origin.val());
+    }
+
+</script>
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" method="post" action="/incidence/creation" modelAttribute="incidence">
             <form:hidden path="student.userR.userId"/>
-            <h1>Create Incidence</h1>
+            <input type="hidden" id="origin" value="${origin}">
+            <h1 onload="initBtn()">Create Incidence</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label class="col-form-label">Fault type </label></div>
                 <div class="col-sm-4 input-column">
@@ -44,7 +55,7 @@
                 <div class="col-sm-7 input-column-Procedure"><form:textarea path="description" class="form-control"
                                                                             type="text"></form:textarea></div>
             </div>
-            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
+            <button class="btn btn-light submit-button" id="create-btn" type="submit" value="" onclick="return Validate()">Create</button>
         </form:form>
     </div>
 </div>

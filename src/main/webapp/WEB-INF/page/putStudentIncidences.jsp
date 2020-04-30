@@ -40,7 +40,7 @@
                                 <td style="vertical-align: middle; horiz-align: center">${student.name} ${student.surname} ${student.secondSurname}</td>
                                 <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" href="/teacher/${student.userId}/profile">
                                     View profile</a></td>
-                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/teacher/incidence?userId=${student.userId}">
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" name="btn-incidence" value="incidenceFromGroup" id="incidenceFromGroup" href="/teacher/incidence?userId=${student.userId}&origin=group">
                                                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Set incidence</a></td>
                             </tr>
                         </c:forEach>
