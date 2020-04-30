@@ -64,7 +64,6 @@
                 </tr>
                 </tbody>
             </table>
-            <p>${pageContext.request.userPrincipal.authorities}</p>
             <button class="btn btn-light submit-button" value="update" name="buttonName" id="generateReport"
                     onclick="return Validate()">Generate user's report
             </button>
