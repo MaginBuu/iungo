@@ -15,8 +15,6 @@ import java.util.List;
         @NamedQuery(name = "RoleStudent.getWithParents", query ="SELECT o FROM RoleStudent o LEFT JOIN FETCH o.responsibles WHERE o.userR.userId =:userId"),
         @NamedQuery(name = "RoleStudent.getById", query ="SELECT o FROM RoleStudent o WHERE o.userR.userId =:id"),
         @NamedQuery(name = "RoleStudents.findStudentsByGroup", query = "SELECT u.userR FROM RoleStudent u WHERE u.group.groupId =:groupId ORDER BY u.userR.name, u.userR.surname, u.userR.secondSurname"),
-
-
 })
 
 public class RoleStudent extends RoleClass {
@@ -57,6 +55,5 @@ public class RoleStudent extends RoleClass {
     public List<UserSubject> getUserSubjects() { return userSubjects; }
 
     public void setUserSubjects(List<UserSubject> userSubjects) { this.userSubjects = userSubjects; }
-
 
 }

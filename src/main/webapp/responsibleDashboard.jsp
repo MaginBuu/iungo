@@ -27,9 +27,28 @@
 
 <script>
 
-    function navigateChild() {
+    function initModal(){
+        document.getElementById("modalText").style.backgroundColor = "";
+    }
+
+    function navigateSubjects() {
         var student = jQuery('#studentId');
-        window.location.href = '/responsible/' + student.val() + '/subjects';
+        if(student.val() != ""){
+            window.location.href = '/responsible/' + student.val() + '/subjects';
+        }else{
+            document.getElementById("modalText").style.backgroundColor = "#ffd6cc";
+            document.getElementById("modalText").style.borderRadius = "3px";
+        }
+    }
+
+    function navigateProfile() {
+        var student = jQuery('#studentId');
+        if(student.val() != ""){
+            //window.location.href = '/responsible/' + student.val() + '/subjects';
+        }else{
+            document.getElementById("modalText").style.backgroundColor = "#ffd6cc";
+            document.getElementById("modalText").style.borderRadius = "3px";
+        }
     }
 
     function selectedChild(){
@@ -37,7 +56,7 @@
         var result = e.options[e.selectedIndex].value;
         var hiddenInput = jQuery('#studentId');
         hiddenInput.val(result);
-        document.getElementById("continue-btn").disabled = false;
+        document.getElementById("butt").disabled = false;
     }
 
 </script>
@@ -46,14 +65,13 @@
 <div class="features-boxed">
     <div class="container">
         <div class="intro">
-            <h2 class="text-center">Student </h2>
-            <p class="text-center">${pageContext.request.userPrincipal}</p>
+            <h2 class="text-center">Responsible </h2>
         </div>
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-life-ring icon"></i>
-                    <a class="nav-link stretched-link" data-toggle="modal" data-target="#myModal">
-                        <h3 class="name">Anti Bullying</h3></a>
+                <div class="box"><i class="fa fa-child icon"></i>
+                    <a class="nav-link stretched-link" data-toggle="modal" data-target="#myModal" onclick="initModal()">
+                        <h3 class="name">Children</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -98,7 +116,7 @@
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Select a child</h4>
-                    <p id="deleteText">Select a child in order to navigate through the subjects.</p>
+                    <p id="modalText">Select a child in order to navigate through the options.</p>
                     <div class="row" style="justify-content: center">
                         <select class="selectpicker" data-width="100%" style="vertical-align: middle;" id="student-pick" name="student-pick" onchange="selectedChild()">
                             <option disabled="disabled" selected="selected" value="">Select a child</option>
@@ -109,9 +127,22 @@
                     </div>
                 </div>
                 <input type="hidden" name="studentId" id="studentId" value=""/>
-                <div class="modal-footer">
-                    <button type="button" style="vertical-align: middle;" class="btn-modal btn-info" data-dismiss="modal">Cancel</button>
-                    <button id="continue-btn" style="vertical-align: middle;" class="btn-modal btn-modal-access btn-light submit-button" disabled="true" data-dismiss="modal" onclick="navigateChild()">Access subjects</button>
+
+                <div class="row justify-content-center" style="margin-bottom: 0%">
+                    <div class="col item">
+                        <div class="box"><i class="fa fa-book icon"></i>
+                            <a id="butt" class="nav-link stretched-link" style="color:#000000;"
+                               onclick="navigateSubjects()">
+                                <h3 class="name">Subjects</h3></a>
+                        </div>
+                    </div>
+                    <div class="col item">
+                        <div class="box"><i class="fa fa-user icon"></i>
+                            <a class="nav-link stretched-link" style="color:#000000;"
+                               onclick="navigateProfile()">
+                                <h3 class="name">Profile</h3></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

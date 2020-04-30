@@ -74,7 +74,7 @@
     outline: none !important;
 }
 .modal-confirm .btn-modal-access {
-    color: #DE9D3F;
+    background-color: #DE9D3F;
 }
 
 .modal-confirm .btn-modal {
