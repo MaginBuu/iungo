@@ -64,9 +64,8 @@
                 </tr>
                 </tbody>
             </table>
-            <button class="btn btn-light submit-button" value="update" name="buttonName" id="generateReport"
-                    onclick="return Validate()">Generate user's report
-            </button>
+            <a class="btn btn-light submit-button" value="update" name="buttonName" id="generateReport" href="/user/allGrades?userId=${user.userId}">Generate user's report
+            </a>
             <c:set var = "authority" value = "${pageContext.request.userPrincipal.authorities}"/>
             <c:if test="${(authority ne '[STUDENT]') and (authority ne '[RESPONSIBLE]')}">
                 <a class="btn btn-light submit-button" value="comment" name="buttonName" id="comment" style="background-color: #4C4C47"

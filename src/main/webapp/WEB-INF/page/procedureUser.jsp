@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <p class="card-text sub-text-color">${procedure.description}</p>
+                                <p class="card-text sub-text-color"><span style="white-space: pre-line">${procedure.description}</span></p>
                                 <c:if test="${procedure.online eq true}">
                                     <div class="row float-right" style="align-content: end">
                                         <button class="btn btn-light submit-button" style="margin-right: 10px" onclick="decision('${procedure.procedureId}',true)">Accept</button>

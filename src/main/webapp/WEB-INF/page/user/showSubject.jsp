@@ -25,7 +25,7 @@
                 <p class="parallax-text">${subject.name}</p>
             </div>
 
-            <h2>info</h2>
+            <h2>Information</h2>
             <br>
             <a href="/user/grades?subjectId=${subject.subjectId}"><i class="fa fa-graduation-cap" aria-hidden="true"></i>   Grades</a>
             <br><br>

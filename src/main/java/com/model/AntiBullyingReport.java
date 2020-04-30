@@ -80,4 +80,17 @@ public class AntiBullyingReport {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString(){
+        String string = "";
+        string += "Personal: " + !observed + "\n";
+        if(anonymous)
+            string += "From: anonymous\n";
+        else
+            string += "From: " + user.getFullName() + "\n";
+        string += "Description: " + description;
+
+        return string;
+    }
 }

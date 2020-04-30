@@ -4037,15 +4037,13 @@ INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('28
 -- CHAPTERS (CATALA 4T ESO A I B)
 --
 
-INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('0', 'Informacio', NULL, '1');
-INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('1', 'Tema 1', '0', '1');
+INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('1', 'Tema 1', null, '1');
 INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('2', 'Tema 2', '1', '1');
 INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('3', 'Tema 4', '2', '1');
 INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('4', 'Tema 5', '3', '1');
 INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('5', 'Tema 6', '4', '1');
 
-INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('6', 'Informacio', NULL, '2');
-INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('7', 'Tema 1', '6', '2');
+INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('7', 'Tema 1', null, '2');
 INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('8', 'Tema 2', '7', '2');
 INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('9', 'Tema 4', '8', '2');
 INSERT INTO public.chapters (chapter_id, title, nextchapter_chapter_id, subject_id) VALUES ('10', 'Tema 5', '9', '2');
@@ -7450,4 +7448,11 @@ INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id)
 INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id) VALUES ('2', 1, '2019-09-29 00:00:00', '1');
 INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id) VALUES ('3', 2, '2019-09-29 00:00:00', '1');
 INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id) VALUES ('4', 3, '2019-09-29 00:00:00', '1');
+
+
+--
+-- Key ROLE
+--
+
+INSERT INTO public.key_role (key_role, user_user_id) VALUES ('Antibullying', '1');
 

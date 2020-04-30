@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import sun.management.VMOptionCompositeData;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -279,6 +280,9 @@ public class UserTestController {
                 report.setUser(user);
             }
             //Alertar responsable
+            Procedure procedure = new Procedure("Anti bullying report", report.toString(), false, new Date(2099, 01, 01));
+            procedure.setUserP(userService.getUserById("1"));
+            procedureService.addProcedure(procedure);
 
             antiBullyingReportService.addAntiBullyingReport(report);
             return "redirect:/";
@@ -467,8 +471,20 @@ public class UserTestController {
     @RequestMapping(value = "/user/grades")
     public ModelAndView getGrades(@RequestParam String subjectId, HttpServletRequest request) {
 
-        User user = (User) request.getSession().getAttribute("user");
-        if(user == null) user = userService.getUserById("1");
+        User user = null;
+
+        try{
+            user = (User) request.getSession().getAttribute("child");
+        }catch (Exception e){
+            logger.error("[" + new Object() {
+            }.getClass().getEnclosingMethod().getName() + "] -  child does not exist " + e);
+        }
+
+        if(user == null){
+            user = (User) request.getSession().getAttribute("user");
+            if(user == null)
+                user = userService.getUserById("1");
+        }
 
         List<UserTask> userTasks = taskService.getUserTaskByUserAndSubject(user.getUserId(), subjectId);
         UserSubject userSubject = subjectService.getUserSubjectByUserAndSubject(user.getUserId(), subjectId);
@@ -520,6 +536,19 @@ public class UserTestController {
 
         return model;
 
+    }
+
+
+    @RequestMapping(value = "/user/subjects", method = RequestMethod.GET)
+    public ModelAndView accessChildSubjectList(HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) user = userService.getUserById("1");
+
+        ModelAndView model = new ModelAndView("userSubjects");
+        List<Subject> subjectList = subjectService.getByGroupNoTeachers(((RoleStudent) user.getRoles().get(Role.STUDENT)).getGroup().getGroupId());
+        model.addObject("subjects", subjectList);
+        return model;
     }
 
 

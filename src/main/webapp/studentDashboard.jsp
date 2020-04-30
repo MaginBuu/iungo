@@ -35,8 +35,8 @@
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box"><i class="fa fa-book icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/subject/1">
-                        <h3 class="name">Subject</h3></a>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/subjects">
+                        <h3 class="name">Subjects</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
