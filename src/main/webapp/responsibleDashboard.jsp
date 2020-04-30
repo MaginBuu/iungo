@@ -29,6 +29,9 @@
 
     function initModal(){
         document.getElementById("modalText").style.backgroundColor = "";
+        document.getElementById("default-select").selected = "true";
+        var e = document.getElementById("studentId");
+        e.val("");
     }
 
     function navigateSubjects() {
@@ -44,7 +47,7 @@
     function navigateProfile() {
         var student = jQuery('#studentId');
         if(student.val() != ""){
-            //window.location.href = '/responsible/' + student.val() + '/subjects';
+            window.location.href = '/responsible/' + student.val() + '/profile';
         }else{
             document.getElementById("modalText").style.backgroundColor = "#ffd6cc";
             document.getElementById("modalText").style.borderRadius = "3px";
@@ -119,7 +122,7 @@
                     <p id="modalText">Select a child in order to navigate through the options.</p>
                     <div class="row" style="justify-content: center">
                         <select class="selectpicker" data-width="100%" style="vertical-align: middle;" id="student-pick" name="student-pick" onchange="selectedChild()">
-                            <option disabled="disabled" selected="selected" value="">Select a child</option>
+                            <option id="default-select" disabled="disabled" selected="selected" value="">Select a child</option>
                             <c:forEach items="${children}" var="child">
                                 <option value="${child.userR.userId}" style="color:#000000">${child.userR.name} ${child.userR.surname} ${child.userR.secondSurname}</option>
                             </c:forEach>

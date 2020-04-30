@@ -313,7 +313,6 @@ public class TeacherController {
 
     }
 
-
     @RequestMapping(value = "/incidence/creation", method = RequestMethod.POST)
     public String setIncidence(@Valid @ModelAttribute(value = "incidence") Incidence incidence, BindingResult result, HttpServletRequest request){
 
@@ -364,7 +363,45 @@ public class TeacherController {
 
     }
 
+    @RequestMapping(value = "/teacher/comment", method = RequestMethod.GET)
+    public ModelAndView getCommentForm(@RequestParam String userId){
 
+        User user = userService.getUserById(userId);
+
+        Comment comment = new Comment();
+        comment.setUser(user);
+
+        return new ModelAndView("createComment", "comment", comment);
+
+    }
+
+    @RequestMapping(value = "/comment/creation", method = RequestMethod.POST)
+    public String setComment(@Valid @ModelAttribute(value = "comment") Comment comment, BindingResult result){
+
+        User user = userService.getUserById(comment.getUser().getUserId());
+
+        Calendar c = Calendar.getInstance(); // starts with today's date and time
+        c.add(Calendar.DAY_OF_YEAR, 2);  // advances day by 2
+        Date date = c.getTime(); // gets modified time
+
+        comment.setCreationDate(new Date());
+        incidenceService.addComment(comment);
+
+        return "redirect:/teacher/"+user.getUserId()+"/profile.do";
+
+    }
+
+    //-------------------------------------------------- ACCEDIR PERFIL ESTUDIANT
+
+
+    @RequestMapping(value = "/teacher/{userId}/profile", method = RequestMethod.GET)
+    public ModelAndView accessStudentProfileTeacher(@PathVariable("userId") String userId){
+
+        User user = userService.getUserById(userId);
+
+        return new ModelAndView("/user/studentProfile", "user", user);
+
+    }
 
 
     //-------------------------------------------------- INICI DE MODIFICAR ASSIGNATURA PROFE PER CREAR TASCA

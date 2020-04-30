@@ -1,9 +1,6 @@
 package com.controller.user;
 
-import com.model.ClassGroup;
-import com.model.RoleStudent;
-import com.model.Subject;
-import com.model.UserSubject;
+import com.model.*;
 import com.service.GroupService;
 import com.service.SubjectService;
 import com.service.UserService;
@@ -44,5 +41,18 @@ public class ResponsibleController {
 
         return model;
     }
+
+    @RequestMapping(value = "/responsible/{childId}/profile", method = RequestMethod.GET)
+    public ModelAndView accessChildProfile(@PathVariable("childId") String childId) {
+        ModelAndView model = new ModelAndView("/user/studentProfile");
+        RoleStudent rs = userService.getStudentByUserId(childId);
+        /*List<Subject> subjectList = subjectService.getByGroupNoTeachers(rs.getGroup().getGroupId());
+        model.addObject("subjects", subjectList);
+        model.addObject("childId", childId);*/
+        User u = userService.getUserById(rs.getUserR().getUserId());
+        model.addObject("user",u);
+        return model;
+    }
+
 
 }
