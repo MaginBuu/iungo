@@ -21,7 +21,7 @@ public class Incidence {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column(name = "ICIDENCE_ID")
+    @Column(name = "INCIDENCE_ID")
     private String incidenceId;
 
     @Column(name = "FAULT_TYPE")
