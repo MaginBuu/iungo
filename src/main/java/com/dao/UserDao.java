@@ -84,4 +84,8 @@ public interface UserDao {
 
 	void addUserSubject(UserSubject userSubject);
 
+	//KEYROLE
+
+	User getKeyRoleUser(String keyRole);
+
 }

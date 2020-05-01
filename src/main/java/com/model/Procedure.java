@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "Procedure.findById", query = "SELECT r FROM Procedure r WHERE r.procedureId = :id"),
 
 })
-public class Procedure {
+public class Procedure implements Comparable {
     private static final long serialVersionUID = 2681531852204068105L;
 
     @Id
@@ -146,5 +146,10 @@ public class Procedure {
 
     public Procedure clone(){
         return new Procedure(this.title, this.description, this.online, this.limitDate);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.creationDate.compareTo(((Procedure)o).creationDate) * -1;
     }
 }

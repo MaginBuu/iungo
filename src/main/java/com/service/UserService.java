@@ -81,4 +81,8 @@ public interface UserService {
 
 	void addUserSubject(UserSubject userSubject);
 
+	//KEYROLE
+
+	User getKeyRoleUser(String keyRole);
+
 }

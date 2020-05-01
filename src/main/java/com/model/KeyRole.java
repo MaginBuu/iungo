@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Table(name = "key_role")
 
 @NamedQueries({
-        @NamedQuery(name = "KeyRole.getUserByKeyRole", query = "SELECT k.user FROM KeyRole k WHERE k.keyRole =:keyrole"),
+        @NamedQuery(name = "KeyRole.getUserByKeyRole", query = "SELECT k.user FROM KeyRole k WHERE k.keyRole =:keyRole"),
 
 })
 public class KeyRole implements Serializable {

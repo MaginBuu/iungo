@@ -382,4 +382,15 @@ public class UserDaoImpl implements UserDao {
 		}
 
 	}
+
+	//-------------------- KeyRole --------------------
+
+	public User getKeyRoleUser(String keyRole){
+		Session session = sessionFactory.openSession();
+		User user =  (User)session.getNamedQuery("KeyRole.getUserByKeyRole").setParameter("keyRole", keyRole).uniqueResult();
+		session.close();
+		return user;
+	}
+
 }
+

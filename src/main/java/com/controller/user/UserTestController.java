@@ -281,7 +281,8 @@ public class UserTestController {
             }
             //Alertar responsable
             Procedure procedure = new Procedure("Anti bullying report", report.toString(), false, new Date(2099, 01, 01));
-            procedure.setUserP(userService.getUserById("1"));
+            User user = userService.getKeyRoleUser("antibullying");
+            procedure.setUserP(userService.getKeyRoleUser("antibullying"));
             procedureService.addProcedure(procedure);
 
             antiBullyingReportService.addAntiBullyingReport(report);
@@ -328,6 +329,7 @@ public class UserTestController {
                 }.getClass().getEnclosingMethod().getName() + "] -  User has no procedures");
             }
             ModelAndView model = new ModelAndView("/procedureUser");
+            Collections.sort(validProcedures);
             model.addObject("procedures", validProcedures);
 
             return model;

@@ -108,4 +108,8 @@ public class UserServiceImpl implements UserService {
 	public List<Evaluation> getEvaluations(){ return userDao.getEvaluations(); }
 
 	public void addUserSubject(UserSubject userSubject){ userDao.addUserSubject(userSubject); }
+
+	//KEYROLE
+
+	public User getKeyRoleUser(String keyRole) { return userDao.getKeyRoleUser(keyRole); }
 }
