@@ -72,15 +72,15 @@ public class SystemController {
 
     @RequestMapping("/secretary")
     public ModelAndView getSecretaryPage(){
-        return new ModelAndView("../../teacherDashboard");
+        return new ModelAndView("../../secretaryDashboard");
     }
 
     @RequestMapping("/role")
-    public String getRolePage(Authentication authentication){
+    public String getRolePage(Authentication authentication, HttpServletRequest request){
         String role;
         try {
             role = authentication.getAuthorities().toArray()[0].toString();
-        }catch (Exception e){
+        }catch (Exception e){ //THIS IS FOR TESTING, WILL BE DELETED
 
             List<SimpleGrantedAuthority> updatedAuthorities = new LinkedList<>();
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Role.TEACHER.toString());
@@ -92,12 +92,15 @@ public class SystemController {
                             SecurityContextHolder.getContext().getAuthentication().getCredentials(),
                             updatedAuthorities)
             );
+            User user = userService.getUserById("1");
+            request.getSession().setAttribute("name", user.getFullName());
+            request.getSession().setAttribute("user", user);
             return "redirect:/teacher";
         }
 
         if(role.equals(Role.ADMIN.toString()) || role.equals(Role.STUDENT.toString())
                 || role.equals(Role.TEACHER.toString()) || role.equals(Role.RESPONSIBLE.toString())
-                || role.equals(Role.SECRETARY))
+                || role.equals(Role.SECRETARY.toString()))
             return "redirect:/" + role.toLowerCase();
 
         return "redirect:/student";
@@ -118,7 +121,7 @@ public class SystemController {
         System.out.println("postlogin");
         System.out.println(request.getUserPrincipal().getName());
         User user = userService.getUserByEmail(request.getUserPrincipal().getName());
-        request.getSession().setAttribute("name", user.getName());
+        request.getSession().setAttribute("name", user.getFullName());
         request.getSession().setAttribute("user", user);
         System.out.println(user);
 

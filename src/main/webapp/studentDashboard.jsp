@@ -18,7 +18,6 @@
     <div class="container">
         <div class="intro">
             <h2 class="text-center">Student </h2>
-            <p class="text-center">${pageContext.request.userPrincipal}</p>
         </div>
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -52,9 +51,9 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-bomb icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/teacher/subjects">
-                        <h3 class="name">Teacher </h3></a>
+                <div class="box"><i class="fa fa-calendar icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/calendar">
+                        <h3 class="name">Calendar </h3></a>
                 </div>
             </div>
         </div>

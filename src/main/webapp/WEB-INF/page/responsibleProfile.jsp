@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
     <link rel="stylesheet" href="/resource/css/tabNavStyle.css">
-    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/resource/css/base/baseModal.css">
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 
@@ -79,11 +79,39 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <a class="btn btn-light submit-button" value="update" name="buttonName" id="generateReport" href="/user/allGrades?userId=${user.userId}">Message
-            </a>
+            <button class="btn btn-light submit-button" data-toggle="modal" data-target="#modalCreateMessage">Send Message</button>
         </div>
     </div>
 </div>
+
+<!-- Create message Modal -->
+<div class="modal fade" id="modalCreateMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row base-form-modal">
+                    <div class="col-md-10 offset-md-1">
+                        <form:form class="custom-form" method="post" action="/message/creation/directMessage" modelAttribute="message">
+                            <form:hidden path="receiver" value="${user.userId}"></form:hidden>
+                            <h1>Create new message</h1>
+                            <div class="form-group">
+                                <div class="label-column"><form:label path="subject"
+                                                                      class="col-form-label">Subject </form:label></div>
+                                <div class="input-column"><form:input path="subject" class="form-control"
+                                                                      type="text"></form:input></div>
+                                <div class="label-column"><form:label path="messageBody" class="col-form-label">Body </form:label></div>
+                                <div class="input-column"><form:textarea path="messageBody" class="form-control"
+                                                                         type="text"></form:textarea></div>
+                            </div>
+                            <button class="btn btn-light submit-button" type="submit" onclick="return true">Send</button>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     function Validate() {

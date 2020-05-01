@@ -60,6 +60,8 @@ public class ResponsibleController {
         model.addObject("childId", childId);*/
         User u = userService.getUserById(rs.getUserR().getUserId());
         model.addObject("user",u);
+        model.addObject("responsibles", rs.getResponsibles());
+        model.addObject("message", new Message());
         return model;
     }
 

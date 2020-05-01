@@ -22,7 +22,7 @@ public class SubjectControllerUser {
     SubjectService subjectService;
 
     @RequestMapping(value = "/subject/{subjectId}", method = RequestMethod.GET)
-    public ModelAndView accessTeacherProfile(@PathVariable("subjectId") String subjectId) {
+    public ModelAndView accessSubject(@PathVariable("subjectId") String subjectId) {
 
         Subject subject = subjectService.getByIdWithChapters(subjectId);
         System.out.println();

@@ -95,10 +95,15 @@
             data: {
             }, //aqui es passen els parametres
             success: function (data) {
-                $.each(data, function (index, current) {
+                if(data.length > 0){
+                    document.getElementById("hasroles").style.display = "block";
+                    $.each(data, function (index, current) {
                     console.log(current);
                     $("#dropdown-menu").append('<a class="dropdown-item" href="#" onclick="roleChanged(\'' + current + '\')">' + current.substring(0, 1) + current.substring(1, current.length).toLowerCase() + '</a>');
                 });
+                }else{
+                    document.getElementById("hasroles").style.display = "none";
+                }
             }
         }).done(function () {
 
@@ -126,12 +131,8 @@
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" style="color:#ffffff;" href="#">
-                            Home</a></li>
                     <c:set var = "authority" value = "${pageContext.request.userPrincipal.authorities}"/>
-
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="hasroles">
                         <a class="nav-link dropdown-toggle waves-effect waves-light" id="roles" style="color: #ffffff;" data-toggle="dropdown" >
                             ${fn:toUpperCase(fn:substring(authority.toString(),1,2))}${fn:toLowerCase(fn:substring(authority.toString(),2,fn:length(authority.toString()) - 1))}
                            </a>

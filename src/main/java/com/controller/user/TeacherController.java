@@ -405,6 +405,7 @@ public class TeacherController {
         List<RoleResponsible> roleResponsibles = userService.getStudentResponsibles(userId);
 
         ModelAndView model = new ModelAndView("/user/studentProfile", "user", user);
+        model.addObject("message", new Message());
         model.addObject("responsibles", roleResponsibles);
         return model;
     }
@@ -419,6 +420,7 @@ public class TeacherController {
 
         ModelAndView model = new ModelAndView("/responsibleProfile", "user", user);
         model.addObject("children", roleStudents);
+        model.addObject("message", new Message());
         return model;
     }
 
