@@ -37,7 +37,7 @@
 </head>
 
 <body>
-<%@ include file="../navbar.jsp" %>
+<%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
@@ -64,36 +64,23 @@
                 </tr>
                 </tbody>
                 </table>
-                <p><strong>Responsibles:</strong></p>
-            <table class="table table-borderless">
+                <p><strong>Children:</strong></p>
+            <table class="table table-borderless" width="60%">
                 <tbody id="responsibles">
-                <c:forEach items="${responsibles}" var="responsible">
+                <c:forEach items="${children}" var="child">
                     <tr>
-                        <td style="vertical-align: middle;">${responsible.userR.name} ${responsible.userR.surname} ${responsible.userR.secondSurname}</td>
-                        <td style="vertical-align: middle; text-align: right">
-                            <a class="btn btn-light" value="comment" name="buttonName" id="resp-message"
-                               href="">Send message
-                            </a>
-                        </td><td>
-                            <a class="btn btn-danger" name="btn-incidence" value="incidenceFromProfile" id="resp-profile" style="background-color: #DE9D3F;border-color:#DE9D3F"
-                               href="/teacher/responsible/${responsible.userR.userId}">View profile
+                        <td style="vertical-align: middle;">${child.userR.name} ${child.userR.surname} ${child.userR.secondSurname}</td>
+                        <td>
+                            <a class="btn btn-danger" style="background-color: #DE9D3F;border-color:#DE9D3F"
+                               href="/teacher/${child.userR.userId}/profile">View profile
                             </a>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-            <a class="btn btn-light submit-button" value="update" name="buttonName" id="generateReport" href="/user/allGrades?userId=${user.userId}">Generate user's report
+            <a class="btn btn-light submit-button" value="update" name="buttonName" id="generateReport" href="/user/allGrades?userId=${user.userId}">Message
             </a>
-            <c:set var = "authority" value = "${pageContext.request.userPrincipal.authorities}"/>
-            <c:if test="${(authority ne '[STUDENT]') and (authority ne '[RESPONSIBLE]')}">
-                <a class="btn btn-light submit-button" value="comment" name="buttonName" id="comment" style="background-color: #4C4C47"
-                        href="/teacher/comment?userId=${user.userId}">Write a comment
-                </a>
-                <a class="btn btn-danger submit-button" name="btn-incidence" value="incidenceFromProfile" id="incidenceFromProfile" style="background-color: #B3001B "
-                        href="/teacher/incidence?userId=${user.userId}&origin=profile">Set incidence
-                </a>
-            </c:if>
         </div>
     </div>
 </div>
