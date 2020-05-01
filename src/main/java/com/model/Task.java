@@ -1,9 +1,7 @@
 package com.model;
 
-import com.model.enums.Department;
+
 import com.model.enums.TaskType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +10,7 @@ import java.util.*;
 @Entity
 @Table(name = "task")
 @NamedQueries({
-        //@NamedQuery(name = "Task.findById", query = "SELECT r FROM Task r WHERE r.taskId = :id"),
+        @NamedQuery(name = "Task.findTaskById", query = "SELECT r FROM Task r WHERE r.taskId = :id"),
 })
 public class Task implements Serializable, Comparable<Task> {
 

@@ -83,4 +83,18 @@ public class TaskDaoImpl implements TaskDao {
         return userTasks;
     }
 
+    public Task getTaskById(String taskId){
+        Session session = sessionFactory.openSession();
+        Task task = (Task) session.getNamedQuery("Task.findTaskById").setParameter("id", taskId).uniqueResult();
+        session.close();
+        return task;
+    }
+
+    public UserTask getUserTaskByUserAndTask(String userId, String taskId){
+        Session session = sessionFactory.openSession();
+        UserTask task = (UserTask) session.getNamedQuery("UserTask.findByUserAndTask").setParameter("userId", userId).setParameter("taskId", taskId).uniqueResult();
+        session.close();
+        return task;
+    }
+
 }

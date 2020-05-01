@@ -11,6 +11,8 @@ public interface TaskDao {
 
     void addTask(Task task);
 
+    Task getTaskById(String taskId);
+
     List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId);
 
     List<UserTask> getUserTaskByTaskId(String taskId);
@@ -18,6 +20,8 @@ public interface TaskDao {
     List<UserTask> getUserTaskByUser(String userId);
 
     List<UserTask> getUserTaskByStudent(String studentId);
+
+    UserTask getUserTaskByUserAndTask(String userId, String taskId);
 
 
 }

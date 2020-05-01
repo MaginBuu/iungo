@@ -22,6 +22,8 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void addTask(Task task) { taskDao.addTask(task); }
 
+    public Task getTaskById(String taskId) { return taskDao.getTaskById(taskId); }
+
     @Override
     public List<UserTask> getUserTaskByUserAndSubject(String userId, String subjectId) { return taskDao.getUserTaskByUserAndSubject(userId, subjectId); }
 
@@ -32,4 +34,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<UserTask> getUserTaskByStudent(String studentId) { return taskDao.getUserTaskByStudent(studentId); }
+
+    public UserTask getUserTaskByUserAndTask(String userId, String taskId){ return taskDao.getUserTaskByUserAndTask(userId, taskId); }
 }

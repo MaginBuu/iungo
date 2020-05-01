@@ -64,9 +64,6 @@ public class Subject implements Serializable {
     @OneToMany(mappedBy = "subject")
     private List<UserSubject> UserSubject = new LinkedList<>();
 
-    @OneToMany(mappedBy = "task", targetEntity = UserTask.class)
-    private List<UserTask> userTasks = new LinkedList<>();
-
 
     public Subject() { }
 

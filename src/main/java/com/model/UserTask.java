@@ -10,6 +10,7 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "UserTask.findUserTaskByTaskId", query = "SELECT c FROM UserTask c WHERE c.task.taskId = :taskId"),
         @NamedQuery(name = "UserTask.findByUserAndSubject", query = "SELECT c FROM UserTask c WHERE c.task.chapter.subject.subjectId =:subjectId and c.student.userR.userId =:userId"),
+        @NamedQuery(name = "UserTask.findByUserAndTask", query = "SELECT c FROM UserTask c WHERE c.task.taskId =:taskId and c.student.userR.userId =:userId"),
         @NamedQuery(name = "UserTask.findByUser", query = "SELECT c FROM UserTask c WHERE c.student.userR.userId =:userId"),
         @NamedQuery(name = "UserTask.findByStudent", query = "SELECT c FROM UserTask c where c.student.roleId =:studentId"),
 

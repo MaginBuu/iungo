@@ -553,5 +553,34 @@ public class UserTestController {
         return model;
     }
 
+    @RequestMapping(value = "/user/task/{taskId}", method = RequestMethod.GET)
+    public ModelAndView accessTask(@PathVariable("taskId") String taskId, HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) user = userService.getUserById("1");
+
+        ModelAndView model = new ModelAndView("taskAccess");
+
+        Task task = taskService.getTaskById(taskId);
+
+        UserTask userTask = taskService.getUserTaskByUserAndTask(user.getUserId(),taskId);
+        if(userTask.getGrade() == 0.0 ) {
+            model.addObject("grade", "-");
+            model.addObject("observations", "Not yet evaluated.");
+        }else {
+            model.addObject("grade", Float.toString(userTask.getGrade()));
+            model.addObject("observations", userTask.getObservations());
+        }
+        if(task.getDeadline().compareTo(new Date()) != -1){
+            model.addObject("solved", false);
+        }else{
+
+            model.addObject("solved", true);
+        }
+        model.addObject("task", task);
+
+        return model;
+    }
+
 
 }
