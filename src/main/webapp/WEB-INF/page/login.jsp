@@ -13,12 +13,21 @@
     <link rel="stylesheet" href="resource/fonts/ionicons.min.css">
     <link rel="stylesheet" href="resource/css/loginStyle.css">
     <link rel="stylesheet" href="resource/css/creation/creationStyle.css">
+    <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
+    <link rel="stylesheet" href="/resource/css/ticket/cards.css">
+    <link rel="stylesheet" href="/resource/css/profile/profileStyle.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="resource/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 </head>
 
@@ -28,10 +37,10 @@
 
     function recover() {
         var email = document.getElementById("email");
-        var input = document.getElementById("input-email");
-        email.val(input.val());
-        if(email.val() != ""){
-            window.location.href = '/recover/password/'+email.val();
+        var inputEmail = document.getElementById("input-email").value;
+        email.value = inputEmail;
+        if(email.value != ""){
+            window.location.href = '/recover/password/'+email.value;
         }else{
             document.getElementById("modalText").style.backgroundColor = "#ffd6cc";
             document.getElementById("modalText").style.borderRadius = "3px";
@@ -81,14 +90,14 @@
             </div>
             <div class="modal-body">
                 <h4 class="modal-title">Password recover</h4>
-                <p id="modalText">If you don't remember your password, please write your email and visit secretary
-                    tomorrow. Thanks!</p>
+                <p id="modalText">If you don't remember your password, <strong id="strongModal">please write your email and visit secretary
+                    tomorrow</strong>. Thanks!</p>
                 <div class="row" style="justify-content: center">
                     <input id="input-email" class="form-control" type="text"></div>
             </div>
-            <a class="btn submit-button" onclick="recover()">Request new password</a>
+            <a class="btn submit-button" style="line-height: 30px;" onclick="recover()">Request new password</a>
         </div>
-        <input type="hidden" name="email" id="email" value=""/>
+        <input type="hidden" name="email" id="email"  value=""/>
     </div>
 </div>
 
