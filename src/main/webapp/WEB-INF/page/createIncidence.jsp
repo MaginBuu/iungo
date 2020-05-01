@@ -47,7 +47,6 @@
                                                                             type="text"></form:textarea></div>
             </div>
             <button class="btn btn-light submit-button" id="btn-origin" type="submit" value="${origin}" onclick="return Validate()">Create</button>
-            <p>${origin}</p>
         </form:form>
     </div>
 </div>

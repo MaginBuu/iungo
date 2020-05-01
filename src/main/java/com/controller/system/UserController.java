@@ -1,5 +1,6 @@
 package com.controller.system;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -445,6 +446,30 @@ public class UserController {
 		query += " ORDER BY u.name, u.surname, u.secondSurname";
 
 		return query;
+	}
+
+	@RequestMapping("/user/search")
+	public ModelAndView searchUser(){
+		return new ModelAndView("searchUser");
+	}
+
+	@RequestMapping("/user/profile/{userId}")
+	public String userProfile(@PathVariable("userId") String userId){
+
+		User user = userService.getUserById(userId);
+
+		Set<Role> roles = user.getRoles().keySet();
+
+		if(roles.contains(Role.STUDENT)){
+			return "redirect:/responsible/" + userId + "/profile";
+		}else if(roles.contains(Role.TEACHER)){
+			return "redirect:/user/teacher/" + userId;
+		}else if(roles.contains(Role.RESPONSIBLE)){
+			return "redirect:/teacher/responsible/" + userId;
+		}else{
+			return "redirect:/";
+		}
+
 	}
 
 

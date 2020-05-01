@@ -84,9 +84,9 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-book icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/subject/1">
-                        <h3 class="name">Subject</h3></a>
+                <div class="box"><i class="fa fa-briefcase icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/procedures">
+                        <h3 class="name">Procedures </h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -102,9 +102,9 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-bomb icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/teacher/subjects">
-                        <h3 class="name">Teacher </h3></a>
+                <div class="box"><i class="fa fa-calendar icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/calendar">
+                        <h3 class="name">Calendar </h3></a>
                 </div>
             </div>
         </div>

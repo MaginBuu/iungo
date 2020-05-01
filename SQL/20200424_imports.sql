@@ -1966,6 +1966,13 @@ INSERT INTO public.courses (course_id, end_date, start_date) VALUES ('1', 2020, 
 
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('a1', 6, '1');
 
+
+--
+-- KEY ROLE SECRETARY
+--
+
+INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('s1', 2, '1');
+
 --
 -- KEY ROLES TEACHER
 --
@@ -3924,11 +3931,20 @@ INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r2659', 5, 'r
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r1660', 5, 'r1660');
 INSERT INTO public.role_user (role_id, role_key, user_id) VALUES ('r2660', 5, 'r2660');
 
+
+
 --
 -- ROLE ADMIN
 --
 
 INSERT INTO public.role_admin (role_id) VALUES ('a1');
+
+
+--
+-- ROLE ADMIN
+--
+
+INSERT INTO public.role_secretary (role_id) VALUES ('s1');
 
 --
 -- ROLE TEACHER

@@ -18,7 +18,6 @@
     <div class="container">
         <div class="intro">
             <h2 class="text-center">System Administrator </h2>
-            <p class="text-center">${pageContext.request.userPrincipal}</p>
         </div>
         <div class="row justify-content-center features">
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -40,15 +39,15 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-ticket icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/ticket/creation">
-                        <h3 class="name">New ticket </h3></a>
+                <div class="box"><i class="fa fa-paper-plane-o icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/messages">
+                        <h3 class="name">Messages</h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
-                <div class="box"><i class="fa fa-tasks icon"></i>
-                    <a class="nav-link stretched-link" style="color:#000000;" href="/procedure/creation">
-                        <h3 class="name">New Procedure</h3></a>
+                <div class="box"><i class="fa fa-briefcase icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/procedures">
+                        <h3 class="name">Procedures </h3></a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -62,7 +61,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <!-- 16:9 aspect ratio -->
@@ -79,6 +78,12 @@
                                     <h3 class="name">New Group</h3></a>
                             </div>
                         </div>
+                        <div class="col item">
+                            <div class="box"><i class="fa fa-ticket icon"></i>
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/ticket/creation">
+                                    <h3 class="name">New ticket </h3></a>
+                            </div>
+                        </div>
                     </div>
                     <div class="row justify-content-center" style="margin-bottom: 0%">
                         <div class="col item">
@@ -93,8 +98,13 @@
                                     <h3 class="name">New Space</h3></a>
                             </div>
                         </div>
+                        <div class="col item">
+                            <div class="box"><i class="fa fa-tasks icon"></i>
+                                <a class="nav-link stretched-link" style="color:#000000;" href="/procedure/creation">
+                                    <h3 class="name">New Procedure</h3></a>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
             </div>
         </div>

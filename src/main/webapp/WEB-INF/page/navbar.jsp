@@ -126,9 +126,6 @@
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" style="color:#ffffff;" href="#">
-                            Home</a></li>
                     <c:set var = "authority" value = "${pageContext.request.userPrincipal.authorities}"/>
 
                     <li class="nav-item dropdown">
