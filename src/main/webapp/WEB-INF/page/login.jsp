@@ -13,11 +13,33 @@
     <link rel="stylesheet" href="resource/fonts/ionicons.min.css">
     <link rel="stylesheet" href="resource/css/loginStyle.css">
     <link rel="stylesheet" href="resource/css/creation/creationStyle.css">
+    <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="resource/bootstrap/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
+
+<script>
+
+    function recover() {
+        var email = document.getElementById("email");
+        var input = document.getElementById("input-email");
+        email.val(input.val());
+        if(email.val() != ""){
+            window.location.href = '/recover/password/'+email.val();
+        }else{
+            document.getElementById("modalText").style.backgroundColor = "#ffd6cc";
+            document.getElementById("modalText").style.borderRadius = "3px";
+        }
+    }
+
+</script>
+
 <%@ include file="navbar.jsp" %>
 <div class="login-clean">
     <form name="loginForm" action="<c:url value="/j_spring_security_check"/>" method="post">
@@ -45,9 +67,29 @@
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">Log In</button>
             </div>
-            <a class="forgot" href="#">Forgot your email or password?</a>
+            <a class="forgot" data-toggle="modal" data-target="#myModal">Forgot your email or password?</a>
         </fieldset>
     </form>
+</div>
+
+<!-- Modal HTML -->
+<div id="myModal" name="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title">Password recover</h4>
+                <p id="modalText">If you don't remember your password, please write your email and visit secretary
+                    tomorrow. Thanks!</p>
+                <div class="row" style="justify-content: center">
+                    <input id="input-email" class="form-control" type="text"></div>
+            </div>
+            <a class="btn submit-button" onclick="recover()">Request new password</a>
+        </div>
+        <input type="hidden" name="email" id="email" value=""/>
+    </div>
 </div>
 
 </body>

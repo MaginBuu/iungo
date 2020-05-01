@@ -404,7 +404,7 @@ public class TeacherController {
         User user = userService.getUserById(userId);
         List<RoleResponsible> roleResponsibles = userService.getStudentResponsibles(userId);
 
-        ModelAndView model = new ModelAndView("/responsibleProfile", "user", user);
+        ModelAndView model = new ModelAndView("/user/studentProfile", "user", user);
         model.addObject("responsibles", roleResponsibles);
         return model;
     }
@@ -417,7 +417,7 @@ public class TeacherController {
         User user = userService.getUserById(userId);
         List<RoleStudent> roleStudents = userService.getResponsibleChildList(userId);
 
-        ModelAndView model = new ModelAndView("/user/studentProfile", "user", user);
+        ModelAndView model = new ModelAndView("/responsibleProfile", "user", user);
         model.addObject("children", roleStudents);
         return model;
     }

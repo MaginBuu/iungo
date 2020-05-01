@@ -2,29 +2,34 @@ package com.controller.system;
 
 import com.model.RoleAdmin;
 import com.model.RoleStudent;
+import com.model.Ticket;
 import com.model.User;
 import com.model.enums.Role;
+import com.model.enums.TicketStatus;
+import com.service.TicketService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.Authenticator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 @Controller
 public class SystemController {
+
+    @Autowired
+    TicketService ticketService;
 
     @Autowired
     UserService userService;
@@ -119,5 +124,17 @@ public class SystemController {
 
         //customerService.addCustomer(customer);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/recover/password/{email}", method = RequestMethod.GET)
+    public String recoverPassword(@PathVariable("email") String email, HttpServletRequest request) {
+        Ticket t = new Ticket();
+        t.setStatus(TicketStatus.CREATED);
+        t.setCreationDate(new Date());
+        t.setTitle("Password recovery");
+        t.setDescription("Password recovery for user with email: "+email);
+        ticketService.addTicket(t);
+
+        return "redirect:/login";
     }
 }
