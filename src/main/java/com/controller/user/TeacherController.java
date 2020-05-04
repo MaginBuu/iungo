@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class TeacherController {
@@ -117,28 +118,43 @@ public class TeacherController {
      * @return all the teachers of the active session's user
      */
     @RequestMapping(value = "/user/teachers", method = RequestMethod.GET)
-    public ModelAndView listStudentTeachers(HttpServletRequest request) {
+    public ModelAndView listStudentTeachers(HttpServletRequest request, Authentication authentication) {
         ModelAndView model = new ModelAndView("/user/listStudentTeachers");
 
         RoleStudent roleStudent;
         List<Subject> subjects;
+        List<User> users = new LinkedList<>();
+        Set<RoleTeacher> teachers = new HashSet<>();
+
+        String role = authentication.getAuthorities().toArray()[0].toString();
+
 
         try{
-            User user = (User)request.getSession().getAttribute("user");
-            if(user == null){ //this is for testing, will be deleted
-                user = userService.getUserById("1");
+            if(Role.STUDENT.toString().equals(role))
+                users.add((User)request.getSession().getAttribute("user"));
+            else if(Role.RESPONSIBLE.toString().equals(role)){
+                users.addAll(((RoleResponsible)((User)request.getSession().getAttribute("user")).getRoleClass(Role.RESPONSIBLE)).getChild().stream().map(RoleStudent::getUserR).collect(Collectors.toList()));
             }
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Session user successfully loaded: " + user.getUserId());
-            roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - User is an student");
-            ClassGroup group = roleStudent.getGroup();
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - User has group");
-            subjects = subjectService.getByGroup(group.getGroupId());
-            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Group has subject");
-            Set<RoleTeacher> teachers = new HashSet<>();
-            for (Subject subject : subjects)
-                for (RoleTeacher teacher : subject.getTeachers())
-                    teachers.add(teacher);
+
+
+
+            for(User user : users) {
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] - Session user successfully loaded: " + user.getUserId());
+                roleStudent = (RoleStudent) user.getRoleClass(Role.STUDENT);
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] - User is an student");
+                ClassGroup group = roleStudent.getGroup();
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] - User has group");
+                subjects = subjectService.getByGroup(group.getGroupId());
+                logger.info("[" + new Object() {
+                }.getClass().getEnclosingMethod().getName() + "] - Group has subject");
+
+                for (Subject subject : subjects)
+                    for (RoleTeacher teacher : subject.getTeachers())
+                        teachers.add(teacher);
+            }
 
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] - Teachers loaded successfully");
 
