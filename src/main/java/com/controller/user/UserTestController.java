@@ -582,5 +582,30 @@ public class UserTestController {
         return model;
     }
 
+    @RequestMapping(value = "/user/task/{taskId}/report", method = RequestMethod.GET)
+    public String reportTask(@PathVariable("taskId") String taskId) {
+
+        Task task = taskService.getTaskById(taskId);
+        task.setReports(task.getReports()+1);
+        taskService.addTask(task);
+        Set<RoleTeacher> roleTeachers = subjectService.getTeachersBySubjectId(task.getChapter().getSubject().getSubjectId());
+        Notification notification = new Notification();
+        notification.setPending(true);
+        notification.setCreationDate(new Date());
+        notification.setDescription("A user has reported an error in task "+task.getName());
+        notification.setTitle("New task report");
+        for(RoleTeacher rt : roleTeachers){
+            Notification notificationAux = notification.clone();
+            User u = new User();
+            u.setUserId(rt.getUserR().getUserId());
+            notificationAux.setUser(u);
+            userService.addNotification(notificationAux);
+        }
+        //Getting the referer page
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
+    }
 
 }

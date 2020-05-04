@@ -2,6 +2,7 @@ package com.model;
 
 
 import com.model.enums.TaskType;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -45,6 +46,9 @@ public class Task implements Serializable, Comparable<Task> {
 
     @Column(name = "DATE")
     private Date creationDate;
+
+    @Column(name = "REPORTS")
+    private int reports;
 
     public Task() { }
 
@@ -123,6 +127,14 @@ public class Task implements Serializable, Comparable<Task> {
     public Date getCreationDate() { return creationDate; }
 
     public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
+
+    public int getReports() {
+        return reports;
+    }
+
+    public void setReports(int reports) {
+        this.reports = reports;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -13,6 +13,7 @@ import java.util.Objects;
         @NamedQuery(name = "UserTask.findByUserAndTask", query = "SELECT c FROM UserTask c WHERE c.task.taskId =:taskId and c.student.userR.userId =:userId"),
         @NamedQuery(name = "UserTask.findByUser", query = "SELECT c FROM UserTask c WHERE c.student.userR.userId =:userId"),
         @NamedQuery(name = "UserTask.findByStudent", query = "SELECT c FROM UserTask c where c.student.roleId =:studentId"),
+        @NamedQuery(name = "UserTask.deleteByTaskId", query = "DELETE FROM UserTask u WHERE u.task.taskId =:taskId")
 
 })
 public class UserTask implements Serializable {

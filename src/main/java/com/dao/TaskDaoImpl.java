@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.model.Space;
 import com.model.Task;
 import com.model.Ticket;
 import com.model.UserTask;
@@ -97,4 +98,24 @@ public class TaskDaoImpl implements TaskDao {
         return task;
     }
 
+    public void deleteTask(Task task){
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.delete(task);
+            tx.commit();
+        }catch(Exception e){
+            if(tx != null) tx.rollback();
+            throw e;
+        }finally {
+            session.close();
+        }
+    }
+
+    public void deleteUserTask(String taskId){
+        Session session = sessionFactory.openSession();
+        session.getNamedQuery("UserTask.deleteByTaskId").setParameter("taskId", taskId).executeUpdate();
+        session.close();
+    }
 }

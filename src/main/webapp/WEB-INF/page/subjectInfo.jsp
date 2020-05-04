@@ -121,22 +121,12 @@
 
     function deleteClicked(elementId, elementType) {
         var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType = jQuery('#elementType');
         hiddenInputId.val(elementId);
-        hiddenInputType.val(elementType);
     }
 
     function deleteElement() {
         var hiddenInputId = jQuery('#elementId');
-        var hiddenInputType = jQuery('#elementType');
-        var type = hiddenInputType.val()
-        if (type === 'timeLine') {
-            window.location.href = '/subject/delete/' + type.toLowerCase() + '?' + type + 'Id=' + hiddenInputId.val();
-
-        } else if (type === 'teacher') {
-            var subjectId = jQuery('#subjectId').val();
-            window.location.href = '/subject/delete/' + type + '?' + type + 'Id=' + hiddenInputId.val() + '&subjectId=' + subjectId;
-        }
+        window.location.href = '/teacher/delete/task?taskId=' + hiddenInputId.val();
     }
 
 

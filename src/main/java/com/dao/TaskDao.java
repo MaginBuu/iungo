@@ -23,5 +23,9 @@ public interface TaskDao {
 
     UserTask getUserTaskByUserAndTask(String userId, String taskId);
 
+    void deleteTask(Task task);
+
+    void deleteUserTask(String taskId);
+
 
 }

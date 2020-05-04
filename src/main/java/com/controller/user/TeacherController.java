@@ -17,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -516,6 +518,7 @@ public class TeacherController {
         try {
 
             task.setCreationDate(new Date());
+            task.setReports(0);
             taskService.addTask(task);
             ClassGroup cg = groupService.getGroupBySubjectId(subjectId);
             for (RoleStudent s : cg.getStudents()){
@@ -576,49 +579,70 @@ public class TeacherController {
              group = userService.getGroupByTutor("1");
         }
         List<RoleStudent> listStudents = group.getStudents();
-        List<Evaluation> evaluations = userService.getEvaluations();
-        model.addObject("listStudents", listStudents);
-        model.addObject("evaluationList", evaluations);
-        return model;
-    }
-
-    @RequestMapping(value= "/teacher/evaluate/{studentId}")
-    public ModelAndView evaluateStudent(@PathVariable("studentId") String studentId, @RequestParam String evaluationId) throws CloneNotSupportedException {
-        ModelAndView model = new ModelAndView("/evaluateStudent");
-        RoleStudent rs = userService.getStudentByUserId(studentId);
-        List<Subject> subjectList = subjectService.getByGroupNoTeachers(rs.getGroup().getGroupId());
-        UserSubject us = new UserSubject();
-        List<UserSubject> userSubjectList = new ArrayList<>();
-        UserSubject usAux = new UserSubject();
-        for(Subject s : subjectList){
-            usAux = subjectService.getUserSubjectByUserAndSubjectAndEvaluation(studentId, s.getSubjectId(), evaluationId);
-            if(usAux == null) {
-                usAux = (UserSubject) us.clone();
-                usAux.setSubject(s);
-            }
-            userSubjectList.add(usAux);
+            List<Evaluation> evaluations = userService.getEvaluations();
+            model.addObject("listStudents", listStudents);
+            model.addObject("evaluationList", evaluations);
+            return model;
         }
-        UserSubjectEncapsulator userSubjectEncapsulator = new UserSubjectEncapsulator();
-        userSubjectEncapsulator.setUserSubjects(userSubjectList);
-        model.addObject("student", rs);
-        model.addObject("evaluation", evaluationId);
-        model.addObject("subjects", userSubjectEncapsulator);
-        return model;
-    }
 
-    @RequestMapping(value= "/teacher/evaluate/{studentId}/save/{evaluationId}")
-    public String saveStudentEvaluation(@ModelAttribute("subjects") UserSubjectEncapsulator use, @PathVariable("studentId") String studentId
-            , @PathVariable("evaluationId") String evaluationId) {
-        RoleStudent rs = new RoleStudent();
-        rs.setRoleId(studentId);
-        Evaluation e = new Evaluation(evaluationId);
-        for(UserSubject us : use.getUserSubjects()){
-            if(us.getGrade() != 0.0) {
-                us.setStudent(rs);
-                us.setEvaluation(e);
-                userService.addUserSubject(us);
+        @RequestMapping(value= "/teacher/evaluate/{studentId}")
+        public ModelAndView evaluateStudent(@PathVariable("studentId") String studentId, @RequestParam String evaluationId) throws CloneNotSupportedException {
+            ModelAndView model = new ModelAndView("/evaluateStudent");
+            RoleStudent rs = userService.getStudentByUserId(studentId);
+            List<Subject> subjectList = subjectService.getByGroupNoTeachers(rs.getGroup().getGroupId());
+            UserSubject us = new UserSubject();
+            List<UserSubject> userSubjectList = new ArrayList<>();
+            UserSubject usAux = new UserSubject();
+            for(Subject s : subjectList){
+                usAux = subjectService.getUserSubjectByUserAndSubjectAndEvaluation(studentId, s.getSubjectId(), evaluationId);
+                if(usAux == null) {
+                    usAux = (UserSubject) us.clone();
+                    usAux.setSubject(s);
+                }
+                userSubjectList.add(usAux);
             }
+            UserSubjectEncapsulator userSubjectEncapsulator = new UserSubjectEncapsulator();
+            userSubjectEncapsulator.setUserSubjects(userSubjectList);
+            model.addObject("student", rs);
+            model.addObject("evaluation", evaluationId);
+            model.addObject("subjects", userSubjectEncapsulator);
+            return model;
         }
-        return "redirect:/teacher/evaluate.do";
+
+        @RequestMapping(value= "/teacher/evaluate/{studentId}/save/{evaluationId}")
+        public String saveStudentEvaluation(@ModelAttribute("subjects") UserSubjectEncapsulator use, @PathVariable("studentId") String studentId
+                , @PathVariable("evaluationId") String evaluationId) {
+            RoleStudent rs = new RoleStudent();
+            rs.setRoleId(studentId);
+            Evaluation e = new Evaluation(evaluationId);
+            for(UserSubject us : use.getUserSubjects()){
+                if(us.getGrade() != 0.0) {
+                    us.setStudent(rs);
+                    us.setEvaluation(e);
+                    userService.addUserSubject(us);
+                }
+            }
+            return "redirect:/teacher/evaluate.do";
+        }
+
+
+
+        @RequestMapping(value = "/teacher/delete/task", method = RequestMethod.GET)
+        public String deleteSpace(@RequestParam String taskId){
+            try{
+                Task t = new Task();
+                t.setTaskId(taskId);
+                taskService.deleteUserTask(taskId);
+                taskService.deleteTask(t);
+            logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space sucessfully removed");
+        }catch (Exception e){
+            logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  failed to delete space: " + e);
+        }
+
+        //Getting the referer page
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String referer = request.getHeader("Referer");
+
+        return "redirect:" + referer;
     }
 }

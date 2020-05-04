@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/resource/css/base/baseStyle.css">
+    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
@@ -34,7 +35,7 @@
 
     function initGrade(gradeValue){
         var grade = document.getElementById("grade");
-        if(grade == "-"){
+        if(gradeValue == "-"){
             grade.innerHTML = "-";
         }else{
             var a = parseFloat(gradeValue);
@@ -43,6 +44,11 @@
             else grade.style.backgroundColor = "#B9D2B1";
         }
     }
+
+    function report() {
+        window.location.href = '${task.taskId}/report';
+    }
+
 
 </script>
 
@@ -77,7 +83,26 @@
             <c:if test="${solved eq false}">
                 <button class="btn btn-light submit-button">Answer task</button>
             </c:if>
-            <button class="btn btn-light submit-button" style="background-color: lightgrey">Report task</button>
+            <c:if test="${task.reports <4}">
+                <a class="btn btn-light submit-button" data-toggle="modal" data-target="#myModal" style="background-color: lightgrey">Report task</a>
+            </c:if>
+        </div>
+    </div>
+</div>
+
+<!-- Modal HTML -->
+<div id="myModal" name="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="modal-title">Are you sure you want to report?</h4>
+                <p id="deleteText">False reporting could carry sanctions. If you want to give further details about the report, please contact the teacher.</p>
+            </div>
+            <input type="hidden" name="spaceId" id="spaceId" value=""/>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="report()">Report an error</button>
+            </div>
         </div>
     </div>
 </div>

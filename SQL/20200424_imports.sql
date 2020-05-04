@@ -7403,8 +7403,8 @@ INSERT INTO public.notifications (notification_id, date, description, pending, t
 -- TASK
 --
 
-INSERT INTO public.task (task_id, date, deadline, description, task_type, title, value, chapter_id) VALUES ('1', '2020-04-24 10:26:38.129', '2020-06-16 10:00:00', 'Inclou: els accents diacrítics, el llibre de Tirant lo Blanc i la gramàtica del Tema 1. Estudieu! Aprofiteu ara que tenim poca feina per treure bones notes, confio en vosaltres!', 0, 'Test del Tema 1', 15, '1');
-INSERT INTO public.task (task_id, date, deadline, description, task_type, title, value, chapter_id) VALUES ('2', '2020-04-24 10:38:59.631', '2020-06-16 11:00:00', 'Inclou: els accents diacrítics, el llibre de Tirant lo Blanc i la gramàtica del tema 1. Estudieu! Aprofiteu ara que tenim poca feina per treure bones notes, confio en vosaltres!', 0, 'Test del Tema 1', 15, '7');
+INSERT INTO public.task (task_id, date, deadline, description, task_type, title, value, chapter_id, reports) VALUES ('1', '2020-04-24 10:26:38.129', '2020-06-16 10:00:00', 'Inclou: els accents diacrítics, el llibre de Tirant lo Blanc i la gramàtica del Tema 1. Estudieu! Aprofiteu ara que tenim poca feina per treure bones notes, confio en vosaltres!', 0, 'Test del Tema 1', 15, '1', 0);
+INSERT INTO public.task (task_id, date, deadline, description, task_type, title, value, chapter_id, reports) VALUES ('2', '2020-04-24 10:38:59.631', '2020-06-16 11:00:00', 'Inclou: els accents diacrítics, el llibre de Tirant lo Blanc i la gramàtica del tema 1. Estudieu! Aprofiteu ara que tenim poca feina per treure bones notes, confio en vosaltres!', 0, 'Test del Tema 1', 15, '7', 0);
 
 --
 -- USER TASK

@@ -46,6 +46,13 @@ public class Notification implements Comparable<Notification> {
         this.creationDate = creationDate;
     }
 
+    public Notification(String title, String description, boolean pending, Date creationDate) {
+        this.title = title;
+        this.description = description;
+        this.pending = pending;
+        this.creationDate = creationDate;
+    }
+
     public String getNotificationId() { return notificationId; }
 
     public void setNotificationId(String notificationId) { this.notificationId = notificationId; }
@@ -76,6 +83,10 @@ public class Notification implements Comparable<Notification> {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Notification clone(){
+        return new Notification(this.title, this.description, this.pending, this.creationDate);
     }
 
     @Override

@@ -36,4 +36,12 @@ public class TaskServiceImpl implements TaskService {
     public List<UserTask> getUserTaskByStudent(String studentId) { return taskDao.getUserTaskByStudent(studentId); }
 
     public UserTask getUserTaskByUserAndTask(String userId, String taskId){ return taskDao.getUserTaskByUserAndTask(userId, taskId); }
+
+    @Override
+    public void deleteTask(Task task) { taskDao.deleteTask(task); }
+
+    @Override
+    public void deleteUserTask(String taskId) {
+        taskDao.deleteUserTask(taskId);
+    }
 }
