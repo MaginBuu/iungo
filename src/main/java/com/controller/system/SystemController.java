@@ -93,8 +93,12 @@ public class SystemController {
                             updatedAuthorities)
             );
             User user = userService.getUserById("1");
-            request.getSession().setAttribute("name", user.getFullName());
-            request.getSession().setAttribute("user", user);
+            try {
+                request.getSession().setAttribute("name", user.getFullName());
+                request.getSession().setAttribute("user", user);
+            }catch (Exception e2){
+            }
+
             return "redirect:/teacher";
         }
 

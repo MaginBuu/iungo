@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.model.*;
 import com.model.enums.Department;
+import com.model.enums.KeyRoleValue;
 import com.model.enums.Role;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -385,7 +386,7 @@ public class UserDaoImpl implements UserDao {
 
 	//-------------------- KeyRole --------------------
 
-	public User getKeyRoleUser(String keyRole){
+	public User getKeyRoleUser(KeyRoleValue keyRole){
 		Session session = sessionFactory.openSession();
 		User user =  (User)session.getNamedQuery("KeyRole.getUserByKeyRole").setParameter("keyRole", keyRole).uniqueResult();
 		session.close();

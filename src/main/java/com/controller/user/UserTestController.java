@@ -3,6 +3,7 @@ package com.controller.user;
 import com.model.*;
 import com.model.encapsulators.GradesEncapsulator;
 import com.model.enums.FaultType;
+import com.model.enums.KeyRoleValue;
 import com.model.enums.ProcedureStatus;
 import com.model.enums.Role;
 import com.service.*;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import sun.management.VMOptionCompositeData;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -281,8 +281,8 @@ public class UserTestController {
             }
             //Alertar responsable
             Procedure procedure = new Procedure("Anti bullying report", report.toString(), false, new Date(2099, 01, 01));
-            User user = userService.getKeyRoleUser("antibullying");
-            procedure.setUserP(userService.getKeyRoleUser("antibullying"));
+            User user = userService.getKeyRoleUser(KeyRoleValue.ANTIBULLYING);
+            procedure.setUserP(userService.getKeyRoleUser(KeyRoleValue.ANTIBULLYING));
             procedureService.addProcedure(procedure);
 
             antiBullyingReportService.addAntiBullyingReport(report);

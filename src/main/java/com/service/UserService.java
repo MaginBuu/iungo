@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.model.*;
+import com.model.enums.KeyRoleValue;
 import com.model.enums.Role;
 
 public interface UserService {
@@ -83,6 +84,6 @@ public interface UserService {
 
 	//KEYROLE
 
-	User getKeyRoleUser(String keyRole);
+	User getKeyRoleUser(KeyRoleValue keyRole);
 
 }

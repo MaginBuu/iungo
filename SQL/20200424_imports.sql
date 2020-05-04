@@ -7466,5 +7466,5 @@ INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id)
 -- Key ROLE
 --
 
-INSERT INTO public.key_role (key_role, user_user_id) VALUES ('Antibullying', '1');
+INSERT INTO public.key_role (key_role, user_user_id) VALUES ('Antibullying', 0);
 

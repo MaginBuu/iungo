@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.*;
 import com.model.enums.Department;
+import com.model.enums.KeyRoleValue;
 import com.model.enums.Role;
 
 public interface UserDao {
@@ -86,6 +87,6 @@ public interface UserDao {
 
 	//KEYROLE
 
-	User getKeyRoleUser(String keyRole);
+	User getKeyRoleUser(KeyRoleValue keyRole);
 
 }

@@ -1,6 +1,8 @@
 package com.model;
 
 
+import com.model.enums.KeyRoleValue;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,15 +21,15 @@ public class KeyRole implements Serializable {
 
     @Id
     @Column(name = "KEY_ROLE")
-    String keyRole;
+    KeyRoleValue keyRole;
 
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
 
-    public String getKeyRole() { return keyRole; }
+    public KeyRoleValue getKeyRole() { return keyRole; }
 
-    public void setKeyRole(String keyRole) { this.keyRole = keyRole; }
+    public void setKeyRole(KeyRoleValue keyRole) { this.keyRole = keyRole; }
 
     public KeyRole() { }
 }
