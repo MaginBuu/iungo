@@ -26,11 +26,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import sun.nio.cs.US_ASCII;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -219,7 +217,7 @@ public class UserController {
 	 * @return ModelAndView with the desired .jsp file and its required model & objects
 	 */
 	@RequestMapping(value = "/user/modify", method = RequestMethod.GET)
-	public ModelAndView getSubjectModify(@RequestParam String userId) {
+	public ModelAndView getUserModify(@RequestParam String userId) {
 		User user = userService.getUserById(userId);
 		Set<Role> keyset = user.getRoles().keySet();
 		String aux = "";
@@ -229,6 +227,63 @@ public class UserController {
 		user.setRole(aux);
 		System.out.println(user.getRole());
 		return new ModelAndView("system/updateUser", "user", user);
+	}
+
+	/**
+	 * Processes the petition to get to the subject modification page.
+	 *
+	 * @param user to update
+	 */
+	@RequestMapping(value = "/user/modify", method = RequestMethod.POST)
+	public String postUserModify(@ModelAttribute User user) {
+		User userDB = userService.getUserById(user.getUserId());
+
+		userDB.setName(user.getName());
+		userDB.setSurname(user.getSurname());
+		userDB.setSecondSurname(user.getSecondSurname());
+		userDB.setBirth(user.getBirth());
+		userDB.setEmailId(user.getEmailId());
+		userDB.setGender(user.getGender());
+
+
+		//set roles
+		String roles[] = user.getRole().split(",");
+		Map<Role, RoleClass> roleClasses = userDB.getRoles();
+
+
+
+		for(Role role : roleClasses.keySet()){
+		
+		}
+
+		for (String role : roles){
+			if(!roleClasses.containsKey(Role.valueOf(role))){
+				RoleClass roleClass = null;
+				if(role.equals("STUDENT"))
+					roleClass = new RoleStudent();
+				else if(role.equals("RESPONSIBLE"))
+					roleClass = new RoleResponsible();
+				else if(role.equals("TEACHER")) {
+					RoleTeacher roleTeacher = new RoleTeacher();
+					if (!"".equals(user.getDepartment()))
+						roleTeacher.setDepartment(user.getDepartment());
+					roleClass = roleTeacher;
+				}else if(role.equals("SECRETARY"))
+					roleClass = new RoleSecretary();
+				else
+					roleClass = new RoleAdmin();
+
+				roleClass.setUserR(user);
+				roleClass.setRoleKey(Role.valueOf(role));
+				user.addRole(Role.valueOf(role), roleClass);
+			}
+		}
+
+
+
+		userService.addUser(userDB);
+
+		return "/element/access";
 	}
 
 

@@ -282,6 +282,9 @@ public class User implements Serializable {
 
 	public void addRole(Role roleType, RoleClass role){ roles.put(roleType, role); }
 
+	public void removeRole(Role roleType){ roles.remove(roleType); }
+
+
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
 	}
