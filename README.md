@@ -29,7 +29,7 @@ instalation guide:
                     - add -> build artifacts -> iungo:war
             - on deployment tab:
                 - add -> artifact -> iungo:war
-                - aplication context = /
+                - application context = /
         
         
     
