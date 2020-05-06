@@ -20,36 +20,50 @@
 </head>
 
 <body>
+
+<script>
+
+    function Validate() {
+        let validated = true;
+        let checked = $("#anonymously").is(":checked");
+        let observed = document.getElementById("observed").value;
+        let description = document.getElementById("description");
+
+        if(!(checked.toString() === 'false' && observed.toString() === 'false') && description.value.toString() === ""){
+            document.getElementById("description").style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            title.style.backgroundColor = "#ffffff";
+        }
+        return validated;
+    }
+
+</script>
+
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" method="post" action="/user/antibullying/report" modelAttribute="report">
-            <form:hidden path="observed"/>
+            <form:hidden path="observed" id="observed"/>
             <h1><i class="fa fa-heart icon"></i></h1>
-            <p><i>Feeling safe and good about ourselves as with each other is very important. This is a safe space to
+            <p><i>Penis Feeling safe and good about ourselves as with each other is very important. This is a safe space to
                 express our worries and talk with confidence about our or others issues.</i></p>
             <br><br>
             <div class="form-group">
                 <div class="label-column" style="text-align: center"><form:label path="description"
-                                                               class="col-form-label">Description </form:label></div>
+                                                               class="col-form-label" >Description </form:label></div>
                 <div class="input-column"><form:textarea path="description" class="form-control"
-                                                               type="text"></form:textarea></div>
+                                                               type="text" id="description"></form:textarea></div>
             </div>
             <div class="row form-group">
                 <div class="col label-column"><label class="col-form-label">Report Anonymously </label><span></span></div>
-                <div class="col input-column"><form:checkbox name="anonymously" path="anonymous" class="form-control"></form:checkbox></div>
+                <div class="col input-column"><form:checkbox name="anonymously" path="anonymous" class="form-control" id="anonymously"></form:checkbox></div>
             </div>
 
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Send</button>
         </form:form>
     </div>
 </div>
-
-<script type="text/javascript">
-    function Validate() {
-        return true;
-    }
-</script>
 
 </body>
 

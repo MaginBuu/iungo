@@ -49,12 +49,57 @@
 
     function Validate() {
 
-        var tempDate = $('#datetimepicker1').find("input").val();
-        tempDate = tempDate.split("/").reverse().join("/");
-        tempDate += " " + $('#datetimepicker3').find("input").val() + ":00"
-        $('#datetimepicker1').find("input").val(tempDate);
+        var validated = true;
 
-        return true;
+        var name = document.getElementById("name");
+        var valueInput = document.getElementById("value");
+        var limitDate = document.getElementById("limitDate");
+        var limitHour = document.getElementById("limitHour");
+        var chapter = document.getElementById("select-chapter");
+        var typology = document.getElementById("select-typology");
+
+        if(name.value == "")  {
+            name.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else
+            name.style.backgroundColor = "#ffffffff";
+        if($('#datetimepicker1').find("input").val() === ""){
+            limitDate.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            limitDate.style.backgroundColor = "#ffffff";
+        }
+        if($('#datetimepicker3').find("input").val() === ""){
+            limitHour.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            limitHour.style.backgroundColor = "#ffffff";
+        }
+        if(valueInput.value == "" || valueInput.value < 0)  {
+            valueInput.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else
+            valueInput.style.backgroundColor = "#ffffffff";
+        if(chapter.value.toString() == "")  {
+            $('[data-id="select-chapter"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else
+            $('[data-id="select-chapter"]').css("background-color","#ffffffff","important");
+        if(typology.value.toString() == "")  {
+            $('[data-id="select-typology"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else
+            $('[data-id="select-typology"]').css("background-color","#ffffffff","important");
+
+        if(validated) {
+            var tempDate = $('#datetimepicker1').find("input").val();
+            tempDate = tempDate.split("/").reverse().join("/");
+            tempDate += " " + $('#datetimepicker3').find("input").val() + ":00"
+            $('#datetimepicker1').find("input").val(tempDate);
+        }
+
+        return validated;
+
     }
 
 </script>
@@ -71,7 +116,7 @@
                 <div class="col-sm-3 label-column"><form:label path="title"
                                                                class="col-form-label">Name </form:label></div>
                 <div class="col-sm-8 input-column"><form:input path="title" class="form-control"
-                                                               type="text"></form:input></div>
+                                                               type="text" id="name"></form:input></div>
             </div>
             <!-- Deadline -->
             <div class="form-row form-group">
@@ -80,7 +125,7 @@
                 <div class="col-sm-8 input-column" style="position: relative">
                     <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                         <form:input path="deadline" type="text" class="form-control datetimepicker-input"
-                                    data-target="#datetimepicker1"/>
+                                    data-target="#datetimepicker1" id="limitDate"/>
                         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -92,7 +137,7 @@
                     <label class="col-form-label">Hour </label></div>
                 <div class="col-sm-8 input-column" style="position: relative">
                     <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59" id="limitHour"/>
                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                         </div>
@@ -111,7 +156,7 @@
                 <div class="col-sm-3 label-column"><form:label path="value"
                                                                class="col-form-label">Value </form:label></div>
                 <div class="col-sm-8 input-column"><form:input path="value" class="form-control"
-                                                               type="number"></form:input></div>
+                                                               type="number" id="value"></form:input></div>
             </div>
             <!-- Typology -->
             <c:set var="enumValues" value="<%=TaskType.values()%>"/>
@@ -119,7 +164,7 @@
                 <div class="col-sm-3 label-column">
                     <form:label path="taskType" class="col-form-label">Task Type </form:label></div>
                 <div class="col-sm-8 input-column">
-                    <form:select class="selectpicker" data-width="100%" path="taskType">
+                    <form:select class="selectpicker" data-width="100%" path="taskType" id="select-typology">
                         <form:option disabled="disabled" selected="selected" value="">Select a typology</form:option>
                         <c:forEach items="${enumValues}" var="enumValue">
                             <form:option value="${enumValue}"></form:option>
@@ -132,7 +177,7 @@
                 <div class="col-sm-3 label-column">
                     <form:label path="chapter.chapterId" class="col-form-label">Chapter </form:label></div>
                 <div class="col-sm-8 input-column">
-                    <form:select class="selectpicker" data-width="100%" path="chapter.chapterId">
+                    <form:select class="selectpicker" data-width="100%" path="chapter.chapterId" id="select-chapter">
                         <form:option disabled="disabled" selected="selected" value="">Select a chapter</form:option>
                         <c:forEach items="${chapters}" var="chapter">
                             <form:option value="${chapter.chapterId}">${chapter.title}</form:option>

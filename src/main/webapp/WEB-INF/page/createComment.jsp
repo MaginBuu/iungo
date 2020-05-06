@@ -20,6 +20,18 @@
 </head>
 
 <body>
+
+<script>
+    function Validate() {
+        var validated = true;
+        var title = document.getElementById("title");
+        if(title.value == "")  {
+            title.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else title.style.backgroundColor = "#ffffffff";
+        return validated;
+    }
+</script>
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
@@ -30,7 +42,7 @@
                 <div class="col-sm-3 label-column"><label class="col-form-label">Title </label></div>
                 <div class="col-sm-7 input-column">
                     <form:input path="title" class="form-control"
-                                   type="text"></form:input>
+                                   type="text" id="title"></form:input>
                 </div>
             </div>
             <div class="form-row form-group">

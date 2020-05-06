@@ -30,9 +30,9 @@
             <input id="roleUser" type="hidden" value="${pageContext.request.userPrincipal.authorities}">
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
-                    <label class="col-form-label">Title </label></div>
+                    <label class="col-form-label" id="titleLabel">Title </label></div>
                 <div class="col-sm-8 input-column">
-                    <form:input path="title" class="form-control" type="text"></form:input></div>
+                    <form:input path="title" class="form-control" type="text" id="titleInput"></form:input></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
@@ -97,13 +97,26 @@
 
         });
 
-        var role = $("#roleUser").val().toString();
+        let role = $("#roleUser").val().toString();
+        let validated = true
+
+        if(document.getElementById("titleInput").value === ""){
+            document.getElementById("titleInput").style.backgroundColor = "#ffd6cc";
+            validated = false;
+        } else{
+            document.getElementById("titleInput").style.backgroundColor = "#ffffff";
+        }
+        if($('#users').val().length == 0){
+            $('*[data-id="users"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else {
+            $('*[data-id="users"]').css("background-color","#ffffff","important");
+        }
         if ((role === "[STUDENT]" || role === "[RESPONSIBLE]") && $('#users').val().length > 1 && teacher === true) {
             alert("Teacher cannot be in a group of students");
             return false;
-        } else {
-            return true;
         }
+        return validated;
     }
 
     function addResponsible() {

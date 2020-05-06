@@ -21,6 +21,19 @@
 
 <body>
 
+<script>
+    function Validate() {
+        var validated = true;
+        var faultType = document.getElementById("faultType-select");
+        if(faultType.value.toString() == "")  {
+            $('[data-id="faultType-select"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else $('[data-id="faultType-select"]').css("background-color","#ffffffff","important");
+
+        return validated;
+    }
+</script>
+
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
@@ -32,10 +45,10 @@
                 <div class="col-sm-3 label-column"><label class="col-form-label">Fault type </label></div>
                 <div class="col-sm-4 input-column">
                     <c:set var="enumValues" value="<%=FaultType.values()%>"/>
-                    <form:select class="selectpicker" data-width="100%" path="faultType">
+                    <form:select class="selectpicker" data-width="100%" path="faultType" id="faultType-select">
+                        <form:option value="">Select an Incidence Type</form:option>
                         <c:forEach items="${enumValues}" var="enumValue">
-                            <form:option
-                                    value="${enumValue}">${fn:toUpperCase(fn:substring(enumValue.name(),0,1))}${fn:toLowerCase(fn:substring(enumValue.name(),1,fn:length(enumValue.name())))}</form:option>
+                            <form:option value="${enumValue}">${fn:toUpperCase(fn:substring(enumValue.name(),0,1))}${fn:toLowerCase(fn:substring(enumValue.name(),1,fn:length(enumValue.name())))}</form:option>
                         </c:forEach>
                     </form:select>
                 </div>

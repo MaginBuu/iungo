@@ -20,11 +20,17 @@
 </head>
 
 <body>
+
+<script>
+
+
+</script>
+
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" method="post" action="/user/antibullying/report" modelAttribute="report">
-            <form:hidden path="observed"/>
+            <form:hidden path="observed" id="observed"/>
             <h1><i class="fa fa-heart icon"></i></h1>
             <p><i>Feeling safe and good about ourselves as with each other is very important. This is a safe space to
                 express our worries and talk with confidence about our or others issues.</i></p>
@@ -37,7 +43,7 @@
             </div>
             <div class="row form-group">
                 <div class="col label-column"><label class="col-form-label">Report Anonymously </label><span></span></div>
-                <div class="col input-column"><form:checkbox name="anonymously" path="anonymous" class="form-control"></form:checkbox></div>
+                <div class="col input-column"><form:checkbox name="anonymously" path="anonymous" class="form-control" id="anonymously"></form:checkbox></div>
             </div>
 
             <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Send</button>

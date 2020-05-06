@@ -35,9 +35,9 @@
             <h1>Create Procedure</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="title"
-                                                               class="col-form-label">Title </form:label></div>
+                                                               class="col-form-label" id="titleLabel">Title </form:label></div>
                 <div class="col-sm-8 input-column"><form:input path="title" class="form-control"
-                                                               type="text" id="title"></form:input></div>
+                                                               type="text" id="titleInput"></form:input></div>
             </div>
 
             <div class="form-row form-group">
@@ -48,7 +48,7 @@
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
-                    <form:label path="limitDate" class="col-form-label">Limit date </form:label></div>
+                    <form:label path="limitDate" class="col-form-label" id = "datetimepicker1Label">Limit date </form:label></div>
                 <div class="col-sm-3 form-group" style="position: relative">
                     <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                         <form:input path="limitDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
@@ -58,10 +58,10 @@
                     </div>
                 </div>
                 <div class="col-sm-2 label-column">
-                    <label class="col-form-label">Hour </label></div>
+                    <label class="col-form-label" id="datetimepicker3Label">Hour </label></div>
                 <div class="col-sm-3 form-group" style="position: relative">
                     <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59" id="limitHour"/>
                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                         </div>
@@ -114,17 +114,43 @@
     <script type="text/javascript">
 
         function Validate() {
-            if ($('#userP').val() !== "" && $('#title').val()!=="") {
+            let validated = true;
 
+            if(document.getElementById("titleInput").value === ""){
+                document.getElementById("titleInput").style.backgroundColor = "#ffd6cc";
+                document.getElementById("titleInput").style.borderRadius = "3px";
+                validated = false;
+            }else{
+                document.getElementById("titleInput").style.backgroundColor = "#ffffff";
+            }
+            if($('#datetimepicker1').find("input").val() === ""){
+                document.getElementById("limitDate").style.backgroundColor = "#ffd6cc";
+                document.getElementById("limitDate").style.borderRadius = "3px";
+                validated = false;
+            }else{
+                document.getElementById("limitDate").style.backgroundColor = "#ffffff";
+            }
+            if($('#datetimepicker3').find("input").val() === ""){
+                document.getElementById("limitHour").style.backgroundColor = "#ffd6cc";
+                document.getElementById("limitHour").style.borderRadius = "3px";
+                validated = false;
+            }else{
+                document.getElementById("limitHour").style.backgroundColor = "#ffffff";
+            }
+            if($('#select-user').val() == null || $('#select-user').val().toString() === ""){
+                $('*[data-id="select-user"]').css("background-color","#ffd6cc","important");
+                validated = false;
+            }else {
+                $('*[data-id="select-user"]').css("background-color","#ffffff","important");
+            }
+
+            if (validated) {
                 var tempDate = $('#datetimepicker1').find("input").val();
                 tempDate = tempDate.split("/").reverse().join("/");
                 tempDate += " " + $('#datetimepicker3').find("input").val() + ":00"
                 $('#datetimepicker1').find("input").val(tempDate);
-
-                return true;
             }
-            alert("please fill the obligatory camps");
-            return false
+            return validated;
         }
 
         $(function () {
@@ -164,6 +190,8 @@
 
                     // Clear the old options
                     select.options.length = 0;
+
+                    select.options.add(new Option("Select an user", ""));
 
                     // Disable the booked options in both select, each one with its list
                     $.each(data, function (index, current) {

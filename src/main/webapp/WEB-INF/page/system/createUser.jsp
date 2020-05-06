@@ -43,11 +43,11 @@
             <div class="col-sm-3 label-column"><form:label path="name"
                                                            class="col-form-label">Name </form:label></div>
             <div class="col-sm-3 input-column"><form:input path="name" class="form-control"
-                                                           type="text"></form:input></div>
+                                                           type="text" id="name"></form:input></div>
             <div class="col-sm-2 label-column"><form:label path="surname"
                                                            class="col-form-label">Surname </form:label></div>
             <div class="col-sm-3 input-column"><form:input path="surname" class="form-control"
-                                                           type="text"></form:input></div>
+                                                           type="text" id="surname"></form:input></div>
         </div>
         <div class="form-row form-group">
             <div class="col-sm-3 label-column"><form:label path="secondSurname"
@@ -58,7 +58,7 @@
                                                            class="col-form-label">Birth Date </form:label></div>
             <div class="col-sm-3 input-column">
                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                    <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="birth"/>
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -69,7 +69,7 @@
             <div class="col-sm-3 label-column"><form:label path="emailId"
                                                            class="col-form-label">Email </form:label></div>
             <div class="col-sm-8 input-column"><form:input path="emailId" class="form-control"
-                                                           type="email"></form:input></div>
+                                                           type="email" id="email"></form:input></div>
         </div>
         <c:set var="enumValues" value="<%=GenderType.values()%>"/>
         <div class="form-row form-group">
@@ -114,27 +114,58 @@
 
 <script type="text/javascript">
     function Validate() {
+        let validated = true;
         var select = jQuery("#role-select");
-        var usernameRelate = jQuery("#usernameRelate");
         var roles = select.val().toString().split(',');
+        var usernameRelate = jQuery("#usernameRelate");
+
+
+        if(document.getElementById("name").value === ""){
+            document.getElementById("name").style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            document.getElementById("name").style.backgroundColor = "#ffffff";
+        }
+        if(document.getElementById("surname").value === ""){
+            document.getElementById("surname").style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            document.getElementById("surname").style.backgroundColor = "#ffffff";
+        }
+        if(document.getElementById("birth").value === ""){
+            document.getElementById("birth").style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            document.getElementById("birth").style.backgroundColor = "#ffffff";
+        }
+        if(document.getElementById("email").value === ""){
+            document.getElementById("email").style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            document.getElementById("email").style.backgroundColor = "#ffffff";
+        }if (roles[0] === "") {
+            $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else
+            $('[data-id="role-select"]').css("background-color","#ffffff","important");
         if (roles.length > 1 && roles[0] === "STUDENT") {
             alert("student can only have 1 role assigned");
-            return false;
-        } else if (roles[0] === "") {
-            alert("user has to have at least one role assigned");
-            return false;
+            $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
+            validated = false;
         } else if (usernameRelate.val() !== "" && usernameRelate.val() != null) {
             if (roles[0] !== "RESPONSIBLE") {
                 alert("This user must be a responsible");
-                return false;
+                $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
+                validated = false;
             }
         }
 
-        var tempDate = $('#datetimepicker1').find("input").val();
-        tempDate = tempDate.split("/").reverse().join("/");
-        $('#datetimepicker1').find("input").val(tempDate);
-
-        return true;
+        if(validated) {
+            var tempDate = $('#datetimepicker1').find("input").val();
+            tempDate = tempDate.split("/").reverse().join("/");
+            $('#datetimepicker1').find("input").val(tempDate);
+        }
+        return validated;
     }
 
     function changeDisableDept() {
