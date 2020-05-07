@@ -137,6 +137,17 @@
         document.getElementById("selected-conversation-form").value = conversationId.toString();
     }
 
+    function validateMessage() {
+        return false;
+        var subject = document.getElementById("input-subject");
+        if(subject.value === "")  {
+            subject.style.backgroundColor = "#ffd6cc";
+            return false;
+        }else{
+            subject.style.backgroundColor = "#ffffffff";}
+        return false;
+    }
+
 </script>
 
 <!--HTML-->
@@ -264,6 +275,7 @@
 </div>
 
 
+
 <!-- Create message Modal -->
 <div class="modal fade" id="modalCreateMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -277,13 +289,12 @@
                             <div class="form-group">
                                 <div class="label-column"><form:label path="subject"
                                                                            class="col-form-label">Subject </form:label></div>
-                                <div class="input-column"><form:input path="subject" class="form-control"
-                                                                               type="text"></form:input></div>
+                                <div class="input-column"><form:input path="subject" class="form-control" type="text" id="input-subject"></form:input></div>
                                 <div class="label-column"><form:label path="messageBody" class="col-form-label">Body </form:label></div>
                                 <div class="input-column"><form:textarea path="messageBody" class="form-control"
                                                                       type="text"></form:textarea></div>
                             </div>
-                            <button class="btn btn-light submit-button" type="submit" onclick="return true">Send</button>
+                            <form:button class="btn btn-light submit-button" type="submit" onclick="validateMessage()">Send</form:button>
                         </form:form>
                     </div>
                 </div>
