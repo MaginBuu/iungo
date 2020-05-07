@@ -138,14 +138,13 @@
     }
 
     function validateMessage() {
-        return false;
         var subject = document.getElementById("input-subject");
         if(subject.value === "")  {
             subject.style.backgroundColor = "#ffd6cc";
             return false;
         }else{
             subject.style.backgroundColor = "#ffffffff";}
-        return false;
+        return true;
     }
 
 </script>
@@ -294,7 +293,7 @@
                                 <div class="input-column"><form:textarea path="messageBody" class="form-control"
                                                                       type="text"></form:textarea></div>
                             </div>
-                            <form:button class="btn btn-light submit-button" type="submit" onclick="validateMessage()">Send</form:button>
+                            <form:button class="btn btn-light submit-button" type="submit" onclick="return validateMessage()">Send</form:button>
                         </form:form>
                     </div>
                 </div>
