@@ -30,8 +30,10 @@ public interface UserDao {
 	User getAllUserProcedures(String userId);
 
 	User getAllUserRoles(String id);
-	
+
 	User getUserByEmail(String email);
+
+	User getUserByRoleId(String roleId);
 
 	List<String> getAllUsernames(String username);
 

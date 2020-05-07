@@ -181,6 +181,15 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	public User getUserByRoleId(String email) {
+		// Reading the records from the table
+		Session session = sessionFactory.openSession();
+		List<User> users = session.getNamedQuery("Users.findByEmail").setParameter("email", email).list();
+		session.close();
+		return users.get(0);
+
+	}
+
 	/**
 	 *
 	 * @param username
