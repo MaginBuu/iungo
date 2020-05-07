@@ -30,6 +30,8 @@ public interface UserService {
 	
 	User getUserByEmail(String emailId);
 
+	User getUserByRoleId(String roleId);
+
 	List<String> getAllUsernames(String username);
 
 	List<User> getQueryResults(String query);
