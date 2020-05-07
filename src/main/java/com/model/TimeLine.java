@@ -59,6 +59,9 @@ public class TimeLine implements Serializable {
     @Transient
     private String timelineSubjectId = "";
 
+    @Transient
+    private String timelineTeacherId = "";
+
     public TimeLine() {
     }
 
@@ -146,6 +149,18 @@ public class TimeLine implements Serializable {
             if(getSubjectTimeLine()!=null) space = getSubjectTimeLine().getSubjectId();
         }
         return space;
+    }
+
+    public void setTimelineTeacherId(String timelineTeacherId) {
+        this.timelineTeacherId = timelineTeacherId;
+    }
+
+    public String getTimelineTeacherId() {
+        String t = timelineTeacherId;
+        if("".equals(t)) {
+            if(getSubjectTimeLine()!=null) t = getTeacher().getUserR().getUserId();
+        }
+        return t;
     }
 
     public void setTimelineSubjectId(String timelineSubjectId) {

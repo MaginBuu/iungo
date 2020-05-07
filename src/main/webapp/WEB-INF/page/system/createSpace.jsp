@@ -32,13 +32,13 @@
         <div class="form-row form-group">
             <div class="col-sm-3 label-column"><form:label path="name"
                                                            class="col-form-label">Name </form:label></div>
-            <div class="col-sm-8 input-column"><form:input path="name" class="form-control"
+            <div class="col-sm-8 input-column"><form:input path="name" class="form-control" id="title-input"
                                                            type="text"></form:input></div>
         </div>
         <div class="form-row form-group">
             <div class="col-sm-3 label-column"><form:label path="capacity"
                                                            class="col-form-label">Capacity </form:label></div>
-            <div class="col-sm-8 input-column"><form:input path="capacity" class="form-control"
+            <div class="col-sm-8 input-column"><form:input path="capacity" class="form-control" id="capacity-input"
                                                            type="number"></form:input></div>
         </div>
         <c:set var="enumValues" value="<%=Typology.values()%>"/>
@@ -46,7 +46,7 @@
             <div class="col-sm-3 label-column">
                 <form:label path="typology" class="col-form-label">Typology </form:label></div>
             <div class="col-sm-8 input-column">
-                <form:select class="selectpicker" data-width="100%" path="typology">
+                <form:select class="selectpicker" data-width="100%" path="typology" id="typology-input">
                     <form:option disabled="disabled" selected="selected" value="">Select a typology</form:option>
                     <c:forEach items="${enumValues}" var="enumValue">
                         <form:option value="${enumValue}"></form:option>
@@ -97,12 +97,23 @@
 
     <script type="text/javascript">
         function Validate() {
-            var userP = document.getElementById("userP").value;
-            if (userP == "") {
-                alert("Select an user");
-                return false;
-            }
-            return true;
+            var validated = true;
+            var title = document.getElementById("title-input");
+            var typology = document.getElementById("typology-input");
+            var capacity = document.getElementById("capacity-input");
+            if(title.value == "")  {
+                title.style.backgroundColor = "#ffd6cc";
+                validated = false;
+            }else title.style.backgroundColor = "#ffffffff";
+            if(typology.value.toString() == "")  {
+                $('*[data-id="typology-input"]').css("background-color","#ffd6cc","important");
+                validated = false;
+            }else $('*[data-id="typology-input"]').css("background-color","#ffffffff","important");
+            if(capacity.value < 1)  {
+                capacity.style.backgroundColor = "#ffd6cc";
+                validated = false;
+            }else capacity.style.backgroundColor = "#ffffffff";
+            return validated;
         }
     </script>
 

@@ -18,6 +18,7 @@
 </head>
 
 <body>
+
 <%@ include file="../navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
@@ -27,14 +28,14 @@
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="title"
                                                                class="col-form-label">Title </form:label></div>
-                <div class="col-sm-8 input-column"><form:input path="title" class="form-control"
+                <div class="col-sm-8 input-column"><form:input path="title" class="form-control" id="title-input"
                                                                type="text"></form:input></div>
             </div>
 
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="description"
                                                                class="col-form-label">Description </form:label></div>
-                <div class="col-sm-8 input-column"><form:textarea path="description" class="form-control"
+                <div class="col-sm-8 input-column"><form:textarea path="description" class="form-control" id="description-input"
                                                                   type="text"></form:textarea></div>
             </div>
 
@@ -45,7 +46,18 @@
 
 <script type="text/javascript">
     function Validate() {
-        return true;
+        var validated = true;
+        var title = document.getElementById("title-input");
+        var description = document.getElementById("description-input");
+        if(title.value == "")  {
+            title.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else title.style.backgroundColor = "#ffffffff";
+        if(description.value == "")  {
+            description.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else description.style.backgroundColor = "#ffffffff";
+        return validated;
     }
 </script>
 

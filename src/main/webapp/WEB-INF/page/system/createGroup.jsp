@@ -19,6 +19,31 @@
 <body>
 
 <script>
+    function Validate() {
+        var validated = true;
+        var name = document.getElementById("name-input");
+        var department = document.getElementById("stage");
+        var group = document.getElementById("group-input");
+        var level = document.getElementById("level-input");
+        if(name.value == "")  {
+            name.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else name.style.backgroundColor = "#ffffffff";
+        if(group.value == "")  {
+            group.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else group.style.backgroundColor = "#ffffffff";
+        if(level.value < 1)  {
+            level.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else level.style.backgroundColor = "#ffffffff";
+        if(department.value.toString() == "")  {
+            $('*[data-id="stage"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else $('*[data-id="stage"]').css("background-color","#ffffffff","important");
+        return validated;
+    }
+
     window.onload = function () {
         var select1 = jQuery('#year');
         select1.prop('disabled', true);
@@ -43,17 +68,17 @@
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="level"
                                                                class="col-form-label">Level </form:label></div>
-                <div class="col-sm-3 input-column"><form:input path="level" class="form-control"
+                <div class="col-sm-3 input-column"><form:input path="level" class="form-control" id="level-input"
                                                                type="number"></form:input></div>
                 <div class="col-sm-2 label-column"><form:label path="group"
                                                                class="col-form-label">Group </form:label></div>
-                <div class="col-sm-3 input-column"><form:input path="group" class="form-control"
+                <div class="col-sm-3 input-column"><form:input path="group" class="form-control" id="group-input"
                                                                type="text"></form:input></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="name"
                                                                class="col-form-label">Name </form:label></div>
-                <div class="col-sm-8 input-column"><form:input path="name" class="form-control"
+                <div class="col-sm-8 input-column"><form:input path="name" class="form-control" id="name-input"
                                                                type="text"></form:input></div>
             </div>
             <c:set var="enumValues" value="<%=Stage.values()%>"/>
@@ -62,7 +87,7 @@
                     <form:label path="Stage" class="col-form-label">Stage </form:label></div>
                 <div class="col-sm-8 input-column">
                     <form:select class="selectpicker" data-width="100%" path="stage" id="stage" name="stage">
-                        <form:option disabled="disabled" selected="selected" value="">Select a Stage</form:option>
+                        <form:option disabled="disabled" selected="selected" value="">Select a stage</form:option>
                         <c:forEach items="${enumValues}" var="enumValue">
                             <form:option value="${enumValue}"></form:option>
                         </c:forEach>

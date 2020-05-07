@@ -32,14 +32,14 @@
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><form:label path="name"
                                                                class="col-form-label">Name </form:label></div>
-                <div class="col-sm-8 input-column"><form:input path="name" class="form-control"
+                <div class="col-sm-8 input-column"><form:input path="name" class="form-control" id="title-input"
                                                                type="text"></form:input></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column">
                     <form:label path="subjectGroup" class="col-form-label">Group </form:label></div>
                 <div class="col-sm-3 input-column">
-                    <form:select class="selectpicker" data-width="100%" path="subjectGroup.groupId" id="groupSelect" name="groupSelect">
+                    <form:select class="selectpicker" data-width="100%" path="subjectGroup.groupId" id="group-input" name="groupSelect">
                         <form:option disabled="disabled" selected="selected" value="">Select a group</form:option>
                         <c:forEach items="${groups}" var="group">
                             <form:option value="${group.groupId}">${group.stage} ${group.level} ${group.group}</form:option>
@@ -50,28 +50,40 @@
                 <div class="col-sm-2 label-column">
                     <form:label path="department" class="col-form-label">Department </form:label></div>
                 <div class="col-sm-3 input-column">
-                    <form:select class="selectpicker" data-width="100%" path="department">
-                        <form:option disabled="disabled" selected="selected" value="">Select a Department</form:option>
+                    <form:select class="selectpicker" data-width="100%" path="department" id="department-input">
+                        <form:option disabled="disabled" id="selected-default" selected="selected" value="">Select a Department</form:option>
                         <c:forEach items="${enumValues}" var="enumValue">
                             <form:option value="${enumValue}"></form:option>
                         </c:forEach>
                     </form:select>
                 </div>
             </div>
-            <button class="btn btn-light submit-button" type="submit" onclick="return validate()">Create</button>
+            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
         </form:form>
     </div>
 </div>
 
 
 <script type="text/javascript">
-    function validate() {
-        var select = jQuery("#groupSelect");
-        if(select.val().toString() === ""){
-            alert("some group must be selected");
-            return false;
-        }
-        return true;
+
+    function Validate() {
+        var validated = true;
+        var title = document.getElementById("title-input");
+        var department = document.getElementById("department-input");
+        var group = document.getElementById("group-input");
+        if(title.value == "")  {
+            title.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else title.style.backgroundColor = "#ffffffff";
+        if(department.value.toString() == "")  {
+            $('*[data-id="department-input"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else $('*[data-id="department-input"]').css("background-color","#ffffffff","important");
+        if(group.value.toString() == "")  {
+            $('*[data-id="group-input"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else $('*[data-id="group-input"]').css("background-color","#ffffffff","important");
+        return validated;
     }
 </script>
 

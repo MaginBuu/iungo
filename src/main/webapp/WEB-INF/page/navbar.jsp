@@ -75,7 +75,6 @@
             data: {
             }, //aqui es passen els parametres
             success: function (data) {
-                console.log(data);
                 table.innerHTML = "";
             }
         }).done(function () {
@@ -86,7 +85,6 @@
     }
 
     function loadRoles(){
-        console.log("roles loaded");
         $.ajax({
             type: "GET",
             url: "/user/roles",
@@ -98,7 +96,6 @@
                 if(data.length > 0){
                     document.getElementById("hasroles").style.display = "block";
                     $.each(data, function (index, current) {
-                    console.log(current);
                     $("#dropdown-menu").append('<a class="dropdown-item" href="#" onclick="roleChanged(\'' + current + '\')">' + current.substring(0, 1) + current.substring(1, current.length).toLowerCase() + '</a>');
                 });
                 }else{
