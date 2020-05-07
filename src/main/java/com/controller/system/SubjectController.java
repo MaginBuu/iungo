@@ -3,6 +3,7 @@ package com.controller.system;
 import com.model.*;
 import com.model.enums.Role;
 import com.service.*;
+import javafx.animation.Timeline;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -198,6 +199,8 @@ public class SubjectController {
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Space loaded successfully");
             Subject subject = subjectService.getById(timeLine.getTimelineSubjectId());
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject loaded successfully");
+            RoleTeacher rt = userService.getTeacherById(timeLine.getTimelineTeacherId());
+            timeLine.setTeacher(rt);
             timeLine.setSubjectTimeLine(subject);
             timeLine.setSpaceTimeLine(space);
             timeLineService.addTimeLine(timeLine);
@@ -275,6 +278,43 @@ public class SubjectController {
         data.put("start", bookedHours);
         data.put("end", endHours);
         return data;
+    }
+
+    @RequestMapping("/subject/requestAvailableTeachers")
+    public @ResponseBody
+    JSONArray requestTeachersAjax(@RequestParam("subjectId") String subjectId, @RequestParam("weekday") String weekday,
+                               @RequestParam("start") String start, @RequestParam("end") String end) {
+        JSONArray availableTeachers = new JSONArray();
+        Set<RoleTeacher> teachers = subjectService.getTeachersBySubjectId(subjectId);
+        int sh = Integer.parseInt(start.split("s")[0]+start.split("s")[1]);
+        int fh = Integer.parseInt(end.split("s")[0]+end.split("s")[1]);
+        for(RoleTeacher rt : teachers){
+            Boolean available = true;
+            List<TimeLine> timelines = userService.getTeacherByIdWithTimelines(rt.getUserR().getUserId()).getTimelines();
+            for(TimeLine timeLine : timelines) {
+                if (available){
+                    if (timeLine.getWeekday().toString().equals(weekday)) {
+                        int SH = Integer.parseInt(timeLine.getStartingHour().split(":")[0]+timeLine.getStartingHour().split(":")[1]);
+                        int FH = Integer.parseInt(timeLine.getFinishingHour().split(":")[0]+timeLine.getFinishingHour().split(":")[1]);
+
+                        if (!(SH > sh && SH > fh) || !(FH < sh && FH < fh)){
+                            available = false;
+                        }
+                    }
+                }else{
+                    break;
+                }
+            }
+            JSONObject data = new JSONObject();
+            data.put("name", rt.getUserR().getName());
+            data.put("surname", rt.getUserR().getSurname());
+            data.put("secondsurname", rt.getUserR().getSecondSurname());
+            data.put("userid", rt.getUserR().getUserId());
+            data.put("available", available.toString());
+            availableTeachers.add(data);
+
+        }
+        return availableTeachers;
     }
 
     /**
