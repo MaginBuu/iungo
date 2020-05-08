@@ -361,58 +361,6 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/user/roles", method = RequestMethod.GET)
-	public @ResponseBody
-	JSONArray getRoles(HttpServletRequest request, Authentication authentication) {
-		System.out.println();
-		User activeUser = (User) request.getSession().getAttribute("user");
-		if(activeUser == null) activeUser = userService.getUserById("1");
-
-		logger.info("[" + new Object() {
-		}.getClass().getEnclosingMethod().getName() + "] -  Session user successfully loaded");
-
-		Set<Role> roles = new HashSet<>(activeUser.getRoles().keySet());
-		System.out.println();
-
-		try {
-			String role = authentication.getAuthorities().toArray()[0].toString();
-			roles.remove(Role.valueOf(role));
-
-		}catch (Exception e){
-			logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Users authorities could not be loaded: " + e);
-
-		}
-
-		JSONArray data = new JSONArray();
-
-		for(Role role : roles)
-			data.add(role.toString());
-
-
-
-		return data;
-	}
-
-	@RequestMapping(value = "/user/role")
-	public String setRole(@RequestParam String role){
-
-
-		logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Role received: " + role);
-
-		List<SimpleGrantedAuthority> updatedAuthorities = new LinkedList<>();
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
-		updatedAuthorities.add(authority);
-
-		SecurityContextHolder.getContext().setAuthentication(
-				new UsernamePasswordAuthenticationToken(
-						SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-						SecurityContextHolder.getContext().getAuthentication().getCredentials(),
-						updatedAuthorities)
-		);
-
-		return "redirect:/role";
-	}
-
 
 	@RequestMapping("/user/requestResponsibles")
 	public @ResponseBody
