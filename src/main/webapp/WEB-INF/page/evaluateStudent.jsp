@@ -50,13 +50,13 @@
                                     </div>
                                     <div class="container">
                                         <div class="row" style="margin-bottom:10px">
-                                            <div class="col-md-8">
+                                            <div class="col-md-10">
                                                 <div class="row"><h6>Observations:</h6></div>
                                                 <div class="row"><textarea class="text-area-observation" name="userSubjects[${status.index}].observations" value="${userSubject.observations}">${userSubject.observations}</textarea></div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                             <div class="row"><h6>Final grade:</h6></div>
-                                                <div class="row"><input type="number" class="text-area-grade" name="userSubjects[${status.index}].grade" value="${userSubject.grade}"></div>
+                                                <div class="row"><input type="number" id="grade-${userSubject.subject.subjectId}" class="text-area-grade" name="userSubjects[${status.index}].grade" value="${userSubject.grade}" min="0" max="10" onfocusout="check(${userSubject.subject.subjectId})"></div>
                                         </div>
                                         </div>
                                     </div>
@@ -77,21 +77,23 @@
     function Validate() {
         return true;
     }
+    
+    function check(id) {
+        var input = document.getElementById("grade-"+id);
+        if(input.value > 10 || input.value < 0){
+            if(input.value > 10) {
+                input.value = 10.0;
+                input.style.backgroundColor = "#ffd6cc";
+            }
+            if(input.value < 0) {
+                input.value = 0.0;
+                input.style.backgroundColor = "#ffd6cc";
+            }
+        }else if(input.value < 10 && input.value > 0) input.style.backgroundColor = "#ffffffff";
+    }
 </script>
 </body>
 
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#tableSearch").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-</script>
 
 </html>
 

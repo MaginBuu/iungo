@@ -47,7 +47,7 @@
                         <td style="vertical-align: middle; horiz-align: center">${task.student.userR.surname}</td>
                         <td style="vertical-align: middle; horiz-align: center">${task.student.userR.secondSurname}</td>
                         <td style="vertical-align: middle; horiz-align: center" width="50%"><input name="tasks[${status.index}].observations" style="width:100%" value="${task.observations}"/></td>
-                        <td style="vertical-align: middle; horiz-align: center" width="5%"><input name="tasks[${status.index}].grade" style="width:100%" value="${task.grade}"/>
+                        <td style="vertical-align: middle; horiz-align: center" width="5%"><input id="grade-${task.student.roleId}" name="tasks[${status.index}].grade" style="width:100%" value="${task.grade}" min="0" max="10" onfocusout="check(${task.student.roleId})"/>
                             <input type="hidden" name="tasks[${status.index}].student.roleId" value="${task.student.roleId}"/></td>
                         <td width="5%"><a><i class="fa fa-eye" style="color:#DE9D3F" aria-hidden="true"></i></a></td>
                     </tr>
@@ -86,24 +86,24 @@
 
 
 <script type="text/javascript">
-    function Validate() {
-        return true;
+
+    function check(id) {
+        var input = document.getElementById("grade-"+id);
+        if(input.value > 10 || input.value < 0){
+            if(input.value > 10) {
+                input.value = 10.0;
+                input.style.backgroundColor = "#ffd6cc";
+            }
+            if(input.value < 0) {
+                input.value = 0.0;
+                input.style.backgroundColor = "#ffd6cc";
+            }
+        }else if(input.value < 10 && input.value > 0) input.style.backgroundColor = "#ffffffff";
     }
+
 </script>
 </body>
 
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#tableSearch").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-</script>
 
 </html>
 

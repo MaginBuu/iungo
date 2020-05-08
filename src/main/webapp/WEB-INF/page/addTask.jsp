@@ -75,7 +75,7 @@
         }else{
             limitHour.style.backgroundColor = "#ffffff";
         }
-        if(valueInput.value == "" || valueInput.value < 0)  {
+        if(valueInput.value == "" || valueInput.value < 0 || valueInput.value > 100)  {
             valueInput.style.backgroundColor = "#ffd6cc";
             validated = false;
         }else
@@ -156,7 +156,7 @@
                 <div class="col-sm-3 label-column"><form:label path="value"
                                                                class="col-form-label">Value </form:label></div>
                 <div class="col-sm-8 input-column"><form:input path="value" class="form-control"
-                                                               type="number" id="value"></form:input></div>
+                                                               type="number" id="value" min="0" max="100"></form:input></div>
             </div>
             <!-- Typology -->
             <c:set var="enumValues" value="<%=TaskType.values()%>"/>
