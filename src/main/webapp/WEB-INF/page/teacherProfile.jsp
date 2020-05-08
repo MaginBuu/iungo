@@ -97,12 +97,19 @@
 
     function Validate() {
         var meetingDay = document.getElementById("meetingDay");
+        var meetingHour = document.getElementById("meetingHour");
+
         var validated = true;
         if(meetingDay.value === "")  {
             meetingDay.style.backgroundColor = "#ffd6cc";
             validated = false;
         }else
             meetingDay.style.backgroundColor = "#ffffffff";
+        if(meetingHour.value === "")  {
+            meetingHour.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else
+            meetingHour.style.backgroundColor = "#ffffffff";
 
         if(validated) {
             var tempDate = $('#datetimepicker1').find("input").val();
@@ -373,7 +380,7 @@
                                     <label class="col-form-label">Hour </label></div>
                                 <div class="col-sm-10 input-column-row" style="position: relative">
                                     <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59" id="meetingHour"/>
                                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
