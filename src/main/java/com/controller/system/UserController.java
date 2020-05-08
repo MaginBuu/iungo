@@ -283,7 +283,7 @@ public class UserController {
 
 		userService.addUser(userDB);
 
-		return "/element/access";
+		return "redirect:/element/access";
 	}
 
 

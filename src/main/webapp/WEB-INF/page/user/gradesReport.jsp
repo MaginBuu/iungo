@@ -149,7 +149,7 @@
 
             </div>
 
-            <a class="btn btn-light submit-button" onclick="printDiv()">generate PDF</a>
+            <a class="btn btn-light submit-button" onclick="printDiv()">Generate PDF</a>
         </div>
     </div>
 </div>
