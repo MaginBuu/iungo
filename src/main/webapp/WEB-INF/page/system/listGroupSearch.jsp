@@ -48,7 +48,7 @@
                         <td style="vertical-align: middle; horiz-align: center">${group.level}</td>
                         <td style="vertical-align: middle; horiz-align: center">${group.group}</td>
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning"
-                                                                                  href="/group/modify?userId=${group.groupId}"><i
+                                                                                  href="/group/modify?groupId=${group.groupId}"><i
                                 class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
                         <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/"
                                                                                   data-toggle="modal"
