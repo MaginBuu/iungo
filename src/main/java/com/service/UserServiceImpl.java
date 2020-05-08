@@ -48,6 +48,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserByEmail(emailId);
 	}
 
+	public User getUserByRoleId(String roleId){ return userDao.getUserByRoleId(roleId); }
+
 	public List<String> getAllUsernames(String username){ return userDao.getAllUsernames(username);}
 
 	public List<User> getQueryResults(String query) { return userDao.getQueryResults(query); }

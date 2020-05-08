@@ -181,6 +181,14 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	public User getUserByRoleId(String roleId) {
+		// Reading the records from the table
+		Session session = sessionFactory.openSession();
+		User users = (User) session.getNamedQuery("RoleClass.getUserByRoleID").setParameter("roleId", roleId).uniqueResult();
+		session.close();
+		return users;
+	}
+
 	/**
 	 *
 	 * @param username

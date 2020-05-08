@@ -578,6 +578,9 @@ public class TeacherController {
             ut.setTask(t);
             ut.setStudent(rs);
             taskService.addUserTask(ut);
+
+            String title = "S'ha avaluat la tasca " + taskService.getTaskById(taskId).getName();
+            userService.addNotification(new Notification(userService.getUserByRoleId(rs.getRoleId()), title, "", true, new Date()));
         }
 
         return "redirect:/teacher/subjects/"+subjectId+".do";

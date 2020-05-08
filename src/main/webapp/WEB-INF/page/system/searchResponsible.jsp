@@ -36,16 +36,16 @@
                                                           type="text"></div>
             </div>
             <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Surname2 </label></div>
+                <div class="col-sm-3 label-column"><label class="col-form-label">2nd Surname </label></div>
                 <div class="col-sm-3 input-column"><input id="secondSurname" name="name" class="form-control"
                                                           type="text"></div>
                 <div class="col-sm-2 label-column"></div>
-                <div class="col-sm-2"><a class="btn btn-light" id="btn-ajax">search</a></div>
+                <div class="col-sm-2"><a class="btn btn-light" id="btn-ajax">Search</a></div>
             </div>
 
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label path="name" class="col-form-label">Responsible </label></div>
-                <div class="col-sm-7 input-column">
+                <div class="col-sm-8 input-column">
                     <select class="selectpicker" data-live-search="true" data-width="100%" multiple="false" id="select-responsible" name="select-responsible">
                     </select>
                 </div>

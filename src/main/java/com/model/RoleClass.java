@@ -11,6 +11,7 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
         @NamedQuery(name = "RoleClass.findAllWithRole", query ="SELECT o.userR FROM RoleClass o WHERE o.roleKey =:role"),
+        @NamedQuery(name = "RoleClass.getUserByRoleID", query = "SELECT o.userR FROM RoleClass o WHERE o.roleId =:roleId"),
 
 })
 public abstract class RoleClass {
