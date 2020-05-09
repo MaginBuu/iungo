@@ -78,8 +78,7 @@
         if(valueInput.value == "" || valueInput.value < 0 || valueInput.value > 100)  {
             valueInput.style.backgroundColor = "#ffd6cc";
             validated = false;
-        }else
-            valueInput.style.backgroundColor = "#ffffffff";
+        }else valueInput.style.backgroundColor = "#ffffffff";
         if(chapter.value.toString() == "")  {
             $('[data-id="select-chapter"]').css("background-color","#ffd6cc","important");
             validated = false;
