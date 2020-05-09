@@ -84,14 +84,41 @@
         });
     });
 
-    function Validate() {
-
-        var tempDate = $('#datetimepicker1').find("input").val();
-        tempDate = tempDate.split("/").reverse().join("/");
-        tempDate += " " + $('#datetimepicker3').find("input").val() + ":00"
-        $('#datetimepicker1').find("input").val(tempDate);
+    function validateMessage() {
+        var subject = document.getElementById("input-subject");
+        if(subject.value === "") {
+            subject.style.backgroundColor = "#ffd6cc";
+            return false;
+        }else
+            subject.style.backgroundColor = "#ffffffff";
 
         return true;
+    }
+
+    function Validate() {
+        var meetingDay = document.getElementById("meetingDay");
+        var meetingHour = document.getElementById("meetingHour");
+
+        var validated = true;
+        if(meetingDay.value === "")  {
+            meetingDay.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else
+            meetingDay.style.backgroundColor = "#ffffffff";
+        if(meetingHour.value === "")  {
+            meetingHour.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else
+            meetingHour.style.backgroundColor = "#ffffffff";
+
+        if(validated) {
+            var tempDate = $('#datetimepicker1').find("input").val();
+            tempDate = tempDate.split("/").reverse().join("/");
+            tempDate += " " + $('#datetimepicker3').find("input").val() + ":00"
+            $('#datetimepicker1').find("input").val(tempDate);
+        }
+
+        return validated;
     }
 
 </script>
@@ -341,7 +368,7 @@
                                     <form:label path="limitDate" class="col-form-label">Day </form:label></div>
                                 <div class="col-sm-10 input-column-row" style="position: relative">
                                     <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                        <form:input path="limitDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                                        <form:input path="limitDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="meetingDay"/>
                                         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -353,7 +380,7 @@
                                     <label class="col-form-label">Hour </label></div>
                                 <div class="col-sm-10 input-column-row" style="position: relative">
                                     <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59"/>
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59" id="meetingHour"/>
                                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -386,12 +413,12 @@
                                 <div class="label-column"><form:label path="subject"
                                                                       class="col-form-label">Subject </form:label></div>
                                 <div class="input-column"><form:input path="subject" class="form-control"
-                                                                      type="text"></form:input></div>
+                                                                      type="text" id="input-subject"></form:input></div>
                                 <div class="label-column"><form:label path="messageBody" class="col-form-label">Body </form:label></div>
                                 <div class="input-column"><form:textarea path="messageBody" class="form-control"
                                                                          type="text"></form:textarea></div>
                             </div>
-                            <button class="btn btn-light submit-button" type="submit" onclick="return true">Send</button>
+                            <button class="btn btn-light submit-button" type="submit" onclick="return validateMessage()">Send</button>
                         </form:form>
                     </div>
                 </div>

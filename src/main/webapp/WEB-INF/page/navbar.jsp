@@ -99,6 +99,7 @@
                     $("#dropdown-menu").append('<a class="dropdown-item" href="#" onclick="roleChanged(\'' + current + '\')">' + current.substring(0, 1) + current.substring(1, current.length).toLowerCase() + '</a>');
                 });
                 }else{
+                    console.log("dont has roles");
                     document.getElementById("hasroles").style.display = "none";
                 }
             }

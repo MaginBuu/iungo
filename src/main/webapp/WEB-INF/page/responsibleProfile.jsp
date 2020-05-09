@@ -47,7 +47,7 @@
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Name:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${user.name}</td>
-                    <td style="vertical-align: middle; text-align: right"><strong>email:</strong></td>
+                    <td style="vertical-align: middle; text-align: right"><strong>Email:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${user.emailId}</td>
                 </tr>
                 <tr>
@@ -57,9 +57,9 @@
                     <td style="vertical-align: middle; text-align: left">${user.birth}</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: middle; text-align: right"><strong>Second surname:</strong></td>
+                    <td style="vertical-align: middle; text-align: right"><strong>2nd Surname:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${user.secondSurname}</td>
-                    <td style="vertical-align: middle; text-align: right"><strong>username:</strong></td>
+                    <td style="vertical-align: middle; text-align: right"><strong>Username:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${user.username}</td>
                 </tr>
                 </tbody>

@@ -8,6 +8,7 @@ import com.model.enums.Role;
 import com.model.enums.TicketStatus;
 import com.service.TicketService;
 import com.service.UserService;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.Authenticator;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class SystemController {
@@ -78,25 +77,27 @@ public class SystemController {
     @RequestMapping("/role")
     public String getRolePage(Authentication authentication, HttpServletRequest request){
         String role;
+        boolean testing = true;
         try {
             role = authentication.getAuthorities().toArray()[0].toString();
         }catch (Exception e){ //THIS IS FOR TESTING, WILL BE DELETED
+            if(testing) {
+                List<SimpleGrantedAuthority> updatedAuthorities = new LinkedList<>();
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Role.TEACHER.toString());
+                updatedAuthorities.add(authority);
 
-            List<SimpleGrantedAuthority> updatedAuthorities = new LinkedList<>();
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Role.TEACHER.toString());
-            updatedAuthorities.add(authority);
-
-            SecurityContextHolder.getContext().setAuthentication(
-                    new UsernamePasswordAuthenticationToken(
-                            SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-                            SecurityContextHolder.getContext().getAuthentication().getCredentials(),
-                            updatedAuthorities)
-            );
-            User user = userService.getUserById("1");
-            try {
-                request.getSession().setAttribute("name", user.getFullName());
-                request.getSession().setAttribute("user", user);
-            }catch (Exception e2){
+                SecurityContextHolder.getContext().setAuthentication(
+                        new UsernamePasswordAuthenticationToken(
+                                SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+                                SecurityContextHolder.getContext().getAuthentication().getCredentials(),
+                                updatedAuthorities)
+                );
+                User user = userService.getUserById("1");
+                try {
+                    request.getSession().setAttribute("name", user.getFullName());
+                    request.getSession().setAttribute("user", user);
+                } catch (Exception e2) {
+                }
             }
 
             return "redirect:/teacher";
@@ -110,7 +111,51 @@ public class SystemController {
         return "redirect:/student";
     }
 
+    @RequestMapping(value = "/user/roles", method = RequestMethod.GET)
+    public @ResponseBody
+    JSONArray getRoles(HttpServletRequest request, Authentication authentication) {
 
+        boolean testing = true;
+
+        User activeUser = (User) request.getSession().getAttribute("user");
+        if(activeUser == null && testing) activeUser = userService.getUserById("1");
+
+        Set<Role> roles = new HashSet<>();
+        if(activeUser != null){
+                 roles = new HashSet<>(activeUser.getRoles().keySet());
+
+            try {
+                String role = authentication.getAuthorities().toArray()[0].toString();
+                roles.remove(Role.valueOf(role));
+
+            }catch (Exception e){ }
+        }
+
+        JSONArray data = new JSONArray();
+
+        for(Role role : roles)
+            data.add(role.toString());
+
+
+        return data;
+    }
+
+    @RequestMapping(value = "/user/role")
+    public String setRole(@RequestParam String role){
+
+        List<SimpleGrantedAuthority> updatedAuthorities = new LinkedList<>();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
+        updatedAuthorities.add(authority);
+
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(
+                        SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+                        SecurityContextHolder.getContext().getAuthentication().getCredentials(),
+                        updatedAuthorities)
+        );
+
+        return "redirect:/role";
+    }
 
 
     /**

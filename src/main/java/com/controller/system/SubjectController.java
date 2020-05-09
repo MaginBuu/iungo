@@ -128,6 +128,8 @@ public class SubjectController {
 
             subjectService.addSubject(subject);
             logger.info("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject successfully saved");
+            subject = subjectService.getByIdWithAll(subject.getSubjectId());
+
 
         }catch (Exception e){
             logger.error("["+new Object(){}.getClass().getEnclosingMethod().getName()+"] -  Subject could not be saved: " + e);

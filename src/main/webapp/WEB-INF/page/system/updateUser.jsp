@@ -50,17 +50,17 @@
                 <tbody id="myTable">
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Name:</strong></td>
-                    <td><form:input path="name" data-width="30%" class="form-control" type="text"></form:input></td>
+                    <td><form:input path="name" data-width="30%" class="form-control" type="text" id="name"></form:input></td>
                     <td style="vertical-align: middle; text-align: right"><strong>Surname:</strong></td>
-                    <td><form:input path="surname" data-width="30%" class="form-control" type="text"></form:input></td>
+                    <td><form:input path="surname" data-width="30%" class="form-control" type="text" id="surname"></form:input></td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: middle; text-align: right"><strong>Second surname:</strong></td>
+                    <td style="vertical-align: middle; text-align: right"><strong>2nd Surname:</strong></td>
                     <td><form:input path="secondSurname" data-width="30%" class="form-control" type="text"></form:input></td>
                     <td style="vertical-align: middle; text-align: right"><strong>Birth:</strong></td>
                     <td>
                         <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                            <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="birth"/>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -68,14 +68,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: middle; text-align: right"><strong>email:</strong></td>
-                    <td><form:input path="emailId" data-width="30%" class="form-control" type="text"></form:input></td>
+                    <td style="vertical-align: middle; text-align: right"><strong>Email:</strong></td>
+                    <td style="vertical-align: middle; text-align: left">${user.emailId}</td>
                     <td style="vertical-align: middle; text-align: right"><strong>username:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${user.username}</td>
                 </tr>
                 <tr>
                     <c:set var="enumValues" value="<%=GenderType.values()%>"/>
-                    <td style="horiz-align: right; text-align: right"><strong>gender:</strong></td>
+                    <td style="horiz-align: right; text-align: right; vertical-align: middle"><strong>Gender:</strong></td>
                     <td style="horiz-align: right;">
                         <form:select class="selectpicker" data-width="100%" path="gender">
                             <c:forEach items="${enumValues}" var="enumValue">
@@ -86,7 +86,7 @@
                     </td>
 
                     <c:set var="enumValuesRole" value="<%=Role.values()%>"/>
-                    <td style="horiz-align: right; text-align: right"><strong>Role:</strong></td>
+                    <td style="horiz-align: right; text-align: right; vertical-align: middle"><strong>Role:</strong></td>
                     <td style="horiz-align: right;">
                         <form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role-select" name="role-select" onchange="changeDisableDept()">
                             <c:forEach items="${enumValuesRole}" var="enumValue">
@@ -140,7 +140,50 @@
 
 <script type="text/javascript">
     function Validate() {
-        return true;
+        let validated = true;
+        var select = jQuery("#role-select");
+        var roles = select.val().toString().split(',');
+        var name = document.getElementById("name");
+        var surname = document.getElementById("surname");
+        var birth = document.getElementById("birth");
+
+
+
+        if(name.value === ""){
+            name.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            name.style.backgroundColor = "#ffffff";
+        }
+        if(surname.value === ""){
+            surname.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            surname.style.backgroundColor = "#ffffff";
+        }
+        if(birth.value === ""){
+            birth.style.backgroundColor = "#ffd6cc";
+            validated = false;
+        }else{
+            birth.style.backgroundColor = "#ffffff";
+        }
+        if (roles[0] === "") {
+            $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }else
+            $('[data-id="role-select"]').css("background-color","#ffffff","important");
+        if (roles.length > 1 && roles[0] === "STUDENT") {
+            alert("student can only have 1 role assigned");
+            $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
+            validated = false;
+        }
+
+        if(validated) {
+            var tempDate = $('#datetimepicker1').find("input").val();
+            tempDate = tempDate.split("/").reverse().join("/");
+            $('#datetimepicker1').find("input").val(tempDate);
+        }
+        return validated;
     }
 
     window.onload = function () {

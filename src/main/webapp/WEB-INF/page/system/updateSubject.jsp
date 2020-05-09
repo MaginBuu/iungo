@@ -34,7 +34,7 @@
                 <tbody id="myTable">
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Name:</strong></td>
-                    <td><form:input path="name" data-width="30%" class="form-control" type="text"></form:input></td>
+                    <td><form:input path="name" data-width="30%" class="form-control" type="text" id="name"></form:input></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Subject ID:</strong></td>
@@ -141,6 +141,12 @@
 
 <script type="text/javascript">
     function Validate() {
+        var name = document.getElementById("name");
+        if (name.value == ""){
+            name.style.backgroundColor = "#ffd6cc";
+            return false;
+        }else
+            name.style.backgroundColor = "#ffffff";
         return true;
     }
 
