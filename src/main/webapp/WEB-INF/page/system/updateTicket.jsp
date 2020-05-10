@@ -64,9 +64,9 @@
                     </tr>
                     </tbody>
                 </table>
+                    <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
             </div>
         </div>
-        <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Update</button>
         </form:form>
     </div>
 </div>

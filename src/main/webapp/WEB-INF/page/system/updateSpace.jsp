@@ -38,7 +38,7 @@
                     <td style="vertical-align: middle; text-align: left">${space.spaceId}</td>
                 </tr>
                 <tr>
-                    <td style="horiz-align: right; text-align: right"><strong>Capacity:</strong></td>
+                    <td style="horiz-align: right; text-align: right; vertical-align:middle"><strong>Capacity:</strong></td>
                     <td style="horiz-align: right;">
                         <form:input path="capacity" data-width="30%" class="form-control" type="number" id="capacity"></form:input>
                     </td>
