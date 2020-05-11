@@ -4022,8 +4022,8 @@ INSERT INTO public.groups (group_id, group_value, level, name, stage, course_id)
 INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('0', NULL, 'consultation-hours', NULL);
 INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('1', 1, 'Català', '27');
 INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('2', 1, 'Català', '28');
-INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('3', 1, 'Catsellà', '27');
-INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('4', 1, 'Catsellà', '28');
+INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('3', 1, 'Castellà', '27');
+INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('4', 1, 'Castellà', '28');
 INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('5', 1, 'Anglès', '27');
 INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('6', 1, 'Anglès', '28');
 INSERT INTO public.subjects (subject_id, department, name, group_id) VALUES ('7', 1, 'Francès', '27');
@@ -7466,5 +7466,4 @@ INSERT INTO public.evaluations (evaluation_id, term, visibility_date, course_id)
 -- Key ROLE
 --
 
-INSERT INTO public.key_role (key_role, user_user_id) VALUES (0, '1');
 
