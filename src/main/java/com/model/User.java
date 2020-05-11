@@ -33,6 +33,8 @@ import javax.validation.constraints.NotNull;
 		@NamedQuery(name = "Users.findTeachers", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1)"),
 		@NamedQuery(name = "Users.findTeacherByDepartment", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 1 AND i.roleId IN(SELECT n.roleId FROM RoleTeacher n WHERE n.department =:department))"),
 		@NamedQuery(name = "Users.findStudentsByGroup", query = "SELECT u FROM User u WHERE u.userId IN(SELECT i.userR FROM RoleClass i WHERE i.roleKey = 0 AND i.roleId IN(SELECT n.roleId FROM RoleStudent n WHERE n.group.groupId =:groupId ))"),
+		@NamedQuery(name = "Users.findByNIF", query = "SELECT u FROM User u WHERE u.nif =:nif"),
+
 
 
 })

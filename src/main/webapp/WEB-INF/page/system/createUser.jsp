@@ -51,39 +51,35 @@
         </div>
         <div class="form-row form-group">
             <div class="col-sm-3 label-column"><form:label path="secondSurname"
-                                                           class="col-form-label">Surname2 </form:label></div>
+                                                           class="col-form-label">2nd Surname </form:label></div>
             <div class="col-sm-3 input-column"><form:input path="secondSurname" class="form-control"
                                                            type="text"></form:input></div>
-            <div class="col-sm-2 label-column"><form:label path="birth"
-                                                           class="col-form-label">Birth Date </form:label></div>
+            <div class="col-sm-2 label-column"><form:label path="birth" class="col-form-label">Birth Date </form:label></div>
             <div class="col-sm-3 input-column">
                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="birth"/>
+                    <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="birth" pattern="(\d{2})([/]{1})(\d{2})([/]{1})(\d{4})"/>
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><form:label path="emailId"
-                                                           class="col-form-label">Email </form:label></div>
-            <div class="col-sm-8 input-column"><form:input path="emailId" class="form-control"
-                                                           type="email" id="email"></form:input></div>
-        </div>
         <c:set var="enumValues" value="<%=GenderType.values()%>"/>
         <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><label class="col-form-label">Gender </label></div>
-            <div class="col-sm-2 input-column">
+            <div class="col-sm-3 label-column"><form:label path="nif" class="col-form-label">NIF </form:label></div>
+            <div class="col-sm-3 input-column"><form:input path="nif" class="form-control" type="text" id="nif"></form:input></div>
+            <div class="col-sm-2 label-column"><label class="col-form-label">Gender </label></div>
+            <div class="col-sm-3 input-column">
                 <form:select class="selectpicker" data-width="100%" path="gender">
                     <c:forEach items="${enumValues}" var="enumValue">
-                        <form:option
-                                value="${enumValue}">${fn:toUpperCase(fn:substring(enumValue.name(),0,1))}${fn:toLowerCase(fn:substring(enumValue.name(),1,fn:length(enumValue.name())))}</form:option>
+                        <form:option value="${enumValue}">${fn:toUpperCase(fn:substring(enumValue.name(),0,1))}${fn:toLowerCase(fn:substring(enumValue.name(),1,fn:length(enumValue.name())))}</form:option>
                     </c:forEach>
                 </form:select>
             </div>
-            <div class="col-sm-1 label-column"><label class="col-form-label">Roles </label></div>
-            <div class="col-sm-5 input-column">
+        </div>
+        <div class="form-row form-group">
+            <div class="col-sm-3 label-column"><label class="col-form-label">Roles </label></div>
+            <div class="col-sm-3 input-column">
                 <c:set var="enumValues" value="<%=Role.values()%>"/>
                 <form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role-select"
                              name="role-select" onchange="changeDisableDept()">
@@ -92,10 +88,8 @@
                     </c:forEach>
                 </form:select>
             </div>
-        </div>
-        <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><label class="col-form-label">Department </label></div>
-            <div class="col-sm-8 input-column">
+            <div class="col-sm-2 label-column"><label class="col-form-label">Department </label></div>
+            <div class="col-sm-3 input-column">
                 <c:set var="enumValues" value="<%=Department.values()%>"/>
                 <form:select class="selectpicker" disabled="true" data-width="100%"
                              path="department" id="department-select"
@@ -115,6 +109,9 @@
 <script type="text/javascript">
     function Validate() {
         let validated = true;
+        let re = /((\d{2})([/]{1})){2}(\d{4})/;
+        var tempDate = $('#datetimepicker1').find("input").val();
+
         var select = jQuery("#role-select");
         var roles = select.val().toString().split(',');
         var usernameRelate = jQuery("#usernameRelate");
@@ -132,17 +129,29 @@
         }else{
             document.getElementById("surname").style.backgroundColor = "#ffffff";
         }
+
         if(document.getElementById("birth").value === ""){
             document.getElementById("birth").style.backgroundColor = "#ffd6cc";
             validated = false;
-        }else{
-            document.getElementById("birth").style.backgroundColor = "#ffffff";
-        }
-        if(document.getElementById("email").value === ""){
-            document.getElementById("email").style.backgroundColor = "#ffd6cc";
+        }else {
+            var execValidation = re.exec(tempDate);
+            if(execValidation == null) {
+                document.getElementById("birth").style.backgroundColor = "#ffd6cc";
+                validated = false;
+            }else{
+                var age = calculateAge(tempDate)
+                if(age < 0 || (roles[0] !== 'STUDENT' && age < 18)){
+                    validated = false;
+                    document.getElementById("birth").style.backgroundColor = "#ffd6cc";}
+                else
+                    document.getElementById("birth").style.backgroundColor = "#ffffff";
+            }
+
+        }if(document.getElementById("nif").value === ""){
+            document.getElementById("nif").style.backgroundColor = "#ffd6cc";
             validated = false;
         }else{
-            document.getElementById("email").style.backgroundColor = "#ffffff";
+            document.getElementById("nif").style.backgroundColor = "#ffffff";
         }if (roles[0] === "") {
             $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
             validated = false;
@@ -160,6 +169,20 @@
             }
         }
 
+
+        if(validated){
+            var existNIF = checkNIF();
+            if(existNIF == 'true'){
+                alert("This NIF is already registered");
+                validated = false;
+            }
+        }
+
+        var tempDate = $('#datetimepicker1').find("input").val();
+
+        var age = calculateAge(tempDate);
+
+
         if(validated) {
             var tempDate = $('#datetimepicker1').find("input").val();
             tempDate = tempDate.split("/").reverse().join("/");
@@ -167,6 +190,41 @@
         }
         return validated;
     }
+
+    function calculateAge(dateString) {
+        var stringSplitted = dateString.split("/");
+        var a = new Date(stringSplitted[2], stringSplitted[1] - 1, stringSplitted[0]);
+        var d = new Date();
+        var o = new Date(d.getTime()-a.getTime());
+        var n = d.getFullYear();
+        return (o.getFullYear()-1970);
+    }
+
+
+    function checkNIF(){
+        var registered;
+        $.ajax({
+            async : false,
+            type: "GET",
+            url: "/user/existNIF",
+            dataType: "json",
+            contentType: 'application/json',
+            data: {
+                "nif": $("#nif").val(),
+            }, //aqui es passen els parametres
+            success: function (data) {
+                $.each(data, function (index, current) {
+                    registered = current.toString();
+                });
+            },
+        }).done(function () {
+            return registered;
+        }).fail(function () {
+            console.log("Error Ajax");
+        });
+        return registered;
+    }
+
 
     function changeDisableDept() {
         var select = $('#department-select');

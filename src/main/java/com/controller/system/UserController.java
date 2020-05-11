@@ -110,6 +110,7 @@ public class UserController {
 		}
 
 		user.setUsername(username);
+		user.setEmailId(username + "@iungo.com");
 
 
 		//set roles
@@ -162,6 +163,19 @@ public class UserController {
 
 
 		return "redirect:/";
+	}
+
+
+	@RequestMapping("/user/existNIF")
+	public @ResponseBody
+	JSONObject conversationLoadMessages(@RequestParam("nif") String nif) {
+		User user = userService.getUserByNIF(nif);
+
+		JSONObject o = new JSONObject();
+		Boolean exist = !(user == null);
+		o.put("NIF_exist", exist.toString());
+
+		return o;
 	}
 
 

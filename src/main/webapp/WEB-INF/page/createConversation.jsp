@@ -60,7 +60,7 @@
 
                         <c:if test="${(pageContext.request.userPrincipal.authorities ne 'RESPONSIBLE')
                                             and (pageContext.request.userPrincipal.authorities ne 'STUDENT')}">
-                            <optgroup label="responsibles">
+                            <optgroup label="Responsibles">
                             <c:forEach items="${responsibles}" var="user">
                                 <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
                             </c:forEach>
@@ -70,7 +70,7 @@
                                 <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
                             </c:forEach>
 
-                            <optgroup label="admins">
+                            <optgroup label="Admins">
                             <c:forEach items="${admins}" var="user">
                                 <option value="${user.userId}">${user.name} ${user.surname} ${user.secondSurname}</option>
                             </c:forEach>

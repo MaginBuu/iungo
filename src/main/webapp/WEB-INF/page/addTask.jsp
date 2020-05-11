@@ -51,10 +51,19 @@
 
         var validated = true;
 
+        var reDate = /((\d{2})([/]{1})){2}(\d{4})/;
+        var reHour = /(\d{2})([:]{1})(\d{2})/
+
         var name = document.getElementById("name");
         var valueInput = document.getElementById("value");
         var limitDate = document.getElementById("limitDate");
+        var limitDateValue = limitDate.value;
+        var dayValidation = reDate.exec(limitDateValue);
+
         var limitHour = document.getElementById("limitHour");
+        var limitHourValue = limitHour.value;
+        var hourValidation = reHour.exec(limitHourValue);
+
         var chapter = document.getElementById("select-chapter");
         var typology = document.getElementById("select-typology");
 
@@ -63,13 +72,18 @@
             validated = false;
         }else
             name.style.backgroundColor = "#ffffffff";
-        if($('#datetimepicker1').find("input").val() === ""){
+        if(limitDateValue === "" || dayValidation == null){
             limitDate.style.backgroundColor = "#ffd6cc";
             validated = false;
         }else{
-            limitDate.style.backgroundColor = "#ffffff";
-        }
-        if($('#datetimepicker3').find("input").val() === ""){
+            var futureDate = isFututeDate(limitDateValue);
+            if(futureDate)
+                limitDate.style.backgroundColor = "#ffffffff";
+            else{
+                limitDate.style.backgroundColor = "#ffd6cc";
+                validated = false;
+            }
+        }if(limitHourValue === "" || hourValidation == null){
             limitHour.style.backgroundColor = "#ffd6cc";
             validated = false;
         }else{
@@ -99,6 +113,15 @@
 
         return validated;
 
+    }
+
+
+
+    function isFututeDate(dateString) {
+        var stringSplitted = dateString.split("/");
+        var a = new Date(stringSplitted[2], stringSplitted[1] - 1, stringSplitted[0]);
+        var d = new Date();
+        return a > d;
     }
 
 </script>

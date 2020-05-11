@@ -116,6 +116,17 @@
         function Validate() {
             let validated = true;
 
+            var reDate = /((\d{2})([/]{1})){2}(\d{4})/;
+            var reHour = /(\d{2})([:]{1})(\d{2})/
+
+            var limitDate = document.getElementById("limitDate");
+            var limitDateValue = limitDate.value;
+            var dayValidation = reDate.exec(limitDateValue);
+
+            var limitHour = document.getElementById("limitHour");
+            var limitHourValue = limitHour.value;
+            var hourValidation = reHour.exec(limitHourValue);
+
             if(document.getElementById("titleInput").value === ""){
                 document.getElementById("titleInput").style.backgroundColor = "#ffd6cc";
                 document.getElementById("titleInput").style.borderRadius = "3px";
@@ -123,19 +134,25 @@
             }else{
                 document.getElementById("titleInput").style.backgroundColor = "#ffffff";
             }
-            if($('#datetimepicker1').find("input").val() === ""){
-                document.getElementById("limitDate").style.backgroundColor = "#ffd6cc";
-                document.getElementById("limitDate").style.borderRadius = "3px";
+            if(limitDateValue === "" || dayValidation == null){
+                limitDate.style.backgroundColor = "#ffd6cc";
+                limitDate.style.borderRadius = "3px";
                 validated = false;
             }else{
-                document.getElementById("limitDate").style.backgroundColor = "#ffffff";
+                var futureDate = isFututeDate(limitDateValue);
+                if(futureDate)
+                    limitDate.style.backgroundColor = "#ffffffff";
+                else{
+                    limitDate.style.backgroundColor = "#ffd6cc";
+                    validated = false;
+                }
             }
-            if($('#datetimepicker3').find("input").val() === ""){
-                document.getElementById("limitHour").style.backgroundColor = "#ffd6cc";
-                document.getElementById("limitHour").style.borderRadius = "3px";
+            if(limitHourValue === "" || hourValidation == null){
+                limitHour.style.backgroundColor = "#ffd6cc";
+                limitHour.style.borderRadius = "3px";
                 validated = false;
             }else{
-                document.getElementById("limitHour").style.backgroundColor = "#ffffff";
+                limitHour.style.backgroundColor = "#ffffff";
             }
             if($('#select-user').val() == null || $('#select-user').val().toString() === ""){
                 $('*[data-id="select-user"]').css("background-color","#ffd6cc","important");
@@ -167,6 +184,14 @@
 
             });
         });
+
+        function isFututeDate(dateString) {
+            var stringSplitted = dateString.split("/");
+            var a = new Date(stringSplitted[2], stringSplitted[1] - 1, stringSplitted[0]);
+            var d = new Date();
+            return a > d;
+        }
+
 
 
 
