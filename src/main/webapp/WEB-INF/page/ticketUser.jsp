@@ -45,7 +45,7 @@
                                 <div id="${ticket.ticketId}" class="card-header"><span class="space"><a
                                         href="#"></a></span>
                                     <div class="row justify-content-between cardheader-text">
-                                        <div class="col-4"><h4 id="heading-card">${ticket.title}</h4></div>
+                                        <div class="col-8"><h4 id="heading-card">${ticket.title}</h4></div>
                                         <div class="col-4" align="right"><p id="cardheader-subtext">Ticket
                                             reference: ${ticket.ticketId}</p></div>
                                     </div>
