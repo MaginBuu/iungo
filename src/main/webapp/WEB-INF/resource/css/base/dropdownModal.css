@@ -1,5 +1,8 @@
 .modal-confirm {
     color: #636363;
+    display:flex!important;
+    flex-direction:column;
+    justify-content:center;
 }
 
 .modal-dialog {

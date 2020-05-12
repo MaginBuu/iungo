@@ -16,6 +16,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+    <link rel="stylesheet" href="/resource/css/base/baseModal.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>

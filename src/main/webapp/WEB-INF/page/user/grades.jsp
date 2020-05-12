@@ -38,10 +38,10 @@
                 <tbody id="myTable">
                 <c:forEach items="${userTasks}" var="userTasks">
                     <tr>
-                        <td style="vertical-align: middle; horiz-align: center">${userTasks.task.title}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${userTasks.task.value}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${userTasks.observations}</td>
-                        <td style="vertical-align: middle; horiz-align: center">${userTasks.grade}</td>
+                        <td style="vertical-align: middle; text-align: center">${userTasks.task.title}</td>
+                        <td style="vertical-align: middle; text-align: center">${userTasks.task.value}</td>
+                        <td style="vertical-align: middle; text-align: center">${userTasks.observations}</td>
+                        <td style="vertical-align: middle; text-align: center">${userTasks.grade}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

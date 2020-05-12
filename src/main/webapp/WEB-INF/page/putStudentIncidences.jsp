@@ -38,9 +38,9 @@
                         <c:forEach items="${students}" var="student">
                             <tr>
                                 <td style="vertical-align: middle; horiz-align: center">${student.name} ${student.surname} ${student.secondSurname}</td>
-                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" style="background-color: #F19C79; border-color: #F19C79" href="/teacher/${student.userId}/profile">
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning" style="background-color: #DE9D3F; border-color: #DE9D3F" href="/teacher/${student.userId}/profile">
                                     View profile</a></td>
-                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" style="background-color: #F6EFA6; border-color: #F6EFA6" name="btn-incidence" value="incidenceFromGroup" id="incidenceFromGroup" href="/teacher/incidence?userId=${student.userId}&origin=group">
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" style="background-color: #F6EFA6; border-color: #F6EFA6; color:#333333" name="btn-incidence" value="incidenceFromGroup" id="incidenceFromGroup" href="/teacher/incidence?userId=${student.userId}&origin=group">
                                                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Set incidence</a></td>
                             </tr>
                         </c:forEach>
