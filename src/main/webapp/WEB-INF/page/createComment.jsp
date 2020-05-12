@@ -37,7 +37,7 @@
     <div class="col-md-8 offset-md-2">
         <form:form class="custom-form" method="post" action="/comment/creation" modelAttribute="comment">
             <form:hidden path="user.userId"/>
-            <h1>Create Incidence</h1>
+            <h1>Create Comment</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label class="col-form-label">Title </label></div>
                 <div class="col-sm-7 input-column">

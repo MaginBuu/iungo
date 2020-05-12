@@ -79,18 +79,18 @@
                                 <thead>
                                 <tr>
                                     <th><strong>Task</strong></th>
-                                    <th><strong>value</strong></th>
+                                    <th><strong>Value</strong></th>
                                     <th><strong>Observations</strong></th>
                                     <th>Grade</th>
                                 </tr>
                                 </thead>
-                                <tbody id="myTable">
+                                <tbody id="myTable1">
                                 <c:forEach items="${grade.userTasks}" var="userTasks">
                                     <tr>
-                                        <td style="vertical-align: middle; horiz-align: center">${userTasks.task.title}</td>
-                                        <td style="vertical-align: middle; horiz-align: center">${userTasks.task.value}</td>
-                                        <td style="vertical-align: middle; horiz-align: center">${userTasks.observations}</td>
-                                        <td style="vertical-align: middle; horiz-align: center">${userTasks.grade}</td>
+                                        <td style="vertical-align: middle; text-align: center">${userTasks.task.title}</td>
+                                        <td style="vertical-align: middle; text-align: center">${userTasks.task.value} %</td>
+                                        <td style="vertical-align: middle; text-align: center">${userTasks.observations}</td>
+                                        <td style="vertical-align: middle; text-align: center">${userTasks.grade}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -126,10 +126,10 @@
                         <tbody id="myTable">
                         <c:forEach items="${incidences}" var="incidence">
                             <tr>
-                                <td style="vertical-align: middle; horiz-align: center">${incidence.faultType}</td>
-                                <td style="vertical-align: middle; horiz-align: center">   <fmt:formatDate type="date" value="${incidence.creationDate}" pattern="dd-MM-yyyy HH:mm" /></td>
-                                <td style="vertical-align: middle; horiz-align: center">${incidence.description}</td>
-                                <td style="vertical-align: middle; horiz-align: center"> <c:if test="${incidence.faultType eq 'ATTENDANCE'}">
+                                <td style="vertical-align: middle; text-align: center">${incidence.faultType}</td>
+                                <td style="vertical-align: middle; text-align: center">   <fmt:formatDate type="date" value="${incidence.creationDate}" pattern="dd-MM-yyyy HH:mm" /></td>
+                                <td style="vertical-align: middle; text-align: center">${incidence.description}</td>
+                                <td style="vertical-align: middle; text-align: center"> <c:if test="${incidence.faultType eq 'ATTENDANCE'}">
                                                     <c:if test="${incidence.justified eq true}">
                                                         ${incidence.justified}
                                                     </c:if>

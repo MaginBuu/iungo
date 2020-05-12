@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resource/css/creation/creationStyle.css">
+    <link rel="stylesheet" href="/resource/css/base/deleteModal.css">
+    <link rel="stylesheet" href="/resource/css/base/baseModal.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
@@ -77,7 +79,7 @@
             </div>
             <input type="hidden" name="elementId" id="elementId" value=""/>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal" style="background-color:lightgray;border-color:lightGray">Cancel</button>
                 <button class="btn btn-light" style="background-color: #DE9D3F; border-color: #DE9D3F" type="submit" onclick="return Validate()">Report
                 </button>
             </div>

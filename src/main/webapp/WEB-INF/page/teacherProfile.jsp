@@ -188,11 +188,11 @@
                     <thead>
                     <tr class="text-center">
                         <th scope="col"></th>
-                        <th scope="col">Monday</th>
-                        <th scope="col">Tuesday</th>
-                        <th scope="col">Wednesday</th>
-                        <th scope="col">Thursday</th>
-                        <th scope="col">Friday</th>
+                        <th scope="col" style="width:17%">Monday</th>
+                        <th scope="col" style="width:17%">Tuesday</th>
+                        <th scope="col" style="width:17%">Wednesday</th>
+                        <th scope="col" style="width:17%">Thursday</th>
+                        <th scope="col" style="width:17%">Friday</th>
                     </tr>
                     </thead>
                     <tbody>
