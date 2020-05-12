@@ -48,7 +48,7 @@ public class Procedure implements Comparable {
     @NotNull
     private ProcedureStatus status;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", length=1000)
     private String description;
 
     @Column(name = "ONLINE")
