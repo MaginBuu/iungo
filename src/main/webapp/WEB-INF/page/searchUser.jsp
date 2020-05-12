@@ -15,15 +15,15 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/resource/bootstrap/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 </head>
 <body>
 <%@ include file="navbar.jsp" %>
 <div class="row creation-form">
     <div class="col-md-8 offset-md-2">
         <div class="container custom-div">
-            <h1>Search Responsible</h1>
+            <h1>Search User</h1>
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label class="col-form-label">Name </label></div>
                 <div class="col-sm-3 input-column"><input id="name" name="name" class="form-control"
@@ -33,11 +33,11 @@
                                                           type="text"></div>
             </div>
             <div class="form-row form-group">
-                <div class="col-sm-3 label-column"><label class="col-form-label">Surname2 </label></div>
+                <div class="col-sm-3 label-column"><label class="col-form-label">2nd Surname </label></div>
                 <div class="col-sm-3 input-column"><input id="secondSurname" name="name" class="form-control"
                                                           type="text"></div>
                 <div class="col-sm-2 label-column"></div>
-                <div class="col-sm-2"><a class="btn btn-light" id="btn-ajax">search</a></div>
+                <div class="col-sm-2"><a class="btn btn-light" id="btn-ajax">Search</a></div>
             </div>
 
             <div class="form-row form-group">

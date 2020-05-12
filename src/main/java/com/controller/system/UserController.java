@@ -55,7 +55,11 @@ public class UserController {
 	@RequestMapping(value = "/user/creation", method = RequestMethod.GET)
 	public ModelAndView getTicketCreationForm() {
 		User user = new User();
-		return new ModelAndView("system/createUser", "user", user);
+		ModelAndView model =  new ModelAndView("system/createUser");
+		model.addObject("user", user);
+		model.addObject("groups", groupService.getAllClassGroup());
+		return model;
+
 	}
 
 	/**
@@ -118,9 +122,19 @@ public class UserController {
 
 		for (String role : roles){
 			RoleClass roleClass = null;
-			if(role.equals("STUDENT"))
+			if(role.equals("STUDENT")) {
 				roleClass = new RoleStudent();
-			else if(role.equals("RESPONSIBLE"))
+				((RoleStudent) roleClass).setGroup(groupService.getClassGroupById(user.getGroup()));
+
+				String responsibles[] = user.getResponsiblesIds().split(",");
+
+				User userResponsible;
+				for (String responsibleId : responsibles){
+					userResponsible = userService.getUserById(responsibleId);
+					((RoleStudent) roleClass).addResponsible((RoleResponsible) userResponsible.getRoleClass(Role.RESPONSIBLE));
+				}
+
+			}else if(role.equals("RESPONSIBLE"))
 				roleClass = new RoleResponsible();
 			else if(role.equals("TEACHER")) {
 				RoleTeacher roleTeacher = new RoleTeacher();
@@ -146,21 +160,6 @@ public class UserController {
 		authorities.setAuthorities(roles[roles.length-1]);
 		authorities.setEmailId(user.getEmailId());
 		userService.addAuthorities(authorities);
-
-
-		//check if this user will relate with a child
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-
-
-		if(request.getSession().getAttribute("userRelate") != null && !request.getSession().getAttribute("userRelate").equals("")){
-			return "redirect:/user/creation/relateResponsible";
-		}
-
-		if(roles[0].equals("STUDENT")){
-			request.getSession().setAttribute("userRelate", user.getUserId());
-			request.getSession().setAttribute("userRelateName", user.getName() + " " + user.getSurname() + " " +user.getSecondSurname());
-			return "redirect:/user/creation/relateResponsible";}
-
 
 		return "redirect:/";
 	}
