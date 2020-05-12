@@ -107,6 +107,24 @@
                         <h3 class="name">Calendar </h3></a>
                 </div>
             </div>
+            <div class="col-sm-6 col-md-5 col-lg-4 item">
+                <div class="box"><i class="fa fa-ticket icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/ticket/creation">
+                        <h3 class="name">Create Ticket </h3></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-lg-4 item">
+                <div class="box"><i class="fa fa-history icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/user/tickets">
+                        <h3 class="name">Ticket History </h3></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-lg-4 item">
+                <div class="box"><i class="fa fa-wrench icon"></i>
+                    <a class="nav-link stretched-link" style="color:#000000;" href="/configuration">
+                        <h3 class="name">Configuration </h3></a>
+                </div>
+            </div>
         </div>
     </div>
 
