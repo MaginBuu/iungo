@@ -43,7 +43,7 @@
             <div class="form-row form-group">
                 <div class="col-sm-3 label-column"><label path="name" class="col-form-label">User </label></div>
                 <div class="col-sm-7 input-column">
-                    <select class="selectpicker" data-live-search="true" data-width="100%" multiple="false" id="select-user" name="select-user">
+                    <select class="selectpicker" data-live-search="true" data-width="100%" id="select-user" name="select-user">
                     </select>
                 </div>
             </div>
