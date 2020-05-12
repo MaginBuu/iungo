@@ -124,6 +124,9 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", targetEntity = Notification.class)
 	private List<Notification> notifications;
 
+	@Transient
+	private String responsiblesIds;
+
 	public User() { }
 
 	public String getUserId() {
@@ -290,6 +293,10 @@ public class User implements Serializable {
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
 	}
+
+	public String getResponsiblesIds() { return responsiblesIds; }
+
+	public void setResponsiblesIds(String responsiblesIds) { this.responsiblesIds = responsiblesIds; }
 
 	/**
 	 * this function relate 2 users with family relationship. It updates both relationship lists.

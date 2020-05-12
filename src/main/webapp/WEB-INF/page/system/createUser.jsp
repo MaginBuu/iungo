@@ -40,7 +40,7 @@
         <h1>Register Form</h1>
         <input type="hidden" name="usernameRelate" id="usernameRelate" value="${sessionScope.userRelate}"/>
         <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><form:label path="name"
+            <div class="col-sm-2 label-column"><form:label path="name"
                                                            class="col-form-label">Name </form:label></div>
             <div class="col-sm-3 input-column"><form:input path="name" class="form-control"
                                                            type="text" id="name"></form:input></div>
@@ -50,7 +50,7 @@
                                                            type="text" id="surname"></form:input></div>
         </div>
         <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><form:label path="secondSurname"
+            <div class="col-sm-2 label-column"><form:label path="secondSurname"
                                                            class="col-form-label">2nd Surname </form:label></div>
             <div class="col-sm-3 input-column"><form:input path="secondSurname" class="form-control"
                                                            type="text"></form:input></div>
@@ -66,7 +66,7 @@
         </div>
         <c:set var="enumValues" value="<%=GenderType.values()%>"/>
         <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><form:label path="nif" class="col-form-label">NIF </form:label></div>
+            <div class="col-sm-2 label-column"><form:label path="nif" class="col-form-label">NIF </form:label></div>
             <div class="col-sm-3 input-column"><form:input path="nif" class="form-control" type="text" id="nif"></form:input></div>
             <div class="col-sm-2 label-column"><label class="col-form-label">Gender </label></div>
             <div class="col-sm-3 input-column">
@@ -78,20 +78,20 @@
             </div>
         </div>
         <div class="form-row form-group">
-            <div class="col-sm-3 label-column"><label class="col-form-label">Roles </label></div>
+            <div class="col-sm-2 label-column"><label class="col-form-label">Roles </label></div>
             <div class="col-sm-3 input-column">
                 <c:set var="enumValues" value="<%=Role.values()%>"/>
                 <form:select class="selectpicker" multiple="true" data-width="100%" path="role" id="role-select"
-                             name="role-select" onchange="changeDisableDept()">
+                             name="role-select" onchange="roleSelectChanged()">
                     <c:forEach items="${enumValues}" var="enumValue">
                         <form:option value="${enumValue}"></form:option>
                     </c:forEach>
                 </form:select>
             </div>
-            <div class="col-sm-2 label-column"><label class="col-form-label">Department </label></div>
-            <div class="col-sm-3 input-column">
+            <div class="col-sm-2 label-column" id="departmentLabel" style="display: none"><label class="col-form-label">Department </label></div>
+            <div class="col-sm-3 input-column" id="departmenInputDiv" style="display: none">
                 <c:set var="enumValues" value="<%=Department.values()%>"/>
-                <form:select class="selectpicker" disabled="true" data-width="100%"
+                <form:select class="selectpicker" data-width="100%"
                              path="department" id="department-select"
                              name="department-select">
                     <form:option selected="selected" value="">Select a department</form:option>
@@ -101,6 +101,60 @@
                 </form:select>
             </div>
         </div>
+
+        <%------------------- STUDENT PART ---------------------%>
+        <div id="studentDiv" style="display:none;">
+            <br><br>
+            <h2>Student</h2>
+
+            <%------------- SELECT GROUP -----------------------%>
+            <div class="form-row form-group">
+                <div class="col-sm-2 label-column">
+                    <label class="col-form-label">Group </label></div>
+                <div class="col-sm-8 input-column">
+                    <select class="selectpicker" data-width="100%"  id="group-select" name="group" data-size="10" data-dropup-auto="false">
+                        <option value="">Select a group</option>
+                        <c:forEach items="${groups}" var="group">
+                            <option value="${group.groupId}">${group.stage} ${group.level} ${group.group}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <label class="col-form-label" style="text-align: center; font-size: 18px;">Responsibles</label>
+
+            <%---------------- RESPONSIBLES TABLE ------------------------%>
+
+            <table class="table table-borderless table-striped" style="width:100%" id="myTable" margin-left="30px">
+            </table>
+
+            <form:hidden path="responsiblesIds" id="hiddenResponsibles"></form:hidden>
+
+
+            <%---------------- SELECT RESPONSIBLE ----------------------------%>
+            <br><br>
+            <div class="form-row form-group">
+                <div class="col-sm-2 label-column"><label class="col-form-label">Name </label></div>
+                <div class="col-sm-3 input-column"><input id="nameSearch" name="name" class="form-control" type="text"></div>
+                <div class="col-sm-2 label-column"><label class="col-form-label">Surname </label></div>
+                <div class="col-sm-3 input-column"><input id="surnameSearch" name="name" class="form-control" type="text"></div>
+            </div>
+            <div class="form-row form-group">
+                <div class="col-sm-2 label-column"><label class="col-form-label">2nd Surname </label></div>
+                <div class="col-sm-3 input-column"><input id="secondSurnameSearch" name="name" class="form-control" type="text"></div>
+                <div class="col-sm-2 label-column"></div>
+                <div class="col-sm-3"><a class="btn btn-light" id="btn-ajax">Search</a></div>
+            </div>
+
+            <div class="form-row form-group">
+                <div class="col-sm-2 label-column"><label path="name" class="col-form-label">Responsible </label></div>
+                <div class="col-sm-5 input-column">
+                    <select class="selectpicker" data-live-search="true" data-width="100%" multiple="false" id="select-responsible" name="select-responsible"></select>
+                </div>
+                <div class="col-sm-3"><a class="btn btn-light" id="addResponsibleButton">Add Responsible</a></div>
+            </div>
+
+
+        </div>
         <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Create</button>
     </div>
     </form:form>
@@ -108,13 +162,17 @@
 
 <script type="text/javascript">
     function Validate() {
+        $("#departmentLabel").hide();
+        $("#departmenInputDiv").hide();
         let validated = true;
         let re = /((\d{2})([/]{1})){2}(\d{4})/;
         var tempDate = $('#datetimepicker1').find("input").val();
 
-        var select = jQuery("#role-select");
+        var select = $("#role-select");
         var roles = select.val().toString().split(',');
+        var group = $("#group-select").val();
         var usernameRelate = jQuery("#usernameRelate");
+        var nif = document.getElementById("nif").value;
 
 
         if(document.getElementById("name").value === ""){
@@ -147,11 +205,12 @@
                     document.getElementById("birth").style.backgroundColor = "#ffffff";
             }
 
-        }if(document.getElementById("nif").value === ""){
+        }if(document.getElementById("nif").value === "" && roles[0] !== "STUDENT"){
             document.getElementById("nif").style.backgroundColor = "#ffd6cc";
             validated = false;
         }else{
             document.getElementById("nif").style.backgroundColor = "#ffffff";
+
         }if (roles[0] === "") {
             $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
             validated = false;
@@ -161,16 +220,36 @@
             alert("student can only have 1 role assigned");
             $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
             validated = false;
-        } else if (usernameRelate.val() !== "" && usernameRelate.val() != null) {
-            if (roles[0] !== "RESPONSIBLE") {
-                alert("This user must be a responsible");
-                $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
+        }
+
+        if(roles[0] === "STUDENT"){
+            if(group === "") {
+                console.log("group is null")
+                $('[data-id="group-select"]').css("background-color", "#ffd6cc", "important");
+                validated = false;
+            }else{
+                $('[data-id="group-select"]').css("background-color", "#ffffff", "important");
+            }
+
+            var hiddenResponsibles = $("#hiddenResponsibles").val();
+            if(hiddenResponsibles.length < 2){
+                alert("An student needs a responsible");
                 validated = false;
             }
         }
 
 
-        if(validated){
+        /*
+        if (usernameRelate.val() !== "" && usernameRelate.val() != null) {
+            if (roles[0] !== "RESPONSIBLE") {
+                alert("This user must be a responsible");
+                $('[data-id="role-select"]').css("background-color","#ffd6cc","important");
+                validated = false;
+            }
+        }*/
+
+
+        if(validated && nif !== ""){
             var existNIF = checkNIF();
             if(existNIF == 'true'){
                 alert("This NIF is already registered");
@@ -226,26 +305,38 @@
     }
 
 
-    function changeDisableDept() {
+    function roleSelectChanged() {
         var select = $('#department-select');
         var select2 = $('#role-select');
         var valors = $('#role-select').val().toString().split(',');
 
 
-        select.prop('disabled', !(valors.includes("TEACHER")
-            || valors.includes("COORDINATOR")
-                || valors.includes("TUTOR"))).selectpicker('refresh');
-        if(!(valors.includes("TEACHER") || valors.includes("COORDINATOR") || valors.includes("TUTOR"))){
-            document.getElementById("department-select").selectedIndex = "0";
-        }
-
         if(valors.includes("COORDINATOR") || valors.includes("TUTOR")){
             var values = select2.val();
             values.push("TEACHER");
+            valors.push("TEACHER");
             select2.val(values);
             select2.selectpicker('refresh');
 
         }
+        if(valors.includes("TEACHER")){
+            $("#departmentLabel").show();
+            $("#departmenInputDiv").show();
+        }else{
+            $("#departmentLabel").hide();
+            $("#departmenInputDiv").hide();
+        }
+        if(valors.includes("STUDENT")){
+            $("#studentDiv").show();
+        }else{
+            $("#studentDiv").hide();
+        }
+
+
+        if(!(valors.includes("TEACHER") || valors.includes("COORDINATOR") || valors.includes("TUTOR"))){
+            document.getElementById("department-select").selectedIndex = "0";
+        }
+
 
         select.selectpicker('refresh');
     }
@@ -263,6 +354,85 @@
         });
     });
 
+    $("#btn-ajax").click(function () {
+        $.ajax({
+
+            type: "GET",
+            url: "/user/requestResponsibles",
+            dataType: "json",
+            contentType: 'application/json',
+            data: {
+                "name": $("#nameSearch").val(),
+                "surname": $("#surnameSearch").val(),
+                "secondSurname": $("#secondSurnameSearch").val()
+            }, //aqui es passen els parametres
+            success: function (data) {
+                let options, select, selectFinish, i;
+
+                // Get the raw DOM object for the select box
+                select = document.getElementById('select-responsible');
+
+                // Clear the old options
+                select.options.length = 0;
+
+                // Disable the booked options in both select, each one with its list
+                $.each(data, function (index, current) {
+                    select.options.add(new Option(current.name + " " + current.surname + " " + current.secondSurname, current.id + "/" + current.name + " " + current.surname + " " + current.secondSurname));
+                });
+
+                // Selectpicker refresh
+                $('#select-responsible').selectpicker('refresh');
+
+
+            }
+        }).done(function () {
+
+        }).fail(function () {
+            console.log("Error Ajax");
+        });
+    });
+
+    $("#addResponsibleButton").click(function () {
+        var select = $("#select-responsible"),
+            responsible = select.val().toString().split("/"),
+            hiddenResponsibles = $("#hiddenResponsibles").val(),
+            hiddenResponsiblesSplitted = hiddenResponsibles.split(",");
+
+
+        if(hiddenResponsibles == null) hiddenResponsibles = "";
+
+        if(!hiddenResponsiblesSplitted.includes(responsible[0])){
+            hiddenResponsibles += responsible[0];
+            $("#hiddenResponsibles").val(hiddenResponsibles);
+
+            var tb = document.getElementById("myTable");
+
+            var tr = tb.insertRow(-1);
+            var td = tr.insertCell()
+            td.style.verticalAlign = "middle";
+            td.appendChild(document.createTextNode(responsible[1]));
+
+            var td = tr.insertCell(1)
+            var obj = document.createElement('a');
+            obj.className = 'btn btn-danger';
+            obj.setAttribute("href", "#");
+            obj.innerHTML = "<\i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> Delete";
+            obj.onclick = function(){ deleteResponsible(this, responsible[0]); }
+            td.appendChild(obj);
+
+
+        }
+    });
+
+
+    function deleteResponsible(r, id){
+        var i = r.parentNode.parentNode.rowIndex,
+            hiddenResponsibles = $("#hiddenResponsibles").val(),
+            hiddenResponsiblesSplitted = hiddenResponsibles.split(",");
+        document.getElementById("myTable").deleteRow(i);
+        hiddenResponsiblesSplitted.splice(hiddenResponsiblesSplitted.indexOf(id), 1);
+        $("#hiddenResponsibles").val(hiddenResponsiblesSplitted.join());
+    }
 
 </script>
 

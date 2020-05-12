@@ -55,7 +55,11 @@ public class UserController {
 	@RequestMapping(value = "/user/creation", method = RequestMethod.GET)
 	public ModelAndView getTicketCreationForm() {
 		User user = new User();
-		return new ModelAndView("system/createUser", "user", user);
+		ModelAndView model =  new ModelAndView("system/createUser");
+		model.addObject("user", user);
+		model.addObject("groups", groupService.getAllClassGroup());
+		return model;
+
 	}
 
 	/**

@@ -39,9 +39,7 @@
                         <c:forEach items="${responsibles}" var="responsible">
                             <tr>
                                 <td style="vertical-align: middle; horiz-align: center">${responsible.userR.name} ${responsible.userR.surname} ${responsible.userR.secondSurname}</td>
-                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal"
-                                                                                          onclick="deleteClicked('${responsible.userR.userId}')"><i
-                                        class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-danger" href="/" data-toggle="modal" data-target="#myModal" onclick="deleteClicked('${responsible.userR.userId}')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
