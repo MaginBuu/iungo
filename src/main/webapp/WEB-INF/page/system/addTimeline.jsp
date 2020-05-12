@@ -222,7 +222,6 @@
                         $.each(data, function (index, current) {
                             select.options.add(new Option(current.name+" "+current.surname+" "+current.secondsurname, current.userid));
                             if("false" == current.available) {
-                                console.log("hola")
                                 $("#select-teachers option[value='" + current.userid + "']").attr("disabled", "disabled");
                             }
                         });

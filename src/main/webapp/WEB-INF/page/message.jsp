@@ -88,11 +88,11 @@
                     }else{
                         style = "msg-header-no-hover"
                     }
-                    missatgeria.innerHTML += ' <div class="msg" style="width: 100%">'+
+                    missatgeria.innerHTML += ' <div class="msg" style="width: 100%; margin-bottom: 5px">'+
                         ' <div id="m'+current.id+'" class="container '+style+'"><span class="space"></span> '+
                         ' <p class="subject" id="subject">'+current.subject+'</p> '+
                         ' <p class="referer" id="referer"><strong>From: </strong>'+current.sender+'<strong> '+
-                        ' at </strong>'+current.stringDate+'</p> </div> <div class="msg-body"> <p class="msg-text sub-text-color">'+current.body+'</p> '+
+                        ' at </strong>'+current.stringDate+'</p> </div> <div class="msg-body"> <p class="msg-text sub-text-color" style="margin-left:10px">'+current.body+'</p> '+
                         ' </div> </div>';
                 });
                 // Selectpicker refresh

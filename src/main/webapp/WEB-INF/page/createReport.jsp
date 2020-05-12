@@ -46,7 +46,7 @@
         <form:form class="custom-form" method="post" action="/user/antibullying/report" modelAttribute="report">
             <form:hidden path="observed" id="observed"/>
             <h1><i class="fa fa-heart icon"></i></h1>
-            <p><i>Penis Feeling safe and good about ourselves as with each other is very important. This is a safe space to
+            <p><i>Feeling safe and good about ourselves as with each other is very important. This is a safe space to
                 express our worries and talk with confidence about our or others issues.</i></p>
             <br><br>
             <div class="form-group">
@@ -60,8 +60,28 @@
                 <div class="col input-column"><form:checkbox name="anonymously" path="anonymous" class="form-control" id="anonymously"></form:checkbox></div>
             </div>
 
-            <button class="btn btn-light submit-button" type="submit" onclick="return Validate()">Send</button>
+            <a class="btn btn-light submit-button" href="/" data-toggle="modal" data-target="#myModal">Report</a>
         </form:form>
+    </div>
+</div>
+
+<!-- Modal HTML -->
+<div id="myModal" name="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h4 class="modal-title" style="text-align: center">Are you sure?</h4><br>
+                <p id="deleteText">Do you really want to report?
+                    Reporting a false case could carry sanctions or unnecessary work, please report only true facts.</p>
+            </div>
+            <input type="hidden" name="elementId" id="elementId" value=""/>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-light" style="background-color: #DE9D3F; border-color: #DE9D3F" type="submit" onclick="return Validate()">Report
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
