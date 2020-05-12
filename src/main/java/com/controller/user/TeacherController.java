@@ -596,7 +596,7 @@ public class TeacherController {
         ClassGroup group = new ClassGroup();
         if(user == null){ //this is for testing, will be deleted
              group = userService.getGroupByTutor("1");
-        }
+        }else group = userService.getGroupByTutor(user.getUserId());
         List<RoleStudent> listStudents = group.getStudents();
             List<Evaluation> evaluations = userService.getEvaluations();
             model.addObject("listStudents", listStudents);

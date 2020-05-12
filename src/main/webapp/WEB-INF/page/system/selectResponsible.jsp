@@ -28,7 +28,7 @@
             <div class="form-row form-group">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8 label-column">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-borderless table-striped">
                         <thead>
                         <tr>
                             <th><strong>Name</strong></th>
