@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body onload="changeDisabled()">
 
 <script>
     function Validate() {
@@ -44,10 +44,7 @@
         return validated;
     }
 
-    window.onload = function () {
-        var select1 = jQuery('#year');
-        select1.prop('disabled', true);
-    }
+
 
     function changeDisabled() {
         var select1 = jQuery('#year');

@@ -96,20 +96,37 @@
     }
 
     function Validate() {
+        var reDate = /((\d{2})([/]{1})){2}(\d{4})/;
+        var reHour = /(\d{2})([:]{1})(\d{2})/
+
         var meetingDay = document.getElementById("meetingDay");
+        var meetingDayValue = meetingDay.value;
+        var dayValidation = reDate.exec(meetingDayValue);
         var meetingHour = document.getElementById("meetingHour");
+        var meetingHourValue = meetingHour.value;
+        var hourValidation = reHour.exec(meetingHourValue);
+
+
+
 
         var validated = true;
-        if(meetingDay.value === "")  {
+        if(meetingDayValue === "" || dayValidation == null)  {
             meetingDay.style.backgroundColor = "#ffd6cc";
             validated = false;
-        }else
-            meetingDay.style.backgroundColor = "#ffffffff";
-        if(meetingHour.value === "")  {
+        }else {
+            var futureDate = isFututeDate(meetingDayValue);
+            if(futureDate)
+                meetingDay.style.backgroundColor = "#ffffffff";
+            else{
+                meetingDay.style.backgroundColor = "#ffd6cc";
+                validated = false;
+            }
+        }if(meetingHourValue === "" || hourValidation == null)  {
             meetingHour.style.backgroundColor = "#ffd6cc";
             validated = false;
-        }else
+        }else{
             meetingHour.style.backgroundColor = "#ffffffff";
+        }
 
         if(validated) {
             var tempDate = $('#datetimepicker1').find("input").val();
@@ -119,6 +136,13 @@
         }
 
         return validated;
+    }
+
+    function isFututeDate(dateString) {
+        var stringSplitted = dateString.split("/");
+        var a = new Date(stringSplitted[2], stringSplitted[1] - 1, stringSplitted[0]);
+        var d = new Date();
+        return a > d;
     }
 
 </script>
@@ -380,7 +404,7 @@
                                     <label class="col-form-label">Hour </label></div>
                                 <div class="col-sm-10 input-column-row" style="position: relative">
                                     <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="23:59" id="meetingHour"/>
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="" id="meetingHour"/>
                                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>

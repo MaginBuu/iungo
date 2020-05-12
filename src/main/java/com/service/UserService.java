@@ -32,6 +32,8 @@ public interface UserService {
 
 	User getUserByRoleId(String roleId);
 
+	User getUserByNIF(String nif);
+
 	List<String> getAllUsernames(String username);
 
 	List<User> getQueryResults(String query);

@@ -50,6 +50,8 @@ public class UserServiceImpl implements UserService {
 
 	public User getUserByRoleId(String roleId){ return userDao.getUserByRoleId(roleId); }
 
+	public User getUserByNIF(String nif) { return userDao.getUserByNIF(nif); }
+
 	public List<String> getAllUsernames(String username){ return userDao.getAllUsernames(username);}
 
 	public List<User> getQueryResults(String query) { return userDao.getQueryResults(query); }
