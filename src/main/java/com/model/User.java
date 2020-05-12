@@ -127,6 +127,9 @@ public class User implements Serializable {
 	@Transient
 	private String responsiblesIds;
 
+	@Transient
+	private String group;
+
 	public User() { }
 
 	public String getUserId() {
@@ -297,6 +300,10 @@ public class User implements Serializable {
 	public String getResponsiblesIds() { return responsiblesIds; }
 
 	public void setResponsiblesIds(String responsiblesIds) { this.responsiblesIds = responsiblesIds; }
+
+	public String getGroup() { return group; }
+
+	public void setGroup(String group) { this.group = group; }
 
 	/**
 	 * this function relate 2 users with family relationship. It updates both relationship lists.

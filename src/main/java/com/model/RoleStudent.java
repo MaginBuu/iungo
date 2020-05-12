@@ -56,4 +56,5 @@ public class RoleStudent extends RoleClass {
 
     public void setUserSubjects(List<UserSubject> userSubjects) { this.userSubjects = userSubjects; }
 
+
 }

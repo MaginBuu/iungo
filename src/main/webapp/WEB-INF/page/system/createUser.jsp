@@ -57,7 +57,7 @@
             <div class="col-sm-2 label-column"><form:label path="birth" class="col-form-label">Birth Date </form:label></div>
             <div class="col-sm-3 input-column">
                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="birth" pattern="(\d{2})([/]{1})(\d{2})([/]{1})(\d{4})"/>
+                    <form:input path="birth" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="birth"/>
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -112,19 +112,19 @@
                 <div class="col-sm-2 label-column">
                     <label class="col-form-label">Group </label></div>
                 <div class="col-sm-8 input-column">
-                    <select class="selectpicker" data-width="100%"  id="group-select" name="group" data-size="10" data-dropup-auto="false">
-                        <option value="">Select a group</option>
+                    <form:select class="selectpicker" data-width="100%"  id="group-select" name="group" data-size="10" data-dropup-auto="false" path="group">
+                        <form:option value="">Select a group</form:option>
                         <c:forEach items="${groups}" var="group">
-                            <option value="${group.groupId}">${group.stage} ${group.level} ${group.group}</option>
+                            <form:option value="${group.groupId}">${group.stage} ${group.level} ${group.group}</form:option>
                         </c:forEach>
-                    </select>
+                    </form:select>
                 </div>
             </div>
             <label class="col-form-label" style="text-align: center; font-size: 18px;">Responsibles</label>
 
             <%---------------- RESPONSIBLES TABLE ------------------------%>
 
-            <table class="table table-borderless table-striped" style="width:100%" id="myTable" margin-left="30px">
+            <table class="table table-borderless table-striped" style="width:100%" id="myTable">
             </table>
 
             <form:hidden path="responsiblesIds" id="hiddenResponsibles"></form:hidden>
@@ -134,13 +134,13 @@
             <br><br>
             <div class="form-row form-group">
                 <div class="col-sm-2 label-column"><label class="col-form-label">Name </label></div>
-                <div class="col-sm-3 input-column"><input id="nameSearch" name="name" class="form-control" type="text"></div>
+                <div class="col-sm-3 input-column"><input id="nameSearch" name="nameSearch" class="form-control" type="text"></div>
                 <div class="col-sm-2 label-column"><label class="col-form-label">Surname </label></div>
-                <div class="col-sm-3 input-column"><input id="surnameSearch" name="name" class="form-control" type="text"></div>
+                <div class="col-sm-3 input-column"><input id="surnameSearch" name="surnameSearch" class="form-control" type="text"></div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-2 label-column"><label class="col-form-label">2nd Surname </label></div>
-                <div class="col-sm-3 input-column"><input id="secondSurnameSearch" name="name" class="form-control" type="text"></div>
+                <div class="col-sm-3 input-column"><input id="secondSurnameSearch" name="secondSurnameSearch" class="form-control" type="text"></div>
                 <div class="col-sm-2 label-column"></div>
                 <div class="col-sm-3"><a class="btn btn-light" id="btn-ajax">Search</a></div>
             </div>
@@ -148,7 +148,7 @@
             <div class="form-row form-group">
                 <div class="col-sm-2 label-column"><label path="name" class="col-form-label">Responsible </label></div>
                 <div class="col-sm-5 input-column">
-                    <select class="selectpicker" data-live-search="true" data-width="100%" multiple="false" id="select-responsible" name="select-responsible"></select>
+                    <select class="selectpicker" data-live-search="true" data-width="100%" id="select-responsible" name="select-responsible"></select>
                 </div>
                 <div class="col-sm-3"><a class="btn btn-light" id="addResponsibleButton">Add Responsible</a></div>
             </div>
@@ -398,12 +398,16 @@
             hiddenResponsibles = $("#hiddenResponsibles").val(),
             hiddenResponsiblesSplitted = hiddenResponsibles.split(",");
 
-
-        if(hiddenResponsibles == null) hiddenResponsibles = "";
-
+        console.log(hiddenResponsibles);
         if(!hiddenResponsiblesSplitted.includes(responsible[0])){
-            hiddenResponsibles += responsible[0];
-            $("#hiddenResponsibles").val(hiddenResponsibles);
+            hiddenResponsiblesSplitted.push(responsible[0]);
+            console.log(hiddenResponsiblesSplitted);
+            if(hiddenResponsiblesSplitted[0] === "")
+                hiddenResponsiblesSplitted.splice(0, 1);
+            console.log(hiddenResponsiblesSplitted);
+            $("#hiddenResponsibles").val(hiddenResponsiblesSplitted.join());
+            console.log( $("#hiddenResponsibles").val());
+
 
             var tb = document.getElementById("myTable");
 
@@ -431,7 +435,7 @@
             hiddenResponsiblesSplitted = hiddenResponsibles.split(",");
         document.getElementById("myTable").deleteRow(i);
         hiddenResponsiblesSplitted.splice(hiddenResponsiblesSplitted.indexOf(id), 1);
-        $("#hiddenResponsibles").val(hiddenResponsiblesSplitted.join());
+        $("#hiddenResponsibles").val(hiddenResponsiblesSplitted.join(","));
     }
 
 </script>
