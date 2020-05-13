@@ -70,7 +70,7 @@
                 <tr>
                     <td style="vertical-align: middle; text-align: right"><strong>Email:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${user.emailId}</td>
-                    <td style="vertical-align: middle; text-align: right"><strong>username:</strong></td>
+                    <td style="vertical-align: middle; text-align: right"><strong>Username:</strong></td>
                     <td style="vertical-align: middle; text-align: left">${user.username}</td>
                 </tr>
                 <tr>

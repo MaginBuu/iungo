@@ -130,6 +130,9 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
                     <c:set var = "authority" value = "${pageContext.request.userPrincipal.authorities}"/>
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <c:set var = "fullJspPath" value = "${pageContext.request.requestURL}"/>
+                    <c:set var = "jspName" value = "${fn:substring(fullJspPath.toString(),fn:length(fullJspPath.toString()) - 10,fn:length(fullJspPath.toString()) - 4)}"/>
                     <li class="nav-item dropdown" id="hasroles">
                         <a class="nav-link dropdown-toggle waves-effect waves-light" id="roles" style="color: #ffffff;" data-toggle="dropdown" >
                             ${fn:toUpperCase(fn:substring(authority.toString(),1,2))}${fn:toLowerCase(fn:substring(authority.toString(),2,fn:length(authority.toString()) - 1))}
@@ -150,21 +153,13 @@
                                 </table>
                         </div>
                     </li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;"
+                                                                href="#"><i
+                            class="fa fa-user-circle-o"></i> ${sessionScope.name} </a></li>
+                    </c:if>
 
                     <c:choose>
-                        <c:when test="${pageContext.request.userPrincipal.name == null}">
-                            <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;"
-                                                                        href="#"><i
-                                    class="fa fa-user-circle-o"></i>&nbsp;Perfil</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;"
-                                                                        href="#"><i
-                                    class="fa fa-user-circle-o"></i> ${sessionScope.name}</a></li>
-                        </c:otherwise>
-                    </c:choose>
 
-                    <c:choose>
                         <c:when test="${pageContext.request.userPrincipal.name == null}">
                             <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;"
                                                                         href="/login"><i

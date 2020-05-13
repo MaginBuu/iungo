@@ -23,8 +23,8 @@ public class ProcedureServiceImpl implements ProcedureService {
     public void addProcedure(Procedure procedure){
 
         procedureDao.addProcedure(procedure);
-        String title = "New procedure added";
-        String description = procedure.getTitle();
+        String description = "New procedure added";
+        String title = procedure.getTitle();
         userDao.addNotification(new Notification(procedure.getUserP(), title, description, true, new Date()));
     }
 

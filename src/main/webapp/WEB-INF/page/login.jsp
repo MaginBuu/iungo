@@ -49,7 +49,7 @@
 
 </script>
 
-<%@ include file="navbar.jsp" %>
+<%@ include file="navbarLogin.jsp" %>
 <div class="login-clean">
     <form name="loginForm" action="<c:url value="/j_spring_security_check"/>" method="post">
         <h2 class="sr-only">Login Form</h2>
